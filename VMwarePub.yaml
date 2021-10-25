@@ -1,0 +1,15 @@
+publication:
+    RootMapFile: toc.md
+    OutputFileName: tas-adapter-0-3
+    PublicationName: VMware Tanzu Application Service Adapter for VMware Tanzu Application Platform v0.3
+    ProductName: VMware Tanzu Application Service Adapter for VMware Tanzu Application Platform
+    ProductVersion: 0.3
+    PublicationVersion: 0.3
+    PublicationVersionComments:
+    Language: en
+    PublicationGuid: tas-adapter-0-3
+    PublicationKeywords:
+    BatchProcessingInstruction:
+    PDFLink: tas-adapter-0-3
+    WordLink:
+    PublicationAuthor: mgutermuth@vmware.com

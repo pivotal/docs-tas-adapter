@@ -1,4 +1,4 @@
-# About Tanzu Application Service Adapter for Tanzu Application Platform v0.3
+# About Tanzu Application Service Adapter for Tanzu Application Platform
 
 ## Overview of Tanzu Application Service Adapter for Tanzu Application Platform
 

@@ -1,4 +1,4 @@
-# Installing, Part I: Prerequisites
+# Installing Prerequisites
 
 This document describes the first part of the installation process for the Application Service Adapter for VMware Tanzu Application Platform:
 

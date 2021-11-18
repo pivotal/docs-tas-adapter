@@ -6,4 +6,20 @@ This topic contains release notes for the Application Service Adapter for VMware
 
 **Release Date**: TBD
 
-Initial release.
+### Features
+This release includes these features:
+
+* An application developer can deploy a simple application using `cf push` to a Kubernetes cluster.
+
+### Components
+
+This release packages the following components:
+
+* CF K8s API v?
+* CF K8s Controllers v?
+* Erini Controller v?
+* Hierarchical Namespaces v?
+
+### Known issues
+This release has the following issues:  
+* API Authentication is not supported yet.

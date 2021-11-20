@@ -111,6 +111,8 @@ Once you have installed all the [prerequisites](install-prerequisites.md), make 
     kubectl get httpproxy cf-k8s-api-proxy -n cf-k8s-api-system
     ```
 
-Now you should be able to target the API endpoint using `cf api`. 
+Now you should be able to target the API endpoint using `cf api`.
 
-//TODO: How do you sign in as an admin once you've targeted at the API endpoints?
+**NOTE**: In this beta version we have not implemented API authentication. So once you have verified the validity of the API endpoint, you are able to deploy workloads to Application Service Adapter.
+
+Go to [Getting Started](getting-started.md) to test the adapter.

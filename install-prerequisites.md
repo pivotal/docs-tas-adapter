@@ -28,4 +28,4 @@ In addition, as an add-on for Tanzu Application Platform, we expect Tanzu Applic
 
 Lastly, use your Tanzu Network account to download [Application Service Adapter](https://network.tanzu.vmware.com/products/app-service-adapter/), and make sure to accept the EULA.
 
-Note that v0.1 is a limited beta release, and is only available to invited users. If you are interested in testing this version, please reach out to emalm@vmware.com.
+**NOTE**: v0.1 is a limited beta release, and is only available to invited users. If you are interested in testing this version, please reach out to emalm@vmware.com.

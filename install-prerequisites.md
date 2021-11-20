@@ -16,7 +16,7 @@ To install Application Service Adapter for Tanzu Application Platform, you need:
 * Developer tools from the [Carvel](https://carvel.dev/) suite, specifically:  
     *  kapp, v0.37.0 or later, see [installation instructions here](https://carvel.dev/kapp/docs/latest/install/)
     * kapp-controller v0.29.0 or later, see [installation instructions here](https://carvel.dev/kapp-controller/docs/latest/install/)
-    * secretgen-controller v0.6.0 or later, see [installation instructions here](https://github.com/vmware-tanzu/carvel-secretgen-controller/blob/develop/docs/install.md). Note that this tool is experimental.
+    * secretgen-controller v0.6.0 or later, see [installation instructions here](https://github.com/vmware-tanzu/carvel-secretgen-controller/blob/develop/docs/install.md). **NOTE**: This tool is experimental.
 
 * A certificate manager of your choice.
 

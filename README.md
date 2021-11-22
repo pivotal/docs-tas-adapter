@@ -1,7 +1,7 @@
 # Documentation Repository for Application Service Adapter
 
 ## Overview
-This repo publisheds to:
+This repo publishes to:
 
 * Staging: TBD
 * Production: TBD

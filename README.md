@@ -56,7 +56,7 @@ Form fields for main (beta-2?): [VMwarePub.yaml](https://github.com/pivotal/docs
 
 ### Promoting to Pre-Prod and Prod
 
-**Prerequisite** Needs additional privileges - reach out to Paige Calvert on the docs team [#tanzu-docs](https://vmware.slack.com/archives/C055V2M0H) or ask a writer to do this step for you.
+**Prerequisite** Needs additional privileges - reach out to the docs team [#tanzu-docs](https://vmware.slack.com/archives/C055V2M0H) to ask a writer to do this step for you.
 
 1. Go to Staging publications in docsdash  
   https://docsdash.vmware.com/deployment-stage

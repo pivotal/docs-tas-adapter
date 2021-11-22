@@ -49,7 +49,7 @@ Once you have installed all the [prerequisites](install-prerequisites.md), make 
     Where:
     * `<API-URL>` is the DNS URL that you want to use for the TAS adapter API.
 
-    //TODO: we need to add the configuration for the certs and image registry.
+    **NOTE**: We still need to implement the configurations for the certs and image registry. Currently the image registries configuration is hardcoded.
 
 1. Install the TAS adapter to the cluster.
 

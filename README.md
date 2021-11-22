@@ -30,22 +30,20 @@ Starting from the repo root, this will create a new `docs.zip` with no root fold
 
 
 ```sh
-git pull ; rm *.zip ; zip -r tap3beta *
+git pull ; rm *.zip ; zip -r tasadapter *
 ```
 
 
 ### Upload the ZIP File to Docworks
 - Go to https://docworks.vmware.com/md2docs/publish
 - Fill in the fields exactly as below. Repeat this every time - the browser can help to remember form fields.
-- Click on upload, and when prompted, enter your VMware AD password (for docsdash)
-- If you see invalid path errors in the yellow box on the right there are broken links, but the site will still be published.
-- If the toc.md is invalid then the site will not build, but there will be no indication that something is wrong.
+- Click **Upload**, and when prompted, enter your VMware AD password (for docsdash).
+- If you see invalid path errors in the yellow box on the right, there are broken links but the site will still be published.
+- If the toc.md is invalid, then the site will not build but there is no indication that something is wrong.
 
 ### Form Fields
 
-Form fields for beta-1: [VMwarePub.yaml](https://github.com/pivotal/docs-tap/blob/beta-1/VMwarePub.yaml)
-Form fields for main (beta-2?): [VMwarePub.yaml](https://github.com/pivotal/docs-tap/blob/main/VMwarePub.yaml)
-
+Form fields for main: [VMwarePub.yaml](https://github.com/pivotal/docs-tas-adapter/blob/main/VMwarePub.yaml)
 
 ### In Docsdash
 
@@ -56,7 +54,7 @@ Form fields for main (beta-2?): [VMwarePub.yaml](https://github.com/pivotal/docs
 
 ### Promoting to Pre-Prod and Prod
 
-**Prerequisite** Needs additional privileges - reach out to the docs team [#tanzu-docs](https://vmware.slack.com/archives/C055V2M0H) to ask a writer to do this step for you.
+**Prerequisite** Needs additional privileges - reach out to the docs team in [#tanzu-docs](https://vmware.slack.com/archives/C055V2M0H) to ask a writer to do this step for you.
 
 1. Go to Staging publications in docsdash  
   https://docsdash.vmware.com/deployment-stage

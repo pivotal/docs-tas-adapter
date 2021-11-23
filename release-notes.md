@@ -1,6 +1,6 @@
 # Release Notes
 
-This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform.
+This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform. Refer to [Supported CF CLI](supported-cf-cli.md) for more details.
 
 ## <a id='0-1-0'></a> v0.1.0 Beta Release
 

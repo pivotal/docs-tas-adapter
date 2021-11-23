@@ -4,6 +4,12 @@ This document describes the first part of the installation process for the Appli
 
 ----
 
+**NOTE**: v0.1 is a limited beta release, and is only available to invited users. If you are interested in testing this version, please reach out to emalm@vmware.com.
+
+Once you are invited to participate in the beta testing, you may use your Tanzu Network account to download [Application Service Adapter](https://network.tanzu.vmware.com/products/app-service-adapter/) and accept the EULA.
+
+This beta version relies on an experimental version of CF CLI. You should receive a CF CLI binary from our team.
+
 To install Application Service Adapter for Tanzu Application Platform, you need:
 
 * A container image registry, see [requirements here](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/0.3/tap-0-3/GUID-install-general.html#tanzu-network-and-container-image-registry-requirements-1).
@@ -26,8 +32,4 @@ In addition, as an add-on for Tanzu Application Platform, we expect Tanzu Applic
 
 * Contour for ingress control, see [instructions here](https://projectcontour.io/getting-started/).
 
-Lastly, use your Tanzu Network account to download [Application Service Adapter](https://network.tanzu.vmware.com/products/app-service-adapter/), and make sure to accept the EULA.
 
-You'll need to download a forked version of the CLI.
-
-**NOTE**: v0.1 is a limited beta release, and is only available to invited users. If you are interested in testing this version, please reach out to emalm@vmware.com.

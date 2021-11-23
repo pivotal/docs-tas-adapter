@@ -2,20 +2,22 @@
 
 
 <p class="note warning">
-<strong>Warning:</strong> Tanzu Application Platform is currently in
-    beta and is intended only for evaluation and test purposes.
+<strong>Warning:</strong> The Application Service Adapter for VMware Tanzu Application Platform is currently in beta and is intended to be used only for evaluation and testing.
 </p>
 
 ## Overview 
 
-Application Service Adapter aims to provide Cloud Foundry (CF)  interface compatibility on top of VMware Tanzu Application Platform (TAP), so that existing CF and Tanzu Application Service (TAS) customers can transition to the Kubernetes based TAP without losing the familiar developer workflows on TAS and CF. This allows organizations to realize the operational and infrastructure benefits of TAP while deferring and reducing organization-wide costs of transitioning from TAS to TAP.
+The Application Service Adapter aims to provide compatibility with [Cloud Foundry](https://www.cloudfoundry.org/) (CF) client interfaces to existing users of the [Tanzu Application Service](https://tanzu.vmware.com/application-service) (TAS), while running on top of Kubernetes and integrating with the components of the [VMware Tanzu Application Platform](https://tanzu.vmware.com/application-platform) (TAP). Development teams using TAS tooling such as the CF CLI and other clients of the CF APIs can then maintain their familiar workflows while their platform teams transition their infrastructure and deployments to Kubernetes.
 
-Platform operators will configure and install Application Service Adapter as a [Carvel package](https://carvel.dev/), as they would TAP and other Tanzu products deployed to Kubernetes. Application developers will log into Application Service Adapter with credentials for the underlying Kubernetes cluster, but will then use existing CF tools such as the CF CLI and the CF API to push apps, map routes, and retrieve logs. Kubernetes namespaces will back CF Spaces and Orgs, and TAP components such as the [Tanzu Build Service (TBS)](https://tanzu.vmware.com/build-service) and [Contour](https://projectcontour.io/) will build app images and realize ingress routes to running apps.
+The Application Service Adapter is distributed as a [Carvel package](https://carvel.dev/) for platform teams to configure and install to a Kubernetes cluster with the Carvel toolchain or with the Tanzu CLI tool. Application developers log into their Application Service Adapter installation with credentials for the underlying Kubernetes cluster, but then use the CF CLI and the CF API to push apps and to map routes to them.
+
+Platform teams create CF Orgs and Spaces in the installation, which the Application Service Adapter backs with separate Kubernetes namespaces. Application developers then use these orgs and spaces to organize their apps as they do today with TAS.
+
+The Application Service Adapter integrates with an existing installation of [Tanzu Build Service](https://tanzu.vmware.com/build-service) (TBS) component of TAP to build container images for app code deployed to the platform. It also integrates with [Contour](https://projectcontour.io/) to realize ingress routes to running apps.
 
 Here is a high level architecture with user flows:
 
 ![Application Service Adapter architecture diagram with user flows](images/architecture.png)
 
 
-For installation and the supported versions of dependencies, see [Installing Prerequisite](install-prerequisites.md).
-
+To install the Application Service Adapter and its dependencies, proceed to [Installing Prerequisites](install-prerequisites.md).

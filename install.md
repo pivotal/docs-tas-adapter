@@ -17,7 +17,7 @@ Once you have installed all the [prerequisites](install-prerequisites.md), make 
     ```bash
     tanzu secret registry add tanzunet-registry \
       --username "TANZU-NET-USER" --password "TANZU-NET-PASSWORD" \
-      --server dev.registry.tanzu.vmware.com \
+      --server registry.tanzu.vmware.com \
       --export-to-all-namespaces --yes \
       --namespace tas-adapter-install
     ```
@@ -28,7 +28,7 @@ Once you have installed all the [prerequisites](install-prerequisites.md), make 
 
     ```bash
     tanzu package repository add tas-adapter-repository \
-      --url dev.registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:latest \
+      --url registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:0.1.0-build.1 \
       --namespace tas-adapter-install
     ```
 1. Verify the contents of the package repository.

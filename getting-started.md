@@ -4,6 +4,7 @@ This topic provides an overview of how to get started using the Application Serv
 
 * [Creating Orgs and Spaces](#create-orgs-spaces)
 * [Deploying a Sample App](#deploy-sample-app)
+* [Routing to an App](#routing-sample-app)
 
 ## <a id="create-orgs-spaces"></a>Creating Orgs and Spaces
 You can use `cf create-org` and `cf create-space` as if you were still using Tanzu Application Service. Under the hood these commands will create a nested `namespace` structure in the Kubernetes cluster.
@@ -62,3 +63,25 @@ The `cf push` command remains the same. Once you've targeted at the org and the 
 ```bash
 cf push <my_app_name>
 ```
+
+## <a id="routing-sample-app"></a>Routing to an App
+
+**NOTE:** This release does not support the full set of domain/route management commands (see [Release Notes](release-notes.md)).
+
+To configure routing for the app that you pushed, you must do the following:
+
+1. Apply the cluster-scoped `CFDomain` custom resource for the ingress domain you have configured. Here is an example:
+   ```yaml
+   apiVersion: networking.cloudfoundry.org/v1alpha1
+   kind: CFDomain
+   metadata:
+     name: 5b5032ab-7fc8-4da5-b853-821fd1879201
+   spec:
+     name: apps.example.com
+   ```
+
+2. Use the `cf` CLI to map a route to your app:
+
+   ```bash
+   cf map-route <my_app_name> apps.example.com --hostname my-app --destination-protocol http
+   ```

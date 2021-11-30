@@ -1,6 +1,6 @@
 # Release Notes
 
-This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform. Refer to [Supported CF CLI](supported-cf-cli.md) for more details.
+This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform.
 
 ## <a id='0-1-0'></a> v0.1.0 Beta Release
 
@@ -22,5 +22,6 @@ This release packages the following components:
 * Hierarchical Namespaces Controller
 
 ### Known issues
-This release has the following issues:  
+This release has the following issues: 
+ 
 * API Authentication is not supported yet.

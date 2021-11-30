@@ -28,7 +28,7 @@ To install Application Service Adapter for Tanzu Application Platform, you need:
 
 In addition, as an add-on for Tanzu Application Platform, we expect Tanzu Application Platform installed. However, if you don't want to install all of its packages, we require at least these components installed in the same Kubernetes cluster:
 
-* Kpack for building images, see [installation instructions here](https://github.com/pivotal/kpack/blob/main/docs/install.md).
+* Tanzu Build Service for building images, see [installation instructions here](https://docs.vmware.com/en/Tanzu-Application-Platform/0.3/tap/GUID-install-components.html?hWord=N4IghgNiBcIJYDsDOAXSFEHMAEKBGSIAvkA#install-tbs).
 
 * Contour for ingress control, see [instructions here](https://projectcontour.io/getting-started/).
 

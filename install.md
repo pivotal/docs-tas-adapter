@@ -31,85 +31,109 @@ Once you have installed all the [prerequisites](install-prerequisites.md), make 
       --url dev.registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:latest \
       --namespace tas-adapter-install
     ```
-
 1. Verify the contents of the package repository.
 
-    ```bash
-    tanzu package available list \
-      --namespace tas-adapter-install
-    ```
+   ```bash
+   tanzu package available list \
+     --namespace tas-adapter-install
+   ```
 
-1. Create a `tas-adapter-values.yml` file with the installation configuration options. You can use the following sample as a template.
+1. Generate a certificate for TLS ingress to the API.
 
-    ```yaml
-    ---
-    api_url: "<API-URL>"
-    ```
+   If you are using openssl, or libressl v3.1.0 or later:
 
-    Where:
-    * `<API-URL>` is the DNS URL that you want to use for the TAS adapter API.
+   ```bash
+   openssl req -x509 -newkey rsa:4096 \
+     -keyout tls.key -out tls.crt \
+     -nodes -subj '/CN=<API-FQDN>' \
+     -addext "subjectAltName = DNS:<API-FQDN>" \
+     -days 365
+   ```
 
-    **NOTE**: We still need to implement the configurations for the certs and image registry. Currently the image registries configuration is hardcoded.
+   If you are using an older version of libressl (the default on OSX):
+
+   ```bash
+   openssl req -x509 -newkey rsa:4096 \
+     -keyout tls.key -out tls.crt \
+     -nodes -subj '/CN=<API-FQDN>' \
+     -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:<API-FQDN>'")) \
+     -days 365
+   ```
+
+1. List the installation settings for the `application-service-adapter` package.
+
+   ```bash
+   tanzu package available get application-service-adapter.vmware.com/0.1.0 --values-schema --namespace tas-adapter-install
+   ```
+
+   It should output a list of settings:
+
+   ```
+   | Retrieving package details for application-service-adapter.vmware.com/0.1.0...
+     KEY                         DEFAULT  TYPE     DESCRIPTION
+     api_ingress.fqdn                     string   FQDN used to access the CF API
+     api_ingress.replicas        1        integer  Desired number of API instances
+     api_ingress.tls.crt                  string   TLS certificate for the CF API (PEM format)
+     api_ingress.tls.key                  string   TLS private key for the CF API (PEM format)
+     kpack_image_tag_prefix               string   Container registry repository where staged, runnable app images (Droplets) will be stored
+     package_registry_base_path           string   Container registry repository where uploaded app source code (Packages) will be stored
+   ```
+
+1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
+
+   You can use the following sample as a template:
+
+   ```yaml
+   ---
+   api_ingress:
+     fqdn: "<API-FQDN>"
+     replicas: <API-REPLICA-COUNT>
+     tls:
+       crt: "<TLS-CRT>"
+       key: "<TLS-KEY>"
+   package_registry_base_path: "<PACKAGE-REGISTRY-BASE>"
+   kpack_image_tag_prefix: "<KPACK-TAG-PREFIX>"
+   ```
+
+   Where:
+   * `<API-FQDN>` is the FQDN that you want to use for the TAS adapter API.
+   * `<API-REPLICA-COUNT>` is the desired number of instances for the TAS adapter API deployment.
+   * `<TLS-CRT>` is the PEM-encoded public certificate for the TAS adapter API.
+   * `<TLS-KEY>` is the PEM-encoded private key for the TAS adapter API.
+   * `<PACKAGE-REGISTRY-BASE>` is the container registry "folder"/"project" where application source code (Packages) will be uploaded
+   * `<KPACK-TAG-PREFIX>` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded
 
 1. Install the TAS adapter to the cluster.
 
-    ```bash
-    tanzu package install tas-adapter \
-      --package-name application-service-adapter.vmware.com \
-      --version 0.0.1 \
-      --values-file tas-adapter-values.yml \
-      --namespace tas-adapter-install
-    ```
+   ```bash
+   tanzu package install tas-adapter \
+     --package-name application-service-adapter.vmware.com \
+     --version 0.1.0 \
+     --values-file tas-adapter-values.yml \
+     --namespace tas-adapter-install
+   ```
 
 1. Verify that the package install was successful.
 
-    ```bash
-    tanzu package installed get tas-adapter \
-      --namespace tas-adapter-install
-    ```
+   ```bash
+   tanzu package installed get tas-adapter \
+     --namespace tas-adapter-install
+   ```
 
 1. Update the DNS entry for the API endpoint for your cluster. This step is highly dependent on the IaaS used to provision your cluster.
 
-    * For clusters that support LoadBalancer services, you can use `kubectl get service envoy -n projectcontour` to obtain the external IP address of the LoadBalancer.
+   For clusters that support LoadBalancer services, you can obtain the external IP address of the LoadBalancer Service.
 
-1. Generate a self-signed certificate.
-
-    If you are using openssl, or libressl v3.1.0 or later:
-
-    ```bash
-    openssl req -x509 -newkey rsa:4096 \
-      -keyout tls.key -out tls.crt \
-      -nodes -subj '/CN=<API-URL>' \
-      -addext "subjectAltName = DNS:<API-URL>" \
-      -days 365
-    ```
-
-    If you are using an older version of libressl (the default on OSX):
-
-    ```bash
-    openssl req -x509 -newkey rsa:4096 \
-      -keyout tls.key -out tls.crt \
-      -nodes -subj '/CN=<API-URL>' \
-      -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:<API-URL>'")) \
-      -days 365
-    ```
-
-1. Create a TLS secret called `cf-k8s-api-ingress-cert` using the self-signed certificate generated above, or from your own existing certificate:
-
-    ```bash
-    kubectl create secret tls \
-      cf-k8s-api-ingress-cert \
-      --cert=./tls.crt --key=./tls.key \
-      -n cf-k8s-api-system
-    ```
-
-    **NOTE**: If you choose to generate a self-signed certificate, you will need to either skip TLS validation using the `--skip-ssl-validation` flag or use the `--cacert` flag with the generated certificate when connecting to the API.
+   ```bash
+   kubectl get service envoy -n projectcontour
+   ```
 
 1. Verify that the Contour HTTPProxy for the API endpoint is valid.
 
-    ```bash
-    kubectl get httpproxy cf-k8s-api-proxy -n cf-k8s-api-system
-    ```
+   ```bash
+   kubectl get httpproxy cf-k8s-api-proxy -n cf-k8s-api-system
+   ```
+
 
 Now you should be able to target the API endpoint using `cf api`.
 

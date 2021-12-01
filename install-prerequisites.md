@@ -6,6 +6,9 @@ This document describes the first part of the installation process for the Appli
 
 **NOTE**: v0.1 is a limited beta release, and is only available to invited users. If you are interested in testing this version, please reach out to emalm@vmware.com.
 
+**NOTE**: There is a known issue with Kubernetes 1.22 and TBS/kpack, for now avoid v1.22.* until a fix is released
+- [Here](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.3/vmware-tanzu-kubernetes-grid-13/GUID-tanzu-k8s-clusters-k8s-versions.html) are instructions to deploy a TCE Workload cluster with a different Kuberentes version
+
 Once you are invited to participate in the beta testing, you may use your Tanzu Network account to download [Application Service Adapter](https://network.tanzu.vmware.com/products/app-service-adapter/) and accept the EULA.
 
 This beta version relies on an experimental version of CF CLI. You should receive a CF CLI binary from our team.

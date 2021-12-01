@@ -16,4 +16,4 @@ The following diagram shows a high level architecture of Application Service Ada
 
 ![Application Service Adapter architecture diagram with user flows](images/architecture.png)
 
-For installation and the supported versions of dependencies, see [Installing Prerequisite](install-prerequisites.md).
+For installation and the supported versions of dependencies, see [Installing Prerequisites](install-prerequisites.md).

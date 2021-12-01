@@ -45,11 +45,10 @@ To install Application Service Adapter:
 
     ```yaml
     ---
-    api_url: "<API-URL>"
+    api_url: "API-URL"
     ```
 
-    Where:
-    * `<API-URL>` is the DNS URL that you want to use for the TAS adapter API.
+    Where `API-URL` is the DNS URL that you want to use for the Application Service Adapter API.
 
     //TODO: we need to add the configuration for the certs and image registry.
 
@@ -70,9 +69,7 @@ To install Application Service Adapter:
       --namespace tas-adapter-install
     ```
 
-1. Update the DNS entry for the API endpoint for your cluster. This step is dependent on the IaaS you used to provision your cluster.
-
-    * For clusters that support LoadBalancer services, you can use `kubectl get service envoy -n projectcontour` to obtain the external IP address of the LoadBalancer.
+1. Update the DNS entry for the API endpoint for your cluster. This step is dependent on the IaaS you used to provision your cluster. For clusters that support LoadBalancer services, you can use `kubectl get service envoy -n projectcontour` to obtain the external IP address of the LoadBalancer.
 
 1. Generate a self-signed certificate.
 
@@ -113,8 +110,8 @@ To install Application Service Adapter:
     kubectl get httpproxy cf-k8s-api-proxy -n cf-k8s-api-system
     ```
 
-Verify that you can target the API endpoint using `cf api`.
+1. Verify that you can target the API endpoint using `cf api`.
 
 **Note**: In this beta version we have not implemented API authentication. After you verify the validity of the API endpoint, you can deploy workloads to Application Service Adapter.
 
-To test the adapter, see [Getting Started](getting-started.md).
+To test the adapter, see [Getting Started with Application Service Adapter](getting-started.md).

@@ -56,7 +56,7 @@ Now the space you just created is ready to accept application workloads.
 
 ## <a id="deploy-sample-app"></a>Deploying a Sample App
 
-**NOTE:** This release does not support the user authentication yet (see [Release Notes](release-notes.md)). Once you have the orgs and spaces set up at the 
+**NOTE:** This release does not support the user authentication yet (see [Release Notes](release-notes.md)). Once you have the orgs and spaces set up, anyone can deploy an application.
 
 The `cf push` command remains the same. Once you've targeted at the org and the space you just created, you can push the application to the Kubernetes cluster:
 
@@ -66,7 +66,7 @@ cf push <my_app_name>
 
 ## <a id="routing-sample-app"></a>Routing to an App
 
-**NOTE:** This release does not support the full set of domain/route management commands (see [Release Notes](release-notes.md)).
+**NOTE:** This release does not support the full set of domain/route management commands. You need to set `PORT: 8080` environment variable in order for ingress to work. (See [Release Notes](release-notes.md)).
 
 To configure routing for the app that you pushed, you must do the following:
 

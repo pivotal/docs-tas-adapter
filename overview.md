@@ -5,11 +5,11 @@
 <strong>Warning:</strong> The Application Service Adapter for VMware Tanzu Application Platform is currently in beta and is intended to be used only for evaluation and testing.
 </p>
 
-## Overview 
+## Overview
 
 The Application Service Adapter aims to provide compatibility with [Cloud Foundry](https://www.cloudfoundry.org/) (CF) client interfaces to existing users of the [Tanzu Application Service](https://tanzu.vmware.com/application-service) (TAS), while running on top of Kubernetes and integrating with the components of the [VMware Tanzu Application Platform](https://tanzu.vmware.com/application-platform) (TAP). Development teams using TAS tooling such as the CF CLI and other clients of the CF APIs can then maintain their familiar workflows while their platform teams transition their infrastructure and deployments to Kubernetes.
 
-Here is a high level architecture with user flows:
+The following diagram shows a high level architecture of Application Service Adapter with user flows:
 
 ![Application Service Adapter architecture diagram with user flows](images/architecture.png)
 

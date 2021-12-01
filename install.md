@@ -9,12 +9,12 @@ This topic describes how to install the Application Service Adapter for VMware T
 * [Configuring DNS for the adapter](#configure-dns)
 ----
 
-**NOTE**: In this beta version the Application Service Adapter API does not verify authentication. So once you have verified the validity of the API endpoint, you are able to deploy workloads to Application Service Adapter.
 
-## <a id="prepare-kubernetes-cluster"></a>Preparing the Kubernetes cluster  
-Once you have installed all the [prerequisites](install-prerequisites.md), make sure that you set the Kubernetes context to the cluster where you have installed the Tanzu Build Service and Contour.
+After you have completed the steps in [Installing Prerequisites](install-prerequisites.md), set the Kubernetes context to the cluster where you have installed kpack and Contour.
 
-1. Create a namespace called `tas-adapter-install` for deploying the TAS adapter to your cluster.
+To install Application Service Adapter:
+
+1. Create a namespace called `tas-adapter-install` for deploying Application Service Adapter to your cluster:
 
     ```bash
     kubectl create ns tas-adapter-install
@@ -133,7 +133,7 @@ Once you have installed all the [prerequisites](install-prerequisites.md), make 
       --namespace tas-adapter-install
     ```
 
-1. Verify that the package install was successful.
+1. Verify that the package install was successful:
 
     ```bash
     tanzu package installed get tas-adapter \
@@ -252,7 +252,7 @@ In order to stage applications, we need to create the following secret and CRs i
 
     Create an A record in your DNS zone that resolves the API FQDN to this external IP address.
 
-1. Verify that the Contour HTTPProxy for the API endpoint is valid.
+1. Verify that the Contour HTTPProxy for the API endpoint is valid:
 
     ```bash
     kubectl get httpproxy cf-k8s-api-proxy -n cf-k8s-api-system

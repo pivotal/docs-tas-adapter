@@ -2,8 +2,16 @@
 
 This topic describes how to install the Application Service Adapter for VMware Tanzu Application Platform system.
 
+* [Preparing the Kubernetes cluster](#prepare-kubernetes-cluster)
+* [Configuring the installation settings](#configure-installation-settings)
+* [Installing the adapter](#install-adapter)
+* [Configuring Tanzu Application Service to work with the adapter](#configure-tbs)
+* [Configuring DNS for the adapter](#configure-dns)
 ----
 
+**NOTE**: In this beta version the Application Service Adapter API does not verify authentication. So once you have verified the validity of the API endpoint, you are able to deploy workloads to Application Service Adapter.
+
+## <a id="prepare-kubernetes-cluster"></a>Preparing the Kubernetes cluster  
 Once you have installed all the [prerequisites](install-prerequisites.md), make sure that you set the Kubernetes context to the cluster where you have installed the Tanzu Build Service and Contour.
 
 1. Create a namespace called `tas-adapter-install` for deploying the TAS adapter to your cluster.
@@ -47,7 +55,7 @@ Once you have installed all the [prerequisites](install-prerequisites.md), make 
 
 1. Generate a self-signed certificate for TLS ingress to the Application Service Adapter API.
 
-    If you are using openssl, or libressl v3.1.0 or later:
+    If you are using `openssl`, or `libressl v3.1.0` or later:
 
     ```bash
     openssl req -x509 -newkey rsa:4096 \
@@ -59,7 +67,7 @@ Once you have installed all the [prerequisites](install-prerequisites.md), make 
     where `<API-FQDN>` is the fully qualified domain name (FQDN) that you want to use to access the API.
 
 
-    If you are using a version of libressl older than v3.1.0 (the default on macOS):
+    If you are using a version of `libressl` older than v3.1.0 (the default on macOS):
 
     ```bash
     openssl req -x509 -newkey rsa:4096 \
@@ -88,6 +96,7 @@ Once you have installed all the [prerequisites](install-prerequisites.md), make 
       package_registry_base_path           string   Container registry repository where uploaded app source code (Packages) will be stored
     ```
 
+## <a id="configure-installation-settings"></a>Configuring the installation settings
 1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
 
     You can use the following sample as a template:
@@ -111,6 +120,8 @@ Once you have installed all the [prerequisites](install-prerequisites.md), make 
     * `<TLS-KEY>` is the PEM-encoded private key for the Application Service Adapter API.
     * `<PACKAGE-REGISTRY-BASE>` is the container registry "folder"/"project" where application source code (Packages) will be uploaded.
     * `<KPACK-TAG-PREFIX>` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded.
+
+## <a id="install-adapter"></a>Installing the adapter
 
 1. Install the Application Service Adapter to the cluster.
 
@@ -140,7 +151,97 @@ Once you have installed all the [prerequisites](install-prerequisites.md), make 
     CONDITIONS:              [{ReconcileSucceeded True  }]
     USEFUL-ERROR-MESSAGE:
     ```
+## <a id="configure-tbs"></a>Configuring Tanzu Build Service to work with the adapter
+In order to stage applications, we need to create the following secret and CRs in the `cf` namespace created by the TAS Adapter install package.
 
+1. Create image registry secret   
+
+    This secret is used to push/pull images from the registry specified earlier in the `tas-adapter-values.yaml` file
+
+    ```yaml
+    kubectl create secret docker-registry image-registry-credentials \
+            -n cf \
+            --docker-server=<DOCKER_SERVER> \
+            --docker-username=<DOCKER_USERNAME> \
+            --docker-password=<DOCKER_PASSWORD>"
+    ```
+1. Create and `kubectl apply` a `service_account.yaml`
+    
+    ```yaml
+    ---
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+    name: kpack-service-account
+    namespace: cf
+    secrets:
+    - name: image-registry-credentials
+    imagePullSecrets:
+    - name: image-registry-credentials
+    ```
+1. Create and `kubectl apply` a `cluster_store.yaml`
+    ```yaml
+    apiVersion: kpack.io/v1alpha2
+    kind: ClusterStack
+    metadata:
+    name: cf-default-stack
+    spec:
+    id: "io.buildpacks.stacks.bionic"
+    buildImage:
+        image: "paketobuildpacks/build:base-cnb"
+    runImage:
+        image: "paketobuildpacks/run:base-cnb"
+
+    ```
+1. Create and `kubectl apply` a `cluster_stack.yaml`
+    ```yaml
+    apiVersion: kpack.io/v1alpha2
+    kind: ClusterStore
+    metadata:
+    name: cf-default-buildpacks
+    spec:
+    sources:
+    - image: gcr.io/paketo-buildpacks/java:5.21.1
+    - image: gcr.io/paketo-buildpacks/nodejs
+    - image: gcr.io/paketo-buildpacks/ruby
+    - image: gcr.io/paketo-buildpacks/procfile:4.4.1
+    - image: gcr.io/paketo-buildpacks/go
+    ```
+1. Create and `kubectl apply` a `cluster_builder.yaml`
+
+    **NOTE**: replace the tag to match your container registry defined in your `tas-adapter-values.yaml`  
+
+    ```yaml
+    apiVersion: kpack.io/v1alpha2
+    kind: ClusterBuilder
+    metadata:
+    name: cf-kpack-cluster-builder
+    spec:
+    serviceAccountRef:
+        name: kpack-service-account
+        namespace: cf
+    # Replace with real docker registry
+    tag: “<REPLACE-WITH-PACKAGE-REGISTRY-BASE>/builder”
+    stack:
+        name: cf-default-stack
+        kind: ClusterStack
+    store:
+        name: cf-default-buildpacks
+        kind: ClusterStore
+    order:
+    - group:
+        - id: paketo-buildpacks/java
+    - group:
+        - id: paketo-buildpacks/go
+    - group:
+        - id: paketo-buildpacks/nodejs
+    - group:
+        - id: paketo-buildpacks/ruby
+    - group:
+        - id: paketo-buildpacks/procfile
+    ```
+    
+## <a id="configure-dns"></a>Configuring DNS for the adapter
 1. Add a DNS entry for the FQDN of the Application Service Adapter API. This step varies depending on the IaaS used to provision your cluster.
 
     For clusters that support LoadBalancer services, you can obtain the external IP address of the LoadBalancer Service.
@@ -163,9 +264,4 @@ Once you have installed all the [prerequisites](install-prerequisites.md), make 
     cf-k8s-api-proxy   api.tas.em.migration.quest   cf-k8s-api-ingress-cert   valid    Valid HTTPProxy
     ```
 
-
-Now you should be able to target the API endpoint by running `cf api <API-FQDN>`.
-
-**NOTE**: In this beta version the Application Service Adapter API does not verify authentication. So once you have verified the validity of the API endpoint, you are able to deploy workloads to Application Service Adapter.
-
-Go to [Getting Started](getting-started.md) to test the adapter.
+    Now you should be able to target the API endpoint by running `cf api <API-FQDN>` and start deploying applications. Go to [Getting Started](getting-started.md) to test the adapter.

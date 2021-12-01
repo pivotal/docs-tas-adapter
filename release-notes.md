@@ -16,11 +16,14 @@ This release includes these features:
 
 This release packages the following components:
 
-* CF K8s API v?
-* CF K8s Controllers v?
-* Erini Controller v?
-* Hierarchical Namespaces v?
+* CF K8s API
+* CF K8s Controller
+* Erini Controller
+* Hierarchical Namespaces Controller
 
 ### Known issues
-This release has the following issues:  
+This release has the following issues: 
+
 * API Authentication is not supported yet.
+* Application workloads require `PORT: 8080` as an environment variable in order for ingress to work.
+* Kubernetes 1.22 doesn't work with Tanzu Build Service/kpack. For now avoid v1.22.* until a fix is released.

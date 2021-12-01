@@ -4,30 +4,35 @@ This topic describes the first part of the installation process for the Applicat
 
 ----
 
-To install Application Service Adapter for Tanzu Application Platform, you need:
+**NOTE**: v0.1 is a limited beta release, and is only available to invited users. If you are interested in testing this version, please reach out to your account team. Once you are invited to participate in the beta testing, download the [Application Service Adapter](https://network.tanzu.vmware.com/products/app-service-adapter/) from Tanzu Network after accepting the EULA.
 
-* A container image registry. See [Tanzu Network and Container Image Registry Requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/0.3/tap-0-3/GUID-install-general.html#tanzu-network-and-container-image-registry-requirements-1) in _Installing Part I: Prerequisites, EULA, and CLI_.
+This beta version requires an experimental version of the [CF CLI](https://github.com/cloudfoundry/cli). You will receive instructions to obtain the CF CLI binary as part of the onboarding process for the limited beta.
 
-* Administrator access to a Kubernetes cluster. See [Kubernetes Cluster Requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/0.3/tap-0-3/GUID-install-general.html#kubernetes-cluster-requirements-2) in _Installing Part I: Prerequisites, EULA, and CLI_.
+To install the Application Service Adapter, you need:
 
-* Kubernetes CLI (kubectl) v1.19, v1.20, or v1.21.
+* Administrator access to a Kubernetes cluster, as [specified here](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/0.3/tap-0-3/GUID-install-general.html#kubernetes-cluster-requirements-2).
+   * **NOTE**: There is a known issue with Kubernetes 1.22 and TBS/kpack, for now avoid v1.22.* until a fix is released. [Here](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.3/vmware-tanzu-kubernetes-grid-13/GUID-tanzu-k8s-clusters-k8s-versions.html) are instructions to deploy a TCE Workload cluster with a different Kuberentes version.
 
-* Tanzu CLI and its plugins. See [Install or Update the Tanzu CLI and Plugins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/0.3/tap-0-3/GUID-install-general.html#install-or-update-the-tanzu-cli-and-plugins-5) in _Installing Part I: Prerequisites, EULA, and CLI_.
+* A container image registry, as [specified here](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/0.3/tap-0-3/GUID-install-general.html#tanzu-network-and-container-image-registry-requirements-1).
 
-* The following developer tools from the [Carvel](https://carvel.dev/) suite:
-    * kapp v0.37.0 or later. See [kapp installation instructions](https://carvel.dev/kapp/docs/latest/install/).
-    * kapp-controller v0.29.0 or later. See [kapp-controller installation instructions](https://carvel.dev/kapp-controller/docs/latest/install/).
-    * secretgen-controller v0.6.0 or later. See [secretgen-controller installation instructions](https://github.com/vmware-tanzu/carvel-secretgen-controller/blob/develop/docs/install.md).
-    **Note**: This tool is experimental.
+The following tools must be installed in the workstation environment in which you intend to perform the installation:
 
-* cert-manager. See [cert-manager installation instructions](https://cert-manager.io/docs/installation/).
+* The Kubernetes CLI (`kubectl`), v1.19, v1.20, or v1.21.
 
-In addition, as an add-on for Tanzu Application Platform, we expect Tanzu Application Platform installed. However, if you don't want to install all of its packages, we require at least these components installed in the same Kubernetes cluster:
+* The Tanzu CLI and its plugins, with [installation instructions here](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/0.3/tap-0-3/GUID-install-general.html#install-or-update-the-tanzu-cli-and-plugins-5).
 
-* kpack for building images. See [kpack installation instructions](https://github.com/pivotal/kpack/blob/main/docs/install.md).
 
-* Contour for ingress control. See [Contour installation instructions](https://projectcontour.io/getting-started/).
+The following dependencies must be installed to the target Kubernetes cluster before installing the Application Service Adapter. Note that if you have completed an [installation of Tanzu Application Platform](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/0.3/tap-0-3/GUID-install-intro.html) in your target Kubernetes cluster, then these dependencies will all be present.
 
-Use your Tanzu Network account to download [Application Service Adapter](https://network.tanzu.vmware.com/products/app-service-adapter/), and make sure to accept the EULA.
+* Carvel kapp-controller v0.29.0 or later, with [installation instructions here](https://carvel.dev/kapp-controller/docs/latest/install/).
 
-**Note**: Application Service Adapter v0.1 is a limited beta release, and is only available to invited users. If you are interested in testing this version, please reach out to emalm@vmware.com.
+* Carvel secretgen-controller v0.6.0 or later, with [installation instructions here](https://github.com/vmware-tanzu/carvel-secretgen-controller/blob/develop/docs/install.md). **NOTE**: This tool is experimental.
+
+* Cert Manager, with [installation instructions here](https://cert-manager.io/docs/installation/).
+
+* Tanzu Build Service for building images, with [installation instructions here](https://docs.vmware.com/en/Tanzu-Application-Platform/0.3/tap/GUID-install-components.html?hWord=N4IghgNiBcIJYDsDOAXSFEHMAEKBGSIAvkA#install-tbs).
+
+* Contour for ingress control, with [installation instructions here](https://projectcontour.io/getting-started/).
+
+
+Once you have installed these prerequisites, proceed to [install the Application Service Adapter](install.md).

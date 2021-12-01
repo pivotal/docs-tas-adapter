@@ -9,9 +9,8 @@ This repo publishes to:
 ## Branches
 | Branch | Usage |
 |--------|-------|
-| main | Development branch; staging URL: **TBD** |
-| version-0-1 | Branch that is published to: **TBD** |
-| initial-outline-stubs | Currently inflight |
+| active-main | Development branch; staging URL: https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.1/tas-adapter-0-1/GUID-overview.html |
+| main | Protected branch that only Docs team has access to; can ignore for now |
 
 ## Publishing Docs
 

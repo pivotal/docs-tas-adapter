@@ -261,8 +261,8 @@ In order to stage applications, we need to create the following secret and servi
 
     The output should look like the following:
     ```bash
-    NAME               FQDN                         TLS SECRET                STATUS   STATUS DESCRIPTION
-    cf-k8s-api-proxy   api.tas.em.migration.quest   cf-k8s-api-ingress-cert   valid    Valid HTTPProxy
+    NAME               FQDN         TLS SECRET                STATUS   STATUS DESCRIPTION
+    cf-k8s-api-proxy   <API-FQDN>   cf-k8s-api-ingress-cert   valid    Valid HTTPProxy
     ```
 
     Now you should be able to target the API endpoint by running `cf api <API-FQDN>` and start deploying applications. Go to [Getting Started](getting-started.md) to test the adapter.

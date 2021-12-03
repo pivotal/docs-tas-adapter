@@ -152,7 +152,8 @@ To install Application Service Adapter:
     USEFUL-ERROR-MESSAGE:
     ```
 ## <a id="configure-tbs"></a>Configuring Tanzu Build Service to work with the adapter
-In order to stage applications, we need to create the following secret and CRs in the `cf` namespace created by the TAS Adapter install package.
+
+In order to stage applications, we need to create the following secret and service account in the `cf` namespace created by the Application Service Adapter install package, along with kpack resources that provide the Paketo cloud-native buildpacks.
 
 1. Create image registry secret   
 
@@ -160,10 +161,10 @@ In order to stage applications, we need to create the following secret and CRs i
 
     ```yaml
     kubectl create secret docker-registry image-registry-credentials \
-            -n cf \
-            --docker-server=<DOCKER_SERVER> \
-            --docker-username=<DOCKER_USERNAME> \
-            --docker-password=<DOCKER_PASSWORD>"
+      -n cf \
+      --docker-server=<DOCKER_SERVER> \
+      --docker-username=<DOCKER_USERNAME> \
+      --docker-password=<DOCKER_PASSWORD>"
     ```
 1. Create and `kubectl apply` a `service_account.yaml`
     
@@ -172,25 +173,25 @@ In order to stage applications, we need to create the following secret and CRs i
     apiVersion: v1
     kind: ServiceAccount
     metadata:
-        name: kpack-service-account
-    namespace: cf
+      name: kpack-service-account
+      namespace: cf
     secrets:
-       - name: image-registry-credentials
+    - name: image-registry-credentials
     imagePullSecrets:
-       - name: image-registry-credentials
+    - name: image-registry-credentials
     ```
 1. Create and `kubectl apply` a `cluster_stack.yaml`
     ```yaml
     apiVersion: kpack.io/v1alpha2
     kind: ClusterStack
     metadata:
-        name: cf-default-stack
+      name: cf-default-stack
     spec:
-        id: "io.buildpacks.stacks.bionic"
-        buildImage:
-            image: "paketobuildpacks/build:base-cnb"
-        runImage:
-            image: "paketobuildpacks/run:base-cnb"
+      id: "io.buildpacks.stacks.bionic"
+      buildImage:
+        image: "paketobuildpacks/build:base-cnb"
+      runImage:
+        image: "paketobuildpacks/run:base-cnb"
 
     ```
 1. Create and `kubectl apply` a `cluster_store.yaml`
@@ -198,14 +199,14 @@ In order to stage applications, we need to create the following secret and CRs i
     apiVersion: kpack.io/v1alpha2
     kind: ClusterStore
     metadata:
-        name: cf-default-buildpacks
+      name: cf-default-buildpacks
     spec:
-        sources:
-           - image: gcr.io/paketo-buildpacks/java:5.21.1
-           - image: gcr.io/paketo-buildpacks/nodejs
-           - image: gcr.io/paketo-buildpacks/ruby
-           - image: gcr.io/paketo-buildpacks/procfile:4.4.1
-           - image: gcr.io/paketo-buildpacks/go
+      sources:
+      - image: gcr.io/paketo-buildpacks/java:5.21.1
+      - image: gcr.io/paketo-buildpacks/nodejs
+      - image: gcr.io/paketo-buildpacks/ruby
+      - image: gcr.io/paketo-buildpacks/procfile:4.4.1
+      - image: gcr.io/paketo-buildpacks/go
     ```
 1. Create and `kubectl apply` a `cluster_builder.yaml`
 
@@ -215,30 +216,30 @@ In order to stage applications, we need to create the following secret and CRs i
     apiVersion: kpack.io/v1alpha2
     kind: ClusterBuilder
     metadata:
-        name: cf-kpack-cluster-builder
+      name: cf-kpack-cluster-builder
     spec:
-        serviceAccountRef:
-            name: kpack-service-account
-            namespace: cf
-        # Replace with real docker registry
-        tag: “<REPLACE-WITH-PACKAGE-REGISTRY-BASE>/builder”
-        stack:
-            name: cf-default-stack
-            kind: ClusterStack
-        store:
-            name: cf-default-buildpacks
-            kind: ClusterStore
-        order:
-           - group:
-               - id: paketo-buildpacks/java
-           - group:
-               - id: paketo-buildpacks/go
-           - group:
-               - id: paketo-buildpacks/nodejs
-           - group:
-               - id: paketo-buildpacks/ruby
-           - group:
-               - id: paketo-buildpacks/procfile
+      serviceAccountRef:
+        name: kpack-service-account
+        namespace: cf
+      # Replace with real docker registry
+      tag: “<REPLACE-WITH-PACKAGE-REGISTRY-BASE>/builder”
+      stack:
+        name: cf-default-stack
+        kind: ClusterStack
+      store:
+        name: cf-default-buildpacks
+        kind: ClusterStore
+      order:
+      - group:
+        - id: paketo-buildpacks/java
+      - group:
+        - id: paketo-buildpacks/go
+      - group:
+        - id: paketo-buildpacks/nodejs
+      - group:
+        - id: paketo-buildpacks/ruby
+      - group:
+        - id: paketo-buildpacks/procfile
     ```
     
 ## <a id="configure-dns"></a>Configuring DNS for the adapter

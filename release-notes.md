@@ -18,7 +18,7 @@ This release packages the following components:
 
 * CF K8s API
 * CF K8s Controller
-* Erini Controller
+* Eirini Controller
 * Hierarchical Namespaces Controller
 
 ### Known issues

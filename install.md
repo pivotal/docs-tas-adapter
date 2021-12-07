@@ -61,18 +61,18 @@ To install Application Service Adapter:
     tanzu package available get application-service-adapter.vmware.com/0.1.0 --values-schema --namespace tas-adapter-install
     ```
 
-    It should output a list of settings:
+   It should output a list of settings similar to:
 
-    ```
-    | Retrieving package details for application-service-adapter.vmware.com/0.1.0...
-      KEY                         DEFAULT  TYPE     DESCRIPTION
-      api_ingress.fqdn                     string   FQDN used to access the CF API
-      api_ingress.replicas        1        integer  Desired number of API instances
-      api_ingress.tls.crt                  string   TLS certificate for the CF API (PEM format)
-      api_ingress.tls.key                  string   TLS private key for the CF API (PEM format)
-      kpack_image_tag_prefix               string   Container registry repository where staged, runnable app images (Droplets) will be stored
-      package_registry_base_path           string   Container registry repository where uploaded app source code (Packages) will be stored
-    ```
+   ```
+   | Retrieving package details for application-service-adapter.vmware.com/0.1.0...
+     KEY                         DEFAULT  TYPE     DESCRIPTION
+     api_ingress.fqdn                     string   FQDN used to access the CF API
+     api_ingress.tls.crt                  string   TLS certificate for the CF API (PEM format)
+     api_ingress.tls.key                  string   TLS private key for the CF API (PEM format)
+     kpack_image_tag_prefix               string   Container registry repository where staged, runnable app images (Droplets) will be stored
+     package_registry_base_path           string   Container registry repository where uploaded app source code (Packages) will be stored
+     ...
+   ```
 
 ## <a id="configure-installation-settings"></a>Configuring the installation settings
 
@@ -99,33 +99,44 @@ To install Application Service Adapter:
       -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:<API-FQDN>'")) \
      -days 365
     ```
-1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the package setting schema.
+1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
 
-    You can use the following sample as a template:
+   The following values are required:
 
-    ```yaml
-    ---
-    api_ingress:
-      fqdn: "<API-FQDN>"
-      replicas: <API-REPLICA-COUNT>
-      tls:
-        crt: |
-          <TLS-CRT>
-        key: |
-          <TLS-KEY>
-    package_registry_base_path: "<PACKAGE-REGISTRY-BASE>"
-    kpack_image_tag_prefix: "<KPACK-TAG-PREFIX>"
-    ```
+   ```yaml
+   ---
+   api_ingress:
+     fqdn: "<API-FQDN>"
+     tls:
+       crt: "<TLS-CRT>"
+       key: "<TLS-KEY>"
+   package_registry_base_path: "<PACKAGE-REGISTRY-BASE>"
+   kpack_image_tag_prefix: "<KPACK-TAG-PREFIX>"
+   ```
 
-    Where:
-    <ul>
-      <li>`<API-FQDN>` is the FQDN that you want to use for the Application Service Adapter API.</li>
-      <li>`<API-REPLICA-COUNT>` is the desired number of instances for the Application Service Adapter API deployment.</li>
-      <li>`<TLS-CRT>` is the PEM-encoded public certificate for the Application Service Adapter API.</li>
-      <li>`<TLS-KEY>` is the PEM-encoded private key for the Application Service Adapter API.</li>
-      <li>`<PACKAGE-REGISTRY-BASE>` is the container registry "folder"/"project" where application source code (Packages) will be uploaded.</li>
-      <li>`<KPACK-TAG-PREFIX>` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded.</li>
-    </ul>
+   Where:
+   * `<API-FQDN>` is the FQDN that you want to use for the TAS adapter API.
+   * `<API-REPLICA-COUNT>` is the desired number of instances for the TAS adapter API deployment.
+   * `<TLS-CRT>` is the PEM-encoded public certificate for the TAS adapter API.
+   * `<TLS-KEY>` is the PEM-encoded private key for the TAS adapter API.
+   * `<PACKAGE-REGISTRY-BASE>` is the container registry "folder"/"project" where application source code (Packages) will be uploaded
+   * `<KPACK-TAG-PREFIX>` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded
+
+   Optional scaling values - example below (consult the Tanzu CLI output for more information):
+
+   ```yaml
+   ---
+   scale:
+      cf_k8s_api:
+    limits:
+      cpu: "<API-CPU-LIMIT>"
+      memory: "<API-MEMORY-LIMIT>"
+    requests:
+      cpu: "<API-CPU-REQUEST>"
+      memory: "<API-MEMORY-REQUEST>"
+   replicas: <API-REPLICA-COUNT>
+   ```
+   These map to [Kubernetes Pod Specification](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes) fields.
 
 ## <a id="install-adapter"></a>Installing the Application Service Adapter
 

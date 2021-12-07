@@ -16,7 +16,7 @@ To log in to the Application Service Adapter with the cf CLI:
 1. Target the cf CLI at the API endpoint:
 
     ```bash
-    cf api <API-FQDN> --skip-ssl-validation
+    cf api API-FQDN --skip-ssl-validation
     ```
 
     > **Note**: If you configured the Application Service Adapter with a globally trusted certificate during installation, you do not need to use the `--skip-ssl-validation` flag.
@@ -85,7 +85,7 @@ The version of HNC in this release does not correctly propagate `ServiceAccounts
 1. Target the new CF space:
 
     ```bash
-    cf target -s <SPACE-NAME>
+    cf target -s SPACE-NAME
     ```
 
 ## <a id="deploy-sample-app"></a>Deploy a sample app

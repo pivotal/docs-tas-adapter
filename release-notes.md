@@ -11,7 +11,7 @@ This release is intended for core CF function testing. It should not be used for
 ### Components
 
 
-### Know Issues
+### Known Issues
 
 
 

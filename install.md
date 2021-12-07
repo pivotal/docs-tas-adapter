@@ -83,11 +83,11 @@ To install Application Service Adapter:
     ```bash
     openssl req -x509 -newkey rsa:4096 \
       -keyout tls.key -out tls.crt \
-      -nodes -subj '/CN=<API-FQDN>' \
-      -addext "subjectAltName = DNS:<API-FQDN>" \
+      -nodes -subj '/CN=API-FQDN' \
+      -addext "subjectAltName = DNS:API-FQDN" \
       -days 365
     ```
-    where `<API-FQDN>` is the fully qualified domain name (FQDN) that you want to use to access the API.
+    where `API-FQDN` is the fully qualified domain name (FQDN) that you want to use to access the API.
 
 
     If you are using a version of `libressl` older than v3.1.0 (the default on macOS):
@@ -95,8 +95,8 @@ To install Application Service Adapter:
     ```bash
     openssl req -x509 -newkey rsa:4096 \
       -keyout tls.key -out tls.crt \
-      -nodes -subj '/CN=<API-FQDN>' \
-      -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:<API-FQDN>'")) \
+      -nodes -subj '/CN=API-FQDN' \
+      -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:API-FQDN'")) \
      -days 365
     ```
 1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
@@ -106,23 +106,23 @@ To install Application Service Adapter:
    ```yaml
    ---
    api_ingress:
-     fqdn: "<API-FQDN>"
+     fqdn: "API-FQDN"
      tls:
        crt: |
-         <TLS-CRT>
+         TLS-CRT
        key: |
-         <TLS-KEY>
-   package_registry_base_path: "<PACKAGE-REGISTRY-BASE>"
-   kpack_image_tag_prefix: "<KPACK-TAG-PREFIX>"
+         TLS-KEY
+   package_registry_base_path: "PACKAGE-REGISTRY-BASE"
+   kpack_image_tag_prefix: "KPACK-TAG-PREFIX"
    ```
 
-   Where:
+   where:
 
-   - `<API-FQDN>` is the FQDN that you want to use for the TAS adapter API.
-   - `<TLS-CRT>` is the PEM-encoded public certificate for the TAS adapter API.
-   - `<TLS-KEY>` is the PEM-encoded private key for the TAS adapter API.
-   - `<PACKAGE-REGISTRY-BASE>` is the container registry "folder"/"project" where application source code (Packages) will be uploaded
-   - `<KPACK-TAG-PREFIX>` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded
+   - `API-FQDN` is the FQDN that you want to use for the TAS adapter API.
+   - `TLS-CRT` is the PEM-encoded public certificate for the TAS adapter API.
+   - `TLS-KEY` is the PEM-encoded private key for the TAS adapter API.
+   - `PACKAGE-REGISTRY-BASE` is the container registry "folder"/"project" where application source code (Packages) will be uploaded.
+   - `KPACK-TAG-PREFIX` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded.
 
    Optional scaling values - example below (consult the Tanzu CLI output for more information):
 
@@ -131,12 +131,12 @@ To install Application Service Adapter:
    scale:
      cf_k8s_api:
        limits:
-         cpu: "<API-CPU-LIMIT>"
-         memory: "<API-MEMORY-LIMIT>"
+         cpu: "API-CPU-LIMIT"
+         memory: "API-MEMORY-LIMIT"
        requests:
-         cpu: "<API-CPU-REQUEST>"
-         memory: "<API-MEMORY-REQUEST>"
-       replicas: <API-REPLICA-COUNT>
+         cpu: "API-CPU-REQUEST"
+         memory: "API-MEMORY-REQUEST"
+       replicas: API-REPLICA-COUNT
      cf_k8s_controllers:
        ... #! scaling keys are the same as above
      eirini_controller:
@@ -192,10 +192,17 @@ In order to stage applications, we need to create the following secret and servi
     ```yaml
     kubectl create secret docker-registry image-registry-credentials \
       -n cf \
-      --docker-server=<DOCKER_SERVER> \
-      --docker-username=<DOCKER_USERNAME> \
-      --docker-password=<DOCKER_PASSWORD>"
+      --docker-server=DOCKER-SERVER \
+      --docker-username=DOCKER-USERNAME \
+      --docker-password=DOCKER-PASSWORD
     ```
+
+    where:
+
+    - `DOCKER-SERVER` is the hostname of the container registry to be used for app packages and droplets.
+    - `DOCKER-USERNAME` is the username of the account to be used to access the registry.
+    - `DOCKER-PASSWORD` is the password of the account to be used to access the registry.
+
 1. Create a `service_account.yaml` file with the contents below:
     
     ```yaml
@@ -259,8 +266,8 @@ In order to stage applications, we need to create the following secret and servi
       serviceAccountRef:
         name: kpack-service-account
         namespace: cf
-      # Replace with real docker registry
-      tag: “<REPLACE-WITH-PACKAGE-REGISTRY-BASE>/builder”
+      # Replace "PACKAGE-REGISTRY-BASE" with the value of the package_registry_base_path installation setting
+      tag: “PACKAGE-REGISTRY-BASE/builder”
       stack:
         name: cf-default-stack
         kind: ClusterStack
@@ -301,8 +308,8 @@ In order to stage applications, we need to create the following secret and servi
 
     The output should look like the following:
     ```bash
-    NAME               FQDN         TLS SECRET                STATUS   STATUS DESCRIPTION
-    cf-k8s-api-proxy   <API-FQDN>   cf-k8s-api-ingress-cert   valid    Valid HTTPProxy
+    NAME               FQDN       TLS SECRET                STATUS   STATUS DESCRIPTION
+    cf-k8s-api-proxy   API-FQDN   cf-k8s-api-ingress-cert   valid    Valid HTTPProxy
     ```
 
-    Now you should be able to target the API endpoint by running `cf api <API-FQDN>` and start deploying applications. Go to [Getting Started](getting-started.md) to test the adapter.
+    Now you should be able to target the API endpoint by running `cf api API-FQDN` and start deploying applications. Go to [Getting Started](getting-started.md) to test the adapter.

@@ -108,35 +108,47 @@ To install Application Service Adapter:
    api_ingress:
      fqdn: "<API-FQDN>"
      tls:
-       crt: "<TLS-CRT>"
-       key: "<TLS-KEY>"
+       crt: |
+         <TLS-CRT>
+       key: |
+         <TLS-KEY>
    package_registry_base_path: "<PACKAGE-REGISTRY-BASE>"
    kpack_image_tag_prefix: "<KPACK-TAG-PREFIX>"
    ```
 
    Where:
-   * `<API-FQDN>` is the FQDN that you want to use for the TAS adapter API.
-   * `<API-REPLICA-COUNT>` is the desired number of instances for the TAS adapter API deployment.
-   * `<TLS-CRT>` is the PEM-encoded public certificate for the TAS adapter API.
-   * `<TLS-KEY>` is the PEM-encoded private key for the TAS adapter API.
-   * `<PACKAGE-REGISTRY-BASE>` is the container registry "folder"/"project" where application source code (Packages) will be uploaded
-   * `<KPACK-TAG-PREFIX>` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded
+   - `<API-FQDN>` is the FQDN that you want to use for the TAS adapter API.
+   - `<TLS-CRT>` is the PEM-encoded public certificate for the TAS adapter API.
+   - `<TLS-KEY>` is the PEM-encoded private key for the TAS adapter API.
+   - `<PACKAGE-REGISTRY-BASE>` is the container registry "folder"/"project" where application source code (Packages) will be uploaded
+   - `<KPACK-TAG-PREFIX>` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded
 
    Optional scaling values - example below (consult the Tanzu CLI output for more information):
 
    ```yaml
    ---
    scale:
-      cf_k8s_api:
-    limits:
-      cpu: "<API-CPU-LIMIT>"
-      memory: "<API-MEMORY-LIMIT>"
-    requests:
-      cpu: "<API-CPU-REQUEST>"
-      memory: "<API-MEMORY-REQUEST>"
-   replicas: <API-REPLICA-COUNT>
+     cf_k8s_api:
+       limits:
+         cpu: "<API-CPU-LIMIT>"
+         memory: "<API-MEMORY-LIMIT>"
+       requests:
+         cpu: "<API-CPU-REQUEST>"
+         memory: "<API-MEMORY-REQUEST>"
+       replicas: <API-REPLICA-COUNT>
+     cf_k8s_controllers:
+       ... #! scaling keys are the same as above
+     eirini_controller:
+       ... #! scaling keys are the same as above
+     hnc_manager:
+       ... #! scaling keys are the same as above
+     kube_rbac_proxy:
+       ... #! scaling keys are the same as above, minus the "replicas" key
    ```
-   These map to [Kubernetes Pod Specification](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes) fields.
+
+   The `requests` and `limits` fields map directly to the [resource requests and
+   limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container)
+   fields on the Kubernetes containers for these system components.
 
 ## <a id="install-adapter"></a>Installing the Application Service Adapter
 

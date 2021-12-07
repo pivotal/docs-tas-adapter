@@ -117,13 +117,12 @@ To install Application Service Adapter:
    ```
 
    Where:
-    <ul>
-      <li>`<API-FQDN>` is the FQDN that you want to use for the Application Service Adapter API.</li>
-      <li>`<TLS-CRT>` is the PEM-encoded public certificate for the Application Service Adapter API.</li>
-      <li>`<TLS-KEY>` is the PEM-encoded private key for the Application Service Adapter API.</li>
-      <li>`<PACKAGE-REGISTRY-BASE>` is the container registry "folder"/"project" where application source code (Packages) will be uploaded.</li>
-      <li>`<KPACK-TAG-PREFIX>` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded.</li>
-    </ul>
+
+   - `<API-FQDN>` is the FQDN that you want to use for the TAS adapter API.
+   - `<TLS-CRT>` is the PEM-encoded public certificate for the TAS adapter API.
+   - `<TLS-KEY>` is the PEM-encoded private key for the TAS adapter API.
+   - `<PACKAGE-REGISTRY-BASE>` is the container registry "folder"/"project" where application source code (Packages) will be uploaded
+   - `<KPACK-TAG-PREFIX>` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded
 
    Optional scaling values - example below (consult the Tanzu CLI output for more information):
 

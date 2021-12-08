@@ -12,7 +12,7 @@ The basic usage of `cf push <APP-NAME>` is supported.
 
 | Flag | Supported? | Notes |
 |------|------------|-------|
-|`--app-start-timeout, -t`| N | Planned for future releases|
+|`--app-start-timeout, -t`| N | |
 |`--buildpack, -b`| Y | Support autodetection of the buildpack (flag omitted, or set to `null` or `default`); <br> Support a single user-specified buildpack by name (flag set to name of buildpack);<br> Not supported: multiple named buildpacks; <br> Not supported: custom buildpacks as URLs |
 |`--disk, -k`| N |  |
 |`--docker-image, -o`| N |  |
@@ -21,7 +21,7 @@ The basic usage of `cf push <APP-NAME>` is supported.
 |`--endpoint`| N |  |
 |`--health-check-type, -u`| N |  |
 |`--instances, -i`| N |  |
-|`--manifest, -f`| Y |  |
+|`--manifest, -f`| Y | Support a subset of the app manifest attribute specified in [Cloud Foundry documentation](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html). See [supported app manifest attributes](#supported-manifest-attributes) section below. |
 |`--memory, -m`| N | Planned for future releases. |
 |`--no-manifest`| Y |  |
 |`--no-route`| Y | The application is deployed without a route with or without this flag, due to limitations of Kubernetes. You will need to use `cf map-route` to manually assign the route the app once it's deployed.|
@@ -35,6 +35,11 @@ The basic usage of `cf push <APP-NAME>` is supported.
 |`--task`| N |  |
 |`--var`| N | We don't plan to support setting environment variables during `cf push`. The environment variables should be set in the app manifest file.  |
 |`--vars-file`| N |  |
+
+### <a id="supported-manifest-attributes"></a> Supported App Manifest Attributes
+
+
+
 
 
 ## <a id="app-operations"></a> App Operations

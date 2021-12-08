@@ -6,6 +6,8 @@ This topic contains release notes for the Application Service Adapter for VMware
 This release is intended for core CF function testing. It should not be used for running production workloads.
 
 ### Features
+* Platform Operator can create role-binding for users;
+* Developer can target and authenticate into a space with proper authentication
 
 
 ### Components

@@ -22,7 +22,7 @@ The basic usage of `cf push <APP-NAME>` is supported.
 |`--health-check-type, -u`| N |  |
 |`--instances, -i`| N |  |
 |`--manifest, -f`| Y | Support a subset of the app manifest attribute specified in [Cloud Foundry documentation](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html). See [supported app manifest attributes](#supported-manifest-attributes) section below. |
-|`--memory, -m`| N | Planned for future releases. |
+|`--memory, -m`| N |  |
 |`--no-manifest`| Y |  |
 |`--no-route`| Y | The application is deployed without a route with or without this flag, due to limitations of Kubernetes. You will need to use `cf map-route` to manually assign the route the app once it's deployed.|
 |`--no-start`| Y |  |

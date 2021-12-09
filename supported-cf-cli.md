@@ -33,17 +33,32 @@ The basic usage of `cf push <APP-NAME>` is supported.
 |`--start-command, -c`| N |  |
 |`--strategy`| N |  |
 |`--task`| N |  |
-|`--var`| N | We don't plan to support setting environment variables during `cf push`. The environment variables should be set in the app manifest file.  |
+|`--var`| N |  |
 |`--vars-file`| N |  |
 
 ### <a id="supported-manifest-attributes"></a> Supported App Manifest Attributes
 
-
-
-
+| Flag | Supported? | Notes |
+|------|------------|-------|
+| `buildpacks` | Y | Support autodetection of the buildpack (flag omitted, or set to `null` or `default`); <br> Support a single user-specified buildpack by name (flag set to name of buildpack);<br> Not supported: multiple named buildpacks; <br> Not supported: custom buildpacks as URLs |
+| `command` | N | |
+| `disk_quota` | N | |
+| `docker` | N | |
+| `health-check-http-endpoint` | N | |
+| `health-check-type` | N | |
+| `instances` | Y | |
+| `memory` | Y | |
+| `metadata` | N | |
+| `no-route` | Y | |
+| `path` | N | |
+| `processes` | N | |
+| `random-route` | N | |
+| `routes` | Y | |
+| `sidecars` | N | |
+| `stack` | N | |
+| `timeout` | N | |
 
 ## <a id="app-operations"></a> App Operations
-
 | Command | Supported? | Notes |
 |---------|------------|-------|
 |`cf apps`| Y | The default usage of `cf apps` is supported, using `--labels` to filter apps is not supported. |
@@ -113,4 +128,26 @@ Service operations is not supported as of this release. We plan to implement ser
 
 ## Routes and Domains
 
-...
+### Routes Operations
+
+| Command | Supported? | Notes |
+|---------|------------|-------|
+| `cf routes` | Y |   |
+| `cf route` | Y |   |
+| `cf create-route` | Y |   |
+| `cf check-route` | N |   |
+| `cf map-route` | Y |   |
+| `cf unmap-route` | Y |   |
+| `cf delete-route` | Y |   |
+| `cf delete-orphaned-routes` | N |   |
+
+### Routes Operations
+
+| Command | Supported? | Notes |
+|---------|------------|-------|
+| `cf domains` | N |  |
+| `cf create-private-domain` | N |  |
+| `cf delete-private-domain` | N |  |
+| `cf create-shared-domain` | N |  |
+| `cf delete-shared-domain` | N |  |
+| `cf router-groups` | N |  |

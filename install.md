@@ -245,10 +245,10 @@ In order to stage applications, we need to create the following secret and servi
     spec:
       sources:
       - image: gcr.io/paketo-buildpacks/java:5.21.1
-      - image: gcr.io/paketo-buildpacks/nodejs
-      - image: gcr.io/paketo-buildpacks/ruby
+      - image: gcr.io/paketo-buildpacks/nodejs:0.11.1
+      - image: gcr.io/paketo-buildpacks/ruby:0.9.1
       - image: gcr.io/paketo-buildpacks/procfile:4.4.1
-      - image: gcr.io/paketo-buildpacks/go
+      - image: gcr.io/paketo-buildpacks/go:0.12.0
     ```
 
     Run `kubectl apply -f cluster_store.yaml`.

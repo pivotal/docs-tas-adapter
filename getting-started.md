@@ -35,56 +35,12 @@ To log in to the Application Service Adapter with the cf CLI:
 
 You can use `cf create-org` and `cf create-space` the same way that you do with Tanzu Application Service for VMs. Under the hood, these commands create a Kubernetes namespace for each org and each space, connected into a hierarchy using the Hierarchical Namespaces Controller (HNC). For more information, see the [hierarchical-namespaces](https://github.com/kubernetes-sigs/hierarchical-namespaces) repository on GitHub.
 
-The version of HNC in this release does not correctly propagate `ServiceAccounts` down the namespace hierarchy. When `cf create-space` is called, the `ServiceAccount` required for Tanzu Build Service to build images is absent. Therefore as a user, you must create the `ServiceAccount` with a reference to the container image registry credentials.
-
-1. Create a local file with the required ServiceAccount resources:
-
-    ```yaml
-    cat <<EOF >> service-accounts.yml
-    ---
-    apiVersion: v1
-    kind: ServiceAccount
-    metadata:
-      name: eirini
-    ---
-    apiVersion: v1
-    kind: ServiceAccount
-    metadata:
-      name: kpack-service-account
-    imagePullSecrets:
-    - name: image-registry-credentials
-    secrets:
-    - name: image-registry-credentials
-    EOF
-    ```
-
 1. Create the CF org and space:
 
     ```bash
     cf create-org ORG-NAME
     cf target -o ORG-NAME
     cf create-space SPACE-NAME
-    ```
-
-    Where `ORG-NAME` is the name of the CF org you want to create and `SPACE-NAME` is the name of the CF space.
-
-1. Get the GUID of the CF space:
-
-    ```bash
-    cf space SPACE-NAME --guid
-    ```
-
-1. Apply the `service-accounts.yml` to the Kubernetes namespace with name equal to the CF space GUID you retrieved earlier:
-
-    ```bash
-    kubectl apply -f service-accounts.yml -n SPACE-GUID
-    ```
-
-    The CF space you created is ready to accept app workloads.
-
-1. Target the new CF space:
-
-    ```bash
     cf target -s SPACE-NAME
     ```
 

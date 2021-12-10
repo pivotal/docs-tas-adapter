@@ -22,6 +22,12 @@ The following tools must be installed in the workstation environment in which yo
 
 * Tanzu CLI and its plugins. See [Install or Update the Tanzu CLI and Plugins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/0.3/tap-0-3/GUID-install-general.html#install-or-update-the-tanzu-cli-and-plugins-5) in _Installing Part I: Prerequisites, EULA, and CLI_.
 
+    **NOTE**: Once you installed the Tanzu CLI, run `tanzu plugin list` to see which plugins are installed. For the adapter to run, you will need `package` and `secret` plugins:
+    ```bash
+    tanzu plugin install --local cli package
+    tanzu plugin install --local cli secret
+    ```
+
 The following dependencies must be installed to the target Kubernetes cluster before installing the Application Service Adapter. If you have completed an installation of Tanzu Application Platform in your target Kubernetes cluster, then these dependencies are already present.
 
 * Carvel kapp-controller v0.29.0 or later. See [kapp-controller installation instructions](https://carvel.dev/kapp-controller/docs/latest/install/).

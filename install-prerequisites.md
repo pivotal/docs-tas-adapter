@@ -4,7 +4,7 @@ This topic describes the first part of the installation process for the Applicat
 
 ----
 
-> **Note**: v0.1 is a limited beta release, and is only available to invited users. If you are interested in testing this version, reach out to your account team. After you are invited to participate in the beta testing, download the [Application Service Adapter](https://network.tanzu.vmware.com/products/app-service-adapter/) from Tanzu Network after accepting the EULA.
+> **Note**: v0.1 is a limited beta release, and is only available to invited users. If you are interested in testing this version, reach out to your account team. After you are invited to participate in the beta testing, you will have access to the [Application Service Adapter](https://network.tanzu.vmware.com/products/app-service-adapter/) from Tanzu Network.
 
 This beta version requires an experimental version of the Cloud Foundry command-line interface (cf CLI). You receive instructions to obtain the cf CLI binary as part of the onboarding process for the limited beta.
 For more information, see the [cf CLI repository](https://github.com/cloudfoundry/cli) on GitHub.

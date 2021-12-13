@@ -31,7 +31,7 @@ The following dependencies must be installed to the target Kubernetes cluster be
 
 * cert-manager. See [cert-manager installation instructions](https://cert-manager.io/docs/installation/).
 
-* Tanzu Build Service (TBS) for building images. See with [Install Tanzu Build Service](https://docs.vmware.com/en/Tanzu-Application-Platform/0.3/tap/GUID-install-components.html?hWord=N4IghgNiBcIJYDsDOAXSFEHMAEKBGSIAvkA#install-tbs) in _Installing Individual Packages_.
+* Tanzu Build Service (TBS) for building images. See with [Install Tanzu Build Service](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/0.3/tap-0-3/GUID-install-components.html#install-tbs) in _Installing Individual Packages_.
 
 * Contour for ingress control. See [Contour installation instructions](https://projectcontour.io/getting-started/).
 

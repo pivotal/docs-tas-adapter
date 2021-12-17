@@ -38,7 +38,7 @@ To install Application Service Adapter:
 
     ```bash
     tanzu package repository add tas-adapter-repository \
-      --url registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:0.1.0-build.1 \
+      --url registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:0.2.0 \
       --namespace tas-adapter-install
     ```
 1. Verify that the package repository contains the Application Service Adapter package.
@@ -48,27 +48,33 @@ To install Application Service Adapter:
       --namespace tas-adapter-install
     ```
 
-    The output should look like the following:
+    The output should include the Application Service Adapter package:
 
     ```bash
-    NAME                                    DISPLAY-NAME                 SHORT-DESCRIPTION                                                   LATEST-VERSION
-    application-service-adapter.vmware.com  Application Service Adapter  Application Service Adapter for VMware Tanzu® Application Platform  0.1.0
+    NAME                                          DISPLAY-NAME                 SHORT-DESCRIPTION                                                   LATEST-VERSION
+    ...
+    application-service-adapter.tanzu.vmware.com  Application Service Adapter  Application Service Adapter for VMware Tanzu® Application Platform  0.2.0
+    ...
     ```
 
 1. List the installation settings for the `application-service-adapter` package.
 
     ```bash
-    tanzu package available get application-service-adapter.vmware.com/0.1.0 --values-schema --namespace tas-adapter-install
+    tanzu package available get application-service-adapter.tanzu.vmware.com/0.2.0 --values-schema --namespace tas-adapter-install
     ```
 
    It should output a list of settings similar to:
 
    ```
-   | Retrieving package details for application-service-adapter.vmware.com/0.1.0...
+   | Retrieving package details for application-service-adapter.tanzu.vmware.com/0.2.0...
      KEY                         DEFAULT  TYPE     DESCRIPTION
      api_ingress.fqdn                     string   FQDN used to access the CF API
      api_ingress.tls.crt                  string   TLS certificate for the CF API (PEM format)
      api_ingress.tls.key                  string   TLS private key for the CF API (PEM format)
+     app_ingress.default_domain           string   Default application domain
+     app_ingress.tls.crt                  string   TLS certificate for the default application domain (PEM format)
+     app_ingress.tls.key                  string   TLS private key for the default application domain (PEM format)
+     kpack_cluster_builder_name  default  string   Name of the kpack cluster builder to use for staging
      kpack_image_tag_prefix               string   Container registry repository where staged, runnable app images (Droplets) will be stored
      package_registry_base_path           string   Container registry repository where uploaded app source code (Packages) will be stored
      ...
@@ -76,7 +82,7 @@ To install Application Service Adapter:
 
 ## <a id="configure-installation-settings"></a>Configuring the installation settings
 
-1. Generate a self-signed certificate for TLS ingress to the Application Service Adapter API.
+1. Generate a self-signed TLS certificate for ingress to the Application Service Adapter API.
 
     If you are using `openssl`, or `libressl v3.1.0` or later:
 
@@ -99,6 +105,34 @@ To install Application Service Adapter:
       -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:API-FQDN'")) \
      -days 365
     ```
+
+
+1. Generate a self-signed TLS certificate for ingress to applications deployed with the Application Service Adapter.
+
+    If you are using `openssl`, or `libressl v3.1.0` or later:
+
+    ```bash
+    openssl req -x509 -newkey rsa:4096 \
+      -keyout tls.key -out tls.crt \
+      -nodes -subj '/CN=*.APP-DOMAIN' \
+      -addext "subjectAltName = DNS:*.APP-DOMAIN" \
+      -days 365
+    ```
+    where `APP-DOMAIN` is the base domain name that you want to use to access applications. Your application name will be automatically prefixed to this domain.
+
+    > **Note**: The TLS certificate for application ingress needs to be a wildcard certificate.
+
+
+    If you are using a version of `libressl` older than v3.1.0 (the default on macOS):
+
+    ```bash
+    openssl req -x509 -newkey rsa:4096 \
+      -keyout tls.key -out tls.crt \
+      -nodes -subj '/CN=*.APP-DOMAIN' \
+      -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:*.APP-DOMAIN'")) \
+     -days 365
+    ```
+
 1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
 
    The following values are required:
@@ -109,26 +143,37 @@ To install Application Service Adapter:
      fqdn: "API-FQDN"
      tls:
        crt: |
-         TLS-CRT
+         API-TLS-CRT
        key: |
-         TLS-KEY
-   package_registry_base_path: "PACKAGE-REGISTRY-BASE"
+         API-TLS-KEY
+   app_ingress:
+     default_domain: "DEFAULT-APP-DOMAIN"
+     tls:
+       crt: |
+         APP-TLS-CRT
+       key: |
+         APP-TLS-KEY
    kpack_image_tag_prefix: "KPACK-TAG-PREFIX"
+   package_registry_base_path: "PACKAGE-REGISTRY-BASE"
    ```
 
    where:
 
    - `API-FQDN` is the FQDN that you want to use for the TAS adapter API.
-   - `TLS-CRT` is the PEM-encoded public certificate for the TAS adapter API.
-   - `TLS-KEY` is the PEM-encoded private key for the TAS adapter API.
-   - `PACKAGE-REGISTRY-BASE` is the container registry "folder"/"project" where application source code (Packages) will be uploaded.
+   - `API-TLS-CRT` is the PEM-encoded public certificate for the TAS adapter API.
+   - `API-TLS-KEY` is the PEM-encoded private key for the TAS adapter API.
+   - `DEFAULT-APP-DOMAIN` is the domain that you want to use
+   - `APP-TLS-CRT` is the PEM-encoded public certificate for applications deployed using the TAS adapter.
+   - `APP-TLS-KEY` is the PEM-encoded private key for applications deployed using the TAS adapter.
    - `KPACK-TAG-PREFIX` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded.
+   - `PACKAGE-REGISTRY-BASE` is the container registry "folder"/"project" where application source code (Packages) will be uploaded.
 
-   Optional scaling values - example below (consult the Tanzu CLI output for more information):
+   Optional values - example below (consult the Tanzu CLI output for more information):
 
    ```yaml
    ---
-   scale:
+   kpack_cluster_builder_name: "KPACK-CLUSTER-BUILDER-NAME"
+   scaling:
      cf_k8s_api:
        limits:
          cpu: "API-CPU-LIMIT"
@@ -147,6 +192,15 @@ To install Application Service Adapter:
        ... #! scaling keys are the same as above, minus the "replicas" key
    ```
 
+   where:
+
+   - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Out of the box, TBS provides two cluster builders named `base` and `default`. Follow the [TBS docs](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service-v13/GUID-managing-builders.html) if you want to create your own builder, and update this setting with the corresponding builder name.
+   - `API-CPU-LIMIT` is the desired CPU resource limit for the pods in the specified deployment.
+   - `API-MEMORY-LIMIT` is the desired memory resource limit for the pods in the specified deployment.
+   - `API-CPU-REQUEST` is the desired CPU resource request for the pods in the specified deployment.
+   - `API-MEMORY-REQUEST` is the desired memory resource request for the pods in the specified deployment.
+   - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment.
+
    The `requests` and `limits` fields map directly to the [resource requests and
    limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container)
    fields on the Kubernetes containers for these system components.
@@ -157,8 +211,8 @@ To install Application Service Adapter:
 
     ```bash
     tanzu package install tas-adapter \
-      --package-name application-service-adapter.vmware.com \
-      --version 0.1.0 \
+      --package-name application-service-adapter.tanzu.vmware.com \
+      --version 0.2.0 \
       --values-file tas-adapter-values.yml \
       --namespace tas-adapter-install
     ```
@@ -175,8 +229,8 @@ To install Application Service Adapter:
     ```bash
     | Retrieving installation details for tas-adapter...
     NAME:                    tas-adapter
-    PACKAGE-NAME:            application-service-adapter.vmware.com
-    PACKAGE-VERSION:         0.1.0
+    PACKAGE-NAME:            application-service-adapter.tanzu.vmware.com
+    PACKAGE-VERSION:         0.2.0
     STATUS:                  Reconcile succeeded
     CONDITIONS:              [{ReconcileSucceeded True  }]
     USEFUL-ERROR-MESSAGE:
@@ -203,94 +257,8 @@ In order to stage applications, we need to create the following secret and servi
     - `DOCKER-USERNAME` is the username of the account to be used to access the registry.
     - `DOCKER-PASSWORD` is the password of the account to be used to access the registry.
 
-1. Create a `service_account.yaml` file with the contents below:
-    
-    ```yaml
-    ---
-    apiVersion: v1
-    kind: ServiceAccount
-    metadata:
-      name: kpack-service-account
-      namespace: cf
-    secrets:
-    - name: image-registry-credentials
-    imagePullSecrets:
-    - name: image-registry-credentials
-    ```
-
-    Run `kubectl apply -f service_account.yaml`.
-
-1. Create a `cluster_stack.yaml` file with the contents below:
-    ```yaml
-    apiVersion: kpack.io/v1alpha2
-    kind: ClusterStack
-    metadata:
-      name: cf-default-stack
-    spec:
-      id: "io.buildpacks.stacks.bionic"
-      buildImage:
-        image: "paketobuildpacks/build:base-cnb"
-      runImage:
-        image: "paketobuildpacks/run:base-cnb"
-    ```
-
-    Run `kubectl apply -f cluster_stack.yaml`.
-
-1. Create a `cluster_store.yaml` file with the contents below:
-    ```yaml
-    apiVersion: kpack.io/v1alpha2
-    kind: ClusterStore
-    metadata:
-      name: cf-default-buildpacks
-    spec:
-      sources:
-      - image: gcr.io/paketo-buildpacks/java:5.21.1
-      - image: gcr.io/paketo-buildpacks/nodejs:0.11.1
-      - image: gcr.io/paketo-buildpacks/ruby:0.9.1
-      - image: gcr.io/paketo-buildpacks/procfile:4.4.1
-      - image: gcr.io/paketo-buildpacks/go:0.12.0
-    ```
-
-    Run `kubectl apply -f cluster_store.yaml`.
-
-1. Create a `cluster_builder.yaml` file with the contents below:
-
-    > **Note**: Replace the `tag` value to match your container registry, as specified in the `tas-adapter-values.yaml` file.
-
-    ```yaml
-    apiVersion: kpack.io/v1alpha2
-    kind: ClusterBuilder
-    metadata:
-      name: cf-kpack-cluster-builder
-    spec:
-      serviceAccountRef:
-        name: kpack-service-account
-        namespace: cf
-      # Replace "PACKAGE-REGISTRY-BASE" with the value of the package_registry_base_path installation setting
-      tag: “PACKAGE-REGISTRY-BASE/builder”
-      stack:
-        name: cf-default-stack
-        kind: ClusterStack
-      store:
-        name: cf-default-buildpacks
-        kind: ClusterStore
-      order:
-      - group:
-        - id: paketo-buildpacks/java
-      - group:
-        - id: paketo-buildpacks/go
-      - group:
-        - id: paketo-buildpacks/nodejs
-      - group:
-        - id: paketo-buildpacks/ruby
-      - group:
-        - id: paketo-buildpacks/procfile
-    ```
-
-    Run `kubectl apply -f cluster_builder.yaml`.
-    
-## <a id="configure-dns"></a>Configuring DNS for the adapter
-1. Add a DNS entry for the FQDN of the Application Service Adapter API. This step varies depending on the IaaS used to provision your cluster.
+## <a id="configure-dns"></a>Configuring DNS for the Application Service Adapter
+1. Determine the external IP address to be used for ingress to your cluster. This step varies depending on the IaaS used to provision your cluster.
 
     For clusters that support LoadBalancer services, you can obtain the external IP address of the LoadBalancer Service.
 
@@ -298,7 +266,13 @@ In order to stage applications, we need to create the following secret and servi
     kubectl get service envoy -n projectcontour -ojsonpath='{.status.loadBalancer.ingress[*].ip}'
     ```
 
-    Create an A record in your DNS zone that resolves the API FQDN to this external IP address.
+    > **Note**: If you are using a cluster deployed on AWS, your LoadBalancer will have a DNS name instead of an IP address.
+
+1. Create an A record in your DNS zone that resolves the configured API FQDN to the external IP address from step 1. This step varies depending on your DNS provider.
+
+   > **Note**: If you are using a cluster deployed on AWS, you should create a CNAME record that resolves to the DNS name of the load balancer instead of an A record.
+
+1. Create a wilcard A record in your DNS zone that resolves all sub-domains of the configured application domain to the external IP address from step 1. This step varies depending on your DNS provider.
 
 1. Verify that the Contour HTTPProxy for the API endpoint is valid:
 

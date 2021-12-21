@@ -13,7 +13,7 @@ The basic usage of `cf push <APP-NAME>` is supported.
 | Flag | Supported? | Notes |
 |------|------------|-------|
 |`--app-start-timeout, -t`| N | |
-|`--buildpack, -b`| Y | Support autodetection of the buildpack (flag omitted, or set to `null` or `default`); <br> Support a single user-specified buildpack by name (flag set to name of buildpack);<br> Not supported: multiple named buildpacks; <br> Not supported: custom buildpacks as URLs |
+|`--buildpack, -b`| N | Autodetection of buildpacks is supported (flag omitted, or set to `null` or `default`);<br> User-specified buildpacks are not supported. |
 |`--disk, -k`| N |  |
 |`--docker-image, -o`| N |  |
 |`--docker-username`| N |  |
@@ -24,7 +24,7 @@ The basic usage of `cf push <APP-NAME>` is supported.
 |`--manifest, -f`| Y | Support a subset of the app manifest attribute specified in [Cloud Foundry documentation](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html). See [supported app manifest attributes](#supported-manifest-attributes) section below. |
 |`--memory, -m`| N |  |
 |`--no-manifest`| Y |  |
-|`--no-route`| Y | The application is deployed without a route with or without this flag, due to limitations of Kubernetes. You will need to use `cf map-route` to manually assign the route the app once it's deployed.|
+|`--no-route`| N | |
 |`--no-start`| Y |  |
 |`--no-wait`| N |  |
 |`--path, -p`| N |  |
@@ -36,27 +36,53 @@ The basic usage of `cf push <APP-NAME>` is supported.
 |`--var`| N |  |
 |`--vars-file`| N |  |
 
-### <a id="supported-manifest-attributes"></a> Supported App Manifest Attributes
+### <a id="supported-manifest-attributes"></a> Supported App Manifest App-level configuration
+We support a subset of the [CF App Manifest schema](https://v3-apidocs.cloudfoundry.org/version/3.112.0/index.html#the-manifest-schema).
 
-| Flag | Supported? | Notes |
+| Attribute | Supported? | Notes |
 |------|------------|-------|
-| `buildpacks` | Y | Support autodetection of the buildpack (flag omitted, or set to `null` or `default`); <br> Support a single user-specified buildpack by name (flag set to name of buildpack);<br> Not supported: multiple named buildpacks; <br> Not supported: custom buildpacks as URLs |
+| `buildpacks` | N | |
 | `command` | N | |
+| `default-route` | Y | |
 | `disk_quota` | N | |
 | `docker` | N | |
+| `env` | Y | |
+| `no-route` | N | |
+| `processes` | Y | See [supported Process-level attributes](#supported-manifest-attributes-processes) for more details. |
 | `health-check-http-endpoint` | N | |
+| `health-check-invocation-timeout` | N | |
 | `health-check-type` | N | |
 | `instances` | Y | |
-| `memory` | Y | |
+| `memory` | N | |
 | `metadata` | N | |
-| `no-route` | Y | |
+| `no-route` | N | |
 | `path` | N | |
-| `processes` | N | |
 | `random-route` | N | |
-| `routes` | Y | |
+| `routes` | Y | See [supported Route-level attributes](#supported-manifest-attributes-routes) for more details. |
+| `services` | N | |
 | `sidecars` | N | |
 | `stack` | N | |
 | `timeout` | N | |
+
+#### <a id="supported-manifest-attributes-processes"></a> Supported App Manifest Process-level configuration
+| Attribute | Supported? | Notes |
+|------|------------|-------|
+| `type` | Y | |
+| `command` | Y | |
+| `disk_quota` | Y | |
+| `docker` | N | |
+| `health-check-http-endpoint` | Y | |
+| `health-check-invocation-timeout` | Y | |
+| `health-check-type` | Y | |
+| `instances` | Y | |
+| `memory` | Y | |
+| `timeout` | Y | |
+
+#### <a id="supported-manifest-attributes-routes"></a> Supported App Manifest Route-level configuration
+| Attribute | Supported? | Notes |
+|------|------------|-------|
+| `route` | Y | |
+| `protocol` | N | Only `http1` routes are supported. |
 
 ## <a id="app-operations"></a> App Operations
 | Command | Supported? | Notes |
@@ -70,17 +96,17 @@ The basic usage of `cf push <APP-NAME>` is supported.
 |`cf cancel-deployment` | N |     |
 |`cf start` | Y |     |
 |`cf stop` | Y |     |
-|`cf restart` | N |     |
-|`cf stage-package` | N |     |
+|`cf restart` | Y |     |
+|`cf stage-package` | Y |     |
 |`cf restage` | N |     |
 |`cf restart-app-instance` | N |     |
 |`cf run-task` | N |     |
 |`cf tasks` | N |     |
 |`cf terminate-task` | N |     |
-|`cf packages` | N |     |
-|`cf create-package` | N |     |
+|`cf packages` | Y |     |
+|`cf create-package` | Y |     |
 |`cf droplets` | N |     |
-|`cf set-droplet` | N |     |
+|`cf set-droplet` | Y |     |
 |`cf download-droplet` | N |     |
 |`cf events` | N |     |
 |`cf logs` | N |     |
@@ -91,7 +117,7 @@ The basic usage of `cf push <APP-NAME>` is supported.
 |`cf stack` | N |     |
 |`cf copy-source` | N |     |
 |`cf create-app-manifest` | N |     |
-|`cf get-health-check` | N |     |
+|`cf get-health-check` | Y |     |
 |`cf set-health-check` | N |     |
 |`cf enable-ssh` | N |     |
 |`cf disable-ssh` | N |     |
@@ -99,32 +125,32 @@ The basic usage of `cf push <APP-NAME>` is supported.
 |`cf ssh` | N |     |
 
 ## <a id="service-operations"></a> Service Operations
-Service operations is not supported as of this release. We plan to implement services related features after GA.
+Service operations are not supported.
 
-## <a id="org-space-operations"></a> Orgs and Spaces Operations
+## <a id="org-space-operations"></a> Org and Space Operations
 
 ### Orgs Operations
 | Command | Supported? | Notes |
 |---------|------------|-------|
-|`cf orgs`| Y |   | 
-|`cf org`| Y |   | 
-|`cf create-org`| Y |   | 
-|`cf delete-org`| Y |   | 
-|`cf rename-org`| Y |   | 
+|`cf orgs`| Y |   |
+|`cf org`| N |   |
+|`cf create-org`| Y |   |
+|`cf delete-org`| N |   |
+|`cf rename-org`| N |   |
 
 ### Space Operations
 
 | Command | Supported? | Notes |
 |---------|------------|-------|
-|`cf spaces`| Y |   | 
-|`cf space`| Y |   | 
-|`cf create-space`| Y |   | 
-|`cf delete-space`| Y |   | 
-|`cf rename-space`| Y |   | 
-|`cf apply-manifest`| Y |   | 
-|`cf allow-space-ssh`| N |   | 
-|`cf disallow-space-ssh`| N |   | 
-|`cf space-ssh-allowed`| N |   | 
+|`cf spaces`| Y |   |
+|`cf space`| N |   |
+|`cf create-space`| Y |   |
+|`cf delete-space`| N |   |
+|`cf rename-space`| N |   |
+|`cf apply-manifest`| Y |   |
+|`cf allow-space-ssh`| N |   |
+|`cf disallow-space-ssh`| N |   |
+|`cf space-ssh-allowed`| N |   |
 
 ## Routes and Domains
 
@@ -137,8 +163,8 @@ Service operations is not supported as of this release. We plan to implement ser
 | `cf create-route` | Y |   |
 | `cf check-route` | N |   |
 | `cf map-route` | Y |   |
-| `cf unmap-route` | Y |   |
-| `cf delete-route` | Y |   |
+| `cf unmap-route` | N |   |
+| `cf delete-route` | N |   |
 | `cf delete-orphaned-routes` | N |   |
 
 ### Routes Operations

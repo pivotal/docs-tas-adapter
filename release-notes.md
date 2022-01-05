@@ -14,7 +14,7 @@ This release is intended for core CF function testing. It should not be used for
 
 
 ### Known Issues
-* Current Application Service Adapter supports only a subset of CF CLI commands. Please see [Supported CF CLI](supported-cf-cli.md) for details.
+* Current Application Service Adapter supports only a subset of CF CLI commands. Please see [Supported CF CLI](supported-cf-cli-commands.md) for details.
 
 
 

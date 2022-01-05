@@ -8,4 +8,4 @@ This is the table of contents from which the Application Service Adapter for Tan
 - [Installing Application Service Adapter](install.md)
 - [Getting Started with Application Service Adapter](getting-started.md)
 - [Uninstalling Application Service Adapter](uninstall.md)
-- [Supported CF CLI](supported-cf-cli.md)
+- [Supported cf CLI Commands](supported-cf-cli-commands.md)

@@ -63,22 +63,22 @@ To install Application Service Adapter:
     tanzu package available get application-service-adapter.tanzu.vmware.com/0.2.0 --values-schema --namespace tas-adapter-install
     ```
 
-   It should output a list of settings similar to:
+    It should output a list of settings similar to:
 
-   ```
-   | Retrieving package details for application-service-adapter.tanzu.vmware.com/0.2.0...
-     KEY                         DEFAULT  TYPE     DESCRIPTION
-     api_ingress.fqdn                     string   FQDN used to access the CF API
-     api_ingress.tls.crt                  string   TLS certificate for the CF API (PEM format)
-     api_ingress.tls.key                  string   TLS private key for the CF API (PEM format)
-     app_ingress.default_domain           string   Default application domain
-     app_ingress.tls.crt                  string   TLS certificate for the default application domain (PEM format)
-     app_ingress.tls.key                  string   TLS private key for the default application domain (PEM format)
-     kpack_cluster_builder_name  default  string   Name of the kpack cluster builder to use for staging
-     kpack_image_tag_prefix               string   Container registry repository where staged, runnable app images (Droplets) will be stored
-     package_registry_base_path           string   Container registry repository where uploaded app source code (Packages) will be stored
-     ...
-   ```
+    ```
+    | Retrieving package details for application-service-adapter.tanzu.vmware.com/0.2.0...
+      KEY                         DEFAULT  TYPE     DESCRIPTION
+      api_ingress.fqdn                     string   FQDN used to access the CF API
+      api_ingress.tls.crt                  string   TLS certificate for the CF API (PEM format)
+      api_ingress.tls.key                  string   TLS private key for the CF API (PEM format)
+      app_ingress.default_domain           string   Default application domain
+      app_ingress.tls.crt                  string   TLS certificate for the default application  domain (PEM format)
+      app_ingress.tls.key                  string   TLS private key for the default application domain (PEM format)
+      kpack_cluster_builder_name  default  string   Name of the kpack cluster builder to use for staging
+      kpack_image_tag_prefix               string   Container registry repository where staged, runnable app images (Droplets) will be stored
+      package_registry_base_path           string   Container registry repository where uploaded app source code (Packages) will be stored
+      ...
+    ```
 
 ## <a id="configure-installation-settings"></a>Configuring the installation settings
 
@@ -135,75 +135,75 @@ To install Application Service Adapter:
 
 1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
 
-   The following values are required:
+    The following values are required:
 
-   ```yaml
-   ---
-   api_ingress:
-     fqdn: "API-FQDN"
-     tls:
-       crt: |
-         API-TLS-CRT
-       key: |
-         API-TLS-KEY
-   app_ingress:
-     default_domain: "DEFAULT-APP-DOMAIN"
-     tls:
-       crt: |
-         APP-TLS-CRT
-       key: |
-         APP-TLS-KEY
-   kpack_image_tag_prefix: "KPACK-TAG-PREFIX"
-   package_registry_base_path: "PACKAGE-REGISTRY-BASE"
-   ```
+    ```yaml
+    ---
+    api_ingress:
+      fqdn: "API-FQDN"
+      tls:
+        crt: |
+          API-TLS-CRT
+        key: |
+          API-TLS-KEY
+    app_ingress:
+      default_domain: "DEFAULT-APP-DOMAIN"
+      tls:
+        crt: |
+          APP-TLS-CRT
+        key: |
+          APP-TLS-KEY
+    kpack_image_tag_prefix: "KPACK-TAG-PREFIX"
+    package_registry_base_path: "PACKAGE-REGISTRY-BASE"
+    ```
 
-   where:
+    where:
 
-   - `API-FQDN` is the FQDN that you want to use for the TAS adapter API.
-   - `API-TLS-CRT` is the PEM-encoded public certificate for the TAS adapter API.
-   - `API-TLS-KEY` is the PEM-encoded private key for the TAS adapter API.
-   - `DEFAULT-APP-DOMAIN` is the domain that you want to use
-   - `APP-TLS-CRT` is the PEM-encoded public certificate for applications deployed using the TAS adapter.
-   - `APP-TLS-KEY` is the PEM-encoded private key for applications deployed using the TAS adapter.
-   - `KPACK-TAG-PREFIX` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded.
-   - `PACKAGE-REGISTRY-BASE` is the container registry "folder"/"project" where application source code (Packages) will be uploaded.
+    - `API-FQDN` is the FQDN that you want to use for the TAS adapter API.
+    - `API-TLS-CRT` is the PEM-encoded public certificate for the TAS adapter API.
+    - `API-TLS-KEY` is the PEM-encoded private key for the TAS adapter API.
+    - `DEFAULT-APP-DOMAIN` is the domain that you want to use
+    - `APP-TLS-CRT` is the PEM-encoded public certificate for applications deployed using the TAS adapter.
+    - `APP-TLS-KEY` is the PEM-encoded private key for applications deployed using the TAS adapter.
+    - `KPACK-TAG-PREFIX` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded.
+    - `PACKAGE-REGISTRY-BASE` is the container registry "folder"/"project" where application source code (Packages) will be uploaded.
 
-   Optional values - example below (consult the Tanzu CLI output for more information):
+    Optional values - example below (consult the Tanzu CLI output for more information):
 
-   ```yaml
-   ---
-   kpack_cluster_builder_name: "KPACK-CLUSTER-BUILDER-NAME"
-   scaling:
-     cf_k8s_api:
-       limits:
-         cpu: "API-CPU-LIMIT"
-         memory: "API-MEMORY-LIMIT"
-       requests:
-         cpu: "API-CPU-REQUEST"
-         memory: "API-MEMORY-REQUEST"
-       replicas: API-REPLICA-COUNT
-     cf_k8s_controllers:
-       ... #! scaling keys are the same as above
-     eirini_controller:
-       ... #! scaling keys are the same as above
-     hnc_manager:
-       ... #! scaling keys are the same as above
-     kube_rbac_proxy:
-       ... #! scaling keys are the same as above, minus the "replicas" key
-   ```
+    ```yaml
+    ---
+    kpack_cluster_builder_name: "KPACK-CLUSTER-BUILDER-NAME"
+    scaling:
+      cf_k8s_api:
+        limits:
+          cpu: "API-CPU-LIMIT"
+          memory: "API-MEMORY-LIMIT"
+        requests:
+          cpu: "API-CPU-REQUEST"
+          memory: "API-MEMORY-REQUEST"
+        replicas: API-REPLICA-COUNT
+      cf_k8s_controllers:
+        ... #! scaling keys are the same as above
+      eirini_controller:
+        ... #! scaling keys are the same as above
+      hnc_manager:
+        ... #! scaling keys are the same as above
+      kube_rbac_proxy:
+        ... #! scaling keys are the same as above, minus the "replicas" key
+    ```
 
-   where:
+    where:
 
-   - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Out of the box, TBS provides two cluster builders named `base` and `default`. Follow the [TBS docs](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service-v13/GUID-managing-builders.html) if you want to create your own builder, and update this setting with the corresponding builder name.
-   - `API-CPU-LIMIT` is the desired CPU resource limit for the pods in the specified deployment.
-   - `API-MEMORY-LIMIT` is the desired memory resource limit for the pods in the specified deployment.
-   - `API-CPU-REQUEST` is the desired CPU resource request for the pods in the specified deployment.
-   - `API-MEMORY-REQUEST` is the desired memory resource request for the pods in the specified deployment.
-   - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment.
+    - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Out of the box, TBS provides two cluster builders named `base` and `default`. Follow the [TBS docs](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service-v13/GUID-managing-builders.html) if you want to create your own builder, and update this setting with the corresponding builder name.
+    - `API-CPU-LIMIT` is the desired CPU resource limit for the pods in the specified deployment.
+    - `API-MEMORY-LIMIT` is the desired memory resource limit for the pods in the specified deployment.
+    - `API-CPU-REQUEST` is the desired CPU resource request for the pods in the specified deployment.
+    - `API-MEMORY-REQUEST` is the desired memory resource request for the pods in the specified deployment.
+    - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment.
 
-   The `requests` and `limits` fields map directly to the [resource requests and
-   limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container)
-   fields on the Kubernetes containers for these system components.
+    The `requests` and `limits` fields map directly to the [resource requests and
+    limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container)
+    fields on the Kubernetes containers for these system components.
 
 ## <a id="install-adapter"></a>Installing the Application Service Adapter
 

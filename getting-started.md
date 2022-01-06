@@ -1,11 +1,11 @@
 # Getting started with Application Service Adapter
 
-This topic provides an overview of how to get started using the Application Service Adapter for Tanzu Application Platform (TAP):
+This topic provides an overview of how to get started using the Application Service Adapter for Tanzu Application Platform:
 
 * [Log in with the cf CLI](#log-in)
-* [Creating Orgs and Spaces](#create-orgs-spaces)
-* [Deploying a Sample App](#deploy-sample-app)
-* [Routing to an App](#routing-sample-app)
+* [Creating orgs and spaces](#create-orgs-spaces)
+* [Deploying a sample app](#deploy-sample-app)
+* [Routing to an app](#routing-sample-app)
 
 ## <a id="login"></a>Log in with the cf CLI
 
@@ -19,7 +19,7 @@ To log in to the Application Service Adapter with the cf CLI:
     cf api API-FQDN --skip-ssl-validation
     ```
 
-    > **Note**: If you configured the Application Service Adapter with a globally trusted certificate during installation, you do not need to use the `--skip-ssl-validation` flag.
+    > **Note:**  If you configured the Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
 
 1. Log in with the cf CLI:
 
@@ -27,15 +27,17 @@ To log in to the Application Service Adapter with the cf CLI:
     cf login
     ```
 
-    The cf CLI takes you through an interactive flow to set your username, and detects the user accounts in your local Kubeconfig file. Select one that is a cluster-admin for the Kubernetes cluster to which the Application Service Adapter is installed.
+    The cf CLI takes you through an interactive flow to set your user name, and detects the user accounts in your local Kubeconfig file. Select one that is a cluster-admin for the Kubernetes cluster to which the Application Service Adapter is installed.
 
-    > **Note**: The Application Service Adapter API does not verify authentication credentials in this release, so any user can execute commands against the API.
+    > **Note:** The Application Service Adapter API does not verify authentication credentials in this release, so any user can execute commands against the API.
 
 ## <a id="create-orgs-spaces"></a>Create orgs and spaces
 
 You can use `cf create-org` and `cf create-space` the same way that you do with Tanzu Application Service for VMs. Under the hood, these commands create a Kubernetes namespace for each org and each space, connected into a hierarchy using the Hierarchical Namespaces Controller (HNC). For more information, see the [hierarchical-namespaces](https://github.com/kubernetes-sigs/hierarchical-namespaces) repository on GitHub.
 
-1. Create the CF org and space:
+To create orgs and spaces:
+
+1. Create the Cloud Foundry org and space:
 
     ```bash
     cf create-org ORG-NAME
@@ -43,14 +45,18 @@ You can use `cf create-org` and `cf create-space` the same way that you do with 
     cf create-space SPACE-NAME
     cf target -s SPACE-NAME
     ```
+    Where:
+    - `ORG-NAME` is the name of the org you want to create.
+    - `SPACE-NAME` is the name of the space you want to create.
 
 ## <a id="deploy-sample-app"></a>Deploy a sample app
 
-The `cf push` command remains the same. After you've targeted the org and the space you created, you can push the app to the Kubernetes cluster:
+The `cf push` command remains the same. After you target the org and the space you created, you can push the app to the Kubernetes cluster:
 
 ```bash
 cf push APP-NAME
 ```
+Where `APP-NAME` is the name of your app.
 
 > **Note:** For HTTP ingress routing to work, set the `PORT` environment variable to `8080` in the app manifest. For more information, see the [Release Notes](release-notes.md).
 
@@ -68,7 +74,7 @@ To configure routing for the app that you pushed:
      name: apps.example.com
    ```
 
-   The GUID in the `.metadata.name` property can be any v4 UUID that you choose or generate. The app Service Adapter API reports this name as the GUID of this domain.
+   The GUID in the `.metadata.name` property can be any v4 UUID that you choose or generate. The Application Service Adapter API reports this name as the GUID of this domain.
 
 2. Use the cf CLI to map a route to your app:
 

@@ -155,6 +155,10 @@ To install Application Service Adapter:
           APP-TLS-KEY
     kpack_image_tag_prefix: "KPACK-TAG-PREFIX"
     package_registry_base_path: "PACKAGE-REGISTRY-BASE"
+    app_registry_credentials:
+        username: "APP-REGISTRY-USERNAME"
+        password: "APP-REGISTRY-PASSWORD"
+        hostname: "APP-REGISTRY-HOSTNAME"
     ```
 
     where:
@@ -167,7 +171,10 @@ To install Application Service Adapter:
     - `APP-TLS-KEY` is the PEM-encoded private key for applications deployed using the TAS adapter.
     - `KPACK-TAG-PREFIX` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded.
     - `PACKAGE-REGISTRY-BASE` is the container registry "folder"/"project" where application source code (Packages) will be uploaded.
-
+    - `APP-REGISTRY-USERNAME` is the username used to access the container registry, or reserved keyword indicating service account json Ex. "_json_key"
+    - `APP-REGISTRY-PASSWORD` is the password used to access the container registry, or service account json Ex. "{\"type\": \"service_account\", \"project_id\": \"my-gcr-project-id\"...}\" (Contents of GCP service account json)"
+    - `APP-REGISTRY-HOSTNAME` is the hostname of the container registry to be used for app packages and droplets. Ex. "gcr.io"
+   
     Optional values - example below (consult the Tanzu CLI output for more information):
 
     ```yaml
@@ -235,27 +242,6 @@ To install Application Service Adapter:
     CONDITIONS:              [{ReconcileSucceeded True  }]
     USEFUL-ERROR-MESSAGE:
     ```
-## <a id="configure-tbs"></a>Configuring Tanzu Build Service to work with the Application Service Adapter
-
-In order to stage applications, we need to create the following secret and service account in the `cf` namespace created by the Application Service Adapter install package, along with kpack resources that provide the Paketo cloud-native buildpacks and Ubuntu Bionic stack.
-
-1. Create the image registry secret for TBS:
-
-    > **Note**: This secret is used to push and pull images from the registry specified earlier in the `tas-adapter-values.yaml` file.
-
-    ```yaml
-    kubectl create secret docker-registry image-registry-credentials \
-      -n cf \
-      --docker-server=DOCKER-SERVER \
-      --docker-username=DOCKER-USERNAME \
-      --docker-password=DOCKER-PASSWORD
-    ```
-
-    where:
-
-    - `DOCKER-SERVER` is the hostname of the container registry to be used for app packages and droplets.
-    - `DOCKER-USERNAME` is the username of the account to be used to access the registry.
-    - `DOCKER-PASSWORD` is the password of the account to be used to access the registry.
 
 ## <a id="configure-dns"></a>Configuring DNS for the Application Service Adapter
 1. Determine the external IP address to be used for ingress to your cluster. This step varies depending on the IaaS used to provision your cluster.

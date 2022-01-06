@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if compgen -G '*.zip' >/dev/null ; then
+  echo "Removing existing zip files:"
+  rm -v *.zip
+else
+  echo "No existing zip files found to remove."
+fi
+echo
+
+
+exclude_file_list="prepare-zip"
+
+echo "Creating docs bundle at 'tas-adapter.zip'"
+zip -r tas-adapter.zip * -x $exclude_file_list

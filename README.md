@@ -18,13 +18,11 @@ Staging and Publishing:
 - Each page requires an entry in [toc.md](docs/toc.md) for the table of contents.
 - Images should live in an `images` directory at the same level and linked with a relative link.
 
-### Create the ZIP File
-Starting from the repo root, this will create a new `docs.zip` with no root folder and show its contents.
+### Create the Zip File
 
+Before you generate the zip file for upload, make sure that your repository is up to date with the latest changes. We recommend running `git pull` right beforehand to ensure that any remote changes are pulled to your local repository.
 
-```sh
-git pull ; rm *.zip ; zip -r tasadapter *
-```
+In the root directory of this repository, run the `prepare-zip` script. This script will delete any existing zip files and create a new zip file named `tas-adapter.zip` containing the documentation files.
 
 
 ### Upload the ZIP File to Docworks

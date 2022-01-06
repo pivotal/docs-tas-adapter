@@ -1,21 +1,21 @@
 # Supported cf CLI Commands
 
-This topic describes the cf CLI commands and options that this version of the Application Service Adapter supports.
+This topic describes the Cloud Foundry command-line interface (cf CLI) commands and options that this version of the Application Service Adapter supports:
 
-* [CF Push](#cf-push)
-* [App Operations](#app-operations)
-* [Org and Space Operations](#org-space-operations)
-* [Route and Domain Operations](#route-domain-operations)
-* [Service Operations](#service-operations)
+* [cf push](#cf-push)
+* [App operations](#app-operations)
+* [Org and space operations](#org-space-operations)
+* [Route and domain operations](#route-domain-operations)
+* [Service operations](#service-operations)
 
-## <a id="cf-push"></a> CF Push
+## <a id="cf-push"></a> cf push
 
-The basic usage of `cf push APP-NAME` is supported.
+Application Service Adapter supports the basic use of `cf push APP-NAME`, where `APP-NAME` is the name of your app.
 
 | Flag | Supported? | Notes |
 |------|------------|-------|
 |`--app-start-timeout, -t`| N | |
-|`--buildpack, -b`| N | Autodetection of buildpacks is supported (flag omitted, or set to `null` or `default`).<br/>User-specified buildpacks are not supported. |
+|`--buildpack, -b`| N | Automatic buildpack detection is supported. Omit the flag or set to `null` or `default`.<br/>User-specified buildpacks are not supported. |
 |`--disk, -k`| N |  |
 |`--docker-image, -o`| N |  |
 |`--docker-username`| N |  |
@@ -23,7 +23,7 @@ The basic usage of `cf push APP-NAME` is supported.
 |`--endpoint`| N |  |
 |`--health-check-type, -u`| N |  |
 |`--instances, -i`| N |  |
-|`--manifest, -f`| Y | Support a subset of the manifest configuration specified in [Cloud Foundry documentation](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html). See [Supported Manifest Configuration](#supported-manifest-configuration) below. |
+|`--manifest, -f`| Y | Some manifest configurations described in [App Manifest Attribute Reference](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html) are supported. See the [Supported manifest configuration](#supported-manifest-configuration) section. |
 |`--memory, -m`| N |  |
 |`--no-manifest`| Y |  |
 |`--no-route`| N | |
@@ -38,11 +38,11 @@ The basic usage of `cf push APP-NAME` is supported.
 |`--var`| N |  |
 |`--vars-file`| N |  |
 
-### <a id="supported-manifest-configuration"></a> Supported Manifest Configuration
+### <a id="supported-manifest-configuration"></a> Supported manifest configuration
 
-The Application Service Adapter supports a subset of the [Cloud Foundry manifest schema](https://v3-apidocs.cloudfoundry.org/version/3.112.0/index.html#the-manifest-schema).
+The Application Service Adapter supports a subset of the Cloud Foundry manifest schema. For more information, see [The manifest schema](https://v3-apidocs.cloudfoundry.org/version/3.112.0/index.html#the-manifest-schema) in the Cloud Foundry API documentation.
 
-#### <a id="supported-app-level-configuration"></a> Supported App-level Configuration
+#### <a id="supported-app-level-configuration"></a> Supported app-level configuration
 
 | Attribute | Supported? | Notes |
 |------|------------|-------|
@@ -53,7 +53,7 @@ The Application Service Adapter supports a subset of the [Cloud Foundry manifest
 | `docker` | N | |
 | `env` | Y | |
 | `no-route` | N | |
-| `processes` | Y | See [Supported Process-level Configuration](#supported-process-level-configuration) for more details. |
+| `processes` | Y | See the [Supported process-level configuration](#supported-process-level-configuration) section. |
 | `health-check-http-endpoint` | N | |
 | `health-check-invocation-timeout` | N | |
 | `health-check-type` | N | |
@@ -63,13 +63,14 @@ The Application Service Adapter supports a subset of the [Cloud Foundry manifest
 | `no-route` | N | |
 | `path` | N | |
 | `random-route` | N | |
-| `routes` | Y | See [Supported Route-level Configuration](#supported-route-level-configuration) for more details. |
+| `routes` | Y | See the [Supported route-level configuration](#supported-route-level-configuration) section. |
 | `services` | N | |
 | `sidecars` | N | |
 | `stack` | N | |
 | `timeout` | N | |
 
-#### <a id="supported-process-level-configuration"></a> Supported Process-level Configuration
+#### <a id="supported-process-level-configuration"></a> Supported process-level configuration
+
 | Attribute | Supported? | Notes |
 |------|------------|-------|
 | `type` | Y | |
@@ -83,14 +84,16 @@ The Application Service Adapter supports a subset of the [Cloud Foundry manifest
 | `memory` | Y | |
 | `timeout` | Y | |
 
-#### <a id="supported-route-level-configuration"></a> Supported Route-level Configuration
+#### <a id="supported-route-level-configuration"></a> Supported route-level configuration
+
 | Attribute | Supported? | Notes |
 |------|------------|-------|
 | `route` | Y | |
 | `protocol` | N | Only `http1` routes are supported. |
 
 
-## <a id="app-operations"></a> App Operations
+## <a id="app-operations"></a> App operations
+
 | Command | Supported? | Notes |
 |---------|------------|-------|
 |`cf apps`| Y | The default usage of `cf apps` is supported.<br />Using `--labels` to filter apps is not supported. |
@@ -131,9 +134,12 @@ The Application Service Adapter supports a subset of the [Cloud Foundry manifest
 |`cf ssh` | N |     |
 
 
-## <a id="org-space-operations"></a> Org and Space Operations
+## <a id="org-space-operations"></a> Org and space operations
 
-### Orgs Operations
+This section describes the org and space operations that Application Service Adapter supports.
+
+### Org operations
+
 | Command | Supported? | Notes |
 |---------|------------|-------|
 |`cf orgs`| Y |   |
@@ -142,7 +148,7 @@ The Application Service Adapter supports a subset of the [Cloud Foundry manifest
 |`cf delete-org`| N |   |
 |`cf rename-org`| N |   |
 
-### Space Operations
+### Space operations
 
 | Command | Supported? | Notes |
 |---------|------------|-------|
@@ -157,9 +163,11 @@ The Application Service Adapter supports a subset of the [Cloud Foundry manifest
 |`cf space-ssh-allowed`| N |   |
 
 
-## <a id="route-domain-operations"></a> Route and Domain Operations
+## <a id="route-domain-operations"></a> Route and domain operations
 
-### Route Operations
+This section describes the route and domain operations that Application Service Adapter supports.
+
+### Route operations
 
 | Command | Supported? | Notes |
 |---------|------------|-------|
@@ -172,7 +180,7 @@ The Application Service Adapter supports a subset of the [Cloud Foundry manifest
 | `cf delete-route` | N |   |
 | `cf delete-orphaned-routes` | N |   |
 
-### Domain Operations
+### Domain operations
 
 | Command | Supported? | Notes |
 |---------|------------|-------|
@@ -184,6 +192,6 @@ The Application Service Adapter supports a subset of the [Cloud Foundry manifest
 | `cf router-groups` | N |  |
 
 
-## <a id="service-operations"></a> Service Operations
+## <a id="service-operations"></a> Service operations
 
 Service operations are not supported.

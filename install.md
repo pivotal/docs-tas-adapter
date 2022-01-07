@@ -32,7 +32,7 @@ To install Application Service Adapter:
       --namespace tas-adapter-install
     ```
 
-    Where `TANZU-NET-USER` and `TANZU-NET-PASSWORD` are your credentials for Tanzu Network.
+   Where `TANZU-NET-USER` and `TANZU-NET-PASSWORD` are your credentials for Tanzu Network.
 
 1. Add the Application Service Adapter package repository to the cluster.
 
@@ -48,7 +48,7 @@ To install Application Service Adapter:
       --namespace tas-adapter-install
     ```
 
-    The output should include the Application Service Adapter package:
+   The output should include the Application Service Adapter package:
 
     ```bash
     NAME                                          DISPLAY-NAME                 SHORT-DESCRIPTION                                                   LATEST-VERSION
@@ -63,7 +63,7 @@ To install Application Service Adapter:
     tanzu package available get application-service-adapter.tanzu.vmware.com/0.2.0 --values-schema --namespace tas-adapter-install
     ```
 
-    It should output a list of settings similar to:
+   It should output a list of settings similar to:
 
     ```
     | Retrieving package details for application-service-adapter.tanzu.vmware.com/0.2.0...
@@ -84,7 +84,7 @@ To install Application Service Adapter:
 
 1. Generate a self-signed TLS certificate for ingress to the Application Service Adapter API.
 
-    If you are using `openssl`, or `libressl v3.1.0` or later:
+   If you are using `openssl`, or `libressl v3.1.0` or later:
 
     ```bash
     openssl req -x509 -newkey rsa:4096 \
@@ -93,7 +93,7 @@ To install Application Service Adapter:
       -addext "subjectAltName = DNS:API-FQDN" \
       -days 365
     ```
-    where `API-FQDN` is the fully qualified domain name (FQDN) that you want to use to access the API.
+   where `API-FQDN` is the fully qualified domain name (FQDN) that you want to use to access the API.
 
 
     If you are using a version of `libressl` older than v3.1.0 (the default on macOS):
@@ -109,7 +109,7 @@ To install Application Service Adapter:
 
 1. Generate a self-signed TLS certificate for ingress to applications deployed with the Application Service Adapter.
 
-    If you are using `openssl`, or `libressl v3.1.0` or later:
+   If you are using `openssl`, or `libressl v3.1.0` or later:
 
     ```bash
     openssl req -x509 -newkey rsa:4096 \
@@ -118,9 +118,9 @@ To install Application Service Adapter:
       -addext "subjectAltName = DNS:*.APP-DOMAIN" \
       -days 365
     ```
-    where `APP-DOMAIN` is the base domain name that you want to use to access applications. Your application name will be automatically prefixed to this domain.
+   where `APP-DOMAIN` is the base domain name that you want to use to access applications. Your application name will be automatically prefixed to this domain.
 
-    > **Note**: The TLS certificate for application ingress needs to be a wildcard certificate.
+   > **Note**: The TLS certificate for application ingress needs to be a wildcard certificate.
 
 
     If you are using a version of `libressl` older than v3.1.0 (the default on macOS):
@@ -135,7 +135,7 @@ To install Application Service Adapter:
 
 1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
 
-    The following values are required:
+   The following values are required:
 
     ```yaml
     ---
@@ -155,20 +155,27 @@ To install Application Service Adapter:
           APP-TLS-KEY
     kpack_image_tag_prefix: "KPACK-TAG-PREFIX"
     package_registry_base_path: "PACKAGE-REGISTRY-BASE"
+    app_registry_credentials:
+        username: "APP-REGISTRY-USERNAME"
+        password: "APP-REGISTRY-PASSWORD"
+        hostname: "APP-REGISTRY-HOSTNAME"
     ```
 
-    where:
+   where:
 
-    - `API-FQDN` is the FQDN that you want to use for the TAS adapter API.
-    - `API-TLS-CRT` is the PEM-encoded public certificate for the TAS adapter API.
-    - `API-TLS-KEY` is the PEM-encoded private key for the TAS adapter API.
-    - `DEFAULT-APP-DOMAIN` is the domain that you want to use
-    - `APP-TLS-CRT` is the PEM-encoded public certificate for applications deployed using the TAS adapter.
-    - `APP-TLS-KEY` is the PEM-encoded private key for applications deployed using the TAS adapter.
-    - `KPACK-TAG-PREFIX` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded.
-    - `PACKAGE-REGISTRY-BASE` is the container registry "folder"/"project" where application source code (Packages) will be uploaded.
+   - `API-FQDN` is the FQDN that you want to use for the TAS adapter API.
+   - `API-TLS-CRT` is the PEM-encoded public certificate for the TAS adapter API.
+   - `API-TLS-KEY` is the PEM-encoded private key for the TAS adapter API.
+   - `DEFAULT-APP-DOMAIN` is the domain that you want to use
+   - `APP-TLS-CRT` is the PEM-encoded public certificate for applications deployed using the TAS adapter.
+   - `APP-TLS-KEY` is the PEM-encoded private key for applications deployed using the TAS adapter.
+   - `KPACK-TAG-PREFIX` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded.
+   - `PACKAGE-REGISTRY-BASE` is the container registry "folder"/"project" where application source code (Packages) will be uploaded.
+   - `APP-REGISTRY-USERNAME` is the username used to access the container registry, or reserved keyword indicating service account json Ex. "_json_key"
+   - `APP-REGISTRY-PASSWORD` is the password used to access the container registry, or service account json Ex. "{\"type\": \"service_account\", \"project_id\": \"my-gcr-project-id\"...}\" (Contents of GCP service account json)"
+   - `APP-REGISTRY-HOSTNAME` is the hostname of the container registry to be used for app packages and droplets. Ex. "gcr.io"
 
-    Optional values - example below (consult the Tanzu CLI output for more information):
+   Optional values - example below (consult the Tanzu CLI output for more information):
 
     ```yaml
     ---
@@ -192,18 +199,18 @@ To install Application Service Adapter:
         ... #! scaling keys are the same as above, minus the "replicas" key
     ```
 
-    where:
+   where:
 
-    - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Out of the box, TBS provides two cluster builders named `base` and `default`. Follow the [TBS docs](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service-v13/GUID-managing-builders.html) if you want to create your own builder, and update this setting with the corresponding builder name.
-    - `API-CPU-LIMIT` is the desired CPU resource limit for the pods in the specified deployment.
-    - `API-MEMORY-LIMIT` is the desired memory resource limit for the pods in the specified deployment.
-    - `API-CPU-REQUEST` is the desired CPU resource request for the pods in the specified deployment.
-    - `API-MEMORY-REQUEST` is the desired memory resource request for the pods in the specified deployment.
-    - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment.
+   - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Out of the box, TBS provides two cluster builders named `base` and `default`. Follow the [TBS docs](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service-v13/GUID-managing-builders.html) if you want to create your own builder, and update this setting with the corresponding builder name.
+   - `API-CPU-LIMIT` is the desired CPU resource limit for the pods in the specified deployment.
+   - `API-MEMORY-LIMIT` is the desired memory resource limit for the pods in the specified deployment.
+   - `API-CPU-REQUEST` is the desired CPU resource request for the pods in the specified deployment.
+   - `API-MEMORY-REQUEST` is the desired memory resource request for the pods in the specified deployment.
+   - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment.
 
-    The `requests` and `limits` fields map directly to the [resource requests and
-    limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container)
-    fields on the Kubernetes containers for these system components.
+   The `requests` and `limits` fields map directly to the [resource requests and
+   limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container)
+   fields on the Kubernetes containers for these system components.
 
 ## <a id="install-adapter"></a>Installing the Application Service Adapter
 
@@ -224,7 +231,7 @@ To install Application Service Adapter:
       --namespace tas-adapter-install
     ```
 
-    The output should look like the following:
+   The output should look like the following:
 
     ```bash
     | Retrieving installation details for tas-adapter...
@@ -235,38 +242,17 @@ To install Application Service Adapter:
     CONDITIONS:              [{ReconcileSucceeded True  }]
     USEFUL-ERROR-MESSAGE:
     ```
-## <a id="configure-tbs"></a>Configuring Tanzu Build Service to work with the Application Service Adapter
-
-In order to stage applications, we need to create the following secret and service account in the `cf` namespace created by the Application Service Adapter install package, along with kpack resources that provide the Paketo cloud-native buildpacks and Ubuntu Bionic stack.
-
-1. Create the image registry secret for TBS:
-
-    > **Note**: This secret is used to push and pull images from the registry specified earlier in the `tas-adapter-values.yaml` file.
-
-    ```yaml
-    kubectl create secret docker-registry image-registry-credentials \
-      -n cf \
-      --docker-server=DOCKER-SERVER \
-      --docker-username=DOCKER-USERNAME \
-      --docker-password=DOCKER-PASSWORD
-    ```
-
-    where:
-
-    - `DOCKER-SERVER` is the hostname of the container registry to be used for app packages and droplets.
-    - `DOCKER-USERNAME` is the username of the account to be used to access the registry.
-    - `DOCKER-PASSWORD` is the password of the account to be used to access the registry.
 
 ## <a id="configure-dns"></a>Configuring DNS for the Application Service Adapter
 1. Determine the external IP address to be used for ingress to your cluster. This step varies depending on the IaaS used to provision your cluster.
 
-    For clusters that support LoadBalancer services, you can obtain the external IP address of the LoadBalancer Service.
+   For clusters that support LoadBalancer services, you can obtain the external IP address of the LoadBalancer Service.
 
     ```bash
     kubectl get service envoy -n projectcontour -ojsonpath='{.status.loadBalancer.ingress[*].ip}'
     ```
 
-    > **Note**: If you are using a cluster deployed on AWS, your LoadBalancer will have a DNS name instead of an IP address.
+   > **Note**: If you are using a cluster deployed on AWS, your LoadBalancer will have a DNS name instead of an IP address.
 
 1. Create an A record in your DNS zone that resolves the configured API FQDN to the external IP address from step 1. This step varies depending on your DNS provider.
 
@@ -280,10 +266,10 @@ In order to stage applications, we need to create the following secret and servi
     kubectl get httpproxy cf-k8s-api-proxy -n cf-k8s-api-system
     ```
 
-    The output should look like the following:
+   The output should look like the following:
     ```bash
     NAME               FQDN       TLS SECRET                STATUS   STATUS DESCRIPTION
     cf-k8s-api-proxy   API-FQDN   cf-k8s-api-ingress-cert   valid    Valid HTTPProxy
     ```
 
-    Now you should be able to target the API endpoint by running `cf api API-FQDN` and start deploying applications. Go to [Getting Started](getting-started.md) to test the adapter.
+   Now you should be able to target the API endpoint by running `cf api API-FQDN` and start deploying applications. Go to [Getting Started](getting-started.md) to test the adapter.

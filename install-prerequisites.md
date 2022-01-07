@@ -4,13 +4,13 @@ This topic describes the first part of the installation process for the Applicat
 
 ----
 
-This beta version requires the latest release of the v8 version of the Cloud Foundry command-line interface (cf CLI).
+Usage of the Application Service Adapter requires v8.1.0 or later of the Cloud Foundry command-line interface (cf CLI).
 For more information, see the [cf CLI repository](https://github.com/cloudfoundry/cli) on GitHub.
 
 To install the Application Service Adapter, you need:
 
 * Admin access to a Kubernetes cluster. See [Kubernetes cluster requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/0.4/tap/GUID-install-general.html#kubernetes-cluster-requirements-2) in _Installing Part I: Prerequisites, EULA, and CLI_.
-   > **Note:** There is a known issue with Kubernetes v1.22 and Tanzu Build Service with kpack. Avoid Kubernetes v1.22.x until a fix is released. To deploy a Tanzu Community Edition workload cluster with a different Kubernetes version, see [Deploy Tanzu Kubernetes Clusters with Different Kubernetes Versions](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.3/vmware-tanzu-kubernetes-grid-13/GUID-tanzu-k8s-clusters-k8s-versions.html).
+   > **Note:** There is a known issue with Kubernetes v1.22 and Tanzu Build Service with kpack. Avoid Kubernetes v1.22.x until a fix is released. To deploy a Tanzu Kubernetes Grid workload cluster with a different Kubernetes version, see [Deploy Tanzu Kubernetes Clusters with Different Kubernetes Versions](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.3/vmware-tanzu-kubernetes-grid-13/GUID-tanzu-k8s-clusters-k8s-versions.html).
 
 * A container image registry. See [Tanzu Network and container image registry requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/0.4/tap/GUID-install-general.html#tanzu-network-and-container-image-registry-requirements-1) in _Installing Part I: Prerequisites, EULA, and CLI_.
 
@@ -25,7 +25,7 @@ The following tools must be installed in the workstation environment in which yo
     tanzu plugin install --local cli secret
     ```
 
-The following dependencies must be installed to the target Kubernetes cluster before installing the Application Service Adapter. If you have completed an installation of Tanzu Application Platform in your target Kubernetes cluster, then these dependencies are already present.
+The following dependencies must be installed to the target Kubernetes cluster before installing Application Service Adapter. If you have completed an installation of Tanzu Application Platform in your target Kubernetes cluster, then these dependencies are already present.
 
 * Cluster Essentials. See [Install Cluster Essentials for VMware Tanzu](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/0.4/tap/GUID-install-general.html#install-cluster-essentials-for-vmware-tanzu-5) in _Installing Part I: Prerequisites, EULA, and CLI_.
    > **Note:** If you are operating a Tanzu Kubernetes Grid or Tanzu Community Edition cluster, the Cluster Essentials are already installed.
@@ -40,8 +40,7 @@ The following dependencies must be installed to the target Kubernetes cluster be
 
 * Contour for ingress control.
    * If you are installing on a Tanzu Community Edition workload cluster, see [Contour Package](https://tanzucommunityedition.io/docs/latest/package-readme-contour-1.19.1/) in the Tanzu Community Edition documentation.
-   * If you have installed Tanzu Application Platform, this package is installed as part of either the `full` or `dev` profiles.
-   * To install open source Contour, see the [Contour documentation](https://projectcontour.io/getting-started/).
+   * If you have installed Tanzu Application Platform, this package is installed as part of either the `full` or `light` profiles.
    > **Note:** You must configure Contour's ingress to provision a LoadBalancer. See [Configure LoadBalancer for Contour ingress](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/0.4/tap/GUID-install.html#configure-loadbalancer-for-contour-ingress-5) in _Installing Part II: Profiles_.
 
 After you have installed these prerequisites, proceed to [Installing Application Service Adapter](install.md).

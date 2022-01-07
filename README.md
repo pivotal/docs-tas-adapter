@@ -4,15 +4,17 @@
 | Branch | Usage | Sites |
 |--------|-------|------|
 | main | Branch for the upcoming release. |   |
-| 0-1 | Branch for the v0.1 release. | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.1/tas-adapter-0-1/GUID-overview.html) &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.1/tas-adapter-0-1/GUID-overview.html) |
 | 0-2 | Branch for the v0.2 release. | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.2/tas-adapter-0-2/GUID-install-prerequisites.html) &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.2/tas-adapter-0-2/GUID-overview.html) |
+| 0-1 | Branch for the v0.1 release. | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.1/tas-adapter-0-1/GUID-overview.html) &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.1/tas-adapter-0-1/GUID-overview.html) |
 
 ## Publishing Docs
 
 Staging and Publishing:  
 
-- [docworks](https://docworks.vmware.com/) is the main tool for managing docs used by writers.
-- [docsdash](https://docsdash.vmware.com/) is a deployment UI which manages the promotion from staging to pre-prod to production. The process below describes how to upload our docs to staging, replacing the publication with the same version.
+- [DocWorks](https://docworks.vmware.com/) is the main tool for managing docs used by writers.
+- [Docs Dashboard](https://docsdash.vmware.com/) is a deployment UI which manages the promotion from staging to pre-prod to production.
+
+The process below describes how to upload our docs to staging, replacing the publication with the same version.
 
 ### Prepare Markdown Files
 - Markdown files live in this repo.
@@ -23,21 +25,19 @@ Staging and Publishing:
 
 Before you generate the zip file for upload, make sure that your repository is up to date with the latest changes. We recommend running `git pull` right beforehand to ensure that any remote changes are pulled to your local repository.
 
-In the root directory of this repository, run the `prepare-zip` script. This script will delete any existing zip files and create a new zip file named `tas-adapter.zip` containing the documentation files.
+From the root directory of this repository, run the `prepare-zip` script. This script will delete any existing zip files and create a new zip file named `tas-adapter.zip` containing the documentation files.
 
 
-### Upload the ZIP File to Docworks
-- Go to https://docworks.vmware.com/md2docs/publish
-- Fill in the fields exactly as below. Repeat this every time - the browser can help to remember form fields.
-- Click **Upload**, and when prompted, enter your VMware AD password (for docsdash).
+### Upload the Zip File to Docworks
+
+- Log into [DocWorks](https://docworks.vmware.com/) and navigate to the [Markdown HTML publishing page](https://docworks.vmware.com/md2docs/publish).
+- Fill in the fields exactly as in the [`VMwarePub.yaml` file](VMwarePub.yaml). Repeat this every time, and note that the browser can help to remember form fields.
+- Select the zip file to upload from your local system. This should be the `tas-adapter.zip` file generated above.
+- Click **Upload**, and when prompted, enter your VMware AD password.
 - If you see invalid path errors in the yellow box on the right, there are broken links but the site will still be published.
 - If the toc.md is invalid, then the site will not build but there is no indication that something is wrong.
 
-### Form Fields
-
-Form fields for main: [VMwarePub.yaml](https://github.com/pivotal/docs-tas-adapter/blob/main/VMwarePub.yaml)
-
-### In Docsdash
+### In Docs Dashboard
 
 1. Wait about 1 minute for processing to complete after uploading.
 2. Go to https://docsdash.vmware.com/deployment-stage

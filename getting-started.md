@@ -29,8 +29,6 @@ To log in to the Application Service Adapter with the cf CLI:
 
     The cf CLI takes you through an interactive flow to set your user name, and detects the user accounts in your local Kubeconfig file. Select one that is a cluster-admin for the Kubernetes cluster to which the Application Service Adapter is installed.
 
-    > **Note:** The Application Service Adapter API does not verify authentication credentials in this release, so any user can execute commands against the API.
-
 ## <a id="create-orgs-spaces"></a>Create orgs and spaces
 
 You can use `cf create-org` and `cf create-space` the same way that you do with Tanzu Application Service for VMs. Under the hood, these commands create a Kubernetes namespace for each org and each space, connected into a hierarchy using the Hierarchical Namespaces Controller (HNC). For more information, see the [hierarchical-namespaces](https://github.com/kubernetes-sigs/hierarchical-namespaces) repository on GitHub.
@@ -46,6 +44,7 @@ To create orgs and spaces:
     cf target -s SPACE-NAME
     ```
     Where:
+
     - `ORG-NAME` is the name of the org you want to create.
     - `SPACE-NAME` is the name of the space you want to create.
 
@@ -62,22 +61,9 @@ Where `APP-NAME` is the name of your app.
 
 ## <a id="routing-sample-app"></a>Route to an app
 
-To configure routing for the app that you pushed:
+Applications automatically receive a default HTTP route unless pushed with the `--no-route` flag. This default route uses the name of the app as the route hostname.
+To configure additional routes for the app that you pushed, use the cf CLI to map a route to your app:
 
-1. Apply the cluster-scoped `CFDomain` custom resource for the ingress domain you have configured. For example:
-   ```yaml
-   apiVersion: networking.cloudfoundry.org/v1alpha1
-   kind: CFDomain
-   metadata:
-     name: 5b5032ab-7fc8-4da5-b853-821fd1879201
-   spec:
-     name: apps.example.com
-   ```
-
-   The GUID in the `.metadata.name` property can be any v4 UUID that you choose or generate. The Application Service Adapter API reports this name as the GUID of this domain.
-
-2. Use the cf CLI to map a route to your app:
-
-   ```bash
-   cf map-route APP-NAME apps.example.com --hostname my-app --destination-protocol http
-   ```
+```bash
+cf map-route APP-NAME apps.example.com --hostname my-app
+```

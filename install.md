@@ -82,7 +82,7 @@ To install Application Service Adapter:
 
 ## <a id="configure-installation-settings"></a>Configuring the installation settings
 
-1. Generate a self-signed TLS certificate for ingress to the Application Service Adapter API.
+1. If you do not already have a certificate and private key pair for HTTPS ingress to the Application Service Adapter API, generate a self-signed certificate.
 
     If you are using `openssl`, or `libressl v3.1.0` or later:
 
@@ -93,7 +93,7 @@ To install Application Service Adapter:
       -addext "subjectAltName = DNS:API-FQDN" \
       -days 365
     ```
-    where `API-FQDN` is the fully qualified domain name (FQDN) that you want to use to access the API.
+    where `API-FQDN` is the fully qualified domain name (FQDN) to use to access the API.
 
 
     If you are using a version of `libressl` older than v3.1.0 (the default on macOS):
@@ -107,7 +107,7 @@ To install Application Service Adapter:
     ```
 
 
-1. Generate a self-signed TLS certificate for ingress to applications deployed with the Application Service Adapter.
+1. If you do not already have a wildcard certificate and private key pair for HTTPS application ingress, generate a self-signed certificate.
 
     If you are using `openssl`, or `libressl v3.1.0` or later:
 
@@ -118,7 +118,7 @@ To install Application Service Adapter:
       -addext "subjectAltName = DNS:*.APP-DOMAIN" \
       -days 365
     ```
-    where `APP-DOMAIN` is the base domain name that you want to use to access applications. Your application name will be automatically prefixed to this domain.
+    where `APP-DOMAIN` is the FQDN of the shared domain to use for application routes. By default, each application is mapped to a route on a subdomain of this shared domain.
 
     > **Note**: The TLS certificate for application ingress needs to be a wildcard certificate.
 
@@ -159,10 +159,10 @@ To install Application Service Adapter:
 
     where:
 
-    - `API-FQDN` is the FQDN that you want to use for the Application Service Adapter API.
+    - `API-FQDN` is the FQDN to use for the Application Service Adapter API.
     - `API-TLS-CRT` is the PEM-encoded public certificate for the Application Service Adapter API.
     - `API-TLS-KEY` is the PEM-encoded private key for the Application Service Adapter API.
-    - `DEFAULT-APP-DOMAIN` is the shared domain that you want to use for automatically configured application routes.
+    - `DEFAULT-APP-DOMAIN` is the shared domain to use for automatically configured application routes.
     - `APP-TLS-CRT` is the PEM-encoded public certificate for application routes.
     - `APP-TLS-KEY` is the PEM-encoded private key for applications routes.
     - `KPACK-TAG-PREFIX` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded.

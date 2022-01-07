@@ -72,7 +72,7 @@ To install Application Service Adapter:
       api_ingress.tls.crt                  string   TLS certificate for the CF API (PEM format)
       api_ingress.tls.key                  string   TLS private key for the CF API (PEM format)
       app_ingress.default_domain           string   Default application domain
-      app_ingress.tls.crt                  string   TLS certificate for the default application  domain (PEM format)
+      app_ingress.tls.crt                  string   TLS certificate for the default application domain (PEM format)
       app_ingress.tls.key                  string   TLS private key for the default application domain (PEM format)
       kpack_cluster_builder_name  default  string   Name of the kpack cluster builder to use for staging
       kpack_image_tag_prefix               string   Container registry repository where staged, runnable app images (Droplets) will be stored
@@ -159,16 +159,16 @@ To install Application Service Adapter:
 
     where:
 
-    - `API-FQDN` is the FQDN that you want to use for the TAS adapter API.
-    - `API-TLS-CRT` is the PEM-encoded public certificate for the TAS adapter API.
-    - `API-TLS-KEY` is the PEM-encoded private key for the TAS adapter API.
-    - `DEFAULT-APP-DOMAIN` is the domain that you want to use
-    - `APP-TLS-CRT` is the PEM-encoded public certificate for applications deployed using the TAS adapter.
-    - `APP-TLS-KEY` is the PEM-encoded private key for applications deployed using the TAS adapter.
+    - `API-FQDN` is the FQDN that you want to use for the Application Service Adapter API.
+    - `API-TLS-CRT` is the PEM-encoded public certificate for the Application Service Adapter API.
+    - `API-TLS-KEY` is the PEM-encoded private key for the Application Service Adapter API.
+    - `DEFAULT-APP-DOMAIN` is the shared domain that you want to use for automatically configured application routes.
+    - `APP-TLS-CRT` is the PEM-encoded public certificate for application routes.
+    - `APP-TLS-KEY` is the PEM-encoded private key for applications routes.
     - `KPACK-TAG-PREFIX` is the container registry "folder"/"project" where runnable application images (Droplets) will be uploaded.
     - `PACKAGE-REGISTRY-BASE` is the container registry "folder"/"project" where application source code (Packages) will be uploaded.
 
-    Optional values - example below (consult the Tanzu CLI output for more information):
+    The following values are optional:
 
     ```yaml
     ---
@@ -237,7 +237,7 @@ To install Application Service Adapter:
     ```
 ## <a id="configure-tbs"></a>Configuring Tanzu Build Service to work with the Application Service Adapter
 
-In order to stage applications, we need to create the following secret and service account in the `cf` namespace created by the Application Service Adapter install package, along with kpack resources that provide the Paketo cloud-native buildpacks and Ubuntu Bionic stack.
+In order to stage applications, we need to create the following secret in the `cf` namespace created by the Application Service Adapter install package.
 
 1. Create the image registry secret for TBS:
 
@@ -251,7 +251,7 @@ In order to stage applications, we need to create the following secret and servi
       --docker-password=DOCKER-PASSWORD
     ```
 
-    where:
+    Where:
 
     - `DOCKER-SERVER` is the hostname of the container registry to be used for app packages and droplets.
     - `DOCKER-USERNAME` is the username of the account to be used to access the registry.

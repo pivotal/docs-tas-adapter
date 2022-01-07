@@ -4,7 +4,7 @@ This topic contains release notes for the Application Service Adapter for VMware
 
 ## <a id='0-2-0'></a> v0.2.0 Beta Release
 
-**Release Date**: MMM DD, 2022
+**Release Date**: January 7, 2022
 
 This release is intended for testing and evaluation only. It should not be used to run production workloads.
 
@@ -12,6 +12,7 @@ This release is intended for testing and evaluation only. It should not be used 
 
 * The Application Service Adapter API checks that requests to protected endpoints have authentication from a user in the underlying Kubernetes cluster.
 * App traffic runs over HTTPS instead of HTTP, with the terminating TLS certificate and private key specified at installation time.
+* Applications receive a HTTP route on `cf push` unless opting out with the `--no-route` flag.
 * Application developers can delete Cloud Foundry applications.
 * Platform operators must specify a domain to use as the default shared domain for application routes.
 * Platform operators can specify the name of the kpack ClusterBuilder to use to build application images, defaulting to `default`.
@@ -33,13 +34,14 @@ This release contains the following components:
 
 * The Application Service Adapter supports only a subset of Cloud Foundry command-line interface (cf CLI) commands and options. See [Supported cf CLI Commands](supported-cf-cli-commands.md) for details.
 * Application workloads require their `PORT` environment variable to be set to `8080` in order for ingress to work.
+* An application containing a capital letter in its name will not receive HTTP traffic on its default route because the fully qualified domain name for that route is invalid.
 * The `cf app` and `cf apps` commands fail when an app in the targeted space has a process type with zero desired instances. As a workaround, scale each such process up to at least one desired instance.
 * Apps that require more than 500M of memory to start, such as many Java apps, must be scaled up to a suitable memory limit with a separate `cf scale` command after `cf push`.
 
 
 ## <a id='0-1-0'></a> v0.1.0 Beta Release
 
-**Release Date**: Dec 2, 2021
+**Release Date**: December 2, 2021
 
 This release is intended for testing and evaluation only. It should not be used to run production workloads.
 

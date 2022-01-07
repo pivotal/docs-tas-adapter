@@ -7,16 +7,16 @@
 
 ## Overview
 
-The Application Service Adapter aims to provide compatibility with [Cloud Foundry](https://www.cloudfoundry.org/) (CF) client interfaces to existing users of the [Tanzu Application Service](https://tanzu.vmware.com/application-service) (TAS), while running on top of Kubernetes and integrating with the components of the [VMware Tanzu Application Platform](https://tanzu.vmware.com/application-platform) (TAP). Development teams using TAS tooling such as the CF CLI and other clients of the CF APIs can then maintain their familiar workflows while their platform teams transition their infrastructure and deployments to Kubernetes.
+Application Service Adapter aims to provide compatibility with [Cloud Foundry](https://www.cloudfoundry.org/) client interfaces to existing users of [Tanzu Application Service for VMs](https://tanzu.vmware.com/application-service) (TAS for VMs) while running on top of Kubernetes and integrating with the components of [Tanzu Application Platform](https://tanzu.vmware.com/application-platform). Development teams using TAS for VMs tooling, such as the Cloud Foundry command-line interface (cf CLI) and other clients of the Cloud Foundry APIs, can then maintain their familiar workflows while their platform teams transition their infrastructure and deployments to Kubernetes.
 
 The following diagram shows a high level architecture of Application Service Adapter with user flows:
 
 ![Application Service Adapter architecture diagram with user flows](images/architecture.png)
 
-The Application Service Adapter is distributed as a [Carvel package](https://carvel.dev/) for platform teams to configure and install to a Kubernetes cluster with the Tanzu CLI tool. Application developers log into their Application Service Adapter installation with credentials for the underlying Kubernetes cluster, but then use the CF CLI and the CF API to push apps and to map routes to them.
+Application Service Adapter is distributed as a [Carvel package](https://carvel.dev/) for platform teams to configure and install to a Kubernetes cluster with the Tanzu CLI tool. Application developers log into their Application Service Adapter installation with credentials for the underlying Kubernetes cluster, but then use the cf CLI and the Cloud Foundry API to push apps and to map routes to them.
 
-Platform teams create CF Orgs and Spaces in the installation, which the Application Service Adapter backs with separate Kubernetes namespaces. Application developers then use these orgs and spaces to organize their apps as they do today with TAS.
+Platform teams create Cloud Foundry orgs and spaces in the installation, which the Application Service Adapter backs with separate Kubernetes namespaces. Application developers then use these orgs and spaces to organize their apps as they do today with TAS for VMs.
 
-The Application Service Adapter integrates with an existing installation of [Tanzu Build Service](https://tanzu.vmware.com/build-service) (TBS) component of TAP to build container images for app code deployed to the platform. It also integrates with [Contour](https://projectcontour.io/) to realize ingress routes to running apps.
+Application Service Adapter integrates with an existing installation of [Tanzu Build Service](https://tanzu.vmware.com/build-service) component of Tanzu Application Platform to build container images for app code deployed to the platform. It also integrates with [Contour](https://projectcontour.io/) to realize ingress routes to running apps.
 
-To install the Application Service Adapter and its dependencies, proceed to [Installing Prerequisites](install-prerequisites.md).
+To install Application Service Adapter and its dependencies, proceed to [Installing Prerequisites](install-prerequisites.md).

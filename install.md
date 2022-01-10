@@ -2,11 +2,11 @@
 
 This topic describes how to install the Application Service Adapter for VMware Tanzu Application Platform system:
 
-* [Installing the package repository](#install-package-repo)
-* [Configuring the installation settings](#configure-installation-settings)
-* [Installing the Application Service Adapter](#install-adapter)
-* [Configuring Tanzu Build Service to work with the Application Service Adapter](#configure-tbs)
-* [Configuring DNS for the adapter](#configure-dns)
+* [Install the package repository](#install-package-repo)
+* [Configure the installation settings](#configure-installation-settings)
+* [Install the Application Service Adapter](#install-adapter)
+* [Configure Tanzu Build Service to work with the Application Service Adapter](#configure-tbs)
+* [Configure DNS for the adapter](#configure-dns)
 
 ----
 
@@ -81,6 +81,8 @@ To install Application Service Adapter:
     ```
 
 ## <a id="configure-installation-settings"></a>Configure the installation settings
+
+To configure the installation settings:
 
 1. If you do not already have a certificate and private keypair for HTTPS ingress to the Application Service Adapter API, generate a self-signed certificate.
 
@@ -178,7 +180,7 @@ To install Application Service Adapter:
    - `APP-REGISTRY-PASSWORD` is the password used to access the registry, or service account JSON. For example, `{\"type\": \"service_account\", \"project_id\": \"my-gcr-project-id\"...}\` for the GCP service account.
    - `APP-REGISTRY-HOSTNAME` is the hostname of the registry to be used for app packages and droplets. For example, `gcr.io`.
 
-   See optional values in the following example. For more information, see the Tanzu CLI outpu.
+   See optional values in the following example. For more information, see the Tanzu CLI output.
 
     ```yaml
     ---
@@ -202,7 +204,7 @@ To install Application Service Adapter:
         ... #! scaling keys are the same as above, minus the "replicas" key
     ```
 
-   where:
+   Where:
 
    - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service-v13/GUID-managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
    - `API-CPU-LIMIT` is the desired CPU resource limit for the pods in the specified deployment.
@@ -215,6 +217,8 @@ To install Application Service Adapter:
    For more information, see [Resource requests and limits of Pod and container](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container) in the Kubernetes documentation.
 
 ## <a id="install-adapter"></a>Install the Application Service Adapter
+
+To install the Application Service Adapter:
 
 1. Install the Application Service Adapter to the cluster.
 

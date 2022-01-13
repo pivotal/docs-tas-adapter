@@ -107,7 +107,7 @@ The Application Service Adapter supports a subset of the Cloud Foundry manifest 
 |`cf stop` | Y |     |
 |`cf restart` | Y |     |
 |`cf stage-package` | Y |     |
-|`cf restage` | N |     |
+|`cf restage` | Y | Using `--strategy` flag is not supported.    |
 |`cf restart-app-instance` | N |     |
 |`cf run-task` | N |     |
 |`cf tasks` | N |     |

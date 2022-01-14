@@ -10,13 +10,12 @@ For more information, see the [cf CLI repository](https://github.com/cloudfoundr
 To install the Application Service Adapter, you need:
 
 * Admin access to a Kubernetes cluster. See [Kubernetes cluster requirements](https://docs.vmware.com/en/Tanzu-Application-Platform/1.0/tap/GUID-install-general.html#kubernetes-cluster-requirements-2) in _Installing Part I: Prerequisites, EULA, and CLI_.
-   > **Note:** There is a known issue with Kubernetes v1.22 and Tanzu Build Service with kpack. Avoid Kubernetes v1.22.x until a fix is released. To deploy a Tanzu Kubernetes Grid workload cluster with a different Kubernetes version, see [Deploy Tanzu Kubernetes Clusters with Different Kubernetes Versions](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.3/vmware-tanzu-kubernetes-grid-13/GUID-tanzu-k8s-clusters-k8s-versions.html).
 
 * A container image registry. See [Tanzu Network and container image registry requirements](https://docs.vmware.com/en/Tanzu-Application-Platform/1.0/tap/GUID-install-general.html#tanzu-network-and-container-image-registry-requirements-1) in _Installing Part I: Prerequisites, EULA, and CLI_.
 
 The following tools must be installed in the workstation environment in which you intend to perform the installation:
 
-* The Kubernetes CLI (kubectl) v1.19, v1.20, or v1.21.
+* The Kubernetes CLI (kubectl) v1.20, v1.21, or v1.22.
 
 * Tanzu CLI and its plug-ins. See [Install or update the Tanzu CLI and plugins](https://docs.vmware.com/en/Tanzu-Application-Platform/1.0/tap/GUID-install-general.html#cli-and-plugin) in _Installing Part I: Prerequisites, EULA, and CLI_.
    > **Note:** After you install the Tanzu CLI, run `tanzu plugin list` to see which plug-ins are installed. For the adapter to run, you need `package` and `secret` plug-ins. To install these plug-ins, run:

@@ -65,4 +65,3 @@ This release has the following issues:
 
 * API authentication is not supported yet.
 * Application workloads require `PORT: 8080` as an environment variable in order for ingress to work.
-* Kubernetes 1.22 doesn't work with Tanzu Build Service/kpack. For now, avoid v1.22.* until a fix is released.

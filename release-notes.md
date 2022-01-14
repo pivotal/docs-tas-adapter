@@ -2,6 +2,30 @@
 
 This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform.
 
+## <a id='0-3-0'></a> v0.3.0 Beta Release
+
+**Release Date**: MMM DD, 2022
+
+This release is intended for testing and evaluation only. It should not be used to run production workloads.
+
+### Features
+
+
+### Components
+
+This release contains the following components:
+
+* CF K8s API @ [2033067](https://github.com/cloudfoundry/cf-k8s-controllers/commit/203306701a4825584a514138bcd8cf73c877d7e4)
+* CF K8s Controller @ [2033067](https://github.com/cloudfoundry/cf-k8s-controllers/commit/203306701a4825584a514138bcd8cf73c877d7e4)
+* Eirini Controller @ [31dd250](https://github.com/cloudfoundry-incubator/eirini-controller/commit/31dd250190f7fef2e9ee01c7793e68d31c2f08c5)
+* Hierarchical Namespaces Controller @ [v0.9.0](https://github.com/kubernetes-sigs/hierarchical-namespaces/releases/tag/v0.9.0)
+* kube-rbac-proxy @ [v0.11.0](https://github.com/brancz/kube-rbac-proxy/releases/tag/v0.11.0)
+
+
+### Known Issues
+
+
+
 ## <a id='0-2-0'></a> v0.2.0 Beta Release
 
 **Release Date**: January 7, 2022

@@ -119,7 +119,7 @@ The Application Service Adapter supports a subset of the Cloud Foundry manifest 
 |`cf download-droplet` | N |     |
 |`cf events` | N |     |
 |`cf logs` | N |     |
-|`cf env` | Y | Fetching `system-provided`, `running` & `staging` env variables are not supported.   |
+|`cf env` | Y | Fetching `system-provided`, `running`, and `staging` environment variables are not supported.   |
 |`cf set-env` | Y |     |
 |`cf unset-env` | Y |     |
 |`cf stacks` | N |     |

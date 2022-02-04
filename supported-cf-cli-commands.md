@@ -145,7 +145,7 @@ This section describes the org and space operations that Application Service Ada
 |`cf orgs`| Y |   |
 |`cf org`| Y | Using the `--guid` flag to retrieve the GUID of the org is supported.<br/>Using the command without the `--guid` flag is not supported.  |
 |`cf create-org`| Y |   |
-|`cf delete-org`| N |   |
+|`cf delete-org`| Y |   |
 |`cf rename-org`| N |   |
 
 ### Space operations
@@ -155,7 +155,7 @@ This section describes the org and space operations that Application Service Ada
 |`cf spaces`| Y |   |
 |`cf space`| Y | Using the `--guid` flag to retrieve the GUID of the space is supported.<br/>Using the command without the `--guid` flag is not supported. |
 |`cf create-space`| Y |   |
-|`cf delete-space`| N |   |
+|`cf delete-space`| Y |   |
 |`cf rename-space`| N |   |
 |`cf apply-manifest`| Y |   |
 |`cf allow-space-ssh`| N |   |
@@ -177,7 +177,7 @@ This section describes the route and domain operations that Application Service 
 | `cf check-route` | N |   |
 | `cf map-route` | Y |   |
 | `cf unmap-route` | N |   |
-| `cf delete-route` | N |   |
+| `cf delete-route` | Y |   |
 | `cf delete-orphaned-routes` | N |   |
 
 ### Domain operations

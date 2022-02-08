@@ -5,8 +5,7 @@ This topic describes how to install the Application Service Adapter for VMware T
 * [Install the package repository](#install-package-repo)
 * [Configure the installation settings](#configure-installation-settings)
 * [Install the Application Service Adapter](#install-adapter)
-* [Configure Tanzu Build Service to work with the Application Service Adapter](#configure-tbs)
-* [Configure DNS for the adapter](#configure-dns)
+* [Configure DNS for the Application Service Adapter](#configure-dns)
 
 ----
 

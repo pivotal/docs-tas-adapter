@@ -6,11 +6,11 @@ publication:
     PublicationName: Application Service Adapter for VMware Tanzu Application Platform v0.3
     ProductName: Application Service Adapter for VMware Tanzu Application Platform
     ProductVersion: 0.3
-    PublicationGuid: tas-adapter-0-3
-    OutputFileName: tas-adapter-0-3
+    PublicationGuid: tas-adapter
+    OutputFileName: tas-adapter
     PublicationAuthor: mgutermuth@vmware.com
     Language: en
-    PDFLink: tas-adapter-0-3
+    PDFLink: tas-adapter
 
     # additional fields
     BatchProcessingInstruction:

@@ -17,11 +17,11 @@ This release is intended for testing and evaluation only. It should not be used 
 * Application developers can use `cf set-env` to set an environment variable on an application.
 * Application developers can use `cf unset-env` to remove an environment variable on an application.
 * Applications now have a default memory limit of 1024M.
-* Platform operators must specify image registry credentials in the installation package values instead of in a Kubernetes Secret after the installation.
-* Platform operators can use `cf delete-space` to delete a CF space.
-* Platform operators can use `cf delete-org` to delete a CF org.
-* Fixed: The Application Service Adapter sets the `PORT` environment variable on an application to `8080` by default.
-* Fixed: The `cf app` and `cf apps` commands no longer fail when an app in the targeted space has a process type with zero desired instances.
+* Platform operators must specify container image registry credentials in the installation package values instead of in a Kubernetes Secret after the installation.
+* Platform operators can use `cf delete-space` to delete a Cloud Foundry space.
+* Platform operators can use `cf delete-org` to delete a Cloud Foundry org.
+* **Fixed:** The Application Service Adapter sets the `PORT` environment variable on an application to `8080` by default.
+* **Fixed:** The `cf app` and `cf apps` commands no longer fail when an app in the targeted space has a process type with zero desired instances.
 
 ### Components
 
@@ -37,7 +37,7 @@ This release contains the following components:
 ### Known Issues
 
 * The Application Service Adapter supports only a subset of Cloud Foundry command-line interface (cf CLI) commands and options. See [Supported cf CLI Commands](supported-cf-cli-commands.md) for details.
-* An application containing a capital letter in its name will not receive HTTP traffic on its default route because the fully qualified domain name for that route is invalid.
+* An application containing a capital letter in its name does not receive HTTP traffic on its default route because the fully qualified domain name for that route is invalid.
 * Apps that require more than 1024M of memory to start, such as many Java apps, must be scaled up to a suitable memory limit with a separate `cf scale` command after `cf push`.
 
 
@@ -73,7 +73,7 @@ This release contains the following components:
 
 * The Application Service Adapter supports only a subset of Cloud Foundry command-line interface (cf CLI) commands and options. See [Supported cf CLI Commands](supported-cf-cli-commands.md) for details.
 * Application workloads require their `PORT` environment variable to be set to `8080` in order for ingress to work.
-* An application containing a capital letter in its name will not receive HTTP traffic on its default route because the fully qualified domain name for that route is invalid.
+* An application containing a capital letter in its name does not receive HTTP traffic on its default route because the fully qualified domain name for that route is invalid.
 * The `cf app` and `cf apps` commands fail when an app in the targeted space has a process type with zero desired instances. As a workaround, scale each such process up to at least one desired instance.
 * Apps that require more than 500M of memory to start, such as many Java apps, must be scaled up to a suitable memory limit with a separate `cf scale` command after `cf push`.
 
@@ -85,6 +85,7 @@ This release contains the following components:
 This release is intended for testing and evaluation only. It should not be used to run production workloads.
 
 ### Features
+
 This release includes these features:
 
 * Application developers can deploy a simple application using `cf push` to a Kubernetes cluster.

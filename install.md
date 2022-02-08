@@ -174,9 +174,9 @@ To configure the installation settings:
    - `DEFAULT-APP-DOMAIN` is the domain that you want to use.
    - `APP-TLS-CRT` is the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
    - `APP-TLS-KEY` is the PEM-encoded private key for applications deployed using the Application Service Adapter.
-   - `KPACK-TAG-PREFIX` is the container image registry "folder"/"project" where droplets (runnable application images) are uploaded.
-   - `PACKAGE-REGISTRY-BASE` is the registry "folder"/"project" where packages (application source code) are uploaded.
-   - `APP-REGISTRY-USERNAME` is the username used to access the registry, or the reserved keyword indicating service account JSON. For example, `_json_key`.
+   - `KPACK-TAG-PREFIX` is the container image registry "directory"/"project" where droplets (runnable application images) are uploaded.
+   - `PACKAGE-REGISTRY-BASE` is the registry "directory"/"project" where packages (application source code) are uploaded.
+   - `APP-REGISTRY-USERNAME` is the user name used to access the registry, or the reserved keyword indicating service account JSON. For example, `_json_key`.
    - `APP-REGISTRY-PASSWORD` is the password used to access the registry, or service account JSON. For example, `{\"type\": \"service_account\", \"project_id\": \"my-gcr-project-id\"...}\` for the GCP service account.
    - `APP-REGISTRY-HOSTNAME` is the hostname of the registry to be used for app packages and droplets. For example, `gcr.io`.
 

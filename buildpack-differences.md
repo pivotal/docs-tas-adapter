@@ -7,7 +7,7 @@ Consider these differences when moving applications between the two platforms.
 
 Application platforms such as TAS for VMs and Tanzu Application Platform use buildpacks to transform application source code and other assets into a self-contained artifact, such as a Cloud Foundry droplet or an Open Container Initiative container image. The platform then deploys this artifact to run instances of the application.
 
-TAS for VMs uses Cloud Foundry buildpacks and provides a collection of system buildpacks that process many common languages and frameworks for cloud-native web applications. For more information about Cloud Foundry buildpacks, see [How buildpacks work](https://docs.pivotal.io/application-service/buildpacks/understand-buildpacks.html) in the TAS for VMs documentation.
+TAS for VMs uses Cloud Foundry buildpacks and provides a collection of system buildpacks that process many common languages and frameworks for cloud-native web applications. For more information about Cloud Foundry buildpacks, see [How Buildpacks Work](https://docs.pivotal.io/application-service/buildpacks/understand-buildpacks.html) in the TAS for VMs documentation.
 
 Tanzu Application Platform instead uses Tanzu Buildpacks, which implement the newer Cloud Native Buildpack specification, to process application source code. For more information about Cloud Native Buildpacks, see the [Cloud Native Buildpacks project website](https://buildpacks.io/).
 

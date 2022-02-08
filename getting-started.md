@@ -3,9 +3,9 @@
 This topic provides an overview of how to get started using the Application Service Adapter for Tanzu Application Platform:
 
 * [Log in with the cf CLI](#log-in)
-* [Creating orgs and spaces](#create-orgs-spaces)
-* [Deploying a sample app](#deploy-sample-app)
-* [Routing to an app](#routing-sample-app)
+* [Create orgs and spaces](#create-orgs-spaces)
+* [Deploy a sample app](#deploy-sample-app)
+* [Route to an app](#routing-sample-app)
 
 ## <a id="login"></a>Log in with the cf CLI
 
@@ -13,7 +13,7 @@ After you have installed the experimental version of the Cloud Foundry command-l
 
 To log in to the Application Service Adapter with the cf CLI:
 
-1. Target the cf CLI at the API endpoint:
+1. Target the cf CLI at the API endpoint.
 
     ```bash
     cf api API-FQDN --skip-ssl-validation
@@ -21,7 +21,7 @@ To log in to the Application Service Adapter with the cf CLI:
 
     > **Note:**  If you configured the Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
 
-1. Log in with the cf CLI:
+1. Log in with the cf CLI.
 
     ```bash
     cf login
@@ -35,7 +35,7 @@ You can use `cf create-org` and `cf create-space` the same way that you do with 
 
 To create orgs and spaces:
 
-1. Create the Cloud Foundry org and space:
+1. Create the Cloud Foundry org and space.
 
     ```bash
     cf create-org ORG-NAME
@@ -50,7 +50,7 @@ To create orgs and spaces:
 
 ## <a id="deploy-sample-app"></a>Deploy a sample app
 
-The `cf push` command remains the same. After you target the org and the space you created, you can push the app to the Kubernetes cluster:
+The `cf push` command remains the same. After you target the org and the space you created, you can push the app to the Kubernetes cluster.
 
 ```bash
 cf push APP-NAME
@@ -62,7 +62,7 @@ Where `APP-NAME` is the name of your app.
 ## <a id="routing-sample-app"></a>Route to an app
 
 Applications automatically receive a default HTTP route unless pushed with the `--no-route` flag. This default route uses the name of the app as the route hostname.
-To configure additional routes for the app that you pushed, use the cf CLI to map a route to your app:
+To configure additional routes for the app that you pushed, use the cf CLI to map a route to your app.
 
 ```bash
 cf map-route APP-NAME apps.example.com --hostname my-app

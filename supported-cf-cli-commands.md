@@ -1,4 +1,4 @@
-# Supported cf CLI Commands
+# Supported cf CLI commands
 
 This topic describes the Cloud Foundry command-line interface (cf CLI) commands and options that this version of the Application Service Adapter supports:
 

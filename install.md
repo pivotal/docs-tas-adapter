@@ -16,7 +16,7 @@ After you have completed the steps in [Installing Prerequisites](install-prerequ
 
 To install Application Service Adapter:
 
-1. Create a namespace called `tas-adapter-install` for deploying Application Service Adapter to your cluster:
+1. Create a namespace called `tas-adapter-install` for deploying Application Service Adapter to your cluster.
 
     ```bash
     kubectl create ns tas-adapter-install
@@ -95,7 +95,7 @@ To configure the installation settings:
       -addext "subjectAltName = DNS:API-FQDN" \
       -days 365
     ```
-    where `API-FQDN` is the fully qualified domain name (FQDN) to use to access the API.
+    Where `API-FQDN` is the fully qualified domain name (FQDN) to use to access the API.
 
 
     If you are using version `libressl` v3.1.0 or earlier:
@@ -230,7 +230,7 @@ To install the Application Service Adapter:
       --namespace tas-adapter-install
     ```
 
-1. Verify that the package install was successful:
+1. Verify that the package install was successful.
 
     ```bash
     tanzu package installed get tas-adapter \
@@ -269,7 +269,7 @@ To configure DNS for the Application Service Adapter:
 
 1. Create a wildcard A record in your DNS zone that resolves all sub-domains of the configured application domain to the external IP address from step 1. This step varies depending on your DNS provider.
 
-1. Verify that the Contour HTTPProxy for the API endpoint is valid:
+1. Verify that the Contour HTTPProxy for the API endpoint is valid.
 
     ```bash
     kubectl get httpproxy cf-k8s-api-proxy -n cf-k8s-api-system

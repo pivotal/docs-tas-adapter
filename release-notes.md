@@ -1,4 +1,4 @@
-# Release Notes
+# Release notes
 
 This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform.
 

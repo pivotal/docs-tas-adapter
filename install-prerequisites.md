@@ -1,10 +1,10 @@
-# Installing Prerequisites
+# Installing prerequisites
 
 This topic describes the first part of the installation process for the Application Service Adapter for VMware Tanzu Application Platform.
 
 ----
 
-Usage of the Application Service Adapter requires v8.1.0 or later of the Cloud Foundry command-line interface (cf CLI).
+Use of the Application Service Adapter requires Cloud Foundry command-line interface (cf CLI) v8.1.0 or later.
 For more information, see the [cf CLI repository](https://github.com/cloudfoundry/cli) on GitHub.
 
 To install the Application Service Adapter, you need:

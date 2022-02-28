@@ -2,6 +2,35 @@
 
 This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform.
 
+## <a id='0-4-0'></a> v0.4.0 Beta Release
+
+**Release Date**: MMM DD, 2022
+
+This release is intended for testing and evaluation only. It should not be used to run production workloads.
+
+### Features
+
+* Applications developers can use `cf create-user-provided-service` to create a user-provided service instance.
+
+
+### Components
+
+This release contains the following components:
+
+* CF K8s API @ [b3687b6](https://github.com/cloudfoundry/cf-k8s-controllers/commit/489b41eecfcbc08151254da2fe9c6513300ed1fa)
+* CF K8s Controller @ [b3687b6](https://github.com/cloudfoundry/cf-k8s-controllers/commit/489b41eecfcbc08151254da2fe9c6513300ed1fa)
+* Eirini Controller @ [d2e8574](https://github.com/cloudfoundry-incubator/eirini-controller/commit/d2e857474b7d614dc233bc2281fce2dd1e868128)
+* Hierarchical Namespaces Controller @ [v0.9.0](https://github.com/kubernetes-sigs/hierarchical-namespaces/releases/tag/v0.9.0)
+* kube-rbac-proxy @ [v0.11.0](https://github.com/brancz/kube-rbac-proxy/releases/tag/v0.11.0)
+
+
+### Known Issues
+
+* The Application Service Adapter supports only a subset of Cloud Foundry command-line interface (cf CLI) commands and options. See [Supported cf CLI Commands](supported-cf-cli-commands.md) for details.
+* An application containing a capital letter in its name does not receive HTTP traffic on its default route because the fully qualified domain name for that route is invalid.
+* Apps that require more than 1024M of memory to start, such as many Java apps, must be scaled up to a suitable memory limit with a separate `cf scale` command after `cf push`.
+
+
 ## <a id='0-3-0'></a> v0.3.0 Beta Release
 
 **Release Date**: February 8, 2022

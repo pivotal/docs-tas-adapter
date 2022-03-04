@@ -10,7 +10,10 @@ This release is intended for testing and evaluation only. It should not be used 
 
 ### Features
 
-* Applications developers can use `cf create-user-provided-service` to create a user-provided service instance.
+* Application developers can use `cf create-user-provided-service` to create a user-provided service instance.
+* Application developers can use `cf bind-service` to bind a user-provided service instance to an application. After the app is restarted or restaged, the application's `VCAP_SERVICES` environment variable contains the credentials for the bound service.
+* Application developers can use `cf delete-service` to delete a user-provided service instance.
+* Application developers can use `cf get-health-check` to get the health-check type of an application's process types.
 
 
 ### Components
@@ -28,7 +31,8 @@ This release contains the following components:
 
 * The Application Service Adapter supports only a subset of Cloud Foundry command-line interface (cf CLI) commands and options. See [Supported cf CLI Commands](supported-cf-cli-commands.md) for details.
 * An application containing a capital letter in its name does not receive HTTP traffic on its default route because the fully qualified domain name for that route is invalid.
-* Apps that require more than 1024M of memory to start, such as many Java apps, must be scaled up to a suitable memory limit with a separate `cf scale` command after `cf push`.
+* Apps that require more than 1024M of memory to start, such as some Java apps, must be scaled up to a suitable memory limit with a separate `cf scale` command after `cf push`.
+* The `cf delete-service` command does not delete the service bindings associated to the service. As a workaround, use `kubectl` to delete the corresponding `CFServiceInstance` resources from the Kubernetes API.
 
 
 ## <a id='0-3-0'></a> v0.3.0 Beta Release
@@ -67,7 +71,7 @@ This release contains the following components:
 
 * The Application Service Adapter supports only a subset of Cloud Foundry command-line interface (cf CLI) commands and options. See [Supported cf CLI Commands](supported-cf-cli-commands.md) for details.
 * An application containing a capital letter in its name does not receive HTTP traffic on its default route because the fully qualified domain name for that route is invalid.
-* Apps that require more than 1024M of memory to start, such as many Java apps, must be scaled up to a suitable memory limit with a separate `cf scale` command after `cf push`.
+* Apps that require more than 1024M of memory to start, such as some Java apps, must be scaled up to a suitable memory limit with a separate `cf scale` command after `cf push`.
 
 
 ## <a id='0-2-0'></a> v0.2.0 Beta Release

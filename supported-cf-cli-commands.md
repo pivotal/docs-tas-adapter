@@ -194,4 +194,25 @@ This section describes the route and domain operations that Application Service 
 
 ## <a id="service-operations"></a> Service operations
 
-Service operations are not supported.
+This section describes the service operations that Application Service Adapter supports.
+
+| Command | Supported? | Notes |
+|---------|------------|-------|
+| `cf marketplace` | N |  |
+| `cf services` | N |  |
+| `cf service` | N |  |
+| `cf create-service` | N |  |
+| `cf update-service` | N |  |
+| `cf upgrade-service` | N |  |
+| `cf delete-service` | Y | Deleting a service does not delete the associated service bindings. |
+| `cf rename-service` | N |  |
+| `cf create-service-key` | N |  |
+| `cf bind-service` | Y |  |
+| `cf unbind-service` | N |  |
+| `cf delete-service-key` | N |  |
+| `cf bind-route-service` | N |  |
+| `cf unbind-route-service` | N |  |
+| `cf create-user-provided-service` | Y |  |
+| `cf update-user-provided-service` | N |  |
+| `cf share-service` | N |  |
+| `cf unshare-service` | N |  |

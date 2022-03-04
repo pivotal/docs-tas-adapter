@@ -4,6 +4,13 @@ This topic describes how to uninstall the Application Service Adapter for VMware
 
 To uninstall Application Service Adapter:
 
+1. Delete all Cloud Foundry orgs and spaces from your cluster.
+
+    ```bash
+    cf delete-space SPACE-NAME
+    cf delete-org ORG-NAME
+    ```
+
 1. Uninstall the Application Service Adapter package from your cluster.
 
     ```bash

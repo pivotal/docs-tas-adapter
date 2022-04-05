@@ -27,7 +27,37 @@ To log in to the Application Service Adapter with the cf CLI:
     cf login
     ```
 
-    The cf CLI takes you through an interactive flow to set your user name, and detects the user accounts in your local Kubeconfig file. Select one that is a cluster-admin for the Kubernetes cluster to which the Application Service Adapter is installed.
+    The cf CLI takes you through an interactive flow to set your user name, and detects the user accounts in your local Kubeconfig file. Select a user on your target cluster whom you would like to act as cf administrator.
+
+1. Create Role Binding for cluster-admin user.
+
+   Use the `cf curl` command to determine your cluster-admin username
+   
+    ```bash
+    cf curl /whoami
+    ```
+
+   Create a Role Binding for that user using the following yaml:
+   
+   ```yaml
+   ---
+   apiVersion: rbac.authorization.k8s.io/v1
+   kind: RoleBinding
+   metadata:
+     name: cf-admin
+     namespace: cf
+   subjects:
+   - kind: User
+     name: CF-ADMIN-USERNAME
+     apiGroup: rbac.authorization.k8s.io
+   roleRef:
+     kind: ClusterRole
+     name: cf-k8s-api-cf-admin-clusterrole
+     apiGroup: rbac.authorization.k8s.io
+   ```
+
+  Where:
+  * `CF-ADMIN-USERNAME` is the cluster-admin username you determined above.
 
 ## <a id="create-orgs-spaces"></a>Create orgs and spaces
 
@@ -47,6 +77,11 @@ To create orgs and spaces:
 
     - `ORG-NAME` is the name of the org you want to create.
     - `SPACE-NAME` is the name of the space you want to create.
+
+1. (Optional) Assigning roles for other users in the cluster.
+
+   Use `cf set-space-role USERNAME ORG SPACE SpaceDeveloper` to grant other users permissions in a space.
+
 
 ## <a id="deploy-sample-app"></a>Deploy a sample app
 

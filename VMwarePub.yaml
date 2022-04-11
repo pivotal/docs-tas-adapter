@@ -8,7 +8,7 @@ publication:
     ProductVersion: 0.5
     PublicationGuid: tas-adapter
     OutputFileName: tas-adapter
-    PublicationAuthor: mgutermuth@vmware.com
+    PublicationAuthor: emalm@vmware.com
     Language: en
     PDFLink: tas-adapter
 

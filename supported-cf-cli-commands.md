@@ -199,16 +199,16 @@ This section describes the service operations that Application Service Adapter s
 | Command | Supported? | Notes |
 |---------|------------|-------|
 | `cf marketplace` | N |  |
-| `cf services` | N |  |
-| `cf service` | N |  |
+| `cf services` | Y |  |
+| `cf service` | Y |  |
 | `cf create-service` | N |  |
 | `cf update-service` | N |  |
 | `cf upgrade-service` | N |  |
-| `cf delete-service` | Y | Deleting a service does not delete the associated service bindings. |
+| `cf delete-service` | Y |  |
 | `cf rename-service` | N |  |
 | `cf create-service-key` | N |  |
 | `cf bind-service` | Y |  |
-| `cf unbind-service` | N |  |
+| `cf unbind-service` | Y |  |
 | `cf delete-service-key` | N |  |
 | `cf bind-route-service` | N |  |
 | `cf unbind-route-service` | N |  |

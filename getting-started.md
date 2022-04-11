@@ -2,22 +2,22 @@
 
 This topic provides an overview of how to get started using the Application Service Adapter for Tanzu Application Platform:
 
-* [Log in with the cf CLI](#log-in)
+* [Assign the admin role to a user](#assign-admin-user)
 * [Create orgs and spaces](#create-orgs-spaces)
 * [Deploy a sample app](#deploy-sample-app)
 * [Route to an app](#routing-sample-app)
 
-## <a id="login"></a>Log in with the cf CLI
+## <a id="assign-admin-user"></a>Assign the admin role to a user
 
-After you have installed the experimental version of the Cloud Foundry command-line interface (cf CLI), use it to target and log in to the Application Service Adapter.
-
-To log in to the Application Service Adapter with the cf CLI:
+After you have installed the Cloud Foundry command-line interface (cf CLI), use it to log in to the Application Service Adapter and assign the admin role to an existing user in the Kubernetes cluster.
 
 1. Target the cf CLI at the API endpoint.
 
     ```bash
     cf api API-FQDN --skip-ssl-validation
     ```
+
+    Where `API-FQDN` is the fully qualified domain name (FQDN) for the Application Service Adapter API.
 
     > **Note:**  If you configured the Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
 
@@ -27,37 +27,49 @@ To log in to the Application Service Adapter with the cf CLI:
     cf login
     ```
 
-    The cf CLI takes you through an interactive flow to set your user name, and detects the user accounts in your local Kubeconfig file. Select a user on your target cluster whom you would like to act as cf administrator.
+    The cf CLI detects the user authentication entries in your local Kubeconfig file and presents them for you to select one interactively. Select a user on your target cluster whom you would like to act as an administrator.
 
-1. Create Role Binding for cluster-admin user.
-
-   Use the `cf curl` command to determine your cluster-admin username
+1. Use the `cf curl` command to determine the subject name of the logged-in user.
    
     ```bash
     cf curl /whoami
     ```
 
-   Create a Role Binding for that user using the following yaml:
-   
-   ```yaml
-   ---
-   apiVersion: rbac.authorization.k8s.io/v1
-   kind: RoleBinding
-   metadata:
-     name: cf-admin
-     namespace: cf
-   subjects:
-   - kind: User
-     name: CF-ADMIN-USERNAME
-     apiGroup: rbac.authorization.k8s.io
-   roleRef:
-     kind: ClusterRole
-     name: cf-k8s-api-cf-admin-clusterrole
-     apiGroup: rbac.authorization.k8s.io
-   ```
+    The output looks like the following:
 
-  Where:
-  * `CF-ADMIN-USERNAME` is the cluster-admin username you determined above.
+    ```
+    {"name":"my_user@example.com","kind":"User"}
+    ```
+
+    The value of the `name` field in the response is the subject name of the user.
+
+
+1. Create a `tas-adapter-admin.yaml` file with a RoleBinding definition for the admin user:
+   
+    ```yaml
+    ---
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: RoleBinding
+    metadata:
+      name: cf-admin
+      namespace: cf
+    subjects:
+    - kind: User
+      name: CF-ADMIN-USERNAME
+      apiGroup: rbac.authorization.k8s.io
+    roleRef:
+      kind: ClusterRole
+      name: cf-k8s-api-cf-admin-clusterrole
+      apiGroup: rbac.authorization.k8s.io
+    ```
+
+    Where `CF-ADMIN-USERNAME` is the username you determined above.
+
+1. Create the admin RoleBinding in the target cluster.
+
+    ```bash
+    kubectl apply -f tas-adapter-admin.yaml
+    ```
 
 ## <a id="create-orgs-spaces"></a>Create orgs and spaces
 
@@ -78,21 +90,24 @@ To create orgs and spaces:
     - `ORG-NAME` is the name of the org you want to create.
     - `SPACE-NAME` is the name of the space you want to create.
 
-1. (Optional) Assigning roles for other users in the cluster.
+1. (Optional) Assign the SpaceDeveloper role to other users in the Kubernetes cluster.
 
-   Use `cf set-space-role USERNAME ORG SPACE SpaceDeveloper` to grant other users permissions in a space.
+   ```
+   cf set-space-role USER-NAME ORG-NAME SPACE-NAME SpaceDeveloper
+   ```
+
+   Where `USER-NAME` is the name of another user in the Kubernetes cluster.
 
 
 ## <a id="deploy-sample-app"></a>Deploy a sample app
 
-The `cf push` command remains the same. After you target the org and the space you created, you can push the app to the Kubernetes cluster.
+Use the cf CLI to deploy a sample app to the Application Service Adapter installation.
 
 ```bash
 cf push APP-NAME
 ```
-Where `APP-NAME` is the name of your app.
 
-> **Note:** For HTTP ingress routing to work, set the `PORT` environment variable to `8080` in the app manifest. For more information, see the [Release Notes](release-notes.md).
+Where `APP-NAME` is the name of your app.
 
 ## <a id="routing-sample-app"></a>Route to an app
 

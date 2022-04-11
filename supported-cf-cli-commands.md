@@ -184,7 +184,7 @@ This section describes the route and domain operations that Application Service 
 
 | Command | Supported? | Notes |
 |---------|------------|-------|
-| `cf domains` | N |  |
+| `cf domains` | Y |  |
 | `cf create-private-domain` | N |  |
 | `cf delete-private-domain` | N |  |
 | `cf create-shared-domain` | N |  |

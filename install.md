@@ -37,7 +37,7 @@ To install Application Service Adapter:
 
     ```bash
     tanzu package repository add tas-adapter-repository \
-      --url registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:0.4.0 \
+      --url registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:0.5.0 \
       --namespace tas-adapter-install
     ```
 1. Verify that the package repository contains the Application Service Adapter package.
@@ -52,20 +52,20 @@ To install Application Service Adapter:
     ```bash
     NAME                                          DISPLAY-NAME                 SHORT-DESCRIPTION                                                   LATEST-VERSION
     ...
-    application-service-adapter.tanzu.vmware.com  Application Service Adapter  Application Service Adapter for VMware Tanzu® Application Platform  0.4.0
+    application-service-adapter.tanzu.vmware.com  Application Service Adapter  Application Service Adapter for VMware Tanzu® Application Platform  0.5.0
     ...
     ```
 
 1. List the installation settings for the `application-service-adapter` package.
 
     ```bash
-    tanzu package available get application-service-adapter.tanzu.vmware.com/0.4.0 --values-schema --namespace tas-adapter-install
+    tanzu package available get application-service-adapter.tanzu.vmware.com/0.5.0 --values-schema --namespace tas-adapter-install
     ```
 
    It should output a list of settings similar to:
 
     ```
-    | Retrieving package details for application-service-adapter.tanzu.vmware.com/0.4.0...
+    | Retrieving package details for application-service-adapter.tanzu.vmware.com/0.5.0...
       KEY                         DEFAULT  TYPE     DESCRIPTION
       api_ingress.fqdn                     string   FQDN used to access the CF API
       api_ingress.tls.crt                  string   TLS certificate for the CF API (PEM format)
@@ -160,9 +160,9 @@ To configure the installation settings:
     kpack_image_tag_prefix: "KPACK-TAG-PREFIX"
     package_registry_base_path: "PACKAGE-REGISTRY-BASE"
     app_registry_credentials:
-        username: "APP-REGISTRY-USERNAME"
-        password: "APP-REGISTRY-PASSWORD"
-        hostname: "APP-REGISTRY-HOSTNAME"
+      username: "APP-REGISTRY-USERNAME"
+      password: "APP-REGISTRY-PASSWORD"
+      hostname: "APP-REGISTRY-HOSTNAME"
     ```
 
    Where:
@@ -224,7 +224,7 @@ To install the Application Service Adapter:
     ```bash
     tanzu package install tas-adapter \
       --package-name application-service-adapter.tanzu.vmware.com \
-      --version 0.4.0 \
+      --version 0.5.0 \
       --values-file tas-adapter-values.yml \
       --namespace tas-adapter-install
     ```
@@ -242,7 +242,7 @@ To install the Application Service Adapter:
     | Retrieving installation details for tas-adapter...
     NAME:                    tas-adapter
     PACKAGE-NAME:            application-service-adapter.tanzu.vmware.com
-    PACKAGE-VERSION:         0.4.0
+    PACKAGE-VERSION:         0.5.0
     STATUS:                  Reconcile succeeded
     CONDITIONS:              [{ReconcileSucceeded True  }]
     USEFUL-ERROR-MESSAGE:

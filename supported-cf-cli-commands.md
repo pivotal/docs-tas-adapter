@@ -127,7 +127,7 @@ The Application Service Adapter supports a subset of the Cloud Foundry manifest 
 |`cf copy-source` | N |     |
 |`cf create-app-manifest` | N |     |
 |`cf get-health-check` | Y |     |
-|`cf set-health-check` | N |     |
+|`cf set-health-check` | Y |     |
 |`cf enable-ssh` | N |     |
 |`cf disable-ssh` | N |     |
 |`cf ssh-enabled` | N |     |

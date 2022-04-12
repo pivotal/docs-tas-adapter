@@ -2,6 +2,43 @@
 
 This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform.
 
+## <a id='0-5-0'></a> v0.5.0 Beta Release
+
+**Release Date**: MMM DD, 2022
+
+This release is intended for testing and evaluation only. It should not be used to run production workloads.
+
+### Features
+
+* The Application Service Adapter enforces authorization rules for API resources. A user must have a CF admin role or a Space Developer role to push apps and map routes.
+* Application developers can use `cf services` to list the user-provided service instances in the current CF space.
+* Application developers can use `cf service` to describe a user-provided service instance.
+* Application developers can use `cf unbind-service` to unbind a user-provided service instance from an application.
+* Application developers can use `cf domains` to list the shared domains available for routes.
+* Application developers can use `cf set-health-check` to set the health-check type on an application or an application process type.
+* Service credentials are presented to bound applications as [filesystem projections](https://github.com/servicebinding/spec#workload-projection) under the service binding root directory.
+* **FIXED**: `cf delete-service` now deletes any bindings of the service to applications in addition to deleting the service instance.
+* **FIXED**: An application containing a capital letter in its name now receives HTTP traffic on its default route.
+
+
+### Components
+
+This release contains the following components:
+
+* CF K8s API @ [8139c3c](https://github.com/cloudfoundry/cf-k8s-controllers/commit/8139c3c1a162a82ce7e3ee59399422670bc2d5e9)
+* CF K8s Controller @ [8139c3c](https://github.com/cloudfoundry/cf-k8s-controllers/commit/8139c3c1a162a82ce7e3ee59399422670bc2d5e9)
+* Eirini Controller @ [95c7b7c](https://github.com/cloudfoundry-incubator/eirini-controller/commit/95c7b7ce3abec9f24381e71c3034c0573609b95c)
+* Hierarchical Namespaces Controller @ [v0.9.0](https://github.com/kubernetes-sigs/hierarchical-namespaces/releases/tag/v0.9.0)
+* kube-rbac-proxy @ [v0.11.0](https://github.com/brancz/kube-rbac-proxy/releases/tag/v0.11.0)
+
+
+### Known Issues
+
+* The Application Service Adapter supports only a subset of Cloud Foundry command-line interface (cf CLI) commands and options. See [Supported cf CLI Commands](supported-cf-cli-commands.md) for details.
+* Apps that require more than 1024M of memory to start, such as some Java apps, must be scaled up to a suitable memory limit with a separate `cf scale` command after `cf push`.
+* The `cf create-org` command may fail with an error message stating that the user is not authorized to perform the action even when the user is an admin. As a workaround, use `cf orgs` to determine whether the operation succeeded. If it did not, try to create the org again.
+
+
 ## <a id='0-4-0'></a> v0.4.0 Beta Release
 
 **Release Date**: March 08, 2022

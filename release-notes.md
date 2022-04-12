@@ -10,7 +10,7 @@ This release is intended for testing and evaluation only. It should not be used 
 
 ### Features
 
-* The Application Service Adapter enforces authorization rules for API resources. A user must have a CF admin role or a Space Developer role to push apps and map routes.
+* The Application Service Adapter enforces authorization rules for API resources. A user must have an admin role or a Space Developer role to push apps and map routes.
 * Application developers can use `cf services` to list the user-provided service instances in the current CF space.
 * Application developers can use `cf service` to describe a user-provided service instance.
 * Application developers can use `cf unbind-service` to unbind a user-provided service instance from an application.

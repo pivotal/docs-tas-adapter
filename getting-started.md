@@ -27,7 +27,7 @@ After you have installed the Cloud Foundry command-line interface (cf CLI), use 
     cf login
     ```
 
-    The cf CLI detects the user authentication entries in your local Kubeconfig file and presents them for you to select one interactively. Select a user on your target cluster whom you would like to act as an administrator.
+    The cf CLI detects the user authentication entries in your local Kubeconfig file and presents them for you to select one interactively. Select a user on your target cluster whom you would like to act as an admin.
 
 1. Use the `cf curl` command to determine the subject name of the logged-in user.
    

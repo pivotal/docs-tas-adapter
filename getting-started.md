@@ -6,6 +6,7 @@ This topic provides an overview of how to get started using the Application Serv
 * [Create orgs and spaces](#create-orgs-spaces)
 * [Deploy a sample app](#deploy-sample-app)
 * [Route to an app](#routing-sample-app)
+* [Create and bind to a user-provided service instance](#user-provided-services)
 
 ## <a id="assign-admin-user"></a>Assign the admin role to a user
 
@@ -117,3 +118,29 @@ To configure additional routes for the app that you pushed, use the cf CLI to ma
 ```bash
 cf map-route APP-NAME apps.example.com --hostname my-app
 ```
+
+## <a id="user-provided-services"></a>Create and bind to a user-provided service instance
+
+Service credentials can be provided to apps via [user-provided service instances](https://docs.cloudfoundry.org/devguide/services/user-provided.html).
+
+  1. First create a user-provided service instance containing the credentials necessary for accessing your service:
+  ```bash
+  cf create-user-provided-service SERVICE-INSTANCE-NAME -p '{"credential-name": "credential-value"}'
+  ```
+  
+  Where `SERVICE-INSTANCE-NAME` is the name of your service instance.
+  
+  2. Bind the service instance to your app
+  ```bash
+  cf bind-service APP-NAME SERVICE-INSTANCE-NAME
+  ```
+
+  3. Restart (or restage if a buildpack relies on the service) the app to make the service credentials available:
+  ```bash
+  cf restart APP-NAME
+  ```
+
+User-provided service instance credentials will be provided to the app and staging tasks in two ways to support both existing TAS applications as well as next-generation frameworks, such as [Spring Cloud Bindings](https://github.com/spring-cloud/spring-cloud-bindings):
+* As part of the traditional CF [VCAP_SERVICES environment variable](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES)
+* As volume mounted secrets in accordance with the [Service Bindings for Kubernetes specification](https://servicebinding.io/spec/core/1.0.0/#workload-projection)
+  * This workload projection is handled by the [Service Bindings Package](https://docs.vmware.com/en/Tanzu-Application-Platform/1.0/tap/GUID-service-bindings-install-service-bindings.html) from TAP

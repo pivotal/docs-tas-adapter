@@ -37,6 +37,7 @@ This release contains the following components:
 * The Application Service Adapter supports only a subset of Cloud Foundry command-line interface (cf CLI) commands and options. See [Supported cf CLI Commands](supported-cf-cli-commands.md) for details.
 * Apps that require more than 1024M of memory to start, such as some Java apps, must be scaled up to a suitable memory limit with a separate `cf scale` command after `cf push`.
 * The `cf create-org` command may fail with an error message stating that the user is not authorized to perform the action even when the user is an admin. As a workaround, use `cf orgs` to determine whether the operation succeeded. If it did not, try to create the org again.
+* Running `cf push --no-start` to create a new app will fail with a "Droplet not found. Ensure it exists and you have access to it." error message. The app will still be created successfully, though, and it can be staged and started with `cf start`.
 
 
 ## <a id='0-4-0'></a> v0.4.0 Beta Release

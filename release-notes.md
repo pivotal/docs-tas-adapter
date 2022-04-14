@@ -4,7 +4,7 @@ This topic contains release notes for the Application Service Adapter for VMware
 
 ## <a id='0-5-0'></a> v0.5.0 Beta Release
 
-**Release Date**: MMM DD, 2022
+**Release Date**: April 14, 2022
 
 This release is intended for testing and evaluation only. It should not be used to run production workloads.
 
@@ -43,7 +43,7 @@ This release contains the following components:
 
 ## <a id='0-4-0'></a> v0.4.0 Beta Release
 
-**Release Date**: March 08, 2022
+**Release Date**: March 8, 2022
 
 This release is intended for testing and evaluation only. It should not be used to run production workloads.
 

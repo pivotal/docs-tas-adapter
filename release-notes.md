@@ -16,6 +16,7 @@ This release is intended for testing and evaluation only. It should not be used 
 * Application developers can use `cf unbind-service` to unbind a user-provided service instance from an application.
 * Application developers can use `cf domains` to list the shared domains available for routes.
 * Application developers can use `cf set-health-check` to set the health-check type on an application or an application process type.
+* Application developers can use `cf app` to see CPU and memory usage metrics for the instances of an application.
 * Service credentials are presented to bound applications as [filesystem projections](https://github.com/servicebinding/spec#workload-projection) under the service binding root directory.
 * **FIXED**: `cf delete-service` now deletes any bindings of the service to applications in addition to deleting the service instance.
 * **FIXED**: An application containing a capital letter in its name now receives HTTP traffic on its default route.

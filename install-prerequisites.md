@@ -46,4 +46,9 @@ The following dependencies must be installed to the target Kubernetes cluster be
    * If you have installed Tanzu Application Platform v1.1 with the `full`, `iterate`, `build`, or `light` profile, this package is installed.
    * If you have installed Tanzu Application Platform v1.1 without using a profile, see [Install Tanzu Build Service](https://docs.vmware.com/en/Tanzu-Application-Platform/1.1/tap/GUID-tanzu-build-service-install-tbs.html).
 
+The following dependencies are recommended to be installed to the target Kubernetes cluster.
+
+* [Kubernetes Metrics Server](https://github.com/kubernetes-sigs/metrics-server/) v0.4.0 or later for app instance resource metrics.
+  > **Note:** Many Kubernetes distributions automatically come with the Metrics Server installed. If the API resources in your target cluster include the `PodMetrics` Kind in the `metrics.k8s.io` API group, then the Metrics Server is already present.
+
 After you have installed these prerequisites, proceed to [Installing Application Service Adapter](install.md).

@@ -10,7 +10,6 @@ This release is intended for testing and evaluation only. It should not be used 
 
 ### Features
 
-* The Application Service Adapter enforces authorization rules for API resources. A user must have an admin role or a Space Developer role to push apps and map routes.
 * Application developers can use `cf services` to list the user-provided service instances in the current CF space.
 * Application developers can use `cf service` to describe a user-provided service instance.
 * Application developers can use `cf unbind-service` to unbind a user-provided service instance from an application.
@@ -18,6 +17,10 @@ This release is intended for testing and evaluation only. It should not be used 
 * Application developers can use `cf set-health-check` to set the health-check type on an application or an application process type.
 * Application developers can use `cf app` to see CPU and memory usage metrics for the instances of an application.
 * Service credentials are presented to bound applications as [filesystem projections](https://github.com/servicebinding/spec#workload-projection) under the service binding root directory.
+* The Application Service Adapter enforces authorization rules for API resources. A user must have an admin role or a Space Developer role to push apps and map routes.
+* The Application Service Adapter validates that domains do not overlap.
+* The Application Service Adapter validates that each route has a non-empty hostname and has a fully qualified domain name that is a valid DNS name.
+* The Application Service Adapter validates that paths of routes are well-formed and less than 128 characters in length.
 * **FIXED**: `cf delete-service` now deletes any bindings of the service to applications in addition to deleting the service instance.
 * **FIXED**: An application containing a capital letter in its name now receives HTTP traffic on its default route.
 

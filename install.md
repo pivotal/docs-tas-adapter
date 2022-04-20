@@ -67,6 +67,8 @@ To install Application Service Adapter:
     ```
     | Retrieving package details for application-service-adapter.tanzu.vmware.com/0.5.0...
       KEY                         DEFAULT  TYPE     DESCRIPTION
+      api_auth_proxy.ca_cert               string   TLS CA certificate of your cluster's auth proxy
+      api_auth_proxy.host                  string   FQDN of your cluster's auth proxy
       api_ingress.fqdn                     string   FQDN used to access the CF API
       api_ingress.tls.crt                  string   TLS certificate for the CF API (PEM format)
       api_ingress.tls.key                  string   TLS private key for the CF API (PEM format)
@@ -183,6 +185,10 @@ To configure the installation settings:
 
     ```yaml
     ---
+    api_auth_proxy:
+      ca_cert: |
+        API-AUTH-PROXY-TLS-CRT
+      host: "API-AUTH-PROXY-FQDN"
     kpack_cluster_builder_name: "KPACK-CLUSTER-BUILDER-NAME"
     scaling:
       cf_k8s_api:
@@ -205,6 +211,8 @@ To configure the installation settings:
 
    Where:
 
+   - `API-AUTH-PROXY-TLS-CRT` is the CA certificate from the authentication proxy running along side your K8s cluster.
+   - `API-AUTH-PROXY-FQDN` is the FQDN for the authentication proxy running along side your K8s cluster.
    - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service-v13/GUID-managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
    - `API-CPU-LIMIT` is the desired CPU resource limit for the pods in the specified deployment.
    - `API-MEMORY-LIMIT` is the desired memory resource limit for the pods in the specified deployment.

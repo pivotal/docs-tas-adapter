@@ -145,6 +145,7 @@ To configure the installation settings:
 
     ```yaml
     ---
+    ceip_policy_disclosed: FALSE-OR-TRUE-VALUE # Installation fails if this is not set to true. Not a string.
     api_ingress:
       fqdn: "API-FQDN"
       tls:
@@ -207,6 +208,9 @@ To configure the installation settings:
         ... #! scaling keys are the same as above
       kube_rbac_proxy:
         ... #! scaling keys are the same as above, minus the "replicas" key
+    telemetry:
+      enabled: TELEMETRY-ENABLED
+      heartbeat_interval: `TELEMETRY-HEARTBEAT-INTERVAL`
     ```
 
    Where:
@@ -219,6 +223,8 @@ To configure the installation settings:
    - `API-CPU-REQUEST` is the desired CPU resource request for the pods in the specified deployment.
    - `API-MEMORY-REQUEST` is the desired memory resource request for the pods in the specified deployment.
    - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment.
+   - `TELEMETRY-ENABLED` determines whether to send telemetry data to VMware. Default is true.
+   - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry is sent to VMware. Default is every 24h.
 
    The `requests` and `limits` fields map directly to the resource requests and limits fields on the Kubernetes containers for these system components.
    For more information, see [Resource requests and limits of Pod and container](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container) in the Kubernetes documentation.

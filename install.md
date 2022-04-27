@@ -107,7 +107,7 @@ To configure the installation settings:
      -days 365
     ```
 
-    > **Note: `libressl` v3.1.0 is the default version in macOS.
+    > **Note:** `libressl` v3.1.0 is the default version in macOS.
 
 1. If you do not already have a wildcard certificate and private keypair for HTTPS application ingress, generate a self-signed certificate.
 
@@ -134,7 +134,7 @@ To configure the installation settings:
      -days 365
     ```
 
-    > **Note: `libressl` v3.1.0 is the default version in macOS.
+    > **Note:** `libressl` v3.1.0 is the default version in macOS.
 
 
 1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.

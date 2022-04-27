@@ -44,6 +44,8 @@ After you have installed the Cloud Foundry command-line interface (cf CLI), use 
 
     The value of the `name` field in the response is the subject name of the user.
 
+    > **Note:** The `kind` field in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log into the Application Service Adapter with an account for a user in the Kubernetes cluster.
+
 
 1. Create a `tas-adapter-admin.yaml` file with a RoleBinding definition for the admin user:
    

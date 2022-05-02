@@ -10,7 +10,7 @@ This topic provides an overview of how to get started using the Application Serv
 
 ## <a id="assign-admin-user"></a>Assign the admin role to a user
 
-After you have installed the Cloud Foundry command-line interface (cf CLI), use it to log in to the Application Service Adapter and assign the admin role to an existing user in the Kubernetes cluster.
+After you install the Cloud Foundry command-line interface (cf CLI), log in to the Application Service Adapter and assign the admin role to an existing user in the Kubernetes cluster:
 
 1. Target the cf CLI at the API endpoint.
 
@@ -20,7 +20,7 @@ After you have installed the Cloud Foundry command-line interface (cf CLI), use 
 
     Where `API-FQDN` is the fully qualified domain name (FQDN) for the Application Service Adapter API.
 
-    > **Note:**  If you configured the Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
+    >**Note:** If you configured the Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
 
 1. Log in with the cf CLI.
 
@@ -28,9 +28,9 @@ After you have installed the Cloud Foundry command-line interface (cf CLI), use 
     cf login
     ```
 
-    The cf CLI detects the user authentication entries in your local Kubeconfig file and presents them for you to select one interactively. Select a user on your target cluster whom you would like to act as an admin.
+    The cf CLI detects the user authentication entries in your local Kubeconfig file and presents them for you to select one interactively. Select a user on your target cluster whom you want to act as an admin.
 
-1. Use the `cf curl` command to determine the subject name of the logged-in user.
+1. Use the `cf curl` command to verify the subject name of the logged-in user.
    
     ```bash
     cf curl /whoami
@@ -44,7 +44,7 @@ After you have installed the Cloud Foundry command-line interface (cf CLI), use 
 
     The value of the `name` field in the response is the subject name of the user.
 
-    > **Note:** The `kind` field in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log into the Application Service Adapter with an account for a user in the Kubernetes cluster.
+    >**Note:** The `kind` field in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log into<!-- |log in to| is preferred. --> the Application Service Adapter with an account for a user in the Kubernetes cluster.
 
 
 1. Create a `tas-adapter-admin.yaml` file with a RoleBinding definition for the admin user:
@@ -66,7 +66,7 @@ After you have installed the Cloud Foundry command-line interface (cf CLI), use 
       apiGroup: rbac.authorization.k8s.io
     ```
 
-    Where `CF-ADMIN-USERNAME` is the username you determined above.
+    Where `CF-ADMIN-USERNAME` is the user name you verify earlier.
 
 1. Create the admin RoleBinding in the target cluster.
 
@@ -114,7 +114,7 @@ Where `APP-NAME` is the name of your app.
 
 ## <a id="routing-sample-app"></a>Route to an app
 
-Applications automatically receive a default HTTP route unless pushed with the `--no-route` flag. This default route uses the name of the app as the route hostname.
+Applications automatically receive a default HTTP route unless pushed with the `--no-route` flag. This default route uses the name of the app as the route host name.
 To configure additional routes for the app that you pushed, use the cf CLI to map a route to your app.
 
 ```bash
@@ -123,16 +123,18 @@ cf map-route APP-NAME apps.example.com --hostname my-app
 
 ## <a id="user-provided-services"></a>Create and bind to a user-provided service instance
 
-Service credentials can be provided to apps via [user-provided service instances](https://docs.cloudfoundry.org/devguide/services/user-provided.html).
+Service credentials are provided to apps through user-provided service instances. See [User-Provided Service Instances](https://docs.cloudfoundry.org/devguide/services/user-provided.html) in the Cloud Foundry documentation. 
 
-1. First create a user-provided service instance containing the credentials necessary for accessing your service:
+To create and bind user-provided service instances, do the following: 
+
+1. Create a user-provided service instance containing the credentials necessary for accessing your service:
   ```bash
   cf create-user-provided-service SERVICE-INSTANCE-NAME -p '{"credential-name": "credential-value"}'
   ```
   
   Where `SERVICE-INSTANCE-NAME` is the name of your service instance.
   
-1. Bind the service instance to your app
+1. Bind the service instance to your app:
   ```bash
   cf bind-service APP-NAME SERVICE-INSTANCE-NAME
   ```
@@ -142,8 +144,8 @@ Service credentials can be provided to apps via [user-provided service instances
   cf restart APP-NAME
   ```
 
-User-provided service instance credentials will be provided to the app and staging tasks in two ways to support both existing TAS applications as well as next-generation frameworks, such as [Spring Cloud Bindings](https://github.com/spring-cloud/spring-cloud-bindings):
+User-provided service instance credentials is provided to the app and staging tasks in two ways to support both existing TAS applications and next-generation frameworks, such as [Spring Cloud Bindings](https://github.com/spring-cloud/spring-cloud-bindings): 
 
-* As part of the traditional CF [VCAP_SERVICES environment variable](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES)
+* As part of the traditional Cloud Foundry [VCAP_SERVICES environment variable](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES) 
 * As volume mounted secrets in accordance with the [Service Bindings for Kubernetes specification](https://servicebinding.io/spec/core/1.0.0/#workload-projection)
-  * This workload projection is handled by the [Service Bindings Package](https://docs.vmware.com/en/Tanzu-Application-Platform/1.1/tap/GUID-service-bindings-install-service-bindings.html) from TAP
+  * This workload projection handles the [Service Bindings Package](https://docs.vmware.com/en/Tanzu-Application-Platform/1.1/tap/GUID-service-bindings-install-service-bindings.html) from Tanzu Application Platform

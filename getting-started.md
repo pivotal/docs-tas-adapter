@@ -62,7 +62,7 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to t
       apiGroup: rbac.authorization.k8s.io
     roleRef:
       kind: ClusterRole
-      name: cf-k8s-api-cf-admin-clusterrole
+      name: korifi-controllers-admin
       apiGroup: rbac.authorization.k8s.io
     ```
 

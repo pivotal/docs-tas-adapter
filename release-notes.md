@@ -2,6 +2,39 @@
 
 This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform.
 
+## <a id='0-6-0'></a> v0.6.0 Beta Release
+
+**Release Date**: May 10, 2022
+
+This release is intended for testing and evaluation only. It should not be used to run production workloads.
+
+> **Note**: Platform operators should uninstall Application Service Adapter v0.5 or earlier completely before installing Application Service Adapter v0.6. Application Service Adapter v0.6 no longer correctly recognizes orgs, spaces, and apps created in an installation of a previous version.
+
+### Features
+
+* App environment variables are included in the environment variables set during the application build process.
+* Platform operators can configure Application Service Adapter to work with Kubernetes authentication proxies such as Pinniped.
+* Platform operators must acknowledge disclosure of the VMware Customer Experience Improvement Program policy before installing Application Service Adapter.
+* Platform operators can opt out of sending telemetry from the Application Service Adapter installation.
+* New `CFOrg` and `CFSpace` custom resources in the Kubernetes API represent orgs and spaces in the Application Service Adapter installation.
+* **FIXED**: Running `cf push --no-start` to create a new app will no longer fail with a "Droplet not found. Ensure it exists and you have access to it." error message.
+* **FIXED**: Creation of orgs and spaces is now more reliable.
+
+### Components
+
+This release contains the following components:
+
+* Korifi @ [92b8bf8](https://github.com/cloudfoundry/korifi/commit/92b8bf8e078808422baf7de97d41048c1a0076c7)
+* Eirini Controller @ [b64c578](https://github.com/cloudfoundry-incubator/eirini-controller/commit/b64c578921b58dc57b2c1a16628be533a01aa1bf)
+* Hierarchical Namespaces Controller @ [v1.0.0](https://github.com/kubernetes-sigs/hierarchical-namespaces/releases/tag/v1.0.0)
+* kube-rbac-proxy @ [v0.12.0](https://github.com/brancz/kube-rbac-proxy/releases/tag/v0.12.0)
+
+### Known Issues
+
+* The Application Service Adapter supports only a subset of Cloud Foundry command-line interface (cf CLI) commands and options. See [Supported cf CLI Commands](supported-cf-cli-commands.md) for details.
+* Apps that require more than 1024M of memory to start, such as some Java apps, must be scaled up to a suitable memory limit with a separate `cf scale` command after `cf push`.
+
+
 ## <a id='0-5-0'></a> v0.5.0 Beta Release
 
 **Release Date**: April 14, 2022

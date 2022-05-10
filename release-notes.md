@@ -12,7 +12,8 @@ This release is intended for testing and evaluation only. It should not be used 
 
 ### Features
 
-* App environment variables are included in the environment variables set during the application build process.
+* Application environment variables are included in the environment variables set during the application build process.
+* Application developers can use `cf unmap-route` to unmap a route from an application.
 * Platform operators can configure Application Service Adapter to work with Kubernetes authentication proxies such as Pinniped.
 * Platform operators must acknowledge disclosure of the VMware Customer Experience Improvement Program policy before installing Application Service Adapter.
 * Platform operators can opt out of sending telemetry from the Application Service Adapter installation.

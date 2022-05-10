@@ -176,7 +176,7 @@ This section describes the route and domain operations that Application Service 
 | `cf create-route` | Y |   |
 | `cf check-route` | N |   |
 | `cf map-route` | Y |   |
-| `cf unmap-route` | N |   |
+| `cf unmap-route` | Y |   |
 | `cf delete-route` | Y |   |
 | `cf delete-orphaned-routes` | N |   |
 

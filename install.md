@@ -224,10 +224,20 @@ To configure the installation settings:
    - `API-MEMORY-REQUEST` is the desired memory resource request for the pods in the specified deployment.
    - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment.
    - `TELEMETRY-ENABLED` determines whether to send telemetry data to VMware. Default is true.
-   - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry is sent to VMware. Default is every 24 hours.
+   - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
 
    The `requests` and `limits` fields map directly to the resource requests and limits fields on the Kubernetes containers for these system components.
    For more information, see [Resource requests and limits of Pod and container](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container) in the Kubernetes documentation.
+
+
+### <a id="opt-out-telemetry"></a>Opting out of telemetry reporting
+
+To disable telemetry reporting in your Application Service Adapter installation:
+
+1. Set the value of the `telemetry.enabled` property in the `tas-adapter-values.yml` file to `false`.
+
+After you install Application Service Adapter via the steps below, it will not send telemetry data to VMware.
+
 
 ## <a id="install-adapter"></a>Install the Application Service Adapter
 

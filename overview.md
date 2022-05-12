@@ -22,3 +22,26 @@ Application developers log in to their Application Service Adapter installation 
 Application Service Adapter integrates with an existing installation of [Tanzu Build Service](https://tanzu.vmware.com/build-service) component of Tanzu Application Platform to build container images for app code deployed to the platform. It also integrates with [Contour](https://projectcontour.io/) to realize ingress routes to running apps.
 
 To install Application Service Adapter and its dependencies, proceed to [Installing Prerequisites](install-prerequisites.md).
+
+## <a id='telemetry-notice'></a> Notice of telemetry collection for Tanzu Application Platform
+
+[//]: # (This following text came from legal. Do not edit it.)
+
+Application Service Adapter for VMware Tanzu Application Platform in the VMware Customer Experience Improvement Program (CEIP).
+As part of CEIP, VMware collects technical information about your organization’s use of VMware
+products and services in association with your organization’s VMware license keys.
+For information about CEIP, see the [Trust & Assurance Center](https://www.vmware.com/solutions/trustvmware/ceip.html).
+You may join or leave CEIP at any time.
+The CEIP Standard Participation Level provides VMware with information to improve its products and
+services, identify and fix problems, and advise you on how to best deploy and use VMware products.
+For example, this information can enable a proactive product deployment discussion with your VMware
+account team or VMware support team to help resolve your issues.
+This information cannot directly identify any individual.
+
+[//]: # (The text above came from legal. Do not edit it.)
+
+You must acknowledge that you have read the VMware CEIP policy before you can proceed with the
+installation.
+For more information, see [Configure the installation settings](install.md#configure-installation-settings) in _Installing Application Service Adapter_.
+To opt out of telemetry participation after installation, see
+[Opting out of telemetry reporting](install.md#opt-out-telemetry) in _Installing Application Service Adapter_.

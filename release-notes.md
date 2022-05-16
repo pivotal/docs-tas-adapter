@@ -2,13 +2,16 @@
 
 This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform.
 
-## <a id='0-6-0'></a> v0.6.0 Beta Release
+## <a id='0-6-1'></a> v0.6.1 Beta Release
 
-**Release Date**: May 10, 2022
+**Release Date**: May 16, 2022
 
 This release is intended for testing and evaluation only. It should not be used to run production workloads.
 
 > **Note**: Platform operators should uninstall Application Service Adapter v0.5 or earlier completely before installing Application Service Adapter v0.6. Application Service Adapter v0.6 no longer correctly recognizes orgs, spaces, and apps created in an installation of a previous version.
+
+> **Note**: Application Service Adapter v0.6.0 was not released publicly.
+
 
 ### Features
 

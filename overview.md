@@ -23,11 +23,11 @@ Application Service Adapter integrates with an existing installation of [Tanzu B
 
 To install Application Service Adapter and its dependencies, proceed to [Installing Prerequisites](install-prerequisites.md).
 
-## <a id='telemetry-notice'></a> Notice of telemetry collection for Tanzu Application Platform
+## <a id='telemetry-notice'></a> Notice of telemetry collection for Application Service Adapter
 
 [//]: # (This following text came from legal. Do not edit it.)
 
-Application Service Adapter for VMware Tanzu Application Platform in the VMware Customer Experience Improvement Program (CEIP).
+Application Service Adapter for VMware Tanzu Application Platform participates in the VMware Customer Experience Improvement Program (CEIP).
 As part of CEIP, VMware collects technical information about your organization’s use of VMware
 products and services in association with your organization’s VMware license keys.
 For information about CEIP, see the [Trust & Assurance Center](https://www.vmware.com/solutions/trustvmware/ceip.html).

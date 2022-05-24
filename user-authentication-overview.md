@@ -11,7 +11,7 @@ The Cloud Foundry API translation layer then instantiates a new Kubernetes API c
 ## Architecture
 ---
 
-![Korifi User Auth Flow](images/korifi_user_auth_flow.jpg)
+![CF API User Auth Flow](images/tas_adapter_user_auth_flow.jpg)
 
 Users must communicate with the API via https due to the presence of the Auth header which contains the user’s authentication token or client cert/key pair. The API translates the CF API request into Kubernetes API requests using the provided credentials.
 

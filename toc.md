@@ -10,4 +10,5 @@ This is the table of contents from which the Application Service Adapter for Tan
   - [Application Environment Variables](environment-variables.md)
   - [Supported cf CLI commands](supported-cf-cli-commands.md)
   - [Differences between buildpacks in TAS for VMs and Application Service Adapter](buildpack-differences.md)
+  - [Authentication Model](user-authentication-overview.md)
 - [Uninstalling Application Service Adapter](uninstall.md)

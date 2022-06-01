@@ -1,19 +1,17 @@
-# Rotating Certificates
+# Rotating certificates
 
-This topic describes how to rotate Application Service Adapter for VMware Tanzu Application Platform system certificates:
+This topic describes how to rotate Application Service Adapter for VMware Tanzu Application Platform system certificates, and includes the following sections:
 
 * [Rotating Ingress Certificates](#rotating-ingress-certificates)
 * [Rotating Internal Certificates](#rotating-internal-certificates)
 
----
+> **Note:** Certificate rotation should not result in downtime.
 
-**Certificate rotation should not result in downtime.**
-
-## <a id="rotating-ingress-certificates"></a>Rotating Ingress Certificates
+## <a id="rotating-ingress-certificates"></a>Rotating ingress certificates
 
 1. Update your `tas-adapter-values.yml` file with new API and App Ingress TLS certificates (crt and key).
 
-    The following values will be updated:
+    The following values are updated:
 
     ```yaml
     api_ingress:
@@ -25,19 +23,19 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
     app_ingress:
     tls:
         crt: |
-          NEW-APP-TLS-CRT
+          NEW-APP <!-- |APP-NAME| is preferred. -->-TLS-CRT
         key: |
-          NEW-APP-TLS-KEY
+          NEW-APP <!-- |APP-NAME| is preferred. -->-TLS-KEY
     ```
 
     Where:
 
     - `NEW-API-TLS-CRT` is the PEM-encoded public certificate for the Application Service Adapter API.
     - `NEW-API-TLS-KEY` is the PEM-encoded private key for the Application Service Adapter API.
-    - `NEW-APP-TLS-CRT` is the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
-    - `NEW-APP-TLS-KEY` is the PEM-encoded private key for applications deployed using the Application Service Adapter.
+    - `NEW-APP <!-- |APP-NAME| is preferred. -->-TLS-CRT` is the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
+    - `NEW-APP <!-- |APP-NAME| is preferred. -->-TLS-KEY` is the PEM-encoded private key for applications deployed using the Application Service Adapter.
 
-1. Install the Application Service Adapter to the cluster.
+1. Install the Application Service Adapter to the cluster by running:
 
     ```bash
     tanzu package install tas-adapter \
@@ -47,14 +45,14 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
       --namespace tas-adapter-install
     ```
 
-1. Verify that the package install was successful.
+1. Verify that the package install was successful. Run:
 
     ```bash
     tanzu package installed get tas-adapter \
       --namespace tas-adapter-install
     ```
 
-   The output looks like the following:
+   The output is similar to the following:
 
     ```bash
     | Retrieving installation details for tas-adapter...
@@ -66,6 +64,6 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
     USEFUL-ERROR-MESSAGE:
     ```
 
-## <a id="rotating-internal-certificates"></a>Rotating Internal Certificates
+## <a id="rotating-internal-certificates"></a>Rotating internal certificates
 
-Internal certificates are managed by Certificate Manager with a self-signed Certificate Authority. The default [Certificate Manager](https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec) configuration provides certificates that are valid for 90 days. Certificates will be renewed 30 days before expiry.
+Internal certificates are managed by Certificate Manager with a self-signed Certificate Authority. The default [Certificate Manager](https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec) configuration provides certificates that are valid for 90 days. Certificates are renewed 30 days before expiry.

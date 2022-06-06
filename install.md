@@ -204,8 +204,6 @@ To configure the installation settings:
         ... #! scaling keys are the same as above
       eirini_controller:
         ... #! scaling keys are the same as above
-      hnc_manager:
-        ... #! scaling keys are the same as above
       kube_rbac_proxy:
         ... #! scaling keys are the same as above, minus the "replicas" key
     telemetry:

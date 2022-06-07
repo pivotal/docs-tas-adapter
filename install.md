@@ -278,10 +278,10 @@ To configure DNS for the Application Service Adapter:
 
 1. Determine the external IP address to be used for ingress to your cluster. This step varies depending on the IaaS used to provision your cluster.
 
-   For clusters that support LoadBalancer services, you can obtain the external IP address of the LoadBalancer Service.
+   For clusters that support LoadBalancer services, you can obtain the external IP address of the LoadBalancer Service that is associated with Contour's Envoy proxy. The Namespace for this service will typically be either `tanzu-system-ingress` or `projectcontour` depending on how Contour was installed.
 
     ```bash
-    kubectl get service envoy -n projectcontour -ojsonpath='{.status.loadBalancer.ingress[*].ip}'
+    kubectl -n tanzu-system-ingress get service envoy -ojsonpath='{.status.loadBalancer.ingress[*].ip}'
     ```
 
    > **Note:** If you are using a cluster deployed on AWS, your LoadBalancer has a DNS name instead of an IP address.
@@ -295,13 +295,13 @@ To configure DNS for the Application Service Adapter:
 1. Verify that the Contour HTTPProxy for the API endpoint is valid.
 
     ```bash
-    kubectl get httpproxy cf-k8s-api-proxy -n cf-k8s-api-system
+    kubectl -n korifi-api-system get httpproxy korifi-api-proxy
     ```
 
    The output looks like the following:
     ```bash
     NAME               FQDN       TLS SECRET                STATUS   STATUS DESCRIPTION
-    cf-k8s-api-proxy   API-FQDN   cf-k8s-api-ingress-cert   valid    Valid HTTPProxy
+    korifi-api-proxy   API-FQDN   korifi-api-ingress-cert   valid    Valid HTTPProxy
     ```
 
    Target the API endpoint by running `cf api API-FQDN` and start deploying applications. To test the adapter, continue to [Getting Started](getting-started.md).

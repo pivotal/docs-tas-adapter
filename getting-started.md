@@ -76,7 +76,7 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to t
 
 ## <a id="create-orgs-spaces"></a>Create orgs and spaces
 
-You can use `cf create-org` and `cf create-space` the same way that you do with Tanzu Application Service for VMs. Under the hood, these commands create a Kubernetes namespace for each org and each space, and propagates needed resources into the namespace.
+You can use `cf create-org` and `cf create-space` the same way that you do with Tanzu Application Service for VMs. Under the hood, these commands create a Kubernetes namespace for each org and each space and propagate required resources into the namespace.
 
 To create orgs and spaces:
 

@@ -236,7 +236,6 @@ To configure the installation settings:
       kube_rbac_proxy:
         ... #! scaling keys are the same as above, minus the "replicas" key
     telemetry:
-      enabled: TELEMETRY-ENABLED
       heartbeat_interval: TELEMETRY-HEARTBEAT-INTERVAL
     ```
 
@@ -250,7 +249,6 @@ To configure the installation settings:
    - `API-CPU-REQUEST` is the desired CPU resource request for the pods in the specified deployment.
    - `API-MEMORY-REQUEST` is the desired memory resource request for the pods in the specified deployment.
    - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment.
-   - `TELEMETRY-ENABLED` determines whether to send telemetry data to VMware. Default is true.
    - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
 
    The `requests` and `limits` fields map directly to the resource requests and limits fields on the Kubernetes containers for these system components.
@@ -259,12 +257,30 @@ To configure the installation settings:
 
 ### <a id="opt-out-telemetry"></a>Opting out of telemetry reporting
 
-To disable telemetry reporting in your Application Service Adapter installation:
+By default, when you install Application Service Adapter, you are opted into telemetry collection. To turn off telemetry collection, complete the following instructions.
 
-1. Set the value of the `telemetry.enabled` property in the `tas-adapter-values.yml` file to `false`.
+1. Ensure your Kubernetes context is pointing to the cluster where Application Service Adapter is installed.
 
-After you install Application Service Adapter via the steps below, it will not send telemetry data to VMware.
+2. Run the following kubectl command:
 
+```yaml
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vmware-system-telemetry
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: vmware-system-telemetry
+  name: vmware-telemetry-cluster-ceip
+data:
+  level: disabled
+EOF
+```
+
+Your Application Service Adapter deployment no longer emits telemetry, and you are opted out of the VMware Customer Experience Improvement Program.
 
 ## <a id="install-adapter"></a>Install the Application Service Adapter
 

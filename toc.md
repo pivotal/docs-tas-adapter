@@ -2,7 +2,7 @@
 
 This is the table of contents from which the Application Service Adapter for Tanzu Application Platform Documentation site on docs.vmware.com is built.
 
-- [Application Service Adapter v0.6](overview.md)
+- [Application Service Adapter v0.7](overview.md)
 - [Release notes](release-notes.md)
 - [Installing prerequisites](install-prerequisites.md)
 - [Installing Application Service Adapter](install.md)
@@ -10,6 +10,6 @@ This is the table of contents from which the Application Service Adapter for Tan
   - [Application Environment Variables](environment-variables.md)
   - [Supported cf CLI commands](supported-cf-cli-commands.md)
   - [Differences between buildpacks in TAS for VMs and Application Service Adapter](buildpack-differences.md)
-  - [Authentication Model](user-authentication-overview.md)
+  - [User authentication overview](user-authentication-overview.md)
 - [Rotating certificates](certificate-rotation.md)
 - [Uninstalling Application Service Adapter](uninstall.md)

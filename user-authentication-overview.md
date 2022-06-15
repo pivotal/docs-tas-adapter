@@ -1,25 +1,27 @@
-# Authentication model 
+# User authentication overview
 
-This topic describes how the Application Service Adapter authenticates and authorizes roles using the Kubernetes API server.
+This topic describes how the Application Service Adapter authenticates and authorizes users using the Kubernetes API server.
 
-## <a id="auth-over"></a> Authentication and Authorization Overview
+## <a id="auth-overview"></a> Authentication and authorization overview
 
-### <a id="backrnd"></a> Background
+### <a id="background"></a> Background
 
-Traditionally, the cf CLI has authenticated with the platform using Cloud Foundry's [User Account and Authentication (UAA)](https://docs.cloudfoundry.org/concepts/architecture/uaa.html) server which acts as an OAuth2 provider. In this model, the Cloud Foundry API (CAPI) server validated the user's token and was responsible for most authorization decisions in Cloud Foundry.
+Traditionally, the cf CLI authenticates with the Cloud Foundry [User Account and Authentication](https://docs.cloudfoundry.org/concepts/architecture/uaa.html) (UAA) server, which acts as an OAuth2 provider. In this model, the Cloud Foundry API server validates the user's token and authorizes user actions based on its own set of user role assignments.
 
-With the Application Service Adapter, VMware takes a different approach. Rather than owning Auth(N/Z) and maintaining a list of roles ourselves, VMware is delegating this responsibility to the [Kubernetes API server](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) and Kubernetes-native RBAC. VMware has updated the CLI to  authenticate with the Kubernetes API using the developer's local kubeconfig. The CLI extracts the user's token or client certificate or key pair from the authenticated Kubernetes client and sends them on every request over TLS in the Authorization header.
-The CAPI translation layer then instantiates a new Kubernetes API client using the user's credentials to perform requests on their behalf. This client (and the user's credentials) only persists in memory for the duration of the HTTP request.
+The Application Service Adapter takes a different approach to user authentication and authorization. Instead of requiring UAA as a separate account and authentication service, the Application Service Adapter delegates this responsibility to the [Kubernetes API server](https://kubernetes.io/docs/reference/access-authn-authz/authentication/). The cf CLI now recognizes when it targets a Kubernetes-backed Cloud Foundry API server such as the Application Service Adapter, uses user info from the local kubeconfig file to authenticate with the underlying Kubernetes API, and extracts the user token or client certificate/key pair from the authentication response. When it makes a request to the Cloud Foundry API server, it then sends that credential in the Authorization header. The CF API server uses that credential to perform requests on behalf of the end user and retains it in memory only for the duration of the user's API request.
 
-## <a id="arch"></a> Architecture
+The Application Service Adapter relies on core Kubernetes role-based access control (RBAC) resources such as `ClusterRole` and `RoleBinding` to configure user authorization rules. Platform operators can create these RBAC resources either via the Cloud Foundry role API endpoints or directly in the Kubernetes API.
+
+
+## <a id="architecture"></a> Architecture
 
 ![CF API User Auth Flow](images/tas_adapter_user_auth_flow.jpg)
 
-Users must communicate with the API through https due to the presence of the Auth header which contains the user’s authentication token or client certificate  or key pair. The API translates the Cloud Foundry API request into Kubernetes API requests using the provided credentials.
+The Application Service Adapter API requires that users connect to it via HTTPS because the Authorization header contains the user’s authentication token or client certificate or key pair. The API translates the Cloud Foundry API request into Kubernetes API requests using the provided credentials.
 
 >**Note:** The user is authenticated through their Kubernetes token or client certificate or key for each request to the Adapter's API, with no persistent session data stored in-between.
 
-### <a id="NAME"></a> Note on Best Practices
+### <a id="best-practices"></a> Note on best practices
 
-It is generally advisable to use short lived tokens or certificates with short expiry dates.
-By default, the Application Service Adapter warns users if their certificate is longer-lived than one week.
+It is generally advisable to use short-lived tokens or certificates to authenticate with the Applicaton Service Adapter.
+The Application Service Adapter warns users if their certificate is still valid in one week.

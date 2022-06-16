@@ -2,6 +2,36 @@
 
 This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform.
 
+## <a id='0-7-0'></a> v0.7.0 Beta Release
+
+**Release Date**: June 15, 2022
+
+This release is intended for testing and evaluation only. It should not be used to run production workloads.
+
+> **Note**: Platform operators should uninstall Application Service Adapter v0.6 or earlier completely before installing Application Service Adapter v0.7. Application Service Adapter v0.7 no longer correctly recognizes orgs, spaces, and apps created in an installation of a previous version.
+
+
+### Features
+
+* Application developers can use `cf logs --recent` to retrieve recent build and runtime logs for applications.
+* Application memory allocations match the behavior of Tanzu Application Service, with `M` interpreted consistently as `MiB` (mebibytes). 
+* Platform operators can change the default shared domain for application routes.
+* Application Service Adapter generates namespaces for CF orgs and spaces entirely via Korifi controllers instead of using the Hierarchical Namespace Controller.
+* Application Service Adapter introduces a new `BuildWorkload` resource to represent information required to build an application droplet from a source-code package.
+* **FIXED**: Apps that require more than 1024M of memory to start can now set that higher memory allocation with the `-m` flag on `cf push`.
+
+### Components
+
+This release contains the following components:
+
+* Korifi @ [0f9ff9c](https://github.com/cloudfoundry/korifi/commit/0f9ff9cf4212a758e03a84d31a784e9786e5e5ab)
+* Eirini Controller @ [b2865ef](https://github.com/cloudfoundry-incubator/eirini-controller/commit/b2865ef7e7be705eb9f814e03b07e400277536eb)
+* kube-rbac-proxy @ [v0.12.0](https://github.com/brancz/kube-rbac-proxy/releases/tag/v0.12.0)
+
+### Known Issues
+
+* The Application Service Adapter supports only a subset of Cloud Foundry command-line interface (cf CLI) commands and options. See [Supported cf CLI Commands](supported-cf-cli-commands.md) for details.
+
 ## <a id='0-6-1'></a> v0.6.1 Beta Release
 
 **Release Date**: May 16, 2022

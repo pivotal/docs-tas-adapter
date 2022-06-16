@@ -24,7 +24,7 @@ Application Service Adapter supports the basic use of `cf push APP-NAME`, where 
 |`--health-check-type, -u`| N |  |
 |`--instances, -i`| N |  |
 |`--manifest, -f`| Y | Some manifest configurations described in [App Manifest Attribute Reference](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html) are supported. See the [Supported manifest configuration](#supported-manifest-configuration) section. |
-|`--memory, -m`| N |  |
+|`--memory, -m`| Y |  |
 |`--no-manifest`| Y |  |
 |`--no-route`| N | |
 |`--no-start`| Y |  |
@@ -52,16 +52,15 @@ The Application Service Adapter supports a subset of the Cloud Foundry manifest 
 | `disk_quota` | N | |
 | `docker` | N | |
 | `env` | Y | |
-| `no-route` | N | |
-| `processes` | Y | See the [Supported process-level configuration](#supported-process-level-configuration) section. |
 | `health-check-http-endpoint` | N | |
 | `health-check-invocation-timeout` | N | |
 | `health-check-type` | N | |
 | `instances` | Y | |
-| `memory` | N | |
+| `memory` | Y | |
 | `metadata` | N | |
 | `no-route` | N | |
 | `path` | N | |
+| `processes` | Y | See the [Supported process-level configuration](#supported-process-level-configuration) section. |
 | `random-route` | N | |
 | `routes` | Y | See the [Supported route-level configuration](#supported-route-level-configuration) section. |
 | `services` | N | |

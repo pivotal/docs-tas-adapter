@@ -23,24 +23,24 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
     app_ingress:
     tls:
         crt: |
-          NEW-APP <!-- |APP-NAME| is preferred. -->-TLS-CRT
+          NEW-APP-TLS-CRT
         key: |
-          NEW-APP <!-- |APP-NAME| is preferred. -->-TLS-KEY
+          NEW-APP-TLS-KEY
     ```
 
     Where:
 
     - `NEW-API-TLS-CRT` is the PEM-encoded public certificate for the Application Service Adapter API.
     - `NEW-API-TLS-KEY` is the PEM-encoded private key for the Application Service Adapter API.
-    - `NEW-APP <!-- |APP-NAME| is preferred. -->-TLS-CRT` is the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
-    - `NEW-APP <!-- |APP-NAME| is preferred. -->-TLS-KEY` is the PEM-encoded private key for applications deployed using the Application Service Adapter.
+    - `NEW-APP-TLS-CRT` is the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
+    - `NEW-APP-TLS-KEY` is the PEM-encoded private key for applications deployed using the Application Service Adapter.
 
 1. Install the Application Service Adapter to the cluster by running:
 
     ```bash
     tanzu package install tas-adapter \
       --package-name application-service-adapter.tanzu.vmware.com \
-      --version 0.6.1 \
+      --version 0.7.0 \
       --values-file tas-adapter-values.yml \
       --namespace tas-adapter-install
     ```
@@ -58,7 +58,7 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
     | Retrieving installation details for tas-adapter...
     NAME:                    tas-adapter
     PACKAGE-NAME:            application-service-adapter.tanzu.vmware.com
-    PACKAGE-VERSION:         0.6.1
+    PACKAGE-VERSION:         0.7.0
     STATUS:                  Reconcile succeeded
     CONDITIONS:              [{ReconcileSucceeded True  }]
     USEFUL-ERROR-MESSAGE:

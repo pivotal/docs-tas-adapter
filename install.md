@@ -70,11 +70,11 @@ To install Application Service Adapter:
       api_auth_proxy.ca_cert               string   TLS CA certificate of your cluster's auth proxy
       api_auth_proxy.host                  string   FQDN of your cluster's auth proxy
       api_ingress.fqdn                     string   FQDN used to access the CF API
-      api_ingress.tls.crt                  string   TLS certificate for the CF API (PEM format)
-      api_ingress.tls.key                  string   TLS private key for the CF API (PEM format)
+      api_ingress.tls.secret_name          string   Name of the secret containing the TLS certificate for the CF API (PEM format)
+      api_ingress.tls.namespace            string   Namespace containing the CF API TLS secret
       app_ingress.default_domain           string   Default application domain
-      app_ingress.tls.crt                  string   TLS certificate for the default application domain (PEM format)
-      app_ingress.tls.key                  string   TLS private key for the default application domain (PEM format)
+      app_ingress.tls.secret_name          string   Name of the secret containing the TLS certificate for the default application domain (PEM format)
+      app_ingress.tls.namespace            string   Namespace containing the default application domain TLS secret
       kpack_cluster_builder_name  default  string   Name of the kpack cluster builder to use for staging
       kpack_image_tag_prefix               string   Container registry repository where staged, runnable app images (Droplets) will be stored
       package_registry_base_path           string   Container registry repository where uploaded app source code (Packages) will be stored
@@ -85,61 +85,94 @@ To install Application Service Adapter:
 
 To configure the installation settings:
 
-1. If you do not already have a certificate and private keypair for HTTPS ingress to the Application Service Adapter API, generate a self-signed certificate.
+1. If you do not already have a secret containing a certificate and private keypair for HTTPS ingress to the Application Service Adapter API:
+   * If you have a certificate and private keypair, create a secret.
 
-   If you are using `openssl`, or `libressl v3.1.0` or later:
+      ```bash
+      kubectl create namespace API-TLS-SECRET-NAMESPACE
+      kubectl delete secret API-TLS-SECRET-NAME -n API-TLS-SECRET-NAMESPACE
+      kubectl create secret tls API-TLS-SECRET-NAME --cert=tls.crt --key=tls.key -n API-TLS-SECRET-NAMESPACE
+     ```
 
-    ```bash
-    openssl req -x509 -newkey rsa:4096 \
-      -keyout tls.key -out tls.crt \
-      -nodes -subj '/CN=API-FQDN' \
-      -addext "subjectAltName = DNS:API-FQDN" \
-      -days 365
-    ```
-    Where `API-FQDN` is the fully qualified domain name (FQDN) to use to access the API.
+   * If you do not have a certificate and private keypair, you can [generate a self-signed secret using cert-manager](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources).
 
+   * Alternatively, you can generate a self-signed certificate manually.
+     * If you are using `openssl`, or `libressl v3.1.0` or later:
 
-    If you are using version `libressl` v3.1.0 or earlier:
+        ```bash
+        openssl req -x509 -newkey rsa:4096 \
+          -keyout tls.key -out tls.crt \
+          -nodes -subj '/CN=API-FQDN' \
+          -addext "subjectAltName = DNS:API-FQDN" \
+          -days 365
+        ```
+        Where `API-FQDN` is the fully qualified domain name (FQDN) to use to access the API.
 
-    ```bash
-    openssl req -x509 -newkey rsa:4096 \
-      -keyout tls.key -out tls.crt \
-      -nodes -subj '/CN=API-FQDN' \
-      -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:API-FQDN'")) \
-     -days 365
-    ```
+     * If you are using version `libressl` v3.1.0 or earlier:
 
-    > **Note:** `libressl` v3.1.0 is the default version in macOS.
+        ```bash
+        openssl req -x509 -newkey rsa:4096 \
+          -keyout tls.key -out tls.crt \
+          -nodes -subj '/CN=API-FQDN' \
+          -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:API-FQDN'")) \
+          -days 365
+        ```
 
-1. If you do not already have a wildcard certificate and private keypair for HTTPS application ingress, generate a self-signed certificate.
+     * > **Note:** `libressl` v3.1.0 is the default version in macOS.
 
-   If you are using `openssl`, or `libressl v3.1.0` or later:
+     * Create a secret.
 
-    ```bash
-    openssl req -x509 -newkey rsa:4096 \
-      -keyout tls.key -out tls.crt \
-      -nodes -subj '/CN=*.APP-DOMAIN' \
-      -addext "subjectAltName = DNS:*.APP-DOMAIN" \
-      -days 365
-    ```
-    Where `APP-DOMAIN` is the FQDN of the shared domain to use for application routes. By default, each application is mapped to a route on a subdomain of this shared domain.
+       ```bash
+       kubectl create namespace API-TLS-SECRET-NAMESPACE
+       kubectl delete secret API-TLS-SECRET-NAME -n API-TLS-SECRET-NAMESPACE
+       kubectl create secret tls API-TLS-SECRET-NAME --cert=tls.crt --key=tls.key -n API-TLS-SECRET-NAMESPACE
+       ```
 
-   > **Note:** The TLS certificate for application ingress must be a wildcard certificate.
+   1. If you do not already have a secret containing a wildcard certificate and private keypair for HTTPS application ingress:
+      * If you have a wildcard certificate and private keypair, create a secret.
 
-    If you are using version `libressl` v3.1.0 or earlier:
+         ```bash
+         kubectl create namespace APP-TLS-SECRET-NAMESPACE
+         kubectl delete secret APP-TLS-SECRET-NAME -n APP-TLS-SECRET-NAMESPACE
+         kubectl create secret tls APP-TLS-SECRET-NAME --cert=tls.crt --key=tls.key -n APP-TLS-SECRET-NAMESPACE
+        ```
+   
+      * If you do not have a wildcard certificate and private keypair, you can [generate a self-signed secret using cert-manager](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources).
 
-    ```bash
-    openssl req -x509 -newkey rsa:4096 \
-      -keyout tls.key -out tls.crt \
-      -nodes -subj '/CN=*.APP-DOMAIN' \
-      -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:*.APP-DOMAIN'")) \
-     -days 365
-    ```
+      * Alternatively, you can generate a self-signed certificate manually.
+         * If you are using `openssl`, or `libressl v3.1.0` or later:
 
-    > **Note:** `libressl` v3.1.0 is the default version in macOS.
+            ```bash
+            openssl req -x509 -newkey rsa:4096 \
+              -keyout tls.key -out tls.crt \
+              -nodes -subj '/CN=*.APP-DOMAIN' \
+              -addext "subjectAltName = DNS:*.APP-DOMAIN" \
+              -days 365
+            ```
+            Where `APP-DOMAIN` is the FQDN of the shared domain to use for application routes. By default, each application is mapped to a route on a subdomain of this shared domain.
+      
+         * If you are using version `libressl` v3.1.0 or earlier:
 
+           ```bash
+           openssl req -x509 -newkey rsa:4096 \
+             -keyout tls.key -out tls.crt \
+             -nodes -subj '/CN=*.APP-DOMAIN' \
+             -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:*.APP-DOMAIN'")) \
+             -days 365
+           ```
 
-1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
+         * > **Note:** The TLS certificate for application ingress must be a wildcard certificate.
+         * > **Note:** `libressl` v3.1.0 is the default version in macOS.
+
+         * Create a secret.
+
+         ```bash
+         kubectl create namespace APP-TLS-SECRET-NAMESPACE
+         kubectl delete secret APP-TLS-SECRET-NAME -n APP-TLS-SECRET-NAMESPACE
+         kubectl create secret tls APP-TLS-SECRET-NAME --cert=tls.crt --key=tls.key -n APP-TLS-SECRET-NAMESPACE
+         ```
+
+2. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
 
    The following values are required:
 
@@ -149,17 +182,13 @@ To configure the installation settings:
     api_ingress:
       fqdn: "API-FQDN"
       tls:
-        crt: |
-          API-TLS-CRT
-        key: |
-          API-TLS-KEY
+        secret_name: API-TLS-SECRET-NAME
+        namespace: API-TLS-SECRET-NAMESPACE
     app_ingress:
       default_domain: "DEFAULT-APP-DOMAIN"
       tls:
-        crt: |
-          APP-TLS-CRT
-        key: |
-          APP-TLS-KEY
+        secret_name: APP-TLS-SECRET-NAME
+        namespace: APP-TLS-SECRET-NAMESPACE
     kpack_image_tag_prefix: "KPACK-TAG-PREFIX"
     package_registry_base_path: "PACKAGE-REGISTRY-BASE"
     app_registry_credentials:
@@ -171,11 +200,11 @@ To configure the installation settings:
    Where:
 
    - `API-FQDN` is the FQDN that you want to use for the Application Service Adapter API.
-   - `API-TLS-CRT` is the PEM-encoded public certificate for the Application Service Adapter API.
-   - `API-TLS-KEY` is the PEM-encoded private key for the Application Service Adapter API.
+   - `API-TLS-SECRET-NAME` is the kubernetes.io/tls secret containing the PEM-encoded public certificate for the Application Service Adapter API.
+   - `API-TLS-SECRET-NAMESPACE` is the namespace containing the API-TLS-SECRET.
    - `DEFAULT-APP-DOMAIN` is the domain that you want to use.
-   - `APP-TLS-CRT` is the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
-   - `APP-TLS-KEY` is the PEM-encoded private key for applications deployed using the Application Service Adapter.
+   - `APP-TLS-SECRET-NAME` is the kubernetes.io/tls secret containing the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
+   - `APP-TLS-SECRET-NAMESPACE` is the namespace containing the APP-TLS-SECRET.
    - `KPACK-TAG-PREFIX` is the container image registry "directory"/"project" where droplets (runnable application images) are uploaded.
    - `PACKAGE-REGISTRY-BASE` is the registry "directory"/"project" where packages (application source code) are uploaded.
    - `APP-REGISTRY-USERNAME` is the user name used to access the registry, or the reserved keyword indicating service account JSON. For example, `_json_key`.

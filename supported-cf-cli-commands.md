@@ -30,7 +30,7 @@ Application Service Adapter supports the basic use of `cf push APP-NAME`, where 
 |`--no-start`| Y |  |
 |`--no-wait`| N |  |
 |`--path, -p`| N |  |
-|`--random-route`| N |  |
+|`--random-route`| Y |  |
 |`--stack, -s`| N |  |
 |`--start-command, -c`| N |  |
 |`--strategy`| N |  |
@@ -61,7 +61,7 @@ The Application Service Adapter supports a subset of the Cloud Foundry manifest 
 | `no-route` | N | |
 | `path` | N | |
 | `processes` | Y | See the [Supported process-level configuration](#supported-process-level-configuration) section. |
-| `random-route` | N | |
+| `random-route` | Y | |
 | `routes` | Y | See the [Supported route-level configuration](#supported-route-level-configuration) section. |
 | `services` | N | |
 | `sidecars` | N | |

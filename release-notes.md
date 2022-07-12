@@ -12,7 +12,9 @@ This release is intended for testing and evaluation only. It should not be used 
 
 ### Features
 
-* Platform operators configure the certificate/private key pairs for the Application Service Adapter API and app ingress using a Kubernetes secret instead of the certificate and key contents.
+* Application developers can obtain a randomly generated route for their app using the `--random-route` flag on `cf push` or the `random-route` key in the application manifest.
+* Application processes with a route mapped to them have a port-based health-check by default.
+* Platform operators configure the certificate/private key pairs for the Application Service Adapter API and app ingress TLS using Kubernetes secrets instead of certificate and key contents.
 
 
 ### Components

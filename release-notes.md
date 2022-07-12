@@ -2,6 +2,34 @@
 
 This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform.
 
+## <a id='0-8-0'></a> v0.8.0 Beta Release
+
+**Release Date**: MMM DD, 2022
+
+This release is intended for testing and evaluation only. It should not be used to run production workloads.
+
+> **Note**: Platform operators should uninstall Application Service Adapter v0.6 or earlier completely before installing Application Service Adapter v0.8. Application Service Adapter v0.8 no longer correctly recognizes orgs, spaces, and apps created in an installation of a previous version.
+
+### Features
+
+* Platform operators configure the certificate/private key pairs for the Application Service Adapter API and app ingress using a Kubernetes secret instead of the certificate and key contents.
+
+
+### Components
+
+This release contains the following components:
+
+* Korifi @ [30d68c6](https://github.com/cloudfoundry/korifi/commit/30d68c665efea34cd3e2d51ad90284760961bfa5)
+* Eirini Controller @ [aeaddba](https://github.com/cloudfoundry-incubator/eirini-controller/commit/aeaddba741fa8193ad3ecdfc2ce1aaf71f8ee6c7)
+* kube-rbac-proxy @ [v0.12.0](https://github.com/brancz/kube-rbac-proxy/releases/tag/v0.12.0)
+
+
+### Known Issues
+
+* The Application Service Adapter supports only a subset of Cloud Foundry command-line interface (cf CLI) commands and options. See [Supported cf CLI Commands](supported-cf-cli-commands.md) for details.
+* After unbinding all services from an app, the `VCAP_SERVICES` environment variable for the app will contain the credentials of the last service to be unbound instead of being empty. As a workaround, an application developer can create a user-provided service instance with empty credentials and bind it to the app to clear out credentials from previously bound services.
+
+
 ## <a id='0-7-0'></a> v0.7.0 Beta Release
 
 **Release Date**: June 15, 2022

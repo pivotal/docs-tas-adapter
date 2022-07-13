@@ -12,4 +12,5 @@ This is the table of contents from which the Application Service Adapter for Tan
   - [Differences between buildpacks in TAS for VMs and Application Service Adapter](buildpack-differences.md)
   - [User authentication overview](user-authentication-overview.md)
 - [Rotating certificates](certificate-rotation.md)
+- [Using a Registry With a Custom Certificate Authority](custom-ca-registry.md)
 - [Uninstalling Application Service Adapter](uninstall.md)

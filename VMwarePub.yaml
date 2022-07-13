@@ -3,9 +3,9 @@ publication:
     RootMapFile: toc.md
 
     # fields for DocWorks publication details
-    PublicationName: Application Service Adapter for VMware Tanzu Application Platform v0.8
+    PublicationName: Application Service Adapter for VMware Tanzu Application Platform v0.9
     ProductName: Application Service Adapter for VMware Tanzu Application Platform
-    ProductVersion: 0.8
+    ProductVersion: 0.9
     PublicationGuid: tas-adapter
     OutputFileName: tas-adapter
     PublicationAuthor: emalm@vmware.com
@@ -14,7 +14,7 @@ publication:
 
     # additional fields
     BatchProcessingInstruction:
-    PublicationVersion: 0.8
+    PublicationVersion: 0.9
     PublicationVersionComments:
     PublicationKeywords:
     WordLink:

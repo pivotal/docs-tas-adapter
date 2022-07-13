@@ -8,7 +8,7 @@ This topic contains release notes for the Application Service Adapter for VMware
 
 This release is intended for testing and evaluation only. It should not be used to run production workloads.
 
-> **Note**: Platform operators should uninstall Application Service Adapter v0.6 or earlier completely before installing Application Service Adapter v0.8. Application Service Adapter v0.8 no longer correctly recognizes orgs, spaces, and apps created in an installation of a previous version.
+> **Note**: Platform operators should uninstall Application Service Adapter v0.6 or earlier completely before installing Application Service Adapter v0.8. Application Service Adapter v0.8 no longer correctly recognizes orgs, spaces, and apps created in an installation of that version or earlier.
 
 ### Features
 
@@ -30,6 +30,7 @@ This release contains the following components:
 
 * The Application Service Adapter supports only a subset of Cloud Foundry command-line interface (cf CLI) commands and options. See [Supported cf CLI Commands](supported-cf-cli-commands.md) for details.
 * After unbinding all services from an app, the `VCAP_SERVICES` environment variable for the app will contain the credentials of the last service to be unbound instead of being empty. As a workaround, an application developer can create a user-provided service instance with empty credentials and bind it to the app to clear out credentials from previously bound services.
+* The `cf env` command no longer reports the value of the system-provided `VCAP_SERVICES` environment variable.
 
 
 ## <a id='0-7-0'></a> v0.7.0 Beta Release

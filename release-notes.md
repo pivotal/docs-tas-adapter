@@ -15,6 +15,7 @@ This release is intended for testing and evaluation only. It should not be used 
 * Application developers can obtain a randomly generated route for their app using the `--random-route` flag on `cf push` or the `random-route` key in the application manifest.
 * Application processes with a route mapped to them have a port-based health-check by default.
 * Platform operators configure the certificate/private key pairs for the Application Service Adapter API and app ingress TLS using Kubernetes secrets instead of certificate and key contents.
+* Platform operators opt out of telemetry collection by creating a particular ConfigMap in the underlying Kubernetes cluster, identical to the one used to opt out of telemetry collection for Tanzu Application Platform.
 
 
 ### Components

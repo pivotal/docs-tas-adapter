@@ -56,6 +56,8 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to t
     metadata:
       name: cf-admin
       namespace: cf
+      annotations:
+        cloudfoundry.org/propagate-cf-role: "true"
     subjects:
     - kind: User
       name: CF-ADMIN-USERNAME

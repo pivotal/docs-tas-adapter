@@ -238,6 +238,9 @@ To configure the installation settings:
     telemetry:
       enabled: TELEMETRY-ENABLED
       heartbeat_interval: TELEMETRY-HEARTBEAT-INTERVAL
+    app_registry_credentials:
+      ca_cert_data: |
+        PEM-ENCODED-CERTIFICATE-CONTENTS
     ```
 
    Where:
@@ -252,6 +255,8 @@ To configure the installation settings:
    - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment.
    - `TELEMETRY-ENABLED` determines whether to send telemetry data to VMware. Default is true.
    - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
+   - `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM encoded multiline string containing the Certificate Authority certificate
+       - The value must be inserted into your values file as a yaml multiline string with a block scalar literal.
 
    The `requests` and `limits` fields map directly to the resource requests and limits fields on the Kubernetes containers for these system components.
    For more information, see [Resource requests and limits of Pod and container](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container) in the Kubernetes documentation.
@@ -264,6 +269,17 @@ To disable telemetry reporting in your Application Service Adapter installation:
 1. Set the value of the `telemetry.enabled` property in the `tas-adapter-values.yml` file to `false`.
 
 After you install Application Service Adapter via the steps below, it will not send telemetry data to VMware.
+
+
+### <a id="custom-ca-registry"></a>Configure a Registry With a Custom Certificate Authority
+
+To configure the Application Service Adapter for use with a registry that has a custom or self-signed certificate authority:
+
+1. Set the value of the `app_registry_credentials.ca_cert_data` property in the `tas-adapter-values.yml` file with a PEM encoded Certificate Authority certificate.
+
+1. Note:
+    - __Your cluster nodes must trust the Certificate Authority that the Application Service Adapter is configured with.__
+    - __Tanzu Build Service must also be configured to trust this registry Certificate Authority certificate.__
 
 
 ## <a id="install-adapter"></a>Install the Application Service Adapter

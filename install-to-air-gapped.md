@@ -104,9 +104,9 @@ Once the images have been relocated,
       app_ingress.default_domain           string   Default application domain
       app_ingress.tls.crt                  string   TLS certificate for the default application domain (PEM format)
       app_ingress.tls.key                  string   TLS private key for the default application domain (PEM format)
-      kpack_clusterbuilder_name  default   string   Name of the kpack cluster builder to use for staging
       app_registry.path.droplets           string   Container registry repository where staged, runnable app images (Droplets) will be stored
       app_registry.path.packages           string   Container registry repository where uploaded app source code (Packages) will be stored
+      kpack_clusterbuilder_name  default   string   Name of the kpack cluster builder to use for staging
       ...
     ```
 

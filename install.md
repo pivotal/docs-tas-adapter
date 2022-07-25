@@ -75,9 +75,9 @@ To install Application Service Adapter:
       app_ingress.default_domain           string   Default application domain
       app_ingress.tls.secret_name          string   Name of the secret containing the TLS certificate for the default application domain (PEM format)
       app_ingress.tls.namespace            string   Namespace containing the default application domain TLS secret
-      kpack_clusterbuilder_name  default  string   Name of the kpack cluster builder to use for staging
       app_registry.path.droplets           string   Container registry repository where staged, runnable app images (Droplets) will be stored
       app_registry.path.packages           string   Container registry repository where uploaded app source code (Packages) will be stored
+      kpack_clusterbuilder_name  default  string   Name of the kpack cluster builder to use for staging
       ...
     ```
 

@@ -221,7 +221,7 @@ To configure the installation settings:
       host: "API-AUTH-PROXY-FQDN"
     kpack_cluster_builder_name: "KPACK-CLUSTER-BUILDER-NAME"
     scaling:
-      cf_k8s_api:
+      korifi_api:
         limits:
           cpu: "API-CPU-LIMIT"
           memory: "API-MEMORY-LIMIT"
@@ -229,9 +229,15 @@ To configure the installation settings:
           cpu: "API-CPU-REQUEST"
           memory: "API-MEMORY-REQUEST"
         replicas: API-REPLICA-COUNT
-      cf_k8s_controllers:
+      korifi_controllers:
         ... #! scaling keys are the same as above
       eirini_controller:
+        ... #! scaling keys are the same as above
+      korifi_kpack_image_builder:
+        ... #! scaling keys are the same as above
+      korifi_statefulset_runner:
+        ... #! scaling keys are the same as above
+      tas_adapter_telemetry:
         ... #! scaling keys are the same as above
       kube_rbac_proxy:
         ... #! scaling keys are the same as above, minus the "replicas" key
@@ -247,11 +253,11 @@ To configure the installation settings:
    - `API-AUTH-PROXY-TLS-CRT` is the CA certificate from the authentication proxy running along side your Kubernetes cluster.
    - `API-AUTH-PROXY-FQDN` is the FQDN for the authentication proxy running along side your Kubernetes cluster.
    - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service-v13/GUID-managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
-   - `API-CPU-LIMIT` is the desired CPU resource limit for the pods in the specified deployment.
-   - `API-MEMORY-LIMIT` is the desired memory resource limit for the pods in the specified deployment.
-   - `API-CPU-REQUEST` is the desired CPU resource request for the pods in the specified deployment.
-   - `API-MEMORY-REQUEST` is the desired memory resource request for the pods in the specified deployment.
-   - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment.
+   - `API-CPU-LIMIT` is the desired CPU resource limit for the pods in the specified deployment. Default is 1 cpu.
+   - `API-MEMORY-LIMIT` is the desired memory resource limit for the pods in the specified deployment. Default is 1000Mi.
+   - `API-CPU-REQUEST` is the desired CPU resource request for the pods in the specified deployment. Default is 50m.
+   - `API-MEMORY-REQUEST` is the desired memory resource request for the pods in the specified deployment. Default is 100Mi.
+   - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment. Default is 1. 
    - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
    - `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM encoded multiline string containing the Certificate Authority certificate
        - The value must be inserted into your values file as a yaml multiline string with a block scalar literal.

@@ -67,7 +67,7 @@ To install Application Service Adapter:
     ```
     | Retrieving package details for application-service-adapter.tanzu.vmware.com/0.8.0...
       KEY                         DEFAULT  TYPE     DESCRIPTION
-      api_auth_proxy.ca_cert               string   TLS CA certificate of your cluster's auth proxy
+      api_auth_proxy.ca_cert.data          string   TLS CA certificate of your cluster's auth proxy
       api_auth_proxy.host                  string   FQDN of your cluster's auth proxy
       api_ingress.fqdn                     string   FQDN used to access the CF API
       api_ingress.tls.secret_name          string   Name of the secret containing the TLS certificate for the CF API (PEM format)
@@ -75,9 +75,9 @@ To install Application Service Adapter:
       app_ingress.default_domain           string   Default application domain
       app_ingress.tls.secret_name          string   Name of the secret containing the TLS certificate for the default application domain (PEM format)
       app_ingress.tls.namespace            string   Namespace containing the default application domain TLS secret
-      kpack_cluster_builder_name  default  string   Name of the kpack cluster builder to use for staging
-      kpack_image_tag_prefix               string   Container registry repository where staged, runnable app images (Droplets) will be stored
-      package_registry_base_path           string   Container registry repository where uploaded app source code (Packages) will be stored
+      app_registry.path.droplets           string   Container registry repository where staged, runnable app images (Droplets) will be stored
+      app_registry.path.packages           string   Container registry repository where uploaded app source code (Packages) will be stored
+      kpack_clusterbuilder_name  default  string   Name of the kpack cluster builder to use for staging
       ...
     ```
 
@@ -189,12 +189,14 @@ To configure the installation settings:
       tls:
         secret_name: APP-TLS-SECRET-NAME
         namespace: APP-TLS-SECRET-NAMESPACE
-    kpack_image_tag_prefix: "KPACK-TAG-PREFIX"
-    package_registry_base_path: "PACKAGE-REGISTRY-BASE"
-    app_registry_credentials:
-      username: "APP-REGISTRY-USERNAME"
-      password: "APP-REGISTRY-PASSWORD"
+    app_registry:
+      credentials:
+        username: "APP-REGISTRY-CREDENTIALS-USERNAME"
+        password: "APP-REGISTRY-CREDENTIALS-PASSWORD"
       hostname: "APP-REGISTRY-HOSTNAME"
+      path:
+        droplets: "APP-REGISTRY-PATH-DROPLETS"
+        packages: "APP-REGISTRY-PATH-PACKAGES"
     ```
 
    Where:
@@ -205,21 +207,22 @@ To configure the installation settings:
    - `DEFAULT-APP-DOMAIN` is the domain that you want to use.
    - `APP-TLS-SECRET-NAME` is the kubernetes.io/tls secret containing the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
    - `APP-TLS-SECRET-NAMESPACE` is the namespace containing the APP-TLS-SECRET.
-   - `KPACK-TAG-PREFIX` is the container image registry "directory"/"project" where droplets (runnable application images) are uploaded.
-   - `PACKAGE-REGISTRY-BASE` is the registry "directory"/"project" where packages (application source code) are uploaded.
-   - `APP-REGISTRY-USERNAME` is the user name used to access the registry, or the reserved keyword indicating service account JSON. For example, `_json_key`.
-   - `APP-REGISTRY-PASSWORD` is the password used to access the registry, or service account JSON. For example, `{\"type\": \"service_account\", \"project_id\": \"my-gcr-project-id\"...}\` for the GCP service account.
+   - `APP-REGISTRY-CREDENTIALS-USERNAME` is the username used to access the registry, or the reserved keyword indicating service account JSON. For example, `_json_key`.
+   - `APP-REGISTRY-CREDENTIALS-PASSWORD` is the password used to access the registry, or service account JSON. For example, `{\"type\": \"service_account\", \"project_id\": \"my-gcr-project-id\"...}\` for the GCP service account.
    - `APP-REGISTRY-HOSTNAME` is the hostname of the registry to be used for app packages and droplets. For example, `gcr.io`.
+   - `APP-REGISTRY-PATH-DROPLETS` is the container image registry "directory"/"project" where droplets (runnable application images) are uploaded.
+   - `APP-REGISTRY-PATH-PACKAGES` is the registry "directory"/"project" where packages (application source code) are uploaded.
 
    See optional values in the following example. For more information, see the Tanzu CLI output.
 
     ```yaml
     ---
     api_auth_proxy:
-      ca_cert: |
-        API-AUTH-PROXY-TLS-CRT
+      ca_cert: 
+        data: |
+          API-AUTH-PROXY-TLS-CRT
       host: "API-AUTH-PROXY-FQDN"
-    kpack_cluster_builder_name: "KPACK-CLUSTER-BUILDER-NAME"
+    kpack_clusterbuilder_name: "KPACK-CLUSTER-BUILDER-NAME"
     scaling:
       cf_k8s_api:
         limits:
@@ -237,9 +240,10 @@ To configure the installation settings:
         ... #! scaling keys are the same as above, minus the "replicas" key
     telemetry:
       heartbeat_interval: TELEMETRY-HEARTBEAT-INTERVAL
-    app_registry_credentials:
-      ca_cert_data: |
-        PEM-ENCODED-CERTIFICATE-CONTENTS
+    app_registry:
+      ca_cert:
+        data: |
+          PEM-ENCODED-CERTIFICATE-CONTENTS
     ```
 
    Where:

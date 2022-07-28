@@ -96,7 +96,7 @@ Once the images have been relocated,
     ```
     | Retrieving package details for application-service-adapter.tanzu.vmware.com/0.8.0...
       KEY                         DEFAULT  TYPE     DESCRIPTION
-      api_auth_proxy.ca_cert               string   TLS CA certificate of your cluster's auth proxy
+      api_auth_proxy.ca_cert.data          string   TLS CA certificate of your cluster's auth proxy
       api_auth_proxy.host                  string   FQDN of your cluster's auth proxy
       api_ingress.fqdn                     string   FQDN used to access the CF API
       api_ingress.tls.crt                  string   TLS certificate for the CF API (PEM format)
@@ -104,9 +104,9 @@ Once the images have been relocated,
       app_ingress.default_domain           string   Default application domain
       app_ingress.tls.crt                  string   TLS certificate for the default application domain (PEM format)
       app_ingress.tls.key                  string   TLS private key for the default application domain (PEM format)
-      kpack_cluster_builder_name  default  string   Name of the kpack cluster builder to use for staging
-      kpack_image_tag_prefix               string   Container registry repository where staged, runnable app images (Droplets) will be stored
-      package_registry_base_path           string   Container registry repository where uploaded app source code (Packages) will be stored
+      app_registry.path.droplets           string   Container registry repository where staged, runnable app images (Droplets) will be stored
+      app_registry.path.packages           string   Container registry repository where uploaded app source code (Packages) will be stored
+      kpack_clusterbuilder_name  default   string   Name of the kpack cluster builder to use for staging
       ...
     ```
 

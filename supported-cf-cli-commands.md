@@ -108,9 +108,9 @@ The Application Service Adapter supports a subset of the Cloud Foundry manifest 
 |`cf stage-package` | Y |     |
 |`cf restage` | Y | Using `--strategy` flag is not supported.    |
 |`cf restart-app-instance` | N |     |
-|`cf run-task` | N |     |
-|`cf tasks` | N |     |
-|`cf terminate-task` | N |     |
+|`cf run-task` | Y | Only the `-c` parameter is supported. |
+|`cf tasks` | Y ||
+|`cf terminate-task` | Y ||
 |`cf packages` | Y |     |
 |`cf create-package` | Y |     |
 |`cf droplets` | N |     |
@@ -131,7 +131,6 @@ The Application Service Adapter supports a subset of the Cloud Foundry manifest 
 |`cf disable-ssh` | N |     |
 |`cf ssh-enabled` | N |     |
 |`cf ssh` | N |     |
-
 
 ## <a id="org-space-operations"></a> Org and space operations
 

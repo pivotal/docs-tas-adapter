@@ -223,6 +223,7 @@ To configure the installation settings:
           API-AUTH-PROXY-TLS-CRT
       host: "API-AUTH-PROXY-FQDN"
     kpack_clusterbuilder_name: "KPACK-CLUSTER-BUILDER-NAME"
+    user_certificate_expiration_warning_duration: "USER-CERT-EXPIRY-WARNING-DURATION"
     scaling:
       korifi_api:
         limits:
@@ -257,6 +258,7 @@ To configure the installation settings:
    - `API-AUTH-PROXY-TLS-CRT` is the CA certificate from the authentication proxy running along side your Kubernetes cluster.
    - `API-AUTH-PROXY-FQDN` is the FQDN for the authentication proxy running along side your Kubernetes cluster.
    - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service-v13/GUID-managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
+   - `USER-CERT-EXPIRY-WARNING-DURATION` is the recommended duration beyond which user are warned to use short-lived certificates for authentication. Default is 168 hours.
    - `API-CPU-LIMIT` is the desired CPU resource limit for the pods in the specified deployment. Default is 1 cpu.
    - `API-MEMORY-LIMIT` is the desired memory resource limit for the pods in the specified deployment. Default is 1000Mi.
    - `API-CPU-REQUEST` is the desired CPU resource request for the pods in the specified deployment. Default is 50m.

@@ -301,13 +301,11 @@ Your Application Service Adapter deployment no longer emits telemetry, and you a
 
 ### <a id="custom-ca-registry"></a>Configure a Registry With a Custom Certificate Authority
 
-To configure the Application Service Adapter for use with a registry that has a custom or self-signed certificate authority:
+To configure the Application Service Adapter with a registry that has a custom or self-signed certificate authority:
 
 1. Set the value of the `app_registry_credentials.ca_cert_data` property in the `tas-adapter-values.yml` file with a PEM encoded Certificate Authority certificate.
 
-1. Note:
-    - __Your cluster nodes must trust the Certificate Authority that the Application Service Adapter is configured with.__
-    - __Tanzu Build Service must also be configured to trust this registry Certificate Authority certificate.__
+> **Note:** Your cluster nodes must trust the Certificate Authority that the Application Service Adapter is configured with. Tanzu Build Service must be configured to trust this registry Certificate Authority certificate.
 
 
 ## <a id="install-adapter"></a>Install the Application Service Adapter

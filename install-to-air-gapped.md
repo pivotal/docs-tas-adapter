@@ -1,20 +1,21 @@
-# Installing Application Service Adapter to Air-Gapped Environments
+# Installing Application Service Adapter to air-gapped environments 
 
-For instructions on how to install prerequisites in air-gapped environments, see
-* [Tanzu Application Platform](https://docs.vmware.com/en/Tanzu-Application-Platform/1.1/tap/GUID-install.html#relocate-images-to-a-registry-0)
+For instructions on how to install prerequisites in air-gapped environments, see:
+
+* [Tanzu Application Platform](https://docs.vmware.com/en/Tanzu-Application-Platform/1.1/tap/GUID-install.html) 
 * [Tanzu Build Service](https://docs.vmware.com/en/Tanzu-Build-Service/1.5/vmware-tanzu-build-service/GUID-installing-no-kapp.html#installation-to-air-gapped-environment)
 
-Below topics describe how Application Service Adapter for VMware Tanzu Application Platform system can can be installed to a Kubernetes Cluster and registry that are air-gapped from external traffic.
+The topics below describe how Application Service Adapter for VMware Tanzu Application Platform system are installed to a Kubernetes Cluster and registry that are air-gapped from external traffic:
 
 * [Relocate Images to a Registry](#relocate-images-to-registry)
-* [Install the package repository](#install-package-repo)
+* [Install the package repository](#install-package-repo) 
 
 ----
 
-## <a id="relocate-images-to-registry"></a>Relocate Images to a Registry (Air-Gapped)
+## <a id="relocate-images-to-registry"></a>Relocate images to a registry (air-gapped)
 
-This procedure relocates images from the Tanzu Network registry to an internal image registry that's available to the air-gapped environment via a local machine.
-The local machine should have access to the air-gapped environment.
+This procedure relocates images from the Tanzu Network registry to an internal container image registry that is available to the air-gapped environment through a local machine.
+The local machine must have access to the air-gapped environment.
 
 1. Log in to the Tanzu Network registry with your Tanzu Network credentials:
    ```bash
@@ -32,16 +33,16 @@ The local machine should have access to the air-gapped environment.
     docker login <INTERNAL-REGISTRY>
    ```
 
-   Where `INTERNAL-REGISTRY` is the name of your internal image registry
+   Where `INTERNAL-REGISTRY` is the name of your internal image registry.
 
 5. Unpackage the images from the tarball to the internal registry:
    ```bash
-    imgpkg copy --tar tas-adapter-package-repo.tar --to-repo=<INTERNAL-REGISTRY>/tas-adapter-package-repo
+    imgpkg copy --tar tas-adapter-package-repo.tar --to-repo=<INTERNAL-REGISTRY> /tas-adapter-package-repo
    ```
 
 ## <a id="install-package-repo"></a>Install the package repository
 
-Once the images have been relocated,
+After the images are relocated:
 
 1. Create a namespace called `tas-adapter-install` for deploying Application Service Adapter to your cluster.
 
@@ -66,7 +67,7 @@ Once the images have been relocated,
 
     ```bash
     tanzu package repository add tas-adapter-repository \
-      --url <INTERNAL-REGISTRY>/tas-adapter-package-repo:0.8.0 \
+      --url <INTERNAL-REGISTRY> /tas-adapter-package-repo:0.8.0 \
       --namespace tas-adapter-install
     ```
 4. Verify that the package repository contains the Application Service Adapter package.
@@ -112,4 +113,4 @@ Once the images have been relocated,
 
 ---
 
-For rest of the installation instructions from configuring tas-adapter installation and onwards, follow the regular [install](install.md) guide.
+For installation and configuring instructions, see the [install](install.md) guide.

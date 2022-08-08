@@ -274,28 +274,28 @@ To configure the installation settings:
 
 ### <a id="opt-out-telemetry"></a>Opting out of telemetry reporting
 
-By default, when you install Application Service Adapter, you are opted into telemetry collection. To turn off telemetry collection, complete the following instructions.
+By default, when you install Application Service Adapter, you opt into telemetry collection. To turn off telemetry collection, complete the following instructions:
 
 1. Ensure your Kubernetes context is pointing to the cluster where Application Service Adapter is installed.
 
 2. Run the following kubectl command:
 
-```yaml
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: vmware-system-telemetry
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  namespace: vmware-system-telemetry
-  name: vmware-telemetry-cluster-ceip
-data:
-  level: disabled
-EOF
-```
+  ```yaml
+  kubectl apply -f - <<EOF
+  apiVersion: v1
+  kind: Namespace
+  metadata:
+    name: vmware-system-telemetry
+  ---
+  apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    namespace: vmware-system-telemetry
+    name: vmware-telemetry-cluster-ceip
+  data:
+    level: disabled
+  EOF
+  ```
 
 Your Application Service Adapter deployment no longer emits telemetry, and you are opted out of the VMware Customer Experience Improvement Program.
 

@@ -21,6 +21,7 @@ This release is intended for testing and evaluation only. It should not be used 
 * Application developers can use `cf terminate-task` to cancel a running one-off task for an application.
 * Platform operators can configure the Application Service Adapter system to trust container registries that have certificates signed by private certificate authorities.
 * Platform operators can set replica counts and resource limits for each Application Service Adapter system component.
+* **BREAKING CHANGE**: Platform operators have more meaningful names for certain Application Service Adapter system configuration values. See [Installing Application Service Adapter](install.md) for details.
 
 ### Components
 

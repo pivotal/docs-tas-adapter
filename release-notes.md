@@ -2,6 +2,39 @@
 
 This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform.
 
+## <a id='0-9-0'></a> v0.9.0 Beta Release
+
+**Release Date**: MMM DD, 2022
+
+This release is intended for testing and evaluation only. It should not be used to run production workloads.
+
+> **Note**: Platform operators should uninstall Application Service Adapter v0.8 or earlier completely before installing Application Service Adapter v0.9.
+
+### Features
+
+* **FIXED**: The `cf env` command now reports the value of the system-provided `VCAP_SERVICES` environment variable.
+* **FIXED**: After unbinding all services from an app, the `VCAP_SERVICES` environment variable is now correctly reset to an empty JSON object, `{}`.
+* Application developers can see application staging logs during `cf push`.
+* Application developers can use `cf logs` to stream logs from running applications.
+* Application developers can use `cf run-task` to run a one-off task for an application.
+* Application developers can use `cf tasks` to list the one-off tasks for an application.
+* Application developers can use `cf terminate-task` to cancel a running one-off task for an application.
+* Platform operators can configure the Application Service Adapter system to trust container registries that have certificates signed by private certificate authorities.
+* Platform operators can set replica counts and resource limits for each Application Service Adapter system component.
+
+### Components
+
+This release contains the following components:
+
+* Korifi @ [4151de2](https://github.com/cloudfoundry/korifi/commit/4151de2e615d2d4eee8c79f82fb536f3915688f0)
+* Eirini Controller @ [e54a445](https://github.com/cloudfoundry-incubator/eirini-controller/commit/e54a4458f63d12b260ad0772026811624ca7e7cd)
+* kube-rbac-proxy @ [v0.12.0](https://github.com/brancz/kube-rbac-proxy/releases/tag/v0.12.0)
+
+### Known Issues
+
+* The Application Service Adapter supports only a subset of Cloud Foundry command-line interface (cf CLI) commands and options. See [Supported cf CLI Commands](supported-cf-cli-commands.md) for details.
+
+
 ## <a id='0-8-1'></a> v0.8.1 Beta Release
 
 **Release Date**: July 25, 2022

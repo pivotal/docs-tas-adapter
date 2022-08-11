@@ -24,7 +24,7 @@ The local machine must have access to the air-gapped environment.
    
 2. Copy the Application Service Adapter bundle to a tarball with the [Carvel](https://carvel.dev/imgpkg/) `imgpkg` tool by running:
    ```bash
-    imgpkg copy -b registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:0.8.0 --to-tar tas-adapter-package-repo.tar
+    imgpkg copy -b registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:0.9.0 --to-tar tas-adapter-package-repo.tar
    ```
 3. Move the tarball file `tas-adapter-package-repo.tar` to the local machine that has access to the air-gapped environment.
 
@@ -67,7 +67,7 @@ After the images are relocated:
 
     ```bash
     tanzu package repository add tas-adapter-repository \
-      --url <INTERNAL-REGISTRY> /tas-adapter-package-repo:0.8.0 \
+      --url <INTERNAL-REGISTRY> /tas-adapter-package-repo:0.9.0 \
       --namespace tas-adapter-install
     ```
 4. Verify that the package repository contains the Application Service Adapter package.
@@ -82,20 +82,20 @@ After the images are relocated:
     ```bash
     NAME                                          DISPLAY-NAME                 SHORT-DESCRIPTION                                                   LATEST-VERSION
     ...
-    application-service-adapter.tanzu.vmware.com  Application Service Adapter  Application Service Adapter for VMware Tanzu Application Platform  0.8.0
+    application-service-adapter.tanzu.vmware.com  Application Service Adapter  Application Service Adapter for VMware Tanzu Application Platform  0.9.0
     ...
     ```
 
 5. List the installation settings for the `application-service-adapter` package.
 
     ```bash
-    tanzu package available get application-service-adapter.tanzu.vmware.com/0.8.0 --values-schema --namespace tas-adapter-install
+    tanzu package available get application-service-adapter.tanzu.vmware.com/0.9.0 --values-schema --namespace tas-adapter-install
     ```
 
    It should output a list of settings similar to:
 
     ```
-    | Retrieving package details for application-service-adapter.tanzu.vmware.com/0.8.0...
+    | Retrieving package details for application-service-adapter.tanzu.vmware.com/0.9.0...
       KEY                         DEFAULT  TYPE     DESCRIPTION
       api_auth_proxy.ca_cert.data          string   TLS CA certificate of your cluster's auth proxy
       api_auth_proxy.host                  string   FQDN of your cluster's auth proxy

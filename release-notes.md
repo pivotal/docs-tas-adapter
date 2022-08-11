@@ -8,7 +8,7 @@ This topic contains release notes for the Application Service Adapter for VMware
 
 This release is intended for testing and evaluation only. It should not be used to run production workloads.
 
-> **Note**: Platform operators should uninstall Application Service Adapter v0.8 or earlier completely before installing Application Service Adapter v0.9.
+> **Note**: Platform operators should uninstall Application Service Adapter v0.8 or earlier completely before installing Application Service Adapter v0.9. Several of the Custom Resource Definitions that Application Service Adapter v0.8 and earlier provide cannot be upgraded to the ones for v0.9.
 
 ### Features
 
@@ -19,9 +19,11 @@ This release is intended for testing and evaluation only. It should not be used 
 * Application developers can use `cf run-task` to run a one-off task for an application.
 * Application developers can use `cf tasks` to list the one-off tasks for an application.
 * Application developers can use `cf terminate-task` to cancel a running one-off task for an application.
+* Platform operators can uninstall the Application Service Adapter system without deleting orgs and spaces first.
 * Platform operators can configure the Application Service Adapter system to trust container registries that have certificates signed by private certificate authorities.
 * Platform operators can set replica counts and resource limits for each Application Service Adapter system component.
 * Platform operators can set the expiry duration beyond which users of the Application Service Adapter API are notified to use shorter-lived certificates for authentication.
+* Application Service Adapter system components are now deployed into a single `tas-adapter-system` namespace.
 * **BREAKING CHANGE**: Platform operators have more meaningful names for certain Application Service Adapter system configuration values. See [Installing Application Service Adapter](install.md) for details.
 
 ### Components

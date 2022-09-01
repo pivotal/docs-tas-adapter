@@ -38,7 +38,7 @@ The following dependencies must be installed to the target Kubernetes cluster be
    * If you have installed Tanzu Application Platform v1.1 without using a profile, see [Install cert-manager, Contour, and FluxCD Source Controller](https://docs.vmware.com/en/Tanzu-Application-Platform/1.1/tap/GUID-cert-mgr-contour-fcd-install-cert-mgr.html).
    > **Note:** You must configure Contour's ingress to provision a LoadBalancer. See [Configure LoadBalancer for Contour ingress](https://docs.vmware.com/en/Tanzu-Application-Platform/1.1/tap/GUID-install.html#configure-loadbalancer-for-contour-ingress-7) in _Installing the Tanzu Application Platform Package and Profiles_.
 
-* Service Bindings v0.7.1 or later for ingress control.
+* Service Bindings v0.7.1.
    * If you have installed Tanzu Application Platform v1.1 with the `full`, `iterate`, `run`, or `light` profile, this package is installed.
    * If you have installed Tanzu Application Platform v1.1 without using a profile, see [Install Service Bindings](https://docs.vmware.com/en/Tanzu-Application-Platform/1.1/tap/GUID-service-bindings-install-service-bindings.html).
 

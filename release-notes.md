@@ -111,7 +111,7 @@ This release is intended for testing and evaluation only. It should not be used 
 ### Features
 
 * Application developers can use `cf logs --recent` to retrieve recent build and runtime logs for applications.
-* Application memory allocations match the behavior of Tanzu Application Service, with `M` interpreted consistently as `MiB` (mebibytes). 
+* Application memory allocations match the behavior of Tanzu Application Service, with `M` interpreted consistently as `MiB` (mebibytes).
 * Platform operators can change the default shared domain for application routes.
 * Application Service Adapter generates namespaces for CF orgs and spaces entirely via Korifi controllers instead of using the Hierarchical Namespace Controller.
 * Application Service Adapter introduces a new `BuildWorkload` resource to represent information required to build an application droplet from a source-code package.

@@ -136,7 +136,7 @@ To configure the installation settings:
          kubectl delete secret APP-TLS-SECRET-NAME -n APP-TLS-SECRET-NAMESPACE
          kubectl create secret tls APP-TLS-SECRET-NAME --cert=tls.crt --key=tls.key -n APP-TLS-SECRET-NAMESPACE
         ```
-   
+
       * If you do not have a wildcard certificate and private keypair, you can [generate a self-signed secret using cert-manager](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources).
 
       * Alternatively, you can generate a self-signed certificate manually.
@@ -150,7 +150,7 @@ To configure the installation settings:
               -days 365
             ```
             Where `APP-DOMAIN` is the FQDN of the shared domain to use for application routes. By default, each application is mapped to a route on a subdomain of this shared domain.
-      
+
          * If you are using version `libressl` v3.1.0 or earlier:
 
            ```bash
@@ -218,12 +218,16 @@ To configure the installation settings:
     ```yaml
     ---
     api_auth_proxy:
-      ca_cert: 
+      ca_cert:
         data: |
           API-AUTH-PROXY-TLS-CRT
       host: "API-AUTH-PROXY-FQDN"
+    app_registry:
+      ca_cert:
+        data: |
+          PEM-ENCODED-CERTIFICATE-CONTENTS
+    experimental_use_cartographer: FALSE-OR-TRUE-VALUE
     kpack_clusterbuilder_name: "KPACK-CLUSTER-BUILDER-NAME"
-    user_certificate_expiration_warning_duration: "USER-CERT-EXPIRY-WARNING-DURATION"
     scaling:
       korifi_api:
         limits:
@@ -235,38 +239,37 @@ To configure the installation settings:
         replicas: API-REPLICA-COUNT
       korifi_controllers:
         ... #! scaling keys are the same as above
-      eirini_controller:
+      korifi_job_task_runner:
         ... #! scaling keys are the same as above
       korifi_kpack_image_builder:
         ... #! scaling keys are the same as above
       korifi_statefulset_runner:
         ... #! scaling keys are the same as above
-      tas_adapter_telemetry:
-        ... #! scaling keys are the same as above
       kube_rbac_proxy:
         ... #! scaling keys are the same as above, minus the "replicas" key
+      cartographer_builder_runner:
+        ... #! scaling keys are the same as above
+      telemetry_informer:
+        ... #! scaling keys are the same as above
     telemetry:
       heartbeat_interval: TELEMETRY-HEARTBEAT-INTERVAL
-    app_registry:
-      ca_cert:
-        data: |
-          PEM-ENCODED-CERTIFICATE-CONTENTS
+    user_certificate_expiration_warning_duration: "USER-CERT-EXPIRY-WARNING-DURATION"
     ```
 
    Where:
 
    - `API-AUTH-PROXY-TLS-CRT` is the CA certificate from the authentication proxy running along side your Kubernetes cluster.
    - `API-AUTH-PROXY-FQDN` is the FQDN for the authentication proxy running along side your Kubernetes cluster.
+   - `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM encoded multiline string containing the Certificate Authority certificate
+       - The value must be inserted into your values file as a yaml multiline string with a block scalar literal.
    - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service-v13/GUID-managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
    - `USER-CERT-EXPIRY-WARNING-DURATION` is the recommended duration beyond which user are warned to use short-lived certificates for authentication. Default is 168 hours.
    - `API-CPU-LIMIT` is the desired CPU resource limit for the pods in the specified deployment. Default is 1 cpu.
    - `API-MEMORY-LIMIT` is the desired memory resource limit for the pods in the specified deployment. Default is 1000Mi.
    - `API-CPU-REQUEST` is the desired CPU resource request for the pods in the specified deployment. Default is 50m.
    - `API-MEMORY-REQUEST` is the desired memory resource request for the pods in the specified deployment. Default is 100Mi.
-   - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment. Default is 1. 
+   - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment. Default is 1.
    - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
-   - `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM encoded multiline string containing the Certificate Authority certificate
-       - The value must be inserted into your values file as a yaml multiline string with a block scalar literal.
 
    The `requests` and `limits` fields map directly to the resource requests and limits fields on the Kubernetes containers for these system components.
    For more information, see [Resource requests and limits of Pod and container](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container) in the Kubernetes documentation.
@@ -307,6 +310,19 @@ To configure the Application Service Adapter with a registry that has a custom o
 
 > **Note:** Your cluster nodes must trust the Certificate Authority that the Application Service Adapter is configured with. Tanzu Build Service must be configured to trust this registry Certificate Authority certificate.
 
+## <a id="experimental-cartographer-integration"></a>Configure the Experimental Cartographer Integration
+
+To configure the experimental Cartographer integration:
+
+1. Ensure that you have installed the appropriate Tanzu Application Platform compoments.
+   * If you have installed Tanzu Application Platform v1.1 with the `full`, `iterate`, `run`, or `light` profile, this package is installed.
+   * If you have installed Tanzu Application Platform v1.1 without using a profile, see:
+      * [Install Supply Chain Choreographer](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.1/tap/GUID-scc-install-scc.html)
+      * [Install Source Controller](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-source-controller-install-source-controller.html)
+      * [Out of the Box Templates](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-scc-ootb-templates.html)
+      * [Tekton](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-tekton-tekton-about.html)
+
+1. Set the value of the `experimental_use_cartographer` property in the `tas-adapter-values.yml` file to `true`. Note that this is not a string.
 
 ## <a id="install-adapter"></a>Install the Application Service Adapter
 

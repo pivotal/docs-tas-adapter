@@ -31,7 +31,7 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to t
     The cf CLI detects the user authentication entries in your local Kubeconfig file and presents them for you to select one interactively. Select a user on your target cluster whom you want to act as an admin.
 
 1. Use the `cf curl` command to verify the subject name of the logged-in user.
-   
+
     ```bash
     cf curl /whoami
     ```
@@ -48,7 +48,7 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to t
 
 
 1. Create a `tas-adapter-admin.yaml` file with a RoleBinding definition for the admin user:
-   
+
     ```yaml
     ---
     apiVersion: rbac.authorization.k8s.io/v1
@@ -125,17 +125,17 @@ cf map-route APP-NAME apps.example.com --hostname my-app
 
 ## <a id="user-provided-services"></a>Create and bind to a user-provided service instance
 
-Service credentials are provided to apps through user-provided service instances. See [User-Provided Service Instances](https://docs.cloudfoundry.org/devguide/services/user-provided.html) in the Cloud Foundry documentation. 
+Service credentials are provided to apps through user-provided service instances. See [User-Provided Service Instances](https://docs.cloudfoundry.org/devguide/services/user-provided.html) in the Cloud Foundry documentation.
 
-To create and bind user-provided service instances, do the following: 
+To create and bind user-provided service instances, do the following:
 
 1. Create a user-provided service instance containing the credentials necessary for accessing your service:
   ```bash
   cf create-user-provided-service SERVICE-INSTANCE-NAME -p '{"credential-name": "credential-value"}'
   ```
-  
+
   Where `SERVICE-INSTANCE-NAME` is the name of your service instance.
-  
+
 1. Bind the service instance to your app:
   ```bash
   cf bind-service APP-NAME SERVICE-INSTANCE-NAME
@@ -146,8 +146,8 @@ To create and bind user-provided service instances, do the following:
   cf restart APP-NAME
   ```
 
-User-provided service instance credentials is provided to the app and staging tasks in two ways to support both existing TAS applications and next-generation frameworks, such as [Spring Cloud Bindings](https://github.com/spring-cloud/spring-cloud-bindings): 
+User-provided service instance credentials is provided to the app and staging tasks in two ways to support both existing TAS applications and next-generation frameworks, such as [Spring Cloud Bindings](https://github.com/spring-cloud/spring-cloud-bindings):
 
-* As part of the traditional Cloud Foundry [VCAP_SERVICES environment variable](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES) 
+* As part of the traditional Cloud Foundry [VCAP_SERVICES environment variable](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES)
 * As volume mounted secrets in accordance with the [Service Bindings for Kubernetes specification](https://servicebinding.io/spec/core/1.0.0/#workload-projection)
   * This workload projection handles the [Service Bindings Package](https://docs.vmware.com/en/Tanzu-Application-Platform/1.1/tap/GUID-service-bindings-install-service-bindings.html) from Tanzu Application Platform

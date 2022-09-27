@@ -2,6 +2,40 @@
 
 This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform.
 
+## <a id='0-10-0'></a> v0.10.0 Beta Release
+
+**Release Date**: MMM DD, 2022
+
+This release is intended for testing and evaluation only. It should not be used to run production workloads.
+
+> **Note**: Platform operators should uninstall Application Service Adapter v0.8 or earlier completely before installing Application Service Adapter v0.10. Several of the Custom Resource Definitions that Application Service Adapter v0.8 and earlier provide cannot be upgraded to the ones for v0.10.
+
+### Features
+
+* **EXPERIMENTAL**: Platform operators can configure the Application Service Adapter system to build and run applications using the Workload resource from Tanzu Application Platform. Note that this configuration is experimental and applies system-wide.
+* Application developers can use `cf set-label` to set a label on an application.
+* Application developers can use `cf set-label` to unset a label on an application.
+* Application developers can use `cf labels` to read labels on an application.
+* Application developers can use CF API endpoints to read, set, and unset annotations on an application.
+* Platform operators can use `cf set-label` to set a label on an org or a space.
+* Platform operators can use `cf set-label` to unset a label on an org or a space.
+* Platform operators can use `cf labels` to read labels on an org or a space.
+* Platform operators can use CF API endpoints to read, set, and unset annotations on an org or a space.
+
+
+### Components
+
+This release contains the following components:
+
+* cartographer-builder-runner @ 0b2cbe7
+* Korifi @ [81f389c](https://github.com/cloudfoundry/korifi/commit/81f389cfc0ef69c5d05c784162ba3b9bee742341)
+* kube-rbac-proxy @ [v0.12.0](https://github.com/brancz/kube-rbac-proxy/releases/tag/v0.12.0)
+* tas-adapter-telemetry-controller @ 0a2e7ba
+
+### Known Issues
+
+* The Application Service Adapter supports only a subset of Cloud Foundry command-line interface (cf CLI) commands and options. See [Supported cf CLI Commands](supported-cf-cli-commands.md) for details.
+
 ## <a id='0-9-0'></a> v0.9.0 Beta Release
 
 **Release Date**: August 10, 2022

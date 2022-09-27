@@ -214,3 +214,14 @@ This section describes the service operations that Application Service Adapter s
 | `cf update-user-provided-service` | N |  |
 | `cf share-service` | N |  |
 | `cf unshare-service` | N |  |
+
+
+## <a id="metadata-operations"></a> Metadata operations
+
+This section describes the metadata operations that Application Service Adapter supports.
+
+| Command | Supported? | Notes |
+|---------|------------|-------|
+| `cf labels` | Y | The `app`, `org`, and `space` resources are supported. |
+| `cf set-label` | Y | The `app`, `org`, and `space` resources are supported. |
+| `cf unset-label` | Y | The `app`, `org`, and `space` resources are supported. |

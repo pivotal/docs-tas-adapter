@@ -245,8 +245,6 @@ To configure the installation settings:
         ... #! scaling keys are the same as above
       korifi_statefulset_runner:
         ... #! scaling keys are the same as above
-      kube_rbac_proxy:
-        ... #! scaling keys are the same as above, minus the "replicas" key
       cartographer_builder_runner:
         ... #! scaling keys are the same as above
       telemetry_informer:

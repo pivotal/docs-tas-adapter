@@ -91,7 +91,10 @@ To configure the installation settings:
       ```bash
       kubectl create namespace API-TLS-SECRET-NAMESPACE
       kubectl delete secret API-TLS-SECRET-NAME -n API-TLS-SECRET-NAMESPACE
-      kubectl create secret tls API-TLS-SECRET-NAME --cert=tls.crt --key=tls.key -n API-TLS-SECRET-NAMESPACE
+      kubectl create secret tls API-TLS-SECRET-NAME \
+        --cert=tls.crt \
+        --key=tls.key \
+        -n API-TLS-SECRET-NAMESPACE
      ```
 
    * If you do not have a certificate and private keypair, you can [generate a self-signed secret using cert-manager](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources).
@@ -125,54 +128,63 @@ To configure the installation settings:
        ```bash
        kubectl create namespace API-TLS-SECRET-NAMESPACE
        kubectl delete secret API-TLS-SECRET-NAME -n API-TLS-SECRET-NAMESPACE
-       kubectl create secret tls API-TLS-SECRET-NAME --cert=tls.crt --key=tls.key -n API-TLS-SECRET-NAMESPACE
+       kubectl create secret tls API-TLS-SECRET-NAME \
+         --cert=tls.crt \
+         --key=tls.key \
+         -n API-TLS-SECRET-NAMESPACE
        ```
 
-   1. If you do not already have a secret containing a wildcard certificate and private keypair for HTTPS application ingress:
-      * If you have a wildcard certificate and private keypair, create a secret.
+1. If you do not already have a secret containing a wildcard certificate and private keypair for HTTPS application ingress:
+   * If you have a wildcard certificate and private keypair, create a secret.
+
+      ```bash
+      kubectl create namespace APP-TLS-SECRET-NAMESPACE
+      kubectl delete secret APP-TLS-SECRET-NAME -n APP-TLS-SECRET-NAMESPACE
+      kubectl create secret tls APP-TLS-SECRET-NAME \
+        --cert=tls.crt \
+        --key=tls.key \
+        -n APP-TLS-SECRET-NAMESPACE
+     ```
+
+   * If you do not have a wildcard certificate and private keypair, you can [generate a self-signed secret using cert-manager](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources).
+
+   * Alternatively, you can generate a self-signed certificate manually.
+      * If you are using `openssl`, or `libressl v3.1.0` or later:
 
          ```bash
-         kubectl create namespace APP-TLS-SECRET-NAMESPACE
-         kubectl delete secret APP-TLS-SECRET-NAME -n APP-TLS-SECRET-NAMESPACE
-         kubectl create secret tls APP-TLS-SECRET-NAME --cert=tls.crt --key=tls.key -n APP-TLS-SECRET-NAMESPACE
+         openssl req -x509 -newkey rsa:4096 \
+           -keyout tls.key -out tls.crt \
+           -nodes -subj '/CN=*.APP-DOMAIN' \
+           -addext "subjectAltName = DNS:*.APP-DOMAIN" \
+           -days 365
+         ```
+         Where `APP-DOMAIN` is the FQDN of the shared domain to use for application routes. By default, each application is mapped to a route on a subdomain of this shared domain.
+
+      * If you are using version `libressl` v3.1.0 or earlier:
+
+        ```bash
+        openssl req -x509 -newkey rsa:4096 \
+          -keyout tls.key -out tls.crt \
+          -nodes -subj '/CN=*.APP-DOMAIN' \
+          -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:*.APP-DOMAIN'")) \
+          -days 365
         ```
 
-      * If you do not have a wildcard certificate and private keypair, you can [generate a self-signed secret using cert-manager](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources).
+      * > **Note:** The TLS certificate for application ingress must be a wildcard certificate.
+      * > **Note:** `libressl` v3.1.0 is the default version in macOS.
 
-      * Alternatively, you can generate a self-signed certificate manually.
-         * If you are using `openssl`, or `libressl v3.1.0` or later:
+      * Create a secret.
 
-            ```bash
-            openssl req -x509 -newkey rsa:4096 \
-              -keyout tls.key -out tls.crt \
-              -nodes -subj '/CN=*.APP-DOMAIN' \
-              -addext "subjectAltName = DNS:*.APP-DOMAIN" \
-              -days 365
-            ```
-            Where `APP-DOMAIN` is the FQDN of the shared domain to use for application routes. By default, each application is mapped to a route on a subdomain of this shared domain.
+      ```bash
+      kubectl create namespace APP-TLS-SECRET-NAMESPACE
+      kubectl delete secret APP-TLS-SECRET-NAME -n APP-TLS-SECRET-NAMESPACE
+      kubectl create secret tls APP-TLS-SECRET-NAME \
+        --cert=tls.crt \
+        --key=tls.key \
+        -n APP-TLS-SECRET-NAMESPACE
+      ```
 
-         * If you are using version `libressl` v3.1.0 or earlier:
-
-           ```bash
-           openssl req -x509 -newkey rsa:4096 \
-             -keyout tls.key -out tls.crt \
-             -nodes -subj '/CN=*.APP-DOMAIN' \
-             -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:*.APP-DOMAIN'")) \
-             -days 365
-           ```
-
-         * > **Note:** The TLS certificate for application ingress must be a wildcard certificate.
-         * > **Note:** `libressl` v3.1.0 is the default version in macOS.
-
-         * Create a secret.
-
-         ```bash
-         kubectl create namespace APP-TLS-SECRET-NAMESPACE
-         kubectl delete secret APP-TLS-SECRET-NAME -n APP-TLS-SECRET-NAMESPACE
-         kubectl create secret tls APP-TLS-SECRET-NAME --cert=tls.crt --key=tls.key -n APP-TLS-SECRET-NAMESPACE
-         ```
-
-2. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
+1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
 
    The following values are required:
 
@@ -281,7 +293,7 @@ By default, when you install Application Service Adapter, you opt into telemetry
 
 1. Ensure your Kubernetes context is pointing to the cluster where Application Service Adapter is installed.
 
-2. Run the following kubectl command:
+1. Run the following kubectl command:
 
   ```yaml
   kubectl apply -f - <<EOF

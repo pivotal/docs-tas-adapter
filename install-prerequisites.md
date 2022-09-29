@@ -11,7 +11,7 @@ To install the Application Service Adapter, you need:
 
 * Admin access to a Kubernetes cluster. See [Kubernetes cluster requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-prerequisites.html#kubernetes-cluster-requirements-3) in _Prerequisites_.
 
-* A container image registry. See [Tanzu Network and container image registry requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-prerequisites.html#vmware-tanzu-network-and-container-image-registry-requirements-0) in _Prerequisites_.
+* A container image registry. See [VMware Tanzu Network and container image registry requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-prerequisites.html#vmware-tanzu-network-and-container-image-registry-requirements-0) in _Prerequisites_.
 
 The following tools must be installed in the workstation environment in which you intend to perform the installation:
 
@@ -31,12 +31,12 @@ The following dependencies must be installed to the target Kubernetes cluster be
 
 * cert-manager v1.5.3 or later for managing internal certificates.
    * If you have installed Tanzu Application Platform v1.2 with a profile, this package is installed.
-   * If you have installed Tanzu Application Platform v1.2 without using a profile, see [Install cert-manager](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-cert-mgr-contour-fcd-install-cert-mgr.html#install-certmanager-1) in _Install cert-manager, Contour, and FluxCD Source Controller_.
+   * If you have installed Tanzu Application Platform v1.2 without using a profile, see [Install cert-manager](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-cert-mgr-contour-fcd-install-cert-mgr.html#install-certmanager-1) in _Install cert-manager, Contour_.
 
 * Contour v1.18.2 or later for ingress control.
    * If you have installed Tanzu Application Platform v1.2 with a profile, this package is installed.
-   * If you have installed Tanzu Application Platform v1.2 without using a profile, see [Install Contour](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-cert-mgr-contour-fcd-install-cert-mgr.html#install-contour-2) in _Install cert-manager, Contour, and FluxCD Source Controller_.
-   > **Note:** You must configure Contour's ingress to provision a LoadBalancer. See [Configure LoadBalancer for Contour ingress](https://docs.vmware.com/en/Tanzu-Application-Platform/1.1/tap/GUID-install.html#configure-loadbalancer-for-contour-ingress-7) in _Installing the Tanzu Application Platform Package and Profiles_.
+   * If you have installed Tanzu Application Platform v1.2 without using a profile, see [Install Contour](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-cert-mgr-contour-fcd-install-cert-mgr.html#install-contour-2) in _Install cert-manager, Contour_.
+   > **Note:** You must configure Contour's ingress to provision a LoadBalancer. See [Configure LoadBalancer for Contour ingress](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install.html#optional-configure-loadbalancer-for-contour-ingress-2) in _Installing Tanzu Application Platform Package and Profiles_.
 
 * Service Bindings v0.7.2 or later.
    * If you have installed Tanzu Application Platform v1.2 with the `full`, `iterate`, or `run` profile, this package is installed.

@@ -13,6 +13,7 @@ This is the table of contents from which the Application Service Adapter for Tan
   - [User authentication overview](user-authentication-overview.md)
 - [Administering Application Service Adapter](administering.md)
   - [Platform logging and metrics](logging-and-metrics.md)
+  - [Failover and redundancy](failover-and-redundancy.md)
   - [Disaster recovery](disaster-recovery.md)
   - [Rotating certificates](certificate-rotation.md)
 - [Uninstalling Application Service Adapter](uninstall.md)

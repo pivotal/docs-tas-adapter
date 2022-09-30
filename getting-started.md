@@ -2,79 +2,11 @@
 
 This topic provides an overview of how to get started using the Application Service Adapter for Tanzu Application Platform:
 
-* [Assign the admin role to a user](#assign-admin-user)
 * [Create orgs and spaces](#create-orgs-spaces)
 * [Deploy a sample app](#deploy-sample-app)
 * [Route to an app](#routing-sample-app)
 * [Create and bind to a user-provided service instance](#user-provided-services)
 
-## <a id="assign-admin-user"></a>Assign the admin role to a user
-
-After you install the Cloud Foundry command-line interface (cf CLI), log in to the Application Service Adapter and assign the admin role to an existing user in the Kubernetes cluster:
-
-1. Target the cf CLI at the API endpoint.
-
-    ```bash
-    cf api API-FQDN --skip-ssl-validation
-    ```
-
-    Where `API-FQDN` is the fully qualified domain name (FQDN) for the Application Service Adapter API.
-
-    >**Note:** If you configured the Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
-
-1. Log in with the cf CLI.
-
-    ```bash
-    cf login
-    ```
-
-    The cf CLI detects the user authentication entries in your local Kubeconfig file and presents them for you to select one interactively. Select a user on your target cluster whom you want to act as an admin.
-
-1. Use the `cf curl` command to verify the subject name of the logged-in user.
-
-    ```bash
-    cf curl /whoami
-    ```
-
-    The output looks like the following:
-
-    ```
-    {"name":"my_user@example.com","kind":"User"}
-    ```
-
-    The value of the `name` field in the response is the subject name of the user.
-
-    >**Note:** The `kind` field in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log in to the Application Service Adapter with an account for a user in the Kubernetes cluster.
-
-
-1. Create a `tas-adapter-admin.yaml` file with a RoleBinding definition for the admin user:
-
-    ```yaml
-    ---
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: RoleBinding
-    metadata:
-      name: cf-admin
-      namespace: cf
-      annotations:
-        cloudfoundry.org/propagate-cf-role: "true"
-    subjects:
-    - kind: User
-      name: CF-ADMIN-USERNAME
-      apiGroup: rbac.authorization.k8s.io
-    roleRef:
-      kind: ClusterRole
-      name: korifi-controllers-admin
-      apiGroup: rbac.authorization.k8s.io
-    ```
-
-    Where `CF-ADMIN-USERNAME` is the user name you verify earlier.
-
-1. Create the admin RoleBinding in the target cluster.
-
-    ```bash
-    kubectl apply -f tas-adapter-admin.yaml
-    ```
 
 ## <a id="create-orgs-spaces"></a>Create orgs and spaces
 

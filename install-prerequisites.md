@@ -4,7 +4,7 @@ This topic describes the first part of the installation process for the Applicat
 
 ----
 
-Use of the Application Service Adapter requires Cloud Foundry command-line interface (cf CLI) v8.1.0 or later, and v8.4.0 or later is recommended.
+Use of the Application Service Adapter requires Cloud Foundry command-line interface (cf CLI) v8.1.0 or later, and v8.5.0 or later is recommended.
 For more information, see the [cf CLI repository](https://github.com/cloudfoundry/cli) on GitHub.
 
 ### <a id="kubernetes-cluster-image-registry"></a>Kubernetes cluster and container image registry

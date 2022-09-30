@@ -4,7 +4,7 @@ This topic describes how to install the Application Service Adapter for VMware T
 
 * [Install the package repository](#install-package-repo)
 * [Configure the installation settings](#configure-installation-settings)
-* [Install the Application Service Adapter](#install-adapter)
+* [Install Application Service Adapter](#install-adapter)
 * [Configure DNS for the Application Service Adapter](#configure-dns)
 * [Assign the admin role to a user](#assign-admin-user)
 
@@ -328,7 +328,7 @@ Your Application Service Adapter deployment no longer emits telemetry, and you a
 
 ### <a id="custom-ca-registry"></a>Configure a Registry With a Custom Certificate Authority
 
-To configure the Application Service Adapter with a registry that has a custom or self-signed certificate authority:
+To configure Application Service Adapter with a registry that has a custom or self-signed certificate authority:
 
 1. Set the value of the `app_registry_credentials.ca_cert_data` property in the `tas-adapter-values.yml` file with a PEM encoded Certificate Authority certificate.
 
@@ -342,11 +342,11 @@ To configure the experimental Cartographer integration:
 
 1. Set the value of the `experimental_use_cartographer` property in the `tas-adapter-values.yml` file to `true`. Note that this value is a boolean and not a string.
 
-## <a id="install-adapter"></a>Install the Application Service Adapter
+## <a id="install-adapter"></a>Install Application Service Adapter
 
-To install the Application Service Adapter:
+To install Application Service Adapter:
 
-1. Install the Application Service Adapter to the cluster.
+1. Install Application Service Adapter to the cluster.
 
     ```bash
     tanzu package install tas-adapter \
@@ -375,9 +375,9 @@ To install the Application Service Adapter:
     USEFUL-ERROR-MESSAGE:
     ```
 
-## <a id="configure-dns"></a>Configure DNS for the Application Service Adapter
+## <a id="configure-dns"></a>Configure DNS for Application Service Adapter
 
-To configure DNS for the Application Service Adapter:
+To configure DNS for Application Service Adapter:
 
 1. Determine the external IP address to be used for ingress to your cluster. This step varies depending on the IaaS used to provision your cluster.
 
@@ -476,4 +476,4 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to A
     ```
 
 
-   Target the API endpoint by running `cf api API-FQDN` and start deploying applications. To test the adapter, continue to [Getting Started](getting-started.md).
+   To test Application Service Adapter, continue to [Getting Started](getting-started.md).

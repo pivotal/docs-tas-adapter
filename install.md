@@ -37,7 +37,7 @@ To install Application Service Adapter:
 
     ```bash
     tanzu package repository add tas-adapter-repository \
-      --url registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:0.9.0 \
+      --url registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:0.10.0 \
       --namespace tas-adapter-install
     ```
 1. Verify that the package repository contains the Application Service Adapter package.
@@ -52,20 +52,20 @@ To install Application Service Adapter:
     ```bash
     NAME                                          DISPLAY-NAME                 SHORT-DESCRIPTION                                                   LATEST-VERSION
     ...
-    application-service-adapter.tanzu.vmware.com  Application Service Adapter  Application Service Adapter for VMware Tanzu® Application Platform  0.9.0
+    application-service-adapter.tanzu.vmware.com  Application Service Adapter  Application Service Adapter for VMware Tanzu® Application Platform  0.10.0
     ...
     ```
 
 1. List the installation settings for the `application-service-adapter` package.
 
     ```bash
-    tanzu package available get application-service-adapter.tanzu.vmware.com/0.9.0 --values-schema --namespace tas-adapter-install
+    tanzu package available get application-service-adapter.tanzu.vmware.com/0.10.0 --values-schema --namespace tas-adapter-install
     ```
 
    It should output a list of settings similar to:
 
     ```
-    | Retrieving package details for application-service-adapter.tanzu.vmware.com/0.9.0...
+    | Retrieving package details for application-service-adapter.tanzu.vmware.com/0.10.0...
       KEY                         DEFAULT  TYPE     DESCRIPTION
       api_auth_proxy.ca_cert.data          string   TLS CA certificate of your cluster's auth proxy
       api_auth_proxy.host                  string   FQDN of your cluster's auth proxy
@@ -91,7 +91,10 @@ To configure the installation settings:
       ```bash
       kubectl create namespace API-TLS-SECRET-NAMESPACE
       kubectl delete secret API-TLS-SECRET-NAME -n API-TLS-SECRET-NAMESPACE
-      kubectl create secret tls API-TLS-SECRET-NAME --cert=tls.crt --key=tls.key -n API-TLS-SECRET-NAMESPACE
+      kubectl create secret tls API-TLS-SECRET-NAME \
+        --cert=tls.crt \
+        --key=tls.key \
+        -n API-TLS-SECRET-NAMESPACE
      ```
 
    * If you do not have a certificate and private keypair, you can [generate a self-signed secret using cert-manager](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources).
@@ -125,54 +128,63 @@ To configure the installation settings:
        ```bash
        kubectl create namespace API-TLS-SECRET-NAMESPACE
        kubectl delete secret API-TLS-SECRET-NAME -n API-TLS-SECRET-NAMESPACE
-       kubectl create secret tls API-TLS-SECRET-NAME --cert=tls.crt --key=tls.key -n API-TLS-SECRET-NAMESPACE
+       kubectl create secret tls API-TLS-SECRET-NAME \
+         --cert=tls.crt \
+         --key=tls.key \
+         -n API-TLS-SECRET-NAMESPACE
        ```
 
-   1. If you do not already have a secret containing a wildcard certificate and private keypair for HTTPS application ingress:
-      * If you have a wildcard certificate and private keypair, create a secret.
+1. If you do not already have a secret containing a wildcard certificate and private keypair for HTTPS application ingress:
+   * If you have a wildcard certificate and private keypair, create a secret.
+
+      ```bash
+      kubectl create namespace APP-TLS-SECRET-NAMESPACE
+      kubectl delete secret APP-TLS-SECRET-NAME -n APP-TLS-SECRET-NAMESPACE
+      kubectl create secret tls APP-TLS-SECRET-NAME \
+        --cert=tls.crt \
+        --key=tls.key \
+        -n APP-TLS-SECRET-NAMESPACE
+     ```
+
+   * If you do not have a wildcard certificate and private keypair, you can [generate a self-signed secret using cert-manager](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources).
+
+   * Alternatively, you can generate a self-signed certificate manually.
+      * If you are using `openssl`, or `libressl v3.1.0` or later:
 
          ```bash
-         kubectl create namespace APP-TLS-SECRET-NAMESPACE
-         kubectl delete secret APP-TLS-SECRET-NAME -n APP-TLS-SECRET-NAMESPACE
-         kubectl create secret tls APP-TLS-SECRET-NAME --cert=tls.crt --key=tls.key -n APP-TLS-SECRET-NAMESPACE
+         openssl req -x509 -newkey rsa:4096 \
+           -keyout tls.key -out tls.crt \
+           -nodes -subj '/CN=*.APP-DOMAIN' \
+           -addext "subjectAltName = DNS:*.APP-DOMAIN" \
+           -days 365
+         ```
+         Where `APP-DOMAIN` is the FQDN of the shared domain to use for application routes. By default, each application is mapped to a route on a subdomain of this shared domain.
+
+      * If you are using version `libressl` v3.1.0 or earlier:
+
+        ```bash
+        openssl req -x509 -newkey rsa:4096 \
+          -keyout tls.key -out tls.crt \
+          -nodes -subj '/CN=*.APP-DOMAIN' \
+          -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:*.APP-DOMAIN'")) \
+          -days 365
         ```
 
-      * If you do not have a wildcard certificate and private keypair, you can [generate a self-signed secret using cert-manager](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources).
+      * > **Note:** The TLS certificate for application ingress must be a wildcard certificate.
+      * > **Note:** `libressl` v3.1.0 is the default version in macOS.
 
-      * Alternatively, you can generate a self-signed certificate manually.
-         * If you are using `openssl`, or `libressl v3.1.0` or later:
+      * Create a secret.
 
-            ```bash
-            openssl req -x509 -newkey rsa:4096 \
-              -keyout tls.key -out tls.crt \
-              -nodes -subj '/CN=*.APP-DOMAIN' \
-              -addext "subjectAltName = DNS:*.APP-DOMAIN" \
-              -days 365
-            ```
-            Where `APP-DOMAIN` is the FQDN of the shared domain to use for application routes. By default, each application is mapped to a route on a subdomain of this shared domain.
+      ```bash
+      kubectl create namespace APP-TLS-SECRET-NAMESPACE
+      kubectl delete secret APP-TLS-SECRET-NAME -n APP-TLS-SECRET-NAMESPACE
+      kubectl create secret tls APP-TLS-SECRET-NAME \
+        --cert=tls.crt \
+        --key=tls.key \
+        -n APP-TLS-SECRET-NAMESPACE
+      ```
 
-         * If you are using version `libressl` v3.1.0 or earlier:
-
-           ```bash
-           openssl req -x509 -newkey rsa:4096 \
-             -keyout tls.key -out tls.crt \
-             -nodes -subj '/CN=*.APP-DOMAIN' \
-             -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:*.APP-DOMAIN'")) \
-             -days 365
-           ```
-
-         * > **Note:** The TLS certificate for application ingress must be a wildcard certificate.
-         * > **Note:** `libressl` v3.1.0 is the default version in macOS.
-
-         * Create a secret.
-
-         ```bash
-         kubectl create namespace APP-TLS-SECRET-NAMESPACE
-         kubectl delete secret APP-TLS-SECRET-NAME -n APP-TLS-SECRET-NAMESPACE
-         kubectl create secret tls APP-TLS-SECRET-NAME --cert=tls.crt --key=tls.key -n APP-TLS-SECRET-NAMESPACE
-         ```
-
-2. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
+1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
 
    The following values are required:
 
@@ -279,7 +291,7 @@ By default, when you install Application Service Adapter, you opt into telemetry
 
 1. Ensure your Kubernetes context is pointing to the cluster where Application Service Adapter is installed.
 
-2. Run the following kubectl command:
+1. Run the following kubectl command:
 
   ```yaml
   kubectl apply -f - <<EOF
@@ -308,19 +320,13 @@ To configure the Application Service Adapter with a registry that has a custom o
 
 > **Note:** Your cluster nodes must trust the Certificate Authority that the Application Service Adapter is configured with. Tanzu Build Service must be configured to trust this registry Certificate Authority certificate.
 
-## <a id="experimental-cartographer-integration"></a>Configure the Experimental Cartographer Integration
+## <a id="experimental-cartographer-integration"></a>(Optional) Configure the Experimental Cartographer Integration
+
+> **Note**: Opting into the experimental Cartographer integration requires a larger set of Tanzu Application Platform packages to be installed. See [Required components for experimental Cartographer integration](install-prerequisites.md#required-components-cartographer) in _Install Prerequisites_.
 
 To configure the experimental Cartographer integration:
 
-1. Ensure that you have installed the appropriate Tanzu Application Platform compoments.
-   * If you have installed Tanzu Application Platform v1.1 with the `full`, `iterate`, `run`, or `light` profile, this package is installed.
-   * If you have installed Tanzu Application Platform v1.1 without using a profile, see:
-      * [Install Supply Chain Choreographer](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.1/tap/GUID-scc-install-scc.html)
-      * [Install Source Controller](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-source-controller-install-source-controller.html)
-      * [Out of the Box Templates](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-scc-ootb-templates.html)
-      * [Tekton](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-tekton-tekton-about.html)
-
-1. Set the value of the `experimental_use_cartographer` property in the `tas-adapter-values.yml` file to `true`. Note that this is not a string.
+1. Set the value of the `experimental_use_cartographer` property in the `tas-adapter-values.yml` file to `true`. Note that this value is a boolean and not a string.
 
 ## <a id="install-adapter"></a>Install the Application Service Adapter
 
@@ -331,7 +337,7 @@ To install the Application Service Adapter:
     ```bash
     tanzu package install tas-adapter \
       --package-name application-service-adapter.tanzu.vmware.com \
-      --version 0.9.0 \
+      --version 0.10.0 \
       --values-file tas-adapter-values.yml \
       --namespace tas-adapter-install
     ```
@@ -349,7 +355,7 @@ To install the Application Service Adapter:
     | Retrieving installation details for tas-adapter...
     NAME:                    tas-adapter
     PACKAGE-NAME:            application-service-adapter.tanzu.vmware.com
-    PACKAGE-VERSION:         0.9.0
+    PACKAGE-VERSION:         0.10.0
     STATUS:                  Reconcile succeeded
     CONDITIONS:              [{ReconcileSucceeded True  }]
     USEFUL-ERROR-MESSAGE:

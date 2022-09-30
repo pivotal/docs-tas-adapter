@@ -36,7 +36,7 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
     ```bash
     tanzu package install tas-adapter \
       --package-name application-service-adapter.tanzu.vmware.com \
-      --version 0.9.0 \
+      --version 0.10.0 \
       --values-file tas-adapter-values.yml \
       --namespace tas-adapter-install
     ```
@@ -54,7 +54,7 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
     | Retrieving installation details for tas-adapter...
     NAME:                    tas-adapter
     PACKAGE-NAME:            application-service-adapter.tanzu.vmware.com
-    PACKAGE-VERSION:         0.9.0
+    PACKAGE-VERSION:         0.10.0
     STATUS:                  Reconcile succeeded
     CONDITIONS:              [{ReconcileSucceeded True  }]
     USEFUL-ERROR-MESSAGE:

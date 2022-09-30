@@ -54,7 +54,7 @@ The following dependencies must be installed to the target Kubernetes cluster be
 
 ### <a id="required-components-cartographer"></a>Required components for experimental Cartographer integration
 
-The following dependencies are required to be installed to the target Kubernetes cluster to opt into using the experimental Cartographer integration. If you have installed Tanzu Application Platform v1.2 with the `full`, `iterate`, or `build` profile, these packages are installed.
+The following dependencies are required to be installed to the target Kubernetes cluster to opt into using the experimental Cartographer integration. If you have installed Tanzu Application Platform v1.2 with the `full`, `iterate`, or `build` profile, then these dependencies are already present.
 
 * Out of the Box Templates v0.8.1 or later.
    * If you have installed Tanzu Application Platform v1.2 without using a profile, see [Install Out of the Box Templates](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-scc-install-ootb-templates.html).

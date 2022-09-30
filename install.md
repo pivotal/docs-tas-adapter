@@ -324,11 +324,11 @@ To configure the Application Service Adapter with a registry that has a custom o
 
 ## <a id="experimental-cartographer-integration"></a>(Optional) Configure the Experimental Cartographer Integration
 
-> **Note**: Opting into the experimental Cartographer integration requires installing additional Tanzu Application Platform packages. See [Required components for experimental Cartographer integration](install-prerequisites.md#required-components-cartographer) in _Install Prerequisites_.
+> **Note**: Opting into the experimental Cartographer integration requires a larger set of Tanzu Application Platform packages to be installed. See [Required components for experimental Cartographer integration](install-prerequisites.md#required-components-cartographer) in _Install Prerequisites_.
 
 To configure the experimental Cartographer integration:
 
-1. Set the value of the `experimental_use_cartographer` property in the `tas-adapter-values.yml` file to `true`. Note that this is not a string.
+1. Set the value of the `experimental_use_cartographer` property in the `tas-adapter-values.yml` file to `true`. Note that this value is a boolean and not a string.
 
 ## <a id="install-adapter"></a>Install the Application Service Adapter
 

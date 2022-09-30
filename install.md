@@ -322,17 +322,11 @@ To configure the Application Service Adapter with a registry that has a custom o
 
 > **Note:** Your cluster nodes must trust the Certificate Authority that the Application Service Adapter is configured with. Tanzu Build Service must be configured to trust this registry Certificate Authority certificate.
 
-## <a id="experimental-cartographer-integration"></a>Configure the Experimental Cartographer Integration
+## <a id="experimental-cartographer-integration"></a>(Optional) Configure the Experimental Cartographer Integration
+
+> **Note**: Opting into the experimental Cartographer integration requires installing additional Tanzu Application Platform packages. See [Required components for experimental Cartographer integration](install-prerequisites.md#required-components-cartographer) in _Install Prerequisites_.
 
 To configure the experimental Cartographer integration:
-
-1. Ensure that you have installed the appropriate Tanzu Application Platform compoments.
-   * If you have installed Tanzu Application Platform v1.1 with the `full`, `iterate`, `run`, or `light` profile, this package is installed.
-   * If you have installed Tanzu Application Platform v1.1 without using a profile, see:
-      * [Install Supply Chain Choreographer](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.1/tap/GUID-scc-install-scc.html)
-      * [Install Source Controller](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-source-controller-install-source-controller.html)
-      * [Out of the Box Templates](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-scc-ootb-templates.html)
-      * [Tekton](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-tekton-tekton-about.html)
 
 1. Set the value of the `experimental_use_cartographer` property in the `tas-adapter-values.yml` file to `true`. Note that this is not a string.
 

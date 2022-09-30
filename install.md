@@ -184,6 +184,19 @@ To configure the installation settings:
         -n APP-TLS-SECRET-NAMESPACE
       ```
 
+1. If you do not already have a secret containing the hostname, username and password for your application image registry:
+   * Create a secret.
+
+      ```bash
+      kubectl create namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
+      kubectl delete secret APP-REGISTRY-CREDENTIALS-SECRET-NAME -n APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
+      kubectl create secret docker-registry APP-REGISTRY-CREDENTIALS-SECRET-NAME \
+        --docker-server=APP-REGISTRY-HOSTNAME \
+        --docker-username=APP-REGISTRY-USERNAME \
+        --docker-password=$(cat /path/to/APP-REGISTRY-PASSWORD) \
+        -n APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
+      ```
+
 1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
 
    The following values are required:
@@ -203,8 +216,8 @@ To configure the installation settings:
         namespace: APP-TLS-SECRET-NAMESPACE
     app_registry:
       credentials:
-        username: "APP-REGISTRY-CREDENTIALS-USERNAME"
-        password: "APP-REGISTRY-CREDENTIALS-PASSWORD"
+        secret_name: "APP-REGISTRY-CREDENTIALS-SECRET-NAME"
+        namespace: "APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE"
       hostname: "APP-REGISTRY-HOSTNAME"
       path:
         droplets: "APP-REGISTRY-PATH-DROPLETS"
@@ -219,8 +232,8 @@ To configure the installation settings:
    - `DEFAULT-APP-DOMAIN` is the domain that you want to use for automatically configured application routes.
    - `APP-TLS-SECRET-NAME` is the `kubernetes.io/tls` secret containing the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
    - `APP-TLS-SECRET-NAMESPACE` is the namespace containing the application TLS secret.
-   - `APP-REGISTRY-CREDENTIALS-USERNAME` is the username used to access the registry, or the reserved keyword indicating service account JSON. For example, `_json_key`.
-   - `APP-REGISTRY-CREDENTIALS-PASSWORD` is the password used to access the registry, or service account JSON. For example, `{\"type\": \"service_account\", \"project_id\": \"my-gcr-project-id\"...}\` for the GCP service account.
+   - `APP-REGISTRY-CREDENTIALS-SECRET-NAME` is the `kubernetes.io/dockerconfigjson` secret containing the hostname, username and password for the application image registry.
+   - `APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE` is the namespace containing the application image registry secret.
    - `APP-REGISTRY-HOSTNAME` is the hostname of the registry to be used for app packages and droplets. This value should be the same as the server name in a `dockerconfigjson` Kubernetes secret. Examples: `gcr.io`, `demo.goharbor.io`, `https://index.docker.io/v1`.
    - `APP-REGISTRY-PATH-DROPLETS` is the path to the directory or project in the app registry where Application Service Adapter uploads droplets, such as runnable application images. This value should not include the registry hostname itself. For example, `tas-adapter/droplets`.
    - `APP-REGISTRY-PATH-PACKAGES` is the is the path to the directory or project in the app registry where Application Service Adapter uploads packages, such as application source code. This value should not include the registry hostname itself. For example, `tas-adapter/packages`.

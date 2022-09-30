@@ -1,6 +1,6 @@
-# Managing an Application Service Adapter installation
+# Platform Logging and Metrics
 
-This topic provides guidance for managing a deployment of Application Service Adapter for Tanzu Application Platform:
+This topic provides guidance accessing system component logs and metrics.
 
 * [Gathering system logs](#system-logs)
 * [Querying performance metrics](#metrics)

@@ -1,14 +1,15 @@
 # Installing Application Service Adapter to air-gapped environments
 
-For instructions on how to install prerequisites in air-gapped environments, see:
 
-* [Tanzu Application Platform](https://docs.vmware.com/en/Tanzu-Application-Platform/1.1/tap/GUID-install.html)
-* [Tanzu Build Service](https://docs.vmware.com/en/Tanzu-Build-Service/1.5/vmware-tanzu-build-service/GUID-installing-no-kapp.html#installation-to-air-gapped-environment)
-
-The topics below describe how Application Service Adapter for VMware Tanzu Application Platform system are installed to a Kubernetes Cluster and registry that are air-gapped from external traffic:
+This topic describes how Application Service Adapter for VMware Tanzu Application Platform system are installed to a Kubernetes Cluster and registry that are air-gapped from external traffic:
 
 * [Relocate Images to a Registry](#relocate-images-to-registry)
 * [Install the package repository](#install-package-repo)
+
+For instructions on how to install prerequisites in air-gapped environments, see:
+
+* [Tanzu Application Platform](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install.html)
+* [Tanzu Build Service](https://docs.vmware.com/en/Tanzu-Build-Service/1.5/vmware-tanzu-build-service/GUID-installing-no-kapp.html#installation-to-air-gapped-environment)
 
 ----
 

@@ -1,3 +1,8 @@
 # Administering Application Service Adapter
 
-This section contains documentation related to administering an Application Service Adapter installation. It includes documentation covering system logs and metrics, backup and restore strategies, certificate rotation, and more.
+This topic collects documentation related to administering an Application Service Adapter installation, including the following:
+
+* [Disaster recovery](disaster-recovery.md)
+* [Failover and redundancy](failover-and-redundancy.md)
+* [Rotating certificates](certificate-rotation.md)
+* [System logs and metrics](logging-and-metrics.md)

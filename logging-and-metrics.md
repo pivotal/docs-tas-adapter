@@ -1,6 +1,6 @@
-# Platform Logging and Metrics
+# System Logging and Metrics
 
-This topic provides guidance accessing system component logs and metrics.
+This topic provides guidance on accessing system component logs and metrics.
 
 * [Gathering system logs](#system-logs)
 * [Querying performance metrics](#metrics)

@@ -1,6 +1,6 @@
-# Disaster Recovery
+# Disaster recovery
 
-This document provides an overview of the options and considerations for disaster recovery. It includes the following sections:
+This topic provides an overview of the options and considerations for disaster recovery. It includes the following sections:
 
 * [State Storage](#state-storage)
 * [Backup and Restore](#backing-up-cluster-state)

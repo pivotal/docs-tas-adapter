@@ -1,7 +1,6 @@
-# Cloud Foundry Environment Variables
+# Application environment variables
 
-This page describes the environment variables that the Application Service Adapter for Tanzu Application Platform runtime and buildpacks set for a deployed app.
-
+This topic describes the environment variables that the Application Service Adapter for Tanzu Application Platform set when building and running an application.
 
 ## <a id='overview'></a> Overview
 

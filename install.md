@@ -235,9 +235,18 @@ To configure the installation settings:
    - `APP-TLS-SECRET-NAMESPACE` is the namespace containing the application TLS secret.
    - `APP-REGISTRY-CREDENTIALS-SECRET-NAME` is the `kubernetes.io/dockerconfigjson` secret containing the hostname, username and password for the application image registry.
    - `APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE` is the namespace containing the application image registry secret.
-   - `APP-REGISTRY-HOSTNAME` is the hostname of the registry to be used for app packages and droplets. This value should be the same as the server name in a `dockerconfigjson` Kubernetes secret. Examples: `gcr.io`, `demo.goharbor.io`, `https://index.docker.io/v1`.
-   - `APP-REGISTRY-PATH-DROPLETS` is the path to the directory or project in the app registry where Application Service Adapter uploads droplets, such as runnable application images. This value should not include the registry hostname itself. For example, `tas-adapter/droplets`.
-   - `APP-REGISTRY-PATH-PACKAGES` is the is the path to the directory or project in the app registry where Application Service Adapter uploads packages, such as application source code. This value should not include the registry hostname itself. For example, `tas-adapter/packages`.
+   - `APP-REGISTRY-HOSTNAME` is the hostname of the registry to be used for app packages and droplets. This value should be the same as the server name in a `dockerconfigjson` Kubernetes secret. Examples:
+     - Harbor has the form `hostname: "my-harbor.io"`
+     - Docker Hub has the form `hostname: "https://index.docker.io/v1"`
+     - Google Container Registry has the form `hostname: "gcr.io"`
+   - `APP-REGISTRY-PATH-DROPLETS` is the path to the directory or project in the app registry where Application Service Adapter uploads droplets, such as runnable application images. This value should not include the registry hostname itself. Examples:
+     - Harbor has the form `droplets: "project-name/my-repo-name"`
+     - Docker Hub has the form `droplets: "my-dockerhub-username"`
+     - Google Container Registry has the form `droplets: "project-id/my-repo-name"`
+   - `APP-REGISTRY-PATH-PACKAGES` is the is the path to the directory or project in the app registry where Application Service Adapter uploads packages, such as application source code. This value should not include the registry hostname itself. Examples:
+     - Harbor has the form `packages: "project-name/my-repo-name"`
+     - Docker Hub has the form `packages: "my-dockerhub-username"`
+     - Google Container Registry has the form `packages: "project-id/my-repo-name"`
 
    See optional values in the following example. For more information, see the Tanzu CLI output.
 

@@ -243,6 +243,10 @@ To configure the installation settings:
 
     ```yaml
     ---
+    admin:
+      users:
+      - "ADMIN-USERNAME"
+      ...
     api_auth_proxy:
       ca_cert:
         data: |
@@ -282,6 +286,7 @@ To configure the installation settings:
 
    Where:
 
+   - `ADMIN-USERNAME` is the name of an existing user to grant admin privileges. You may specify as many users as desired, one per line.
    - `API-AUTH-PROXY-TLS-CRT` is the CA certificate from the authentication proxy running along side your Kubernetes cluster.
    - `API-AUTH-PROXY-FQDN` is the FQDN for the authentication proxy running along side your Kubernetes cluster.
    - `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM encoded multiline string containing the Certificate Authority certificate

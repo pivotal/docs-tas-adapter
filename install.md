@@ -135,7 +135,7 @@ To configure the installation settings:
          -n API-TLS-SECRET-NAMESPACE
        ```
 
-1. If you do not already have a secret containing a wildcard certificate and private keypair for HTTPS application ingress:
+2. If you do not already have a secret containing a wildcard certificate and private keypair for HTTPS application ingress:
    * If you have a wildcard certificate and private keypair, create a secret.
 
       ```bash
@@ -185,7 +185,7 @@ To configure the installation settings:
         -n APP-TLS-SECRET-NAMESPACE
       ```
 
-1. If you do not already have a secret containing the hostname, username and password for your application image registry:
+3. If you do not already have a secret containing the hostname, username and password for your application image registry:
    * Create a secret.
 
       ```bash
@@ -198,7 +198,7 @@ To configure the installation settings:
         -n APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
       ```
 
-1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
+4. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
 
    The following values are required:
 
@@ -235,68 +235,77 @@ To configure the installation settings:
    - `APP-TLS-SECRET-NAMESPACE` is the namespace containing the application TLS secret.
    - `APP-REGISTRY-CREDENTIALS-SECRET-NAME` is the `kubernetes.io/dockerconfigjson` secret containing the hostname, username and password for the application image registry.
    - `APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE` is the namespace containing the application image registry secret.
-   - `APP-REGISTRY-HOSTNAME` is the hostname of the registry to be used for app packages and droplets. This value should be the same as the server name in a `dockerconfigjson` Kubernetes secret. Examples: `gcr.io`, `demo.goharbor.io`, `https://index.docker.io/v1`.
-   - `APP-REGISTRY-PATH-DROPLETS` is the path to the directory or project in the app registry where Application Service Adapter uploads droplets, such as runnable application images. This value should not include the registry hostname itself. For example, `tas-adapter/droplets`.
-   - `APP-REGISTRY-PATH-PACKAGES` is the is the path to the directory or project in the app registry where Application Service Adapter uploads packages, such as application source code. This value should not include the registry hostname itself. For example, `tas-adapter/packages`.
+   - `APP-REGISTRY-HOSTNAME` is the hostname of the registry to be used for app packages and droplets. This value should be the same as the server name in a `dockerconfigjson` Kubernetes secret. Examples:
+     - Harbor has the form `hostname: "my-harbor.io"`
+     - Docker Hub has the form `hostname: "https://index.docker.io/v1"`
+     - Google Cloud Registry has the form `hostname: "gcr.io"`
+  - `APP-REGISTRY-PATH-DROPLETS` is the path to the directory or project in the app registry where Application Service Adapter uploads droplets, such as runnable application images. This value should not include the registry hostname itself. Examples:
+    - Harbor has the form `droplets: "project-name/my-repo-name"`
+    - Docker Hub has the form `droplets: "my-dockerhub-username"`
+    - Google Cloud Registry has the form `droplets: "project-id/my-repo-name"`
+  - `APP-REGISTRY-PATH-PACKAGES` is the is the path to the directory or project in the app registry where Application Service Adapter uploads packages, such as application source code. This value should not include the registry hostname itself. Examples:
+    - Harbor has the form `packages: "project-name/my-repo-name"`
+    - Docker Hub has the form `packages: "my-dockerhub-username"`
+    - Google Cloud Registry has the form `packages: "project-id/my-repo-name"`
 
-   See optional values in the following example. For more information, see the Tanzu CLI output.
+  See optional values in the following example. For more information, see the Tanzu CLI output.
 
-    ```yaml
-    ---
-    api_auth_proxy:
-      ca_cert:
-        data: |
-          API-AUTH-PROXY-TLS-CRT
-      host: "API-AUTH-PROXY-FQDN"
-    app_registry:
-      ca_cert:
-        data: |
-          PEM-ENCODED-CERTIFICATE-CONTENTS
-    experimental_use_cartographer: FALSE-OR-TRUE-VALUE
-    kpack_clusterbuilder_name: "KPACK-CLUSTER-BUILDER-NAME"
-    scaling:
-      korifi_api:
-        limits:
-          cpu: "API-CPU-LIMIT"
-          memory: "API-MEMORY-LIMIT"
-        requests:
-          cpu: "API-CPU-REQUEST"
-          memory: "API-MEMORY-REQUEST"
-        replicas: API-REPLICA-COUNT
-      korifi_controllers:
-        ... #! scaling keys are the same as above
-      korifi_job_task_runner:
-        ... #! scaling keys are the same as above
-      korifi_kpack_image_builder:
-        ... #! scaling keys are the same as above
-      korifi_statefulset_runner:
-        ... #! scaling keys are the same as above
-      cartographer_builder_runner:
-        ... #! scaling keys are the same as above
-      telemetry_informer:
-        ... #! scaling keys are the same as above
-    telemetry:
-      heartbeat_interval: TELEMETRY-HEARTBEAT-INTERVAL
-    user_certificate_expiration_warning_duration: "USER-CERT-EXPIRY-WARNING-DURATION"
-    ```
+   ```yaml
+   ---
+   api_auth_proxy:
+     ca_cert:
+       data: |
+         API-AUTH-PROXY-TLS-CRT
+     host: "API-AUTH-PROXY-FQDN"
+   app_registry:
+     ca_cert:
+       data: |
+         PEM-ENCODED-CERTIFICATE-CONTENTS
+   experimental_use_cartographer: FALSE-OR-TRUE-VALUE
+   kpack_clusterbuilder_name: "KPACK-CLUSTER-BUILDER-NAME"
+   scaling:
+     korifi_api:
+       limits:
+         cpu: "API-CPU-LIMIT"
+         memory: "API-MEMORY-LIMIT"
+       requests:
+         cpu: "API-CPU-REQUEST"
+         memory: "API-MEMORY-REQUEST"
+       replicas: API-REPLICA-COUNT
+     korifi_controllers:
+       ... #! scaling keys are the same as above
+     korifi_job_task_runner:
+       ... #! scaling keys are the same as above
+     korifi_kpack_image_builder:
+       ... #! scaling keys are the same as above
+     korifi_statefulset_runner:
+       ... #! scaling keys are the same as above
+     cartographer_builder_runner:
+       ... #! scaling keys are the same as above
+     telemetry_informer:
+       ... #! scaling keys are the same as above
+   telemetry:
+     heartbeat_interval: TELEMETRY-HEARTBEAT-INTERVAL
+   user_certificate_expiration_warning_duration: "USER-CERT-EXPIRY-WARNING-DURATION"
+   ```
 
-   Where:
+  Where:
 
-   - `API-AUTH-PROXY-TLS-CRT` is the CA certificate from the authentication proxy running along side your Kubernetes cluster.
-   - `API-AUTH-PROXY-FQDN` is the FQDN for the authentication proxy running along side your Kubernetes cluster.
-   - `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM encoded multiline string containing the Certificate Authority certificate
-       - The value must be inserted into your values file as a yaml multiline string with a block scalar literal.
-   - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service-v13/GUID-managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
-   - `USER-CERT-EXPIRY-WARNING-DURATION` is the recommended duration beyond which user are warned to use short-lived certificates for authentication. Default is 168 hours.
-   - `API-CPU-LIMIT` is the desired CPU resource limit for the pods in the specified deployment. Default is 1 cpu.
-   - `API-MEMORY-LIMIT` is the desired memory resource limit for the pods in the specified deployment. Default is 1000Mi.
-   - `API-CPU-REQUEST` is the desired CPU resource request for the pods in the specified deployment. Default is 50m.
-   - `API-MEMORY-REQUEST` is the desired memory resource request for the pods in the specified deployment. Default is 100Mi.
-   - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment. Default is 1.
-   - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
+  - `API-AUTH-PROXY-TLS-CRT` is the CA certificate from the authentication proxy running along side your Kubernetes cluster.
+  - `API-AUTH-PROXY-FQDN` is the FQDN for the authentication proxy running along side your Kubernetes cluster.
+  - `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM encoded multiline string containing the Certificate Authority certificate
+      - The value must be inserted into your values file as a yaml multiline string with a block scalar literal.
+  - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service-v13/GUID-managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
+  - `USER-CERT-EXPIRY-WARNING-DURATION` is the recommended duration beyond which user are warned to use short-lived certificates for authentication. Default is 168 hours.
+  - `API-CPU-LIMIT` is the desired CPU resource limit for the pods in the specified deployment. Default is 1 cpu.
+  - `API-MEMORY-LIMIT` is the desired memory resource limit for the pods in the specified deployment. Default is 1000Mi.
+  - `API-CPU-REQUEST` is the desired CPU resource request for the pods in the specified deployment. Default is 50m.
+  - `API-MEMORY-REQUEST` is the desired memory resource request for the pods in the specified deployment. Default is 100Mi.
+  - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment. Default is 1.
+  - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
 
-   The `requests` and `limits` fields map directly to the resource requests and limits fields on the Kubernetes containers for these system components.
-   For more information, see [Resource requests and limits of Pod and container](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container) in the Kubernetes documentation.
+  The `requests` and `limits` fields map directly to the resource requests and limits fields on the Kubernetes containers for these system components.
+  For more information, see [Resource requests and limits of Pod and container](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container) in the Kubernetes documentation.
 
 
 ### <a id="opt-out-telemetry"></a>Opting out of telemetry reporting

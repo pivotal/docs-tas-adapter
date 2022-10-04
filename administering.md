@@ -6,3 +6,4 @@ This topic collects documentation related to administering an Application Servic
 * [Failover and redundancy](failover-and-redundancy.md)
 * [Rotating certificates](certificate-rotation.md)
 * [System logs and metrics](logging-and-metrics.md)
+* [Scaling Application Service Adapter](scaling.md)

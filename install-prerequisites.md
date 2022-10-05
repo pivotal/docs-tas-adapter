@@ -11,9 +11,10 @@ For more information, see the [cf CLI repository](https://github.com/cloudfoundr
 
 To install the Application Service Adapter, you need:
 
-* Admin access to a Kubernetes cluster. See [Kubernetes cluster requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-prerequisites.html#kubernetes-cluster-requirements-3) in _Prerequisites_.
+* Admin access to a Kubernetes cluster that meets the same requirements as Tanzu Application Platform v1.2 or v1.3 (whichever you have installed). See [Kubernetes cluster requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-prerequisites.html#kubernetes-cluster-requirements-3) under _Prerequisites_.
+  * As of Tanzu Application Platform v1.2, the requirement is Kubernetes v1.22 or v1.23, with additional requirements for some implementations. For example, Amazon Elastic Kubernetes Service (EKS) requires containerd as the Container Runtime Interface (CRI) among with other requirements.
 
-* A container image registry. See [VMware Tanzu Network and container image registry requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-prerequisites.html#vmware-tanzu-network-and-container-image-registry-requirements-0) in _Prerequisites_.
+* A container image registry. See [VMware Tanzu Network and container image registry requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-prerequisites.html#vmware-tanzu-network-and-container-image-registry-requirements-0) in _Prerequisites_. The Application Service Adapter does not currently work with Amazon's Elastic Container Registry (ECR).
 
 ### <a id="required-installation-tools"></a>Required installation tools
 

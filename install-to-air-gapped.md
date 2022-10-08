@@ -18,25 +18,34 @@ For instructions on how to install prerequisites in air-gapped environments, see
 This procedure relocates images from the Tanzu Network registry to an internal container image registry that is available to the air-gapped environment through a local machine.
 The local machine must have access to the air-gapped environment.
 
+1. Set up environment variables for the installation:
+
+    ```bash
+    export TAS_ADAPTER_VERSION=VERSION-NUMBER
+    ```
+
+    Where `VERSION-NUMBER` is the version of Application Service Adapter you want to install. For example, `0.10.0`.
+
+
 1. Log in to the Tanzu Network registry with your Tanzu Network credentials:
    ```bash
     docker login registry.tanzu.vmware.com
    ```
 
-2. Copy the Application Service Adapter bundle to a tarball with the [Carvel](https://carvel.dev/imgpkg/) `imgpkg` tool by running:
+1. Copy the Application Service Adapter bundle to a tarball with the [Carvel](https://carvel.dev/imgpkg/) `imgpkg` tool by running:
    ```bash
-    imgpkg copy -b registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:0.10.0 --to-tar tas-adapter-package-repo.tar
+    imgpkg copy -b registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:${TAS_ADAPTER_VERSION} --to-tar tas-adapter-package-repo.tar
    ```
-3. Move the tarball file `tas-adapter-package-repo.tar` to the local machine that has access to the air-gapped environment.
+1. Move the tarball file `tas-adapter-package-repo.tar` to the local machine that has access to the air-gapped environment.
 
-4. Log in to the internal image registry from the local machine:
+1. Log in to the internal image registry from the local machine:
    ```bash
     docker login <INTERNAL-REGISTRY>
    ```
 
    Where `INTERNAL-REGISTRY` is the name of your internal image registry.
 
-5. Unpackage the images from the tarball to the internal registry:
+1. Unpackage the images from the tarball to the internal registry:
    ```bash
     imgpkg copy --tar tas-adapter-package-repo.tar --to-repo=<INTERNAL-REGISTRY> /tas-adapter-package-repo
    ```
@@ -45,37 +54,44 @@ The local machine must have access to the air-gapped environment.
 
 After the images are relocated:
 
-1. Create a namespace called `tas-adapter-install` for deploying Application Service Adapter to your cluster.
+1. Verify that the `tap-install` namespace exists in your cluster.
 
     ```bash
-    kubectl create ns tas-adapter-install
+    kubectl get ns tap-install
     ```
 
-2. Create an image pull secret to store credentials to your internal registry. These are required so that the cluster can pull images from the internal registry.
+    The output should list the status of the `tap-install` namespace:
+    ```bash
+    NAME          STATUS   AGE
+    tap-install   Active   2d
+    ```
+
+1. Create a registry secret to store your registry credentials in the `tap-install` namespace. These are required so that the Kubernetes cluster can pull images for the Application Service Adapter system from the internal registry.
 
     ```bash
-    tanzu secret registry add internal-image-registry \
+    tanzu secret registry add internal-tas-adapter-registry \
       --username <INTERNAL-REGISTRY-USERNAME> \
       --password <INTERNAL-REGISTRY-PASSWORD> \
       --server <INTERNAL-REGISTRY> \
-      --export-to-all-namespaces --yes \
-      --namespace tas-adapter-install
+      --export-to-all-namespaces \
+      --yes \
+      --namespace tap-install
     ```
 
    Where `INTERNAL-REGISTRY-USERNAME` and `INTERNAL-REGISTRY-PASSWORD` are your credentials for `INTERNAL-REGISTRY`.
 
-3. Add the Application Service Adapter package repository to the cluster.
+1. Add the Application Service Adapter package repository to the cluster.
 
     ```bash
     tanzu package repository add tas-adapter-repository \
-      --url <INTERNAL-REGISTRY> /tas-adapter-package-repo:0.10.0 \
-      --namespace tas-adapter-install
+      --url <INTERNAL-REGISTRY>/tas-adapter-package-repo:${TAS_ADAPTER_VERSION} \
+      --namespace tap-install
     ```
-4. Verify that the package repository contains the Application Service Adapter package.
+1. Verify that the package repository contains the Application Service Adapter package.
 
     ```bash
     tanzu package available list \
-      --namespace tas-adapter-install
+      --namespace tap-install
     ```
 
    The output includes the Application Service Adapter package:
@@ -87,10 +103,10 @@ After the images are relocated:
     ...
     ```
 
-5. List the installation settings for the `application-service-adapter` package.
+1. List the installation settings for the `application-service-adapter` package.
 
     ```bash
-    tanzu package available get application-service-adapter.tanzu.vmware.com/0.10.0 --values-schema --namespace tas-adapter-install
+    tanzu package available get application-service-adapter.tanzu.vmware.com/${TAS_ADAPTER_VERSION} --values-schema --namespace tap-install
     ```
 
    It should output a list of settings similar to:

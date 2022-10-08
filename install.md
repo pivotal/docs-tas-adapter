@@ -12,40 +12,61 @@ This topic describes how to install the Application Service Adapter for VMware T
 
 After you have completed the steps in [Installing Prerequisites](install-prerequisites.md), set the Kubernetes context to the cluster where you have installed kpack and Contour.
 
+
 ## <a id="install-package-repo"></a>Install the package repository
 
 To install Application Service Adapter:
 
-1. Create a namespace called `tas-adapter-install` for deploying Application Service Adapter to your cluster.
+1. Set up environment variables for the installation:
 
     ```bash
-    kubectl create ns tas-adapter-install
+    export TAS_ADAPTER_VERSION=VERSION-NUMBER
     ```
 
-1. Create an image pull secret to store your Tanzu Network credentials. These are required so that the cluster can pull images from the Tanzu Network registry.
+    Where `VERSION-NUMBER` is the version of Application Service Adapter you want to install. For example, `0.10.0`.
+
+1. Verify that the `tap-install` namespace exists in your cluster.
 
     ```bash
-    tanzu secret registry add tanzunet-registry \
-      --username "TANZU-NET-USER" --password "TANZU-NET-PASSWORD" \
+    kubectl get ns tap-install
+    ```
+
+    The output should list the status of the `tap-install` namespace:
+    ```bash
+    NAME          STATUS   AGE
+    tap-install   Active   2d
+    ```
+
+1. Create a registry secret to store your Tanzu Network credentials in the `tap-install` namespace. These are required so that the Kubernetes cluster can pull images for the Application Service Adapter system from the Tanzu Network registry.
+
+    ```bash
+    tanzu secret registry add tanzunet-tas-adapter-registry \
+      --username "TANZU-NET-USERNAME" \
+      --password "TANZU-NET-PASSWORD" \
       --server registry.tanzu.vmware.com \
-      --export-to-all-namespaces --yes \
-      --namespace tas-adapter-install
+      --export-to-all-namespaces \
+      --yes \
+      --namespace tap-install
     ```
 
-   Where `TANZU-NET-USER` and `TANZU-NET-PASSWORD` are your credentials for Tanzu Network.
+   Where:
+   
+   - `TANZU-NET-USERNAME` is your username on Tanzu Network.
+
+   - `TANZU-NET-PASSWORD` the password for your username on Tanzu Network.
 
 1. Add the Application Service Adapter package repository to the cluster.
 
     ```bash
     tanzu package repository add tas-adapter-repository \
-      --url registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:0.10.0 \
-      --namespace tas-adapter-install
+      --url registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:${TAS_ADAPTER_VERSION} \
+      --namespace tap-install
     ```
 1. Verify that the package repository contains the Application Service Adapter package.
 
     ```bash
     tanzu package available list \
-      --namespace tas-adapter-install
+      --namespace tap-install
     ```
 
    The output includes the Application Service Adapter package:
@@ -60,7 +81,7 @@ To install Application Service Adapter:
 1. List the installation settings for the `application-service-adapter` package.
 
     ```bash
-    tanzu package available get application-service-adapter.tanzu.vmware.com/0.10.0 --values-schema --namespace tas-adapter-install
+    tanzu package available get application-service-adapter.tanzu.vmware.com/${TAS_ADAPTER_VERSION} --values-schema --namespace tap-install
     ```
 
    It should output a list of settings similar to:
@@ -91,11 +112,11 @@ To configure the installation settings:
 
       ```bash
       kubectl create namespace API-TLS-SECRET-NAMESPACE
-      kubectl delete secret API-TLS-SECRET-NAME -n API-TLS-SECRET-NAMESPACE
+      kubectl delete secret API-TLS-SECRET-NAME --namespace API-TLS-SECRET-NAMESPACE
       kubectl create secret tls API-TLS-SECRET-NAME \
         --cert=tls.crt \
         --key=tls.key \
-        -n API-TLS-SECRET-NAMESPACE
+        --namespace API-TLS-SECRET-NAMESPACE
      ```
 
    * If you do not have a certificate and private keypair, you can [generate a self-signed secret using cert-manager](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources).
@@ -128,11 +149,11 @@ To configure the installation settings:
 
        ```bash
        kubectl create namespace API-TLS-SECRET-NAMESPACE
-       kubectl delete secret API-TLS-SECRET-NAME -n API-TLS-SECRET-NAMESPACE
+       kubectl delete secret API-TLS-SECRET-NAME --namespace API-TLS-SECRET-NAMESPACE
        kubectl create secret tls API-TLS-SECRET-NAME \
          --cert=tls.crt \
          --key=tls.key \
-         -n API-TLS-SECRET-NAMESPACE
+         --namespace API-TLS-SECRET-NAMESPACE
        ```
 
 1. If you do not already have a secret containing a wildcard certificate and private keypair for HTTPS application ingress:
@@ -140,11 +161,11 @@ To configure the installation settings:
 
       ```bash
       kubectl create namespace APP-TLS-SECRET-NAMESPACE
-      kubectl delete secret APP-TLS-SECRET-NAME -n APP-TLS-SECRET-NAMESPACE
+      kubectl delete secret APP-TLS-SECRET-NAME --namespace APP-TLS-SECRET-NAMESPACE
       kubectl create secret tls APP-TLS-SECRET-NAME \
         --cert=tls.crt \
         --key=tls.key \
-        -n APP-TLS-SECRET-NAMESPACE
+        --namespace APP-TLS-SECRET-NAMESPACE
      ```
 
    * If you do not have a wildcard certificate and private keypair, you can [generate a self-signed secret using cert-manager](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources).
@@ -178,24 +199,23 @@ To configure the installation settings:
 
       ```bash
       kubectl create namespace APP-TLS-SECRET-NAMESPACE
-      kubectl delete secret APP-TLS-SECRET-NAME -n APP-TLS-SECRET-NAMESPACE
+      kubectl delete secret APP-TLS-SECRET-NAME --namespace APP-TLS-SECRET-NAMESPACE
       kubectl create secret tls APP-TLS-SECRET-NAME \
         --cert=tls.crt \
         --key=tls.key \
-        -n APP-TLS-SECRET-NAMESPACE
+        --namespace APP-TLS-SECRET-NAMESPACE
       ```
 
-1. If you do not already have a secret containing the hostname, username and password for your application image registry:
-   * Create a secret.
+1. If you do not already have a secret containing the hostname, username, and password for your application image registry, create one:
 
       ```bash
       kubectl create namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
-      kubectl delete secret APP-REGISTRY-CREDENTIALS-SECRET-NAME -n APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
+      kubectl delete secret APP-REGISTRY-CREDENTIALS-SECRET-NAME --namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
       kubectl create secret docker-registry APP-REGISTRY-CREDENTIALS-SECRET-NAME \
         --docker-server=APP-REGISTRY-HOSTNAME \
         --docker-username=APP-REGISTRY-USERNAME \
         --docker-password=$(cat /path/to/APP-REGISTRY-PASSWORD) \
-        -n APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
+        --namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
       ```
 
 1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
@@ -365,16 +385,16 @@ To install Application Service Adapter:
     ```bash
     tanzu package install tas-adapter \
       --package-name application-service-adapter.tanzu.vmware.com \
-      --version 0.10.0 \
+      --version "${TAS_ADAPTER_VERSION}" \
       --values-file tas-adapter-values.yml \
-      --namespace tas-adapter-install
+      --namespace tap-install
     ```
 
 1. Verify that the package install was successful.
 
     ```bash
     tanzu package installed get tas-adapter \
-      --namespace tas-adapter-install
+      --namespace tap-install
     ```
 
    The output looks like the following:

@@ -26,7 +26,6 @@ The local machine must have access to the air-gapped environment.
 
     Where `VERSION-NUMBER` is the version of Application Service Adapter you want to install. For example, `0.10.0`.
 
-
 1. Log in to the Tanzu Network registry with your Tanzu Network credentials:
    ```bash
     docker login registry.tanzu.vmware.com

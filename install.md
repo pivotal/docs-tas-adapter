@@ -50,7 +50,7 @@ To install Application Service Adapter:
     ```
 
    Where:
-   
+
    - `TANZU-NET-USERNAME` is your username on Tanzu Network.
 
    - `TANZU-NET-PASSWORD` the password for your username on Tanzu Network.

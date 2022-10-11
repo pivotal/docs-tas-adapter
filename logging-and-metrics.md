@@ -17,32 +17,18 @@ For example:
 To fetch recent logs from all components of an Application Service Adapter installation:
 
     ```bash
-    kapp logs --app tas-adapter-ctrl
+    kapp logs --app tas-adapter.app -n tap-install
     ```
 
 To fetch recent logs from a specific deployment:
 
     ```bash
-    kapp logs --app tas-adapter-ctrl --pod-name DEPLOYMENT-NAME%
+    kapp logs --app tas-adapter.app -n tap-install --pod-name DEPLOYMENT-NAME%
     ```
     Where DEPLOYMENT-NAME is the name of the Kubernetes Deployment (e.g.
     "korifi-api-deployment").
 
-To stream logs from all components of an Application Service Adapter installation:
-
-    ```bash
-    kapp logs --app tas-adapter-ctrl --follow
-    ```
-
-To stream logs from a specific deployment:
-
-    ```bash
-    kapp logs --app tas-adapter-ctrl --pod-name DEPLOYMENT-NAME% --follow
-    ```
-
-    Where DEPLOYMENT-NAME is the name of the Kubernetes Deployment (e.g.
-    "korifi-api-deployment").
-
+To stream logs instead of fetching the most recent logs, add the `--follow` flag to the above `kapp logs` commands.
 For additional details and options, refer to the `kapp logs --help` help text.
 
 ## <a id="metrics"></a>Querying performance metrics

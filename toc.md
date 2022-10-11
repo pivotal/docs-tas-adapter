@@ -15,6 +15,7 @@ This is the table of contents from which the Application Service Adapter for Tan
   - [Scaling Application Service Adapter](scaling.md)
 - [Uninstalling Application Service Adapter](uninstall.md)
 - [Concepts](concepts.md)
+  - [Architecture](technical-architecture.md)
   - [User authentication overview](user-authentication-overview.md)
 - [Reference](reference.md)
   - [Application environment variables](environment-variables.md)

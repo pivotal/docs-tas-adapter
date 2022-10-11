@@ -308,6 +308,8 @@ To configure the installation settings:
         ... #! scaling keys are the same as above
       telemetry_informer:
         ... #! scaling keys are the same as above
+    shared:
+      kubernetes_distribution: KUBERNETES-DISTRIBUTION
     telemetry:
       heartbeat_interval: TELEMETRY-HEARTBEAT-INTERVAL
     user_certificate_expiration_warning_duration: "USER-CERT-EXPIRY-WARNING-DURATION"
@@ -327,6 +329,9 @@ To configure the installation settings:
    - `API-CPU-REQUEST` is the desired CPU resource request for the pods in the specified deployment. Default is 50m.
    - `API-MEMORY-REQUEST` is the desired memory resource request for the pods in the specified deployment. Default is 100Mi.
    - `API-REPLICA-COUNT` is the desired number of replicas for the specified deployment. Default is 1.
+   - `KUBERNETES-DISTRIBUTION` is the name of the kubernetes distribution. Defaults to "".
+       - Set "openshift" as the value when installing on an OpenShift environment.
+       - Leave it unset for all other distributions. 
    - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
 
    The `requests` and `limits` fields map directly to the resource requests and limits fields on the Kubernetes containers for these system components.

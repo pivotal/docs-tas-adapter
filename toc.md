@@ -4,6 +4,7 @@ This is the table of contents from which the Application Service Adapter for Tan
 
 - [Application Service Adapter v0.10](overview.md)
 - [Release notes](release-notes.md)
+- [Reference architecture](reference-architecture.md)
 - [Installing prerequisites](install-prerequisites.md)
 - [Installing Application Service Adapter](install.md)
 - [Getting started with Application Service Adapter](getting-started.md)

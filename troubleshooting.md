@@ -24,13 +24,13 @@ There are several Application Service Adapter deployments whose logs can be quer
 To fetch recent logs from all components of an Application Service Adapter installation:
 
     ```bash
-    kapp logs --app tas-adapter
+    kapp logs --app tas-adapter.app -n tap-install
     ```
 
 To fetch recent logs from a specific deployment:
 
     ```bash
-    kapp logs --app tas-adapter --pod-name DEPLOYMENT-NAME%
+    kapp logs --app tas-adapter.app -n tap-install --pod-name DEPLOYMENT-NAME%
     ```
     Where DEPLOYMENT-NAME is the name of the Kubernetes Deployment (e.g.
     "korifi-api-deployment").
@@ -60,7 +60,7 @@ To fetch recent logs from a given TAP application:
     kapp logs --app APP-NAME -n tap-install
     ```
     Where APP-NAME is the name of the TAP application (e.g.
-    "buildservice-ctrl").
+    "buildservice.app").
 
 To stream logs instead of fetching the most recent logs, add the `--follow` flag to the above `kapp logs` command.
 For additional details and options, refer to the `kapp logs --help` help text.
@@ -69,9 +69,9 @@ For additional details and options, refer to the `kapp logs --help` help text.
 
 The following is a brief description of the specific TAP deployments used by the Application Service Adapter and what their main responsibilities are to help determine which logs to query when troubleshooting.
 
-1. The `buildservice-ctrl` application is tasked with processing any Tanzu Build Service (kpack) commands. If any failures in the build image process occurs in Tanzu Build Service itself, this application's logs can provide further information.
-1. The `contour-ctrl` application is tasked with creating an ingress into the system. If a failure to connect to the Application Service Adapter or an Application occurs, this application's logs can provide further information.
-1. The `cartographer-ctrl` application is tasked with processing Cartographer ClusterSupplyChains when using the experimental Cartographer builder/runner flow. If a failure to create an Image, Build, ConfigMap, or StatefulSet occurs, this application's logs can provide further information.
+1. The `buildservice.app` application is tasked with processing any Tanzu Build Service (kpack) commands. If any failures in the build image process occurs in Tanzu Build Service itself, this application's logs can provide further information.
+1. The `contour.app` application is tasked with creating an ingress into the system. If a failure to connect to the Application Service Adapter or an Application occurs, this application's logs can provide further information.
+1. The `cartographer.app` application is tasked with processing Cartographer ClusterSupplyChains when using the experimental Cartographer builder/runner flow. If a failure to create an Image, Build, ConfigMap, or StatefulSet occurs, this application's logs can provide further information.
 
 ### <a id="cfapp-logs"></a>CFApp Logs
 

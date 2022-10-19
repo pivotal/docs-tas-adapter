@@ -68,7 +68,7 @@ topic](scaling.md) which may require additional cluster resources.
 
 ## <a id="app-reqs"></a>Application workload requirements
 
-Since `cf push`ed applications are run as deployments on the same cluster as the
+Since `cf push`ed applications are run as Pods on the same cluster as the
 Application Service Adapter itself, you should plan the capacity of your cluster
 to accomodate those applications.
 

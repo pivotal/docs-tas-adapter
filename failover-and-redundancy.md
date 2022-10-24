@@ -4,19 +4,20 @@ This topic describes the failover characteristics and redundancy of Application
 Service Adapter components and applications that are pushed with Application
 Service Adapter. It includes the following sections:
 
-* [Cloud Foundry-compatible API](#cloud-foundry-api)
-* [Controllers](#controllers)
-* [Applications](#applications)
+- [Failover and redundancy](#failover-and-redundancy)
+  - [<a id="cloud-foundry-api"></a>Cloud Foundry-compatible API](#cloud-foundry-compatible-api)
+  - [<a id="controllers"></a>Controllers and Webhooks](#controllers-and-webhooks)
+  - [<a id="applications"></a>Applications](#applications)
 
-For instructions to modify the scaling characteristics of your Application
-Service Adapter installation, refer to the [scaling topic](scaling.md).
+For instructions to edit the scaling characteristics of your Application
+Service Adapter installation, see [Scaling Application Service Adapter](scaling.md).
 
 ## <a id="cloud-foundry-api"></a>Cloud Foundry-compatible API
 
 Application Service Adapter deploys two replicas of a v3 Cloud
 Foundry-compatible API (Korifi API) that clients communicate with. This API is
-stateless and can be [horizontally scaled](scaling.md#api) for increased
-availability and performance.
+stateless and is horizontally scaled for increased
+availability and performance. See [Scaling the Application Service Adapter API](scaling.md#api).
 
 ## <a id="controllers"></a>Controllers and Webhooks
 
@@ -29,37 +30,36 @@ webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-adm
 that validate and update Application Service Adapter resources.
 
 Application Service Adapter controllers are effectively singletons. They have
-leader election turned on by default so only a single controller instance can be
-active at a given time. All instances are able to serve the webhooks. They can
-be scaled horizontally for faster failover and for higher-availability of the
-webhooks. In the event that a controller crashes it will be automatically
+leader election turned on by default so only a single controller instance is
+active at a time. All instances can serve the webhooks. They are scaled horizontally for faster failover and for higher-availability of the
+webhooks. In the event that a controller fails, it is automatically
 restarted by the platform. Application Service Adapter controllers are
-idempotent and the newly restarted instance will carry on where the failed one
+idempotent and the newly restarted instance carries on where the failed one
 left off.
 
 ## <a id="applications"></a>Applications
 
 The failover characteristics and redundancy recommendations for applications
 that are pushed with the adapter are highly dependent on the application itself.
-However, there are some common recommendations that can be provided for all
+However, there are some common recommendations that are provided for all
 applications.
 
-1. Ensure all applications have at least two instances by using `cf scale` to
+1. Ensure that all applications have at least two instances by using `cf scale` to
    scale up the application or by declaring multiple instances in the app's
-   manifest. A single-instance application will incur downtime during cluster
+   manifest. A single-instance application incurs downtime during cluster
    upgrades and maintenance. When an application is configured to run with two
-   or more instances the Kubernetes Pod scheduler will attempt to balance the
+   or more instances the Kubernetes Pod scheduler attempts to balance the
    instances across nodes and minimize downtime. Additionally, Application
-   Service Adapter will create a
+   Service Adapter creates a
    [`PodDisruptionBudget`](https://kubernetes.io/docs/tasks/run-application/configure-pdb/)
    for multi-instance applications that sets the min-available instances for an
-   app to be %50 of the total desired instances to maintain availability during
+   app to be %50 of the total instances that you want to maintain availability during
    these events.
-1. Ensure all applications have the appropriate [health
+2. Ensure that all applications have the appropriate [health
    checks](https://docs.cloudfoundry.org/devguide/deploy-apps/healthchecks.html)
-   configured to accurately determine the readiness and liveness of your apps.
+   configured to accurately verify the readiness and liveness of your apps.
    Application Service Adapter represents Cloud Foundry app health checks using
-   `startupProbes` and `livenessProbes` on the underlying Pods running the
-   application. By default, a `port` health check will be set to check whether
-   the app is able to accept TCP connections, but more advanced `http` health
+   `startupProbes` and `livenessProbes` on the underlying pods running the
+   application. By default, a `port` health check is set to verify whether
+   the app can accept TCP connections, but more advanced `http` health
    checks can be configured to better detect readiness of the application.

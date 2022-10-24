@@ -8,11 +8,10 @@ This topic provides guidance on accessing system component logs and metrics.
 ## <a id="system-logs"></a>Gathering system logs
 
 Logs for Application Service Adapter system components flow through standard
-Kubernetes logging channels and may be retrieved using the tooling of your
+Kubernetes logging channels and can be retrieved using the tooling of your
 choice. For ad-hoc log retrieval, VMware recommends the `kapp logs` command in
 the [kapp cli](https://carvel.dev/kapp/docs/latest/install/) as the most
-convenient method to gather the logs from the pods in one or more deployments.
-For example:
+convenient method to gather the logs from pods in one or more deployments.
 
 To fetch recent logs from all components of an Application Service Adapter installation:
 
@@ -25,11 +24,11 @@ To fetch recent logs from a specific deployment:
     ```bash
     kapp logs --app tas-adapter.app -n tap-install --pod-name DEPLOYMENT-NAME%
     ```
-    Where DEPLOYMENT-NAME is the name of the Kubernetes Deployment (e.g.
-    "korifi-api-deployment").
+    Where `DEPLOYMENT-NAME` is the name of the Kubernetes Deployment, such as
+    `korifi-api-deployment`.
 
-To stream logs instead of fetching the most recent logs, add the `--follow` flag to the above `kapp logs` commands.
-For additional details and options, refer to the `kapp logs --help` help text.
+To stream logs instead of fetching the most recent logs, add the `--follow` flag to the earlier `kapp logs` commands.
+For additional details and options, see the `kapp logs --help` help text.
 
 ## <a id="metrics"></a>Querying performance metrics
 
@@ -42,11 +41,10 @@ Application Service Adapter controller managers are deployed with annotations
 that makes them discoverable by a Prometheus server deployed to the same
 cluster.
 
-Once you have Prometheus deployed, you can query [any of the available
-metrics](https://book.kubebuilder.io/reference/metrics-reference.html). In
-particular, queries for `workqueue_depth` or `workqueue_queue_duration_seconds`
-may help to indicate when a controller manager is resource constrained and needs
-to be scaled up.
+After you have Prometheus deployed, you can query any of the available
+metrics. See [Default Exported Metrics References](https://book.kubebuilder.io/reference/metrics-reference.html).
+In particular, queries for `workqueue_depth` or `workqueue_queue_duration_seconds`
+can help to indicate when a controller manager is resource constrained and must be scaled up.
 
 To query the queue depth for the CFApp controller:
 
@@ -60,7 +58,7 @@ To list the queue depths for all Application Service Adapter controllers:
     workqueue_depth{namespace="tas-adapter-system"}
     ```
 
-To query the average queue time for CFApp objects prior to reconciliation:
+To query the average queue time for CFApp objects before reconciliation:
 
     ```bash
     workqueue_queue_duration_seconds_sum{name="cfapp"}/workqueue_queue_duration_seconds_count

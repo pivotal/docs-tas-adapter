@@ -317,7 +317,7 @@ To configure the installation settings:
 
    Where:
 
-   - `ADMIN-USERNAME` is the name of an existing user to grant admin privileges. You may specify as many users as desired, one per line.
+   - `ADMIN-USERNAME` is the name of an existing user to grant admin privileges. You can specify as many users as you want, one per line.
    - `API-AUTH-PROXY-TLS-CRT` is the CA certificate from the authentication proxy running along side your Kubernetes cluster.
    - `API-AUTH-PROXY-FQDN` is the FQDN for the authentication proxy running along side your Kubernetes cluster.
    - `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM encoded multiline string containing the Certificate Authority certificate

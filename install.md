@@ -112,7 +112,6 @@ To configure the installation settings:
 
       ```bash
       kubectl create namespace API-TLS-SECRET-NAMESPACE
-      kubectl delete secret API-TLS-SECRET-NAME --namespace API-TLS-SECRET-NAMESPACE
       kubectl create secret tls API-TLS-SECRET-NAME \
         --cert=tls.crt \
         --key=tls.key \
@@ -149,7 +148,6 @@ To configure the installation settings:
 
        ```bash
        kubectl create namespace API-TLS-SECRET-NAMESPACE
-       kubectl delete secret API-TLS-SECRET-NAME --namespace API-TLS-SECRET-NAMESPACE
        kubectl create secret tls API-TLS-SECRET-NAME \
          --cert=tls.crt \
          --key=tls.key \
@@ -161,7 +159,6 @@ To configure the installation settings:
 
       ```bash
       kubectl create namespace APP-TLS-SECRET-NAMESPACE
-      kubectl delete secret APP-TLS-SECRET-NAME --namespace APP-TLS-SECRET-NAMESPACE
       kubectl create secret tls APP-TLS-SECRET-NAME \
         --cert=tls.crt \
         --key=tls.key \
@@ -199,7 +196,6 @@ To configure the installation settings:
 
         ```bash
         kubectl create namespace APP-TLS-SECRET-NAMESPACE
-        kubectl delete secret APP-TLS-SECRET-NAME --namespace APP-TLS-SECRET-NAMESPACE
         kubectl create secret tls APP-TLS-SECRET-NAME \
           --cert=tls.crt \
           --key=tls.key \
@@ -211,7 +207,6 @@ To configure the installation settings:
 
       ```bash
       kubectl create namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
-      kubectl delete secret APP-REGISTRY-CREDENTIALS-SECRET-NAME --namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
       kubectl create secret docker-registry APP-REGISTRY-CREDENTIALS-SECRET-NAME \
         --docker-server=APP-REGISTRY-HOSTNAME \
         --docker-username=APP-REGISTRY-USERNAME \

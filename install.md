@@ -214,20 +214,20 @@ To configure the installation settings:
         --namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
       ```
 
-   * Create a SecretExport to allow TAS Adapter to copy the secret into the "cf" namespace.
+1. Create a `SecretExport` to allow TAS Adapter to copy the application image registry credentials secret into the "cf" namespace.
 
-      ```yaml
-      kubectl apply -f - <<EOF
-      ---
-      apiVersion: secretgen.carvel.dev/v1alpha1
-      kind: SecretExport
-      metadata:
-        name: APP-REGISTRY-CREDENTIALS-SECRET-NAME
-        namespace: APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
-      spec:
-        toNamespace: cf
-      EOF
-      ```
+   ```yaml
+   kubectl apply -f - <<EOF
+   ---
+   apiVersion: secretgen.carvel.dev/v1alpha1
+   kind: SecretExport
+   metadata:
+     name: APP-REGISTRY-CREDENTIALS-SECRET-NAME
+     namespace: APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
+   spec:
+     toNamespace: cf
+   EOF
+   ```
 
 1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
 

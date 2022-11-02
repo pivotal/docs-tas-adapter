@@ -2,11 +2,24 @@
 
 This topic describes the Cloud Foundry command-line interface (cf CLI) commands and options that this version of the Application Service Adapter supports:
 
+* [Getting started](#getting-started)
 * [cf push](#cf-push)
 * [App operations](#app-operations)
 * [Org and space operations](#org-space-operations)
 * [Route and domain operations](#route-domain-operations)
 * [Service operations](#service-operations)
+
+## <a id="getting-started"></a> Getting started
+
+| Command | Supported? | Notes |
+|---------|------------|-------|
+|`cf login`| Y | Using the `--sso` flag is not supported. |
+|`cf logout` | Y |     |
+|`cf target` | Y |     |
+|`cf passwd` | N |    |
+|`cf api` | Y |     |
+|`cf auth` | Y | Use the name of a user authentication info entry from the local Kubeconfig file as the username argument. The password field is ignored. |
+
 
 ## <a id="cf-push"></a> cf push
 

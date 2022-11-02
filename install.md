@@ -112,7 +112,6 @@ To configure the installation settings:
 
       ```bash
       kubectl create namespace API-TLS-SECRET-NAMESPACE
-      kubectl delete secret API-TLS-SECRET-NAME --namespace API-TLS-SECRET-NAMESPACE
       kubectl create secret tls API-TLS-SECRET-NAME \
         --cert=tls.crt \
         --key=tls.key \
@@ -149,7 +148,6 @@ To configure the installation settings:
 
        ```bash
        kubectl create namespace API-TLS-SECRET-NAMESPACE
-       kubectl delete secret API-TLS-SECRET-NAME --namespace API-TLS-SECRET-NAMESPACE
        kubectl create secret tls API-TLS-SECRET-NAME \
          --cert=tls.crt \
          --key=tls.key \
@@ -161,7 +159,6 @@ To configure the installation settings:
 
       ```bash
       kubectl create namespace APP-TLS-SECRET-NAMESPACE
-      kubectl delete secret APP-TLS-SECRET-NAME --namespace APP-TLS-SECRET-NAMESPACE
       kubectl create secret tls APP-TLS-SECRET-NAME \
         --cert=tls.crt \
         --key=tls.key \
@@ -197,26 +194,40 @@ To configure the installation settings:
 
       * Create a secret.
 
-      ```bash
-      kubectl create namespace APP-TLS-SECRET-NAMESPACE
-      kubectl delete secret APP-TLS-SECRET-NAME --namespace APP-TLS-SECRET-NAMESPACE
-      kubectl create secret tls APP-TLS-SECRET-NAME \
-        --cert=tls.crt \
-        --key=tls.key \
-        --namespace APP-TLS-SECRET-NAMESPACE
-      ```
+        ```bash
+        kubectl create namespace APP-TLS-SECRET-NAMESPACE
+        kubectl create secret tls APP-TLS-SECRET-NAME \
+          --cert=tls.crt \
+          --key=tls.key \
+          --namespace APP-TLS-SECRET-NAMESPACE
+        ```
 
-1. If you do not already have a secret containing the hostname, username, and password for your application image registry, create one:
+1. If you do not already have a secret containing the hostname, username, and password for your application image registry:
+   * Create a secret.
 
       ```bash
       kubectl create namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
-      kubectl delete secret APP-REGISTRY-CREDENTIALS-SECRET-NAME --namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
       kubectl create secret docker-registry APP-REGISTRY-CREDENTIALS-SECRET-NAME \
         --docker-server=APP-REGISTRY-HOSTNAME \
         --docker-username=APP-REGISTRY-USERNAME \
         --docker-password=$(cat /path/to/APP-REGISTRY-PASSWORD) \
         --namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
       ```
+
+1. Create a `SecretExport` to allow TAS Adapter to copy the application image registry credentials secret into the "cf" namespace.
+
+   ```yaml
+   kubectl apply -f - <<EOF
+   ---
+   apiVersion: secretgen.carvel.dev/v1alpha1
+   kind: SecretExport
+   metadata:
+     name: APP-REGISTRY-CREDENTIALS-SECRET-NAME
+     namespace: APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
+   spec:
+     toNamespace: cf
+   EOF
+   ```
 
 1. Create a `tas-adapter-values.yml` file with the desired installation settings, following the schema specified for the package.
 

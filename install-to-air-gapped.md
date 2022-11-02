@@ -24,7 +24,7 @@ The local machine must have access to the air-gapped environment.
     export TAS_ADAPTER_VERSION=VERSION-NUMBER
     ```
 
-    Where `VERSION-NUMBER` is the version of Application Service Adapter you want to install. For example, `0.10.0`.
+    Where `VERSION-NUMBER` is the version of Application Service Adapter you want to install. For example, `1.0.0`.
 
 1. Log in to the Tanzu Network registry with your Tanzu Network credentials:
    ```bash
@@ -98,7 +98,7 @@ After the images are relocated:
     ```bash
     NAME                                          DISPLAY-NAME                 SHORT-DESCRIPTION                                                   LATEST-VERSION
     ...
-    application-service-adapter.tanzu.vmware.com  Application Service Adapter  Application Service Adapter for VMware Tanzu Application Platform  0.10.0
+    application-service-adapter.tanzu.vmware.com  Application Service Adapter  Application Service Adapter for VMware Tanzu Application Platform  1.0.0
     ...
     ```
 
@@ -111,7 +111,7 @@ After the images are relocated:
    It should output a list of settings similar to:
 
     ```
-    | Retrieving package details for application-service-adapter.tanzu.vmware.com/0.10.0...
+    | Retrieving package details for application-service-adapter.tanzu.vmware.com/1.0.0...
       KEY                         DEFAULT  TYPE     DESCRIPTION
       api_auth_proxy.ca_cert.data          string   TLS CA certificate of your cluster's auth proxy
       api_auth_proxy.host                  string   FQDN of your cluster's auth proxy

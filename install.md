@@ -52,7 +52,6 @@ To install Application Service Adapter:
    Where:
 
    - `TANZU-NET-USERNAME` is your username on Tanzu Network.
-
    - `TANZU-NET-PASSWORD` the password for your username on Tanzu Network.
 
 1. Add the Application Service Adapter package repository to the cluster.
@@ -107,8 +106,8 @@ To install Application Service Adapter:
 
 To configure the installation settings:
 
-1. If you do not already have a secret containing a certificate and private keypair for HTTPS ingress to the Application Service Adapter API:
-   * If you have a certificate and private keypair, create a secret.
+1. If you do not already have a secret containing a certificate and private key pair for HTTPS ingress to the Application Service Adapter API:
+   * If you have a certificate and private key pair, create a secret containing them:
 
       ```bash
       kubectl create namespace API-TLS-SECRET-NAMESPACE
@@ -118,44 +117,41 @@ To configure the installation settings:
         --namespace API-TLS-SECRET-NAMESPACE
      ```
 
-   * If you do not have a certificate and private keypair, you can [generate a self-signed secret using cert-manager](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources).
+   * If you do not have a certificate and private key pair, you can [use cert-manager to generate a secret containing a self-signed certificate](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources):
 
-   * Alternatively, you can generate a self-signed certificate manually.
-     * If you are using `openssl`, or `libressl v3.1.0` or later:
+    ```bash
+    kubectl apply -f - <<EOF
+    ---
+    apiVersion: cert-manager.io/v1
+    kind: Issuer
+    metadata:
+      name: selfsigned-issuer
+      namespace: API-TLS-SECRET-NAMESPACE
+    spec:
+      selfSigned: {}
+    ---
+    apiVersion: cert-manager.io/v1
+    kind: Certificate
+    metadata:
+      name: api-selfsigned-certificate
+      namespace: API-TLS-SECRET-NAMESPACE
+    spec:
+      commonName: API-FQDN
+      dnsNames:
+        - API-FQDN
+      issuerRef:
+        name: selfsigned-issuer
+      privateKey:
+        algorithm: RSA
+      secretName: API-TLS-SECRET-NAME
+      usages:
+      - server auth
+      - client auth
+    EOF
+    ```
 
-        ```bash
-        openssl req -x509 -newkey rsa:4096 \
-          -keyout tls.key -out tls.crt \
-          -nodes -subj '/CN=API-FQDN' \
-          -addext "subjectAltName = DNS:API-FQDN" \
-          -days 365
-        ```
-        Where `API-FQDN` is the fully qualified domain name (FQDN) to use to access the API.
-
-     * If you are using version `libressl` v3.1.0 or earlier:
-
-        ```bash
-        openssl req -x509 -newkey rsa:4096 \
-          -keyout tls.key -out tls.crt \
-          -nodes -subj '/CN=API-FQDN' \
-          -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:API-FQDN'")) \
-          -days 365
-        ```
-
-     * > **Note:** `libressl` v3.1.0 is the default version in macOS.
-
-     * Create a secret.
-
-       ```bash
-       kubectl create namespace API-TLS-SECRET-NAMESPACE
-       kubectl create secret tls API-TLS-SECRET-NAME \
-         --cert=tls.crt \
-         --key=tls.key \
-         --namespace API-TLS-SECRET-NAMESPACE
-       ```
-
-1. If you do not already have a secret containing a wildcard certificate and private keypair for HTTPS application ingress:
-   * If you have a wildcard certificate and private keypair, create a secret.
+1. If you do not already have a secret containing a wildcard certificate and private key pair for HTTPS application ingress:
+   * If you have a wildcard certificate and private key pair, create a secret containing them:
 
       ```bash
       kubectl create namespace APP-TLS-SECRET-NAMESPACE
@@ -165,42 +161,38 @@ To configure the installation settings:
         --namespace APP-TLS-SECRET-NAMESPACE
      ```
 
-   * If you do not have a wildcard certificate and private keypair, you can [generate a self-signed secret using cert-manager](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources).
+   * If you do not have a wildcard certificate and private key pair, you can [use cert-manager to generate a Secret containing a self-signed wildcard certificate](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources):
 
-   * Alternatively, you can generate a self-signed certificate manually.
-      * If you are using `openssl`, or `libressl v3.1.0` or later:
-
-         ```bash
-         openssl req -x509 -newkey rsa:4096 \
-           -keyout tls.key -out tls.crt \
-           -nodes -subj '/CN=*.APP-DOMAIN' \
-           -addext "subjectAltName = DNS:*.APP-DOMAIN" \
-           -days 365
-         ```
-         Where `APP-DOMAIN` is the FQDN of the shared domain to use for application routes. By default, each application is mapped to a route on a subdomain of this shared domain.
-
-      * If you are using version `libressl` v3.1.0 or earlier:
-
-        ```bash
-        openssl req -x509 -newkey rsa:4096 \
-          -keyout tls.key -out tls.crt \
-          -nodes -subj '/CN=*.APP-DOMAIN' \
-          -extensions SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[ SAN ]\nsubjectAltName='DNS:*.APP-DOMAIN'")) \
-          -days 365
-        ```
-
-      * > **Note:** The TLS certificate for application ingress must be a wildcard certificate.
-      * > **Note:** `libressl` v3.1.0 is the default version in macOS.
-
-      * Create a secret.
-
-        ```bash
-        kubectl create namespace APP-TLS-SECRET-NAMESPACE
-        kubectl create secret tls APP-TLS-SECRET-NAME \
-          --cert=tls.crt \
-          --key=tls.key \
-          --namespace APP-TLS-SECRET-NAMESPACE
-        ```
+    ```bash
+    kubectl apply -f - <<EOF
+    ---
+    apiVersion: cert-manager.io/v1
+    kind: Issuer
+    metadata:
+      name: selfsigned-issuer
+      namespace: APP-TLS-SECRET-NAMESPACE
+    spec:
+      selfSigned: {}
+    ---
+    apiVersion: cert-manager.io/v1
+    kind: Certificate
+    metadata:
+      name: app-domain-selfsigned-certificate
+      namespace: APP-TLS-SECRET-NAMESPACE
+    spec:
+      commonName: *.DEFAULT-APP-DOMAIN
+      dnsNames:
+        - *.DEFAULT-APP-DOMAIN
+      issuerRef:
+        name: selfsigned-issuer
+      privateKey:
+        algorithm: RSA
+      secretName: APP-TLS-SECRET-NAME
+      usages:
+      - server auth
+      - client auth
+    EOF
+    ```
 
 1. If you do not already have a secret containing the hostname, username, and password for your application image registry:
    * Create a secret.
@@ -214,7 +206,7 @@ To configure the installation settings:
         --namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
       ```
 
-1. Create a `SecretExport` to allow TAS Adapter to copy the application image registry credentials secret into the "cf" namespace.
+1. Create a `SecretExport` to allow Application Service Adapter to copy the application image registry credentials secret into the `cf` namespace.
 
    ```bash
    kubectl apply -f - <<EOF
@@ -235,7 +227,7 @@ To configure the installation settings:
 
     ```yaml
     ---
-    ceip_policy_disclosed: FALSE-OR-TRUE-VALUE # Installation fails if this is not set to true. Not a string.
+    ceip_policy_disclosed: FALSE-OR-TRUE-VALUE # Installation fails if this is not set to the boolean value true. Not a string.
     api_ingress:
       fqdn: "API-FQDN"
       tls:
@@ -258,10 +250,10 @@ To configure the installation settings:
 
    Where:
 
-   - `API-FQDN` is the FQDN that you want to use for the Application Service Adapter API.
+   - `API-FQDN` is the fully qualified domain name (FQDN) that you want to use for the Application Service Adapter API. Example: `api.example.com`
    - `API-TLS-SECRET-NAME` is the `kubernetes.io/tls` secret containing the PEM-encoded public certificate for the Application Service Adapter API.
    - `API-TLS-SECRET-NAMESPACE` is the namespace containing the API TLS secret.
-   - `DEFAULT-APP-DOMAIN` is the domain that you want to use for automatically configured application routes.
+   - `DEFAULT-APP-DOMAIN` is the domain that you want to use for automatically configured application routes. Example: `apps.example.com`.
    - `APP-TLS-SECRET-NAME` is the `kubernetes.io/tls` secret containing the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
    - `APP-TLS-SECRET-NAMESPACE` is the namespace containing the application TLS secret.
    - `APP-REGISTRY-CREDENTIALS-SECRET-NAME` is the `kubernetes.io/dockerconfigjson` secret containing the hostname, username and password for the application image registry.

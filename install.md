@@ -119,36 +119,36 @@ To configure the installation settings:
 
    * If you do not have a certificate and private key pair, you can [use cert-manager to generate a secret containing a self-signed certificate](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources):
 
-    ```bash
-    kubectl apply -f - <<EOF
-    ---
-    apiVersion: cert-manager.io/v1
-    kind: Issuer
-    metadata:
-      name: selfsigned-issuer
-      namespace: API-TLS-SECRET-NAMESPACE
-    spec:
-      selfSigned: {}
-    ---
-    apiVersion: cert-manager.io/v1
-    kind: Certificate
-    metadata:
-      name: api-selfsigned-certificate
-      namespace: API-TLS-SECRET-NAMESPACE
-    spec:
-      commonName: API-FQDN
-      dnsNames:
-        - API-FQDN
-      issuerRef:
+      ```bash
+      kubectl apply -f - <<EOF
+      ---
+      apiVersion: cert-manager.io/v1
+      kind: Issuer
+      metadata:
         name: selfsigned-issuer
-      privateKey:
-        algorithm: RSA
-      secretName: API-TLS-SECRET-NAME
-      usages:
-      - server auth
-      - client auth
-    EOF
-    ```
+        namespace: API-TLS-SECRET-NAMESPACE
+      spec:
+        selfSigned: {}
+      ---
+      apiVersion: cert-manager.io/v1
+      kind: Certificate
+      metadata:
+        name: api-selfsigned-certificate
+        namespace: API-TLS-SECRET-NAMESPACE
+      spec:
+        commonName: API-FQDN
+        dnsNames:
+          - API-FQDN
+        issuerRef:
+          name: selfsigned-issuer
+        privateKey:
+          algorithm: RSA
+        secretName: API-TLS-SECRET-NAME
+        usages:
+        - server auth
+        - client auth
+      EOF
+      ```
 
 1. If you do not already have a secret containing a wildcard certificate and private key pair for HTTPS application ingress:
    * If you have a wildcard certificate and private key pair, create a secret containing them:
@@ -163,48 +163,47 @@ To configure the installation settings:
 
    * If you do not have a wildcard certificate and private key pair, you can [use cert-manager to generate a Secret containing a self-signed wildcard certificate](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources):
 
-    ```bash
-    kubectl apply -f - <<EOF
-    ---
-    apiVersion: cert-manager.io/v1
-    kind: Issuer
-    metadata:
-      name: selfsigned-issuer
-      namespace: APP-TLS-SECRET-NAMESPACE
-    spec:
-      selfSigned: {}
-    ---
-    apiVersion: cert-manager.io/v1
-    kind: Certificate
-    metadata:
-      name: app-domain-selfsigned-certificate
-      namespace: APP-TLS-SECRET-NAMESPACE
-    spec:
-      commonName: *.DEFAULT-APP-DOMAIN
-      dnsNames:
-        - *.DEFAULT-APP-DOMAIN
-      issuerRef:
-        name: selfsigned-issuer
-      privateKey:
-        algorithm: RSA
-      secretName: APP-TLS-SECRET-NAME
-      usages:
-      - server auth
-      - client auth
-    EOF
-    ```
-
-1. If you do not already have a secret containing the hostname, username, and password for your application image registry:
-   * Create a secret.
-
       ```bash
-      kubectl create namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
-      kubectl create secret docker-registry APP-REGISTRY-CREDENTIALS-SECRET-NAME \
-        --docker-server=APP-REGISTRY-HOSTNAME \
-        --docker-username=APP-REGISTRY-USERNAME \
-        --docker-password=$(cat /path/to/APP-REGISTRY-PASSWORD) \
-        --namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
+      kubectl apply -f - <<EOF
+      ---
+      apiVersion: cert-manager.io/v1
+      kind: Issuer
+      metadata:
+        name: selfsigned-issuer
+        namespace: APP-TLS-SECRET-NAMESPACE
+      spec:
+        selfSigned: {}
+      ---
+      apiVersion: cert-manager.io/v1
+      kind: Certificate
+      metadata:
+        name: app-domain-selfsigned-certificate
+        namespace: APP-TLS-SECRET-NAMESPACE
+      spec:
+        commonName: *.DEFAULT-APP-DOMAIN
+        dnsNames:
+          - *.DEFAULT-APP-DOMAIN
+        issuerRef:
+          name: selfsigned-issuer
+        privateKey:
+          algorithm: RSA
+        secretName: APP-TLS-SECRET-NAME
+        usages:
+        - server auth
+        - client auth
+      EOF
       ```
+
+1. If you do not already have a secret containing the hostname, username, and password for your application image registry, create one:
+
+    ```bash
+    kubectl create namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
+    kubectl create secret docker-registry APP-REGISTRY-CREDENTIALS-SECRET-NAME \
+      --docker-server=APP-REGISTRY-HOSTNAME \
+      --docker-username=APP-REGISTRY-USERNAME \
+      --docker-password=$(cat /path/to/APP-REGISTRY-PASSWORD) \
+      --namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
+    ```
 
 1. Create a `SecretExport` to allow Application Service Adapter to copy the application image registry credentials secret into the `cf` namespace.
 
@@ -383,15 +382,15 @@ To configure Application Service Adapter with a registry that has a custom or se
 
 1. Set the value of the `app_registry_credentials.ca_cert_data` property in the `tas-adapter-values.yml` file with a PEM encoded Certificate Authority certificate.
 
-> **Note:** Your cluster nodes must trust the Certificate Authority that the Application Service Adapter is configured with. Tanzu Build Service must be configured to trust this registry Certificate Authority certificate.
+> **Note:** Your Kubernetes cluster nodes must trust the Certificate Authority that the Application Service Adapter is configured with. Tanzu Build Service must be configured to trust this registry Certificate Authority certificate.
 
 ## <a id="experimental-cartographer-integration"></a>(Optional) Configure the Experimental Cartographer Integration
-
-> **Note**: Opting into the experimental Cartographer integration requires a larger set of Tanzu Application Platform packages to be installed. See [Required components for experimental Cartographer integration](install-prerequisites.md#required-components-cartographer) in _Install Prerequisites_.
 
 To configure the experimental Cartographer integration:
 
 1. Set the value of the `experimental_use_cartographer` property in the `tas-adapter-values.yml` file to `true`. Note that this value is a boolean and not a string.
+
+> **Note**: Opting into the experimental Cartographer integration requires a larger set of Tanzu Application Platform packages to be installed. See [Required components for experimental Cartographer integration](install-prerequisites.md#required-components-cartographer) in _Install Prerequisites_.
 
 ## <a id="install-adapter"></a>Install Application Service Adapter
 

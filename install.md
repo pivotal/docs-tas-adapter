@@ -216,7 +216,7 @@ To configure the installation settings:
 
 1. Create a `SecretExport` to allow TAS Adapter to copy the application image registry credentials secret into the "cf" namespace.
 
-   ```yaml
+   ```bash
    kubectl apply -f - <<EOF
    ---
    apiVersion: secretgen.carvel.dev/v1alpha1
@@ -279,7 +279,7 @@ To configure the installation settings:
      - Docker Hub has the form `packages: "my-dockerhub-username"`
      - Google Container Registry has the form `packages: "project-id/my-repo-name"`
 
-   See optional values in the following example. For more information, see the Tanzu CLI output.
+   The following values are optional but recommended:
 
     ```yaml
     ---
@@ -287,6 +287,16 @@ To configure the installation settings:
       users:
       - "ADMIN-USERNAME"
       ...
+    ```
+
+   Where:
+
+   - `ADMIN-USERNAME` is the name of an existing user to grant system admin privileges. You can specify as many users as you want, one per line. These names should be identifiers for user accounts, not Kubernetes service accounts.
+
+   See additional optional values in the following example. For more information, see the Tanzu CLI output.
+
+    ```yaml
+    ---
     api_auth_proxy:
       ca_cert:
         data: |
@@ -328,7 +338,6 @@ To configure the installation settings:
 
    Where:
 
-   - `ADMIN-USERNAME` is the name of an existing user to grant admin privileges. You can specify as many users as you want, one per line.
    - `API-AUTH-PROXY-TLS-CRT` is the CA certificate from the authentication proxy running along side your Kubernetes cluster.
    - `API-AUTH-PROXY-FQDN` is the FQDN for the authentication proxy running along side your Kubernetes cluster.
    - `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM encoded multiline string containing the Certificate Authority certificate
@@ -357,7 +366,7 @@ By default, when you install Application Service Adapter, you opt into telemetry
 
 1. Run the following kubectl command:
 
-  ```yaml
+  ```bash
   kubectl apply -f - <<EOF
   apiVersion: v1
   kind: Namespace
@@ -457,9 +466,9 @@ To configure DNS for Application Service Adapter:
     korifi-api-proxy   API-FQDN   korifi-api-ingress-cert   valid    Valid HTTPProxy
     ```
 
-## <a id="assign-admin-user"></a>Assign the admin role to a user
+## <a id="assign-admin-user"></a>Log in with a system admin user
 
-After you install the Cloud Foundry command-line interface (cf CLI), log in to Application Service Adapter and assign the admin role to an existing user in the Kubernetes cluster:
+After you install the Cloud Foundry command-line interface (cf CLI), log in to Application Service Adapter with one of the system admin users you configured in the `admin.users` value:
 
 1. Target the cf CLI at the API endpoint.
 
@@ -477,7 +486,7 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to A
     cf login
     ```
 
-    The cf CLI detects the user authentication entries in your local Kubeconfig file and presents them for you to select one interactively. Select a user on your target cluster whom you want to act as an admin.
+    The cf CLI detects the user authentication entries in your local Kubeconfig file and presents them for you to select one interactively. Select an entry corresponding to one of the users you configured in the list in the `admin.users` value.
 
 1. Use the `cf curl` command to verify the subject name of the logged-in user.
 
@@ -491,39 +500,9 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to A
     {"name":"my_user@example.com","kind":"User"}
     ```
 
-    The value of the `name` field in the response is the subject name of the user.
+    The value of the `name` field in the response is the subject name of the user, and should match the name configured in `admin.users`.
 
     >**Note:** The `kind` field in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log in to the Application Service Adapter with an account for a user in the Kubernetes cluster.
-
-
-1. Create a `tas-adapter-admin.yaml` file with a RoleBinding definition for the admin user:
-
-    ```yaml
-    ---
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: RoleBinding
-    metadata:
-      name: cf-admin
-      namespace: cf
-      annotations:
-        cloudfoundry.org/propagate-cf-role: "true"
-    subjects:
-    - kind: User
-      name: CF-ADMIN-USERNAME
-      apiGroup: rbac.authorization.k8s.io
-    roleRef:
-      kind: ClusterRole
-      name: korifi-controllers-admin
-      apiGroup: rbac.authorization.k8s.io
-    ```
-
-    Where `CF-ADMIN-USERNAME` is the user name you verify earlier.
-
-1. Create the admin RoleBinding in the target cluster.
-
-    ```bash
-    kubectl apply -f tas-adapter-admin.yaml
-    ```
 
 
    To test Application Service Adapter, continue to [Getting Started](getting-started.md).

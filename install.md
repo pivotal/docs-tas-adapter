@@ -376,19 +376,20 @@ By default, when you install Application Service Adapter, you opt into telemetry
 
 Your Application Service Adapter deployment no longer emits telemetry, and you are opted out of the VMware Customer Experience Improvement Program.
 
-### <a id="custom-ca-registry"></a>Configure a Registry With a Custom Certificate Authority
+### <a id="custom-ca-registry"></a>(Optional) Configure a Registry With a Custom Certificate Authority
+
+> **Note** Your Kubernetes cluster nodes and the Tanzu Build Service component of Tanzu Application Platform must also both be configured to trust this Certificate Authority for the registry.
 
 To configure Application Service Adapter to trust a registry that has a custom or self-signed certificate authority:
 
 1. Set the value of the `app_registry_credentials.ca_cert_data` property in the `tas-adapter-values.yml` file with the PEM encoded certificate for the registry's Certificate Authority.
 
-> **Note** Your Kubernetes cluster nodes and the Tanzu Build Service component of Tanzu Application Platform must also both be configured to trust this Certificate Authority for the registry.
 
-## <a id="experimental-cartographer-integration"></a>(Optional) Configure the Experimental Cartographer Integration
-
-To configure the experimental Cartographer integration:
+### <a id="experimental-cartographer-integration"></a>(Optional) Configure the Experimental Cartographer Integration
 
 > **Note** Opting into the experimental Cartographer integration requires a larger set of Tanzu Application Platform packages to be installed. See [Required components for experimental Cartographer integration](install-prerequisites.md#required-components-cartographer) in _Install Prerequisites_.
+
+To configure the experimental Cartographer integration:
 
 1. Set the value of the `experimental_use_cartographer` property in the `tas-adapter-values.yml` file to `true`. Note that this value is a boolean and not a string.
 

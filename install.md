@@ -378,19 +378,19 @@ Your Application Service Adapter deployment no longer emits telemetry, and you a
 
 ### <a id="custom-ca-registry"></a>Configure a Registry With a Custom Certificate Authority
 
-To configure Application Service Adapter with a registry that has a custom or self-signed certificate authority:
+To configure Application Service Adapter to trust a registry that has a custom or self-signed certificate authority:
 
-1. Set the value of the `app_registry_credentials.ca_cert_data` property in the `tas-adapter-values.yml` file with a PEM encoded Certificate Authority certificate.
+1. Set the value of the `app_registry_credentials.ca_cert_data` property in the `tas-adapter-values.yml` file with the PEM encoded certificate for the registry's Certificate Authority.
 
-> **Note:** Your Kubernetes cluster nodes must trust the Certificate Authority that the Application Service Adapter is configured with. Tanzu Build Service must be configured to trust this registry Certificate Authority certificate.
+> **Note** Your Kubernetes cluster nodes and the Tanzu Build Service component of Tanzu Application Platform must also both be configured to trust this Certificate Authority for the registry.
 
 ## <a id="experimental-cartographer-integration"></a>(Optional) Configure the Experimental Cartographer Integration
 
 To configure the experimental Cartographer integration:
 
-1. Set the value of the `experimental_use_cartographer` property in the `tas-adapter-values.yml` file to `true`. Note that this value is a boolean and not a string.
+> **Note** Opting into the experimental Cartographer integration requires a larger set of Tanzu Application Platform packages to be installed. See [Required components for experimental Cartographer integration](install-prerequisites.md#required-components-cartographer) in _Install Prerequisites_.
 
-> **Note**: Opting into the experimental Cartographer integration requires a larger set of Tanzu Application Platform packages to be installed. See [Required components for experimental Cartographer integration](install-prerequisites.md#required-components-cartographer) in _Install Prerequisites_.
+1. Set the value of the `experimental_use_cartographer` property in the `tas-adapter-values.yml` file to `true`. Note that this value is a boolean and not a string.
 
 ## <a id="install-adapter"></a>Install Application Service Adapter
 
@@ -437,11 +437,11 @@ To configure DNS for Application Service Adapter:
     kubectl -n tanzu-system-ingress get service envoy -ojsonpath='{.status.loadBalancer.ingress[*].ip}'
     ```
 
-   > **Note:** If you are using a cluster deployed on AWS, your LoadBalancer has a DNS name instead of an IP address.
+   > **Note** If you are using a cluster deployed on AWS, your LoadBalancer has a DNS name instead of an IP address.
 
 1. Create an A record in your DNS zone that resolves the configured API FQDN to the external IP address from step 1. This step varies depending on your DNS provider.
 
-   > **Note:** If you are using a cluster deployed on AWS, create a CNAME record that resolves to the DNS name of the load balancer instead of an A record.
+   > **Note** If you are using a cluster deployed on AWS, create a CNAME record that resolves to the DNS name of the load balancer instead of an A record.
 
 1. Create a wildcard A record in your DNS zone that resolves all sub-domains of the configured application domain to the external IP address from step 1. This step varies depending on your DNS provider.
 
@@ -469,7 +469,7 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to A
 
     Where `API-FQDN` is the fully qualified domain name (FQDN) for the Application Service Adapter API.
 
-    >**Note:** If you configured the Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
+    > **Note** If you configured the Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
 
 1. Log in with the cf CLI.
 
@@ -493,7 +493,7 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to A
 
     The value of the `name` field in the response is the subject name of the user, and should match the name configured in `admin.users`.
 
-    >**Note:** The `kind` field in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log in to the Application Service Adapter with an account for a user in the Kubernetes cluster.
+    >**Note** The `kind` field in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log in to the Application Service Adapter with an account for a user in the Kubernetes cluster.
 
 
    To test Application Service Adapter, continue to [Getting Started](getting-started.md).

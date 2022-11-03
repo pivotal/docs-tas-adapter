@@ -8,7 +8,7 @@ When upgrading to a new major or minor version of Application Service Adapter, p
 
 These instructions cover upgrading to a new patch version of the currently installed version of Application Service Adapter.
 
->**Note:** Discover new patch versions of the Application Service Adapter on the TanzuNet product page directly, or [sign up to receive email alerts](https://network.tanzu.vmware.com/docs/faq#alerts) when the product is updated.
+> **Note** Discover new patch versions of the Application Service Adapter on the TanzuNet product page directly, or [sign up to receive email alerts](https://network.tanzu.vmware.com/docs/faq#alerts) when the product is updated.
 
 ## <a id='prereqs'></a> Prerequisites
 
@@ -43,7 +43,6 @@ Follow these steps to update the new package repository:
 
 Perform the upgrade by running:
 
->**Note:** Ensure you run the following command in the directory where the `tas-adapter-values.yml` file resides.
 
     ```bash
     tanzu package installed update tas-adapter \
@@ -54,6 +53,8 @@ Perform the upgrade by running:
     ```
 
 Where `TAS_ADAPTER_VERSION` is the target revision of Application Service Adapter you are migrating to.
+
+> **Note** Ensure you run the following command in the directory where the `tas-adapter-values.yml` file resides.
 
 ## <a id="verify"></a> Verify the upgrade
 

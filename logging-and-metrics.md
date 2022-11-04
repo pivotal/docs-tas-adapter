@@ -15,17 +15,18 @@ convenient method to gather the logs from pods in one or more deployments.
 
 To fetch recent logs from all components of an Application Service Adapter installation:
 
-    ```bash
-    kapp logs --app tas-adapter.app -n tap-install
-    ```
+```bash
+kapp logs --app tas-adapter.app -n tap-install
+```
 
 To fetch recent logs from a specific deployment:
 
-    ```bash
-    kapp logs --app tas-adapter.app -n tap-install --pod-name DEPLOYMENT-NAME%
-    ```
-    Where `DEPLOYMENT-NAME` is the name of the Kubernetes Deployment, such as
-    `korifi-api-deployment`.
+```bash
+kapp logs --app tas-adapter.app -n tap-install --pod-name DEPLOYMENT-NAME%
+```
+
+Where `DEPLOYMENT-NAME` is the name of the Kubernetes Deployment, such as
+`korifi-api-deployment`.
 
 To stream logs instead of fetching the most recent logs, add the `--follow` flag to the earlier `kapp logs` commands.
 For additional details and options, see the `kapp logs --help` help text.
@@ -48,18 +49,18 @@ can help to indicate when a controller manager is resource constrained and must 
 
 To query the queue depth for the CFApp controller:
 
-    ```bash
-    workqueue_depth{name="cfapp"}
-    ```
+```bash
+workqueue_depth{name="cfapp"}
+```
 
 To list the queue depths for all Application Service Adapter controllers:
 
-    ```bash
-    workqueue_depth{namespace="tas-adapter-system"}
-    ```
+```bash
+workqueue_depth{namespace="tas-adapter-system"}
+```
 
 To query the average queue time for CFApp objects before reconciliation:
 
-    ```bash
-    workqueue_queue_duration_seconds_sum{name="cfapp"}/workqueue_queue_duration_seconds_count
-    ```
+```bash
+workqueue_queue_duration_seconds_sum{name="cfapp"}/workqueue_queue_duration_seconds_count
+```

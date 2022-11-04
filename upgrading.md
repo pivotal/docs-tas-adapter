@@ -44,13 +44,13 @@ Follow these steps to update the new package repository:
 Perform the upgrade by running:
 
 
-    ```bash
-    tanzu package installed update tas-adapter \
-      --package-name application-service-adapter.tanzu.vmware.com \
-      --version "${TAS_ADAPTER_VERSION}" \
-      --values-file tas-adapter-values.yml \
-      --namespace tap-install
-    ```
+```bash
+tanzu package installed update tas-adapter \
+  --package-name application-service-adapter.tanzu.vmware.com \
+  --version "${TAS_ADAPTER_VERSION}" \
+  --values-file tas-adapter-values.yml \
+  --namespace tap-install
+```
 
 Where `TAS_ADAPTER_VERSION` is the target revision of Application Service Adapter you are migrating to.
 
@@ -67,7 +67,7 @@ tanzu package installed list --namespace tap-install
 Your output should be similar, but probably not identical, to the following example output:
 
 ```console
-- Retrieving installed packages...
+  Retrieving installed packages...
   NAME                        PACKAGE-NAME                                 PACKAGE-VERSION  STATUS
   api-auto-registration       apis.apps.tanzu.vmware.com                   0.1.1            Reconcile succeeded
   appsso                      sso.apps.tanzu.vmware.com                    2.0.0            Reconcile succeeded

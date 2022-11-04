@@ -40,7 +40,7 @@ This section describes the environment variables that Application Service Adapte
 
 You can access environment variables programmatically, including variables defined by the buildpack.
 
-The table below lists the system variables available to your app container.
+The table below lists the app-specific system environment variables available to your app container. See [App-Specific System Variables](https://docs.pivotal.io/application-service/3-0/devguide/deploy-apps/environment-variable.html#app-system-env) in _TAS for VMs Environment Variables_ for more information on each environment variable.
 
 | Environment Variable | Running | Staging |
 | -------------------- | ------- | ------- |
@@ -68,14 +68,6 @@ The table below lists the system variables available to your app container.
 | `VCAP_APPLICATION` |  |  |
 | `VCAP_SERVICES` | x |  |
 
-### <a id='CF-INSTANCE-ADDR'></a> CF_INSTANCE_ADDR
-
-The `CF_INSTANCE_IP` and `CF_INSTANCE_PORT` of the app instance, in the format `IP:PORT`.
-
-For example: `CF_INSTANCE_ADDR=1.2.3.4:5678`
-
-For more information, see [CF_INSTANCE_IP](#CF-INSTANCE-IP) and [CF_INSTANCE_PORT](#CF-INSTANCE-PORT).
-
 ### <a id='CF-INSTANCE-GUID'></a> CF_INSTANCE_GUID
 
 The UUID of the app instance.
@@ -88,88 +80,23 @@ The index number of the app instance.
 
 For example: `CF_INSTANCE_INDEX=0`
 
-### <a id='CF-INSTANCE-IP'></a> CF_INSTANCE_IP
-
-The external IP address of the host running the app instance.
-
-For example: `CF_INSTANCE_IP=1.2.3.4`
-
 ### <a id='CF-INSTANCE-INTERNAL-IP'></a> CF_INSTANCE_INTERNAL_IP
 
 The internal IP address of the container running the app instance.
 
 For example: `CF_INSTANCE_INTERNAL_IP=5.6.7.8`
 
-### <a id='CF-INSTANCE-PORT'></a> CF_INSTANCE_PORT
+### <a id='CF-INSTANCE-IP'></a> CF_INSTANCE_IP
 
-The external, or *host-side*, port corresponding to the internal, or *container-side*, port with value `PORT`. This value is usually different from the `PORT` of the app instance.
+The external IP address of the host running the app instance.
 
-For example: `CF_INSTANCE_PORT=61045`
-
-For more information, see [PORT](#PORT).
-
-### <a id='CF-INSTANCE-PORTS'></a> CF_INSTANCE_PORTS
-
-The list of mappings between internal, or *container-side*, and external, or *host-side*, ports allocated to the container running the app instance. Not all of the internal ports are necessarily available for the app to bind to, as some of them may be used by system-provided services that also run inside the container. These internal and external values may differ.
-
-For example: `CF_INSTANCE_PORTS=[{external:61045,internal:8080},{external:61046,internal:2222}]`
-
-### <a id='DATABASE-URL'></a> DATABASE_URL
-
-For apps bound to certain services that use a database, Application Service Adapter creates a `DATABASE_URL` environment variable based on the `VCAP_SERVICES` environment variable.
-
-Application Service Adapter uses the structure of the `VCAP_SERVICES` environment variable to populate the `DATABASE_URL` environment variable. Application Service Adapter recognizes any service containing a JSON object like the example below as a candidate for the `DATABASE_URL` environment variable and uses the first candidate it finds.
-
-    {
-      "some-service": [
-        {
-          "credentials": {
-            "uri": "SOME-DATABASE-URL"
-          }
-        }
-      ]
-    }
-
-For example, see the following `VCAP_SERVICES` environment variable example:
-
-    VCAP_SERVICES =
-    {
-      "elephantsql": [
-        {
-          "name": "elephantsql-c6c60",
-          "label": "elephantsql",
-          "credentials": {
-            "uri": "postgres://exampleuser:examplepass@babar.elephantsql.com:5432/exampledb"
-          }
-        }
-      ]
-    }
-
-Based on this `VCAP_SERVICES` environment variable, Application Service Adapter creates the following `DATABASE_URL` environment variable:
-
-    DATABASE_URL = postgres://exampleuser:examplepass@babar.elephantsql.com:5432/exampledb
-
-For more information, see [VCAP_SERVICES](#VCAP-SERVICES).
+For example: `CF_INSTANCE_IP=1.2.3.4`
 
 ### <a id='HOME'></a> HOME
 
 The root folder for the deployed app.
 
 For example: `HOME=/home/vcap/app`
-
-### <a id='LANG'></a> LANG
-
-Required by buildpacks to ensure consistent script load order.
-
-For example: `LANG=en_US.UTF-8`
-
-### <a id='MEMORY-LIMIT'></a> MEMORY_LIMIT
-
-The maximum amount of memory that each instance of the app can consume. You specify this value in an app manifest or with the cf CLI when pushing an app. The value is limited by space and org quotas.
-
-If an instance exceeds the maximum limit, it is restarted. If Application Service Adapter is asked to restart an instance too frequently, the instance is terminated.
-
-For example: `MEMORY_LIMIT=512M`
 
 ### <a id='PORT'></a> PORT
 
@@ -183,49 +110,13 @@ The present working directory where the buildpack that processed the app ran.
 
 For example: `PWD=/home/vcap/app`
 
-### <a id='TMPDIR'></a> TMPDIR
+### <a id='VCAP-APP-HOST'></a> VCAP_APP_HOST
 
-The directory location where temporary and staging files are stored.
-
-For example: `TMPDIR=/home/vcap/tmp`
-
-### <a id='USER'></a> USER
-
-The user account under which the app runs.
-
-For example: `USER=vcap`
+Deprecated. Always set to `0.0.0.0`.
 
 ### <a id='VCAP-APP-PORT'></a> VCAP_APP_PORT
 
 Deprecated name for the `PORT` variable.
-
-### <a id='VCAP-APPLICATION'></a> VCAP_APPLICATION
-
-This environment variable contains the associated attributes for a deployed app. Results are returned in JSON format. The table below lists the attributes that are returned.
-
-| Attribute | Description |
-| --------- | ----------- |
-| `application_id` | The GUID identifying the app. |
-| `application_name` | The name assigned to the app when it was pushed. |
-| `application_uris` | The URIs assigned to the app. |
-| `application_version` | The GUID identifying a version of the app. Each time an app is pushed or restarted, this value is updated. |
-| `cf_api` | The location of the Cloud Controller API for the Application Service Adapter deployment where the app runs. |
-| `host` | Deprecated. The IP address of the app instance. |
-| `limits` | The limits to disk space, number of files, and memory permitted to the app. Memory and disk space limits are supplied when the app is deployed, either on the command line or in the app manifest. The number of files allowed is operator-defined. |
-| `name` | Identical to `application_name`. |
-| `organization_id` | The GUID identifying the org where the app is deployed. |
-| `organization_name` | The human-readable name of the org where the app is deployed. |
-| `process_id` | The UID identifying the process. Only present in running app containers. |
-| `process_type` | The type of process. Only present in running app containers. |
-| `space_id` | The GUID identifying the space where the app is deployed. |
-| `space_name` | The human-readable name of the space where the app is deployed. |
-| `start` | The human-readable timestamp for the time the instance was started. Not provided on Diego Cells. |
-| `started_at` | Identical to `start`. Not provided on Diego Cells. |
-| `started_at_timestamp` | The Unix epoch timestamp for the time the instance was started. Not provided on Diego Cells. |
-| `state_timestamp` | Identical to `started_at_timestamp`. Not provided on Diego Cells. |
-| `uris` | Identical to `application_uris`. You must ensure that both `application_uris` and `uris` are set to the same value. |
-| `users` | Deprecated. Not provided on Diego Cells. |
-| `version` | Identical to `application_version`. |
 
 ### <a id='VCAP-SERVICES'></a> VCAP_SERVICES
 

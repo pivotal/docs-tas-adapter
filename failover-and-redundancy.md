@@ -53,7 +53,7 @@ applications.
    Service Adapter creates a
    [`PodDisruptionBudget`](https://kubernetes.io/docs/tasks/run-application/configure-pdb/)
    for multi-instance applications that sets the min-available instances for an
-   app to be %50 of the total instances that you want to maintain availability during
+   app to be 50% of the total instances that you want to maintain availability during
    these events.
 2. Ensure that all applications have the appropriate [health
    checks](https://docs.cloudfoundry.org/devguide/deploy-apps/healthchecks.html)

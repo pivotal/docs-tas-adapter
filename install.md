@@ -287,11 +287,13 @@ To configure the installation settings:
 
    Where:
 
-   - `ADMIN-USERNAME` is the name of an existing user in the Kubernetes cluster to whom to grant system admin privileges. You can specify as many users as you want, one per line. These names are identifiers for user accounts, not Kubernetes service accounts.
+   - `ADMIN-USERNAME` is the name of an existing user in the Kubernetes cluster to whom to grant system admin privileges. You can specify as many users as you want, one per line. These names are identifiers for Kubernetes user accounts, not Kubernetes service accounts.
+     - For EKS, see [EKS User Mapping](eks-user-mapping.md) for information on additional required cluster configuration to create Kubernetes user accounts by mapping IAM resources.
+     - For clusters configured to use authentication proxies (such as [Pinniped](https://pinniped.dev/)), you can authenticate to the cluster and see the output of `cf curl /whoami` to see the user account name to provide.
 
    > **Note** These user names are the ones that Kubernetes recognizes as user identifiers in the subject section of its RBAC resources, such as `RoleBindings`, and may differ from the names of the user entries in your local Kubeconfig file. If you are not certain of this user name, you can leave this entry empty for the initial installation. After completing the installation and logging in with the cf CLI, use the `cf curl /whoami` command to confirm the user name and then update the installation with the correct name value. For more information about user subject names in Kubernetes, see the [Referring to subjects](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-subjects) section of _Using RBAC Authorization_ and the [Authenticating](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) topic in the Kubernetes project documentation.
 
-   See additional optional values in the following example. For more information, see the Tanzu CLI output.
+   See additional optional values in the following example. For more information on optional values, see the Tanzu CLI output.
 
     ```yaml
     api_auth_proxy:

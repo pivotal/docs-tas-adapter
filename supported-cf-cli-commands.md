@@ -29,29 +29,29 @@ Application Service Adapter supports the basic use of `cf push APP-NAME`, where 
 
 | Flag | Supported? | Notes |
 |------|------------|-------|
-|`--app-start-timeout, -t`| N | |
+|`--app-start-timeout, -t`| Y | |
 |`--buildpack, -b`| N | Automatic buildpack detection is supported. Omit the flag or set to `null` or `default`.<br/>User-specified buildpacks are not supported. |
-|`--disk, -k`| N |  |
+|`--disk, -k`| Y |  |
 |`--docker-image, -o`| N |  |
 |`--docker-username`| N |  |
 |`--droplet`| N |  |
 |`--endpoint`| N |  |
-|`--health-check-type, -u`| N |  |
-|`--instances, -i`| N |  |
+|`--health-check-type, -u`| Y |  |
+|`--instances, -i`| Y |  |
 |`--manifest, -f`| Y | Some manifest configurations described in [App Manifest Attribute Reference](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html) are supported. See the [Supported manifest configuration](#supported-manifest-configuration) section. |
 |`--memory, -m`| Y |  |
 |`--no-manifest`| Y |  |
-|`--no-route`| N | |
+|`--no-route`| Y | |
 |`--no-start`| Y |  |
 |`--no-wait`| N |  |
-|`--path, -p`| N |  |
+|`--path, -p`| Y |  |
 |`--random-route`| Y |  |
 |`--stack, -s`| N |  |
-|`--start-command, -c`| N |  |
+|`--start-command, -c`| Y |  |
 |`--strategy`| N |  |
-|`--task`| N |  |
-|`--var`| N |  |
-|`--vars-file`| N |  |
+|`--task`| Y |  |
+|`--var`| Y |  |
+|`--vars-file`| Y |  |
 
 ### <a id="supported-manifest-configuration"></a> Supported manifest configuration
 
@@ -62,18 +62,18 @@ The Application Service Adapter supports a subset of the Cloud Foundry manifest 
 | Attribute | Supported? | Notes |
 |------|------------|-------|
 | `buildpacks` | N | |
-| `command` | N | |
+| `command` | Y | |
 | `default-route` | Y | |
-| `disk_quota` | N | |
+| `disk_quota` | Y | |
 | `docker` | N | |
 | `env` | Y | |
-| `health-check-http-endpoint` | N | |
-| `health-check-invocation-timeout` | N | |
+| `health-check-http-endpoint` | Y | |
+| `health-check-invocation-timeout` | Y | |
 | `health-check-type` | N | |
 | `instances` | Y | |
 | `memory` | Y | |
 | `metadata` | N | |
-| `no-route` | N | |
+| `no-route` | Y | |
 | `path` | N | |
 | `processes` | Y | See the [Supported process-level configuration](#supported-process-level-configuration) section. |
 | `random-route` | Y | |
@@ -81,7 +81,7 @@ The Application Service Adapter supports a subset of the Cloud Foundry manifest 
 | `services` | N | |
 | `sidecars` | N | |
 | `stack` | N | |
-| `timeout` | N | |
+| `timeout` | Y | |
 
 #### <a id="supported-process-level-configuration"></a> Supported process-level configuration
 

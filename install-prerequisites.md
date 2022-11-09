@@ -11,10 +11,10 @@ For more information, see the [cf CLI repository](https://github.com/cloudfoundr
 
 To install the Application Service Adapter, you need:
 
-* Admin access to a Kubernetes cluster that meets the same requirements as Tanzu Application Platform v1.2 or v1.3 (whichever you have installed). See [Kubernetes cluster requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-prerequisites.html#kubernetes-cluster-requirements-3) under _Prerequisites_.
-  * As of Tanzu Application Platform v1.3, Kubernetes v1.22, v1.23, or v1.24 is required, with additional requirements for some implementations. For example, Amazon Elastic Kubernetes Service (EKS) requires containerd as the Container Runtime Interface (CRI) among with other requirements.
+* Admin access to a Kubernetes cluster that meets the same requirements as the version of Tanzu Application Platform you have installed, either v1.2 or v1.3. See [Kubernetes cluster requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-prerequisites.html#kubernetes-cluster-requirements-3) under _Prerequisites_.
+  * As of Tanzu Application Platform v1.3, Kubernetes v1.22, v1.23, or v1.24 is required. There are additional requirements for some implementations. For example, Amazon Elastic Kubernetes Service (EKS) requires containerd as the Container Runtime Interface (CRI) among with other requirements.
 
-* A container image registry. See [VMware Tanzu Network and container image registry requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-prerequisites.html#vmware-tanzu-network-and-container-image-registry-requirements-0) in _Prerequisites_. The Application Service Adapter does not work with Amazon's Elastic Container Registry (ECR).
+* A container image registry. See [VMware Tanzu Network and container image registry requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-prerequisites.html#vmware-tanzu-network-and-container-image-registry-requirements-0) in _Prerequisites_. The Application Service Adapter does not support Amazon's Elastic Container Registry (ECR).
 
 ### <a id="required-installation-tools"></a>Required installation tools
 
@@ -43,7 +43,7 @@ The following dependencies must be installed to the target Kubernetes cluster be
 * Contour v1.18.2 or later for ingress control.
    * If you installed Tanzu Application Platform v1.3 with a profile, this package is installed.
    * If you installed Tanzu Application Platform v1.3 without using a profile, see [Install Contour](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-cert-mgr-contour-fcd-install-cert-mgr.html#install-contour-2) in _Install cert-manager, Contour_.
-   > **Note** You must configure Contour's ingress to provision a LoadBalancer. See the configuration defaults in [Install your Tanzu Application Platform profile](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-install.html#install-your-tanzu-application-platform-profile-1) in _Installing Tanzu Application Platform Package and Profiles_.
+   > **Note** You must configure Contour's ingress to provision a LoadBalancer. See the default configuration in [Install your Tanzu Application Platform profile](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-install.html#install-your-tanzu-application-platform-profile-1) in _Installing Tanzu Application Platform Package and Profiles_.
 
 * Service Bindings v0.7.2 or later.
    * If you installed Tanzu Application Platform v1.3 with the `full`, `iterate`, or `run` profile, this package is installed.

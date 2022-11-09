@@ -8,6 +8,7 @@ This is the table of contents from which the Application Service Adapter for Tan
 - [Installing prerequisites](install-prerequisites.md)
 - [Installing Application Service Adapter](install.md)
 - [Getting started with Application Service Adapter](getting-started.md)
+  - [Push the spring-music sample application](push-spring-music.md)
 - [Administering Application Service Adapter](administering.md)
   - [Disaster recovery](disaster-recovery.md)
   - [Failover and redundancy](failover-and-redundancy.md)

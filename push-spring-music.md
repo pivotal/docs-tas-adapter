@@ -113,7 +113,7 @@ Ensure you are logged into the Application Service Adapter environment you inten
 
     The application will be unavailable for a short period of time while it restarts.
 
-After it has finished restarting, refresh your browser window and observe that your modifications have not been preserved.
+1. After it has finished restarting, refresh your browser window and observe that your modifications have not been preserved.
 
     ![](images/spring-music-reset.png)
 
@@ -225,9 +225,11 @@ After it has finished restarting, refresh your browser window and observe that y
     spring-music-db   1/1     1            1           4m
     ```
 
+    If the `READY` column does not display `1/1`, wait a few moments and inspect the Deployment again.
+
 ## Bind the database to the application
 
-1. Create a user-provided service instance in the Cloud Foundry space containing the contents of the `spring-music-db` Secret:
+1. Create a user-provided service instance in the Cloud Foundry space containing the JSON-formatted contents of the `spring-music-db` Secret:
 
     ```bash
     MYSQL_CRED_JSON=$(kubectl -n service-instances get secret spring-music-db -ojson | jq '.data | map_values(@base64d)')

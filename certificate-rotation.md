@@ -2,13 +2,13 @@
 
 This topic describes how to rotate Application Service Adapter for VMware Tanzu Application Platform system certificates, and includes the following sections:
 
-* [Rotating Ingress Certificates](#rotating-ingress-certificates)
-* [Rotating Internal Certificates](#rotating-internal-certificates)
+- [Rotating certificates](#rotating-certificates)
+  - [<a id="rotating-ingress-certificates"></a>Rotating ingress certificates](#rotating-ingress-certificates)
+  - [<a id="rotating-internal-certificates"></a>Rotating internal certificates](#rotating-internal-certificates)
 
-> **Note** Certificate rotation should not result in downtime.
+> **Note** Certificate rotation does not result in downtime.
 
 ## <a id="rotating-ingress-certificates"></a>Rotating ingress certificates
-
 
 1. Set up environment variables for the installation:
 
@@ -18,7 +18,7 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
 
     Where `VERSION-NUMBER` is the version of Application Service Adapter you want to install. For example, `1.0.0`.
 
-1. Update your `tas-adapter-values.yml` file with new API and App Ingress TLS certificates (crt and key).
+2. Update your `tas-adapter-values.yml` file with new API and App Ingress TLS certificates, such as crt and key.
 
     The following values are updated:
 
@@ -40,7 +40,7 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
     - `NEW-APP-TLS-SECRET-NAME` is the kubernetes.io/tls secret containing the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
     - `NEW-APP-TLS-SECRET-NAMESPACE` is the namespace containing the Application Service Adapter applications secret.
 
-1. Install the Application Service Adapter to the cluster by running:
+3. Install the Application Service Adapter to the cluster by running:
 
     ```bash
     tanzu package install tas-adapter \
@@ -50,14 +50,14 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
       --namespace tap-install
     ```
 
-1. Verify that the package install was successful. Run:
+4. Verify that the package install was successful. Run:
 
     ```bash
     tanzu package installed get tas-adapter \
       --namespace tap-install
     ```
 
-   The output is similar to the following:
+   The following is an example output:
 
     ```bash
     | Retrieving installation details for tas-adapter...

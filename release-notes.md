@@ -4,7 +4,7 @@ This topic contains release notes for the Application Service Adapter for VMware
 
 ## <a id='1-0-0'></a> v1.0.0 Release
 
-**Release Date**: MMM DD, 2022
+**Release Date**: November 10, 2022
 
 
 ### Features

@@ -225,7 +225,6 @@ To configure the installation settings:
    The following values are required:
 
     ```yaml
-    ---
     ceip_policy_disclosed: FALSE-OR-TRUE-VALUE # Installation fails if this is not set to the boolean value true. Not a string.
     api_ingress:
       fqdn: "API-FQDN"
@@ -273,7 +272,6 @@ To configure the installation settings:
    The following values are optional but recommended:
 
     ```yaml
-    ---
     admin:
       users:
       - "ADMIN-USERNAME"
@@ -287,7 +285,6 @@ To configure the installation settings:
    See additional optional values in the following example. For more information, see the Tanzu CLI output.
 
     ```yaml
-    ---
     api_auth_proxy:
       ca_cert:
         data: |
@@ -358,6 +355,7 @@ By default, when you install Application Service Adapter, you opt into telemetry
 
   ```bash
   kubectl apply -f - <<EOF
+  ---
   apiVersion: v1
   kind: Namespace
   metadata:

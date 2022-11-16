@@ -280,7 +280,9 @@ To configure the installation settings:
 
    Where:
 
-   - `ADMIN-USERNAME` is the name of an existing user to grant system admin privileges. You can specify as many users as you want, one per line. These names are identifiers for user accounts, not Kubernetes service accounts.
+   - `ADMIN-USERNAME` is the name of an existing user in the Kubernetes cluster to whom to grant system admin privileges. You can specify as many users as you want, one per line. These names are identifiers for user accounts, not Kubernetes service accounts.
+
+   > **Note** These user names are the ones that Kubernetes recognizes as user identifiers in the subject section of its RBAC resources, such as `RoleBindings`, and may differ from the names of the user entries in your local Kubeconfig file. If you are not certain of this user name, you can leave this entry empty for the initial installation. After completing the installation and logging in with the cf CLI, use the `cf curl /whoami` command to confirm the user name and then update the installation with the correct name value. For more information about user subject names in Kubernetes, see the [Referring to subjects](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-subjects) section of _Using RBAC Authorization_ and the [Authenticating](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) topic in the Kubernetes project documentation.
 
    See additional optional values in the following example. For more information, see the Tanzu CLI output.
 

@@ -199,11 +199,18 @@ To configure the installation settings:
     ```bash
     kubectl create namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
     kubectl create secret docker-registry APP-REGISTRY-CREDENTIALS-SECRET-NAME \
-      --docker-server=APP-REGISTRY-HOSTNAME \
+      --docker-server=APP-REGISTRY-SERVER \
       --docker-username=APP-REGISTRY-USERNAME \
       --docker-password=$(cat /path/to/APP-REGISTRY-PASSWORD) \
       --namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
     ```
+
+   Where:
+
+   - `APP-REGISTRY-SERVER` is the address of the registry used for app packages and droplets. This value is the same as the server name in a `dockerconfigjson` Kubernetes secret. For example:
+     - Harbor has the form `"my-harbor.io"`
+     - Docker Hub the form `"https://index.docker.io/v1/"`
+     - Google Container Registry has the form `"gcr.io"`
 
 4. Create a `SecretExport` to allow Application Service Adapter to copy the application image registry credentials secret into the `cf` namespace.
 
@@ -256,9 +263,9 @@ To configure the installation settings:
    - `APP-TLS-SECRET-NAMESPACE` is the namespace containing the application TLS secret.
    - `APP-REGISTRY-CREDENTIALS-SECRET-NAME` is the `kubernetes.io/dockerconfigjson` secret containing the host, user name, and password for the application image registry.
    - `APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE` is the namespace containing the application image registry secret.
-   - `APP-REGISTRY-HOSTNAME` is the host name of the registry used for app packages and droplets. This value is the same as the server name in a `dockerconfigjson` Kubernetes secret. For example:
+   - `APP-REGISTRY-HOSTNAME` is the host name of the registry used for app packages and droplets. For example:
      - Harbor has the form `hostname: "my-harbor.io"`
-     - Docker Hub has the form `hostname: "https://index.docker.io/v1"`
+     - Docker Hub has the form `hostname: "index.docker.io"`
      - Google Container Registry has the form `hostname: "gcr.io"`
    - `APP-REGISTRY-PATH-DROPLETS` is the path to the directory or project in the app registry where Application Service Adapter uploads droplets, such as runnable application images. This value does not include the registry host name itself. Examples:
      - Harbor has the form `droplets: "project-name/my-repo-name"`

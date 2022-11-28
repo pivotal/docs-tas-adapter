@@ -288,8 +288,8 @@ To configure the installation settings:
    Where:
 
    - `ADMIN-USERNAME` is the name of an existing user in the Kubernetes cluster to whom to grant system admin privileges. You can specify as many users as you want, one per line. These names are identifiers for Kubernetes user accounts, not Kubernetes service accounts.
-     - For Amazon EKS, see [EKS User Mapping section](user-management.md#eks-user-mapping) of the User Management topic for information on additional required cluster configuration to map AWS IAM users and roles to Kubernetes roles.
-     - For clusters configured to use authentication proxies (such as [Pinniped](https://pinniped.dev/)), you can authenticate to the cluster and see the output of `cf curl /whoami` to see the user account name to provide.
+     - For Amazon EKS, see the [AWS IAM user management for EKS section](user-management.md#aws-iam-user-management-eks) of the User Management topic for information on additional required cluster configuration to map AWS IAM users and roles to Kubernetes roles.
+     - For clusters configured to use authentication proxies such as [Pinniped](https://pinniped.dev/), you can authenticate to the cluster and use the output of `cf curl /whoami` to see the user account name to provide.
 
    > **Note** These user names are the ones that Kubernetes recognizes as user identifiers in the subject section of its RBAC resources, such as `RoleBindings`, and may differ from the names of the user entries in your local Kubeconfig file. If you are not certain of this user name, you can leave this entry empty for the initial installation. After completing the installation and logging in with the cf CLI, use the `cf curl /whoami` command to confirm the user name and then update the installation with the correct name value. For more information about user subject names in Kubernetes, see the [Referring to subjects](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-subjects) section of _Using RBAC Authorization_ and the [Authenticating](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) topic in the Kubernetes project documentation.
 

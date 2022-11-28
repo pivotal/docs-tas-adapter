@@ -208,9 +208,9 @@ To configure the installation settings:
    Where:
 
    - `APP-REGISTRY-SERVER` is the address of the registry used for app packages and droplets. This value is the same as the server name in a `dockerconfigjson` Kubernetes secret. For example:
-     - for Harbor use the form `"my-harbor.io"`
-     - for Docker Hub use `"https://index.docker.io/v1/"`
-     - for Google Container Registry use `"gcr.io"`
+     - Harbor has the form `"my-harbor.io"`
+     - Docker Hub the form `"https://index.docker.io/v1/"`
+     - Google Container Registry has the form `"gcr.io"`
 
 4. Create a `SecretExport` to allow Application Service Adapter to copy the application image registry credentials secret into the `cf` namespace.
 

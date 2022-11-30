@@ -43,6 +43,7 @@ tekton.tanzu.vmware.com
 cartographer.tanzu.vmware.com
 ootb-templates.tanzu.vmware.com
 controller.source.apps.tanzu.vmware.com
+controller.conventions.apps.tanzu.vmware.com
 ```
 
 ## <a id="adapter-reqs"></a>Adapter system requirements

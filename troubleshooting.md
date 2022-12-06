@@ -191,6 +191,18 @@ All run task object types are located within the targeted CFSpace Namespace.
 
 This section contains common failure scenarios and describes the appropriate troubleshooting techniques that can be used to gather further information and solve the issue.
 
+### Installation failed to finish successfully 
+#### Symptom
+When I install Application Service Adapter, the following error message is returned:
+```bash
+Finished unsuccessfully (Encountered failure condition ReconcileFailed == True:  (message: No matching export/secret))
+```
+#### Possible Causes
+1. The `Secret` for application image registry does not exist.
+2. The `SecretExport` to copy the above secret to the `cf` namespace does not exist. 
+#### Troubleshooting Steps/Potential Solutions
+1. Verify that both `Secret` and `SecretExport` exist by following Steps 3 & Step 4 in [configure-the-installation-settings](install.md#configure-installation-settings)
+
 ### Organization not found when creating an Org.
 #### Symptom
 When I run `cf create org my-org`, the following error message is returned:

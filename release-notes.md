@@ -2,6 +2,33 @@
 
 This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform.
 
+
+## <a id='1-0-1'></a> v1.0.1 Release
+
+**Release Date**: MMM DD, 2022
+
+### Resolved issues
+
+* Application instance pods now have the `CF_INSTANCE_GUID`, `CF_INSTANCE_INTERNAL_IP`, `CF_INSTANCE_IP`, or `POD_NAME` environment variables set when Application Service Adapter is configured to use the experimental integration with the Supply Chain Choreographer.
+* The output of `cf logs` no longer contains blank log lines interleaved with the log content from the appplication instances.
+* The values schema published in the Tanzu package for Application Service Adapter now matches the values that the package installation recognizes.
+
+### Components
+
+This release contains the following components:
+
+* cartographer-builder-runner @ 9ae3d6c
+* Korifi @ [v0.3.0](https://github.com/cloudfoundry/korifi/tree/v0.3.0)
+* tas-adapter-telemetry-controller @ 0a2e7ba
+
+
+### Known Issues
+
+* If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application will fail to build with an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app will continue to fail to build.
+* If you change the application code so that the build process generates a different start command for the app, the app's start command is not updated, and the app may fail to start correctly. As a workaround, you can manually override the start command with the `command` property in the application manifest or with the `-c` flag on `cf push`.
+* The organization manager role does not have permissions to create Cloud Foundry spaces. As a workaround, instead use the Cloud Foundry admin role to create spaces in organizations.
+
+
 ## <a id='1-0-0'></a> v1.0.0 Release
 
 **Release Date**: November 10, 2022
@@ -132,3 +159,4 @@ This release contains the following components:
 * Application instance pods do not have the `CF_INSTANCE_GUID`, `CF_INSTANCE_INTERNAL_IP`, `CF_INSTANCE_IP`, or `POD_NAME` environment variables set when Application Service Adapter is configured to use the experimental integration with the Supply Chain Choreographer.
 * The output of `cf logs` contains blank log lines interleaved with the log content from the appplication instances.
 * The organization manager role does not have permissions to create Cloud Foundry spaces. As a workaround, instead use the Cloud Foundry admin role to create spaces in organizations.
+* The values schema published in the Tanzu package for Application Service Adapter does not precisely match the values that the package installation recognizes. The published schema contained obsolete parameters for scaling the `kube_rbac_proxy` component and for enabling telemetry collection and omitted the `api_ingress.port` parameter.

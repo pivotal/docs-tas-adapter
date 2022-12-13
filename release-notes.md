@@ -5,7 +5,7 @@ This topic contains release notes for the Application Service Adapter for VMware
 
 ## <a id='1-0-1'></a> v1.0.1 Release
 
-**Release Date**: MMM DD, 2022
+**Release Date**: December 13, 2022
 
 ### Resolved issues
 
@@ -20,7 +20,6 @@ This release contains the following components:
 * cartographer-builder-runner @ 9ae3d6c
 * Korifi @ [v0.3.0](https://github.com/cloudfoundry/korifi/tree/v0.3.0)
 * tas-adapter-telemetry-controller @ 0a2e7ba
-
 
 ### Known Issues
 

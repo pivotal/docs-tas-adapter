@@ -304,6 +304,8 @@ To configure the installation settings:
     api_ingress:
       port: "API-PORT"
     app_registry:
+      credentials:
+        aws_iam_role_arn: AWS-IAM-ROLE-ARN
       ca_cert:
         data: |
           PEM-ENCODED-CERTIFICATE-CONTENTS
@@ -332,6 +334,7 @@ To configure the installation settings:
         ... #! scaling keys are the same as above
     shared:
       kubernetes_distribution: KUBERNETES-DISTRIBUTION
+      kubernetes_version: KUBERNETES-VERSION
     telemetry:
       heartbeat_interval: TELEMETRY-HEARTBEAT-INTERVAL
     user_certificate_expiration_warning_duration: "USER-CERT-EXPIRY-WARNING-DURATION"
@@ -342,6 +345,8 @@ To configure the installation settings:
    - `API-AUTH-PROXY-TLS-CRT` is the CA certificate from the authentication proxy running along side your Kubernetes cluster.
    - `API-AUTH-PROXY-FQDN` is the FQDN for the authentication proxy running along side your Kubernetes cluster.
    - `API-PORT` is the port number which clients should use to connect to the Application Service Adapter API, and which the API will include in URLs that direct back to itself. When set to `0` or left unset, no port is included in those URLs, and clients should connect to port 443, the standard port for HTTPS traffic.
+   - `AWS-IAM-ROLE-ARN` is the Amazon Resource Name(ARN) of an AWS IAM role that can be used to access Elastic Container Registries(ECR).
+       - Required if you intend to use ECR as the application image registry.
    - `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM encoded multiline string containing the certificate authority (CA) certificate.
        - The value must be inserted into your values file as a YAML multiline string with a block scalar literal.
    - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service-v13/GUID-managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
@@ -353,7 +358,9 @@ To configure the installation settings:
    - `API-REPLICA-COUNT` is the number of replicas that you want for the specified deployment. Default is 1.
    - `KUBERNETES-DISTRIBUTION` is the name of the Kubernetes distribution. Defaults to "".
        - Set "openshift" as the value when installing on an OpenShift environment.
-       - Leave it unset for all other distributions. 
+       - Leave it unset for all other distributions.
+   - `KUBERNETES-VERSION` is the kubernetes version of the cluster.
+       - Required if you are setting "openshift" as the value for `KUBERNETES-DISTRIBUTION`. 
    - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
 
    The `requests` and `limits` text boxes map directly to the resource requests and limits text boxes on the Kubernetes containers for these system components.

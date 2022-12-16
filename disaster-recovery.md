@@ -23,9 +23,9 @@ To help illustrate this, consider the following scenarios.
 
 ### Application Service Adapter Installation Resources
 
-![State storage of Application Service Adapter installation resources.](images/tas-adapter-install-state-storage.png)
+![](images/tas-adapter-install-state-storage.png)
 
-TAS operators are familiar with backing up their Ops Manager and BOSH Director databases to safeguard their installation configuration. For Application Service Adapter this works differently. Application Service Adapter is installed using the `tanzu package install` command. This causes the creation of a variety of [Carvel](https://carvel.dev/) package installation resources and `ConfigMaps` on the cluster which are managed by `kapp-controller`. These installation resources are stored in the Kubernetes API as custom resources which are ultimately stored in etcd.
+TAS operators are familiar with backing up their Ops Manager and BOSH Director databases to safeguard their installation configuration. For Application Service Adapter, this works differently. Application Service Adapter is installed using the `tanzu package install` command. This causes the creation of a variety of [Carvel](https://carvel.dev/) package installation resources and `ConfigMaps` on the cluster which are managed by `kapp-controller`. These installation resources are stored in the Kubernetes API as custom resources, which are ultimately stored in etcd.
 
 ### Application Service Adapter Cloud Foundry API Resources
 
@@ -35,15 +35,15 @@ TAS for VMs stores CF API state and application configuration across a number of
 
 ### Application Source Code
 
-![State storage of application source code.](images/tas-adapter-app-source-state-storage.png)
+![](images/tas-adapter-app-source-state-storage.png)
 
-Application Service Adapter converts application source code into single-layer OCI images which are stored in the registry specified at installation.
+Application Service Adapter converts application source code into single-layer OCI images, which are stored in the registry specified at installation.
 
 ### Runnable Application Artifacts
 
-![State storage of runnable application images.](images/tas-adapter-staged-app-state-storage.png)
+![](images/tas-adapter-staged-app-state-storage.png)
 
-TAS for VMs operators can be familiar with the concept of droplets, or TAR files representing staged apps that are ready to run on the platform. Application Service Adapter, using Tanzu Build Service, produces runnable container images instead of TAS-style droplets which are stored in the registry specified at installation.
+TAS for VMs operators can be familiar with the concept of droplets, or TAR files representing staged apps that are ready to run on the platform. Rather than TAS-style droplets, Application Service Adapter, using Tanzu Build Service, produces runnable container images that are stored in the registry specified at installation.
 
 ## <a id="backing-up-cluster-state"></a>Backup and Restore
 

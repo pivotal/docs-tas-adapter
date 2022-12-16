@@ -4,7 +4,7 @@
 
 Application Service Adapter aims to provide compatibility with [Cloud Foundry](https://www.cloudfoundry.org/) client interfaces to existing users of [Tanzu Application Service for VMs](https://tanzu.vmware.com/application-service) (TAS for VMs) while running on top of Kubernetes and integrating with the components of [Tanzu Application Platform](https://tanzu.vmware.com/application-platform). Development teams using TAS for VMs tooling, such as the Cloud Foundry command-line interface (cf CLI) and other clients of the Cloud Foundry API (CAPI), can then maintain their familiar workflows while their platform teams transition their infrastructure and deployments to Kubernetes.
 
-The following diagram shows a high level architecture of Application Service Adapter with user flows:
+The following diagram shows a high level architecture of Application Service Adapter with user flows. These are also described below.
 
 ![Application Service Adapter architecture diagram with user flows](images/architecture.png)
 
@@ -16,8 +16,7 @@ Application developers log in to their Application Service Adapter installation 
 
 Application Service Adapter integrates with an existing installation of [Tanzu Build Service](https://tanzu.vmware.com/build-service) component of Tanzu Application Platform to build container images for app code deployed to the platform. It also integrates with [Contour](https://projectcontour.io/) to realize ingress routes to running apps.
 
-To understand Kubernetes cluster requirements and plan your installation, refer
-to the [Reference architecture](reference-architecture.md) topic.
+To understand Kubernetes cluster requirements and plan your installation, refer to the [Reference architecture](reference-architecture.md) topic.
 
 To install Application Service Adapter and its dependencies, proceed to [Installing prerequisites](install-prerequisites.md).
 

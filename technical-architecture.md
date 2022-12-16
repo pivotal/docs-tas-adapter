@@ -13,11 +13,11 @@ This document describes the technical architecture of Application Service Adapte
 * [App Logging and Metrics](#app-logs-metrics)
 
 ## <a id="overview"></a>Overview
-Application Service Adapter implements a subset of the [v3 Cloud Foundry APIs](https://v3-apidocs.cloudfoundry.org/) in order to support common Cloud Foundry developer workflows. Application Service Adapter is installed directly onto a Kubernetes cluster than has Tanzu Application Platform (TAP) installed and provides a CF API translation layer that converts CF API calls into underlying and Kubernetes resources. In addition to this API, Application Service Adapter also provides a set of Kubernetes [custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), [controllers](https://kubernetes.io/docs/concepts/architecture/controller/), and [admission webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/).
+Application Service Adapter implements a subset of the [v3 Cloud Foundry APIs](https://v3-apidocs.cloudfoundry.org/) to support common Cloud Foundry developer workflows. Application Service Adapter is installed directly onto a Kubernetes cluster than has Tanzu Application Platform (TAP) installed and provides a CF API translation layer that converts CF API calls into underlying and Kubernetes resources. In addition to this API, Application Service Adapter also provides a set of Kubernetes [custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), [controllers](https://kubernetes.io/docs/concepts/architecture/controller/), and [admission webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/).
 
 ## <a id="high-level-architecture"></a>High-level architecture
 
-![High-level Application Service Adapter architecture diagram](images/tas-adapter-high-level-architecture.png)
+![High-level Application Service Adapter architecture diagram. The components are described in the following text.](images/tas-adapter-high-level-architecture.png)
 
 ### Components
 Application Service Adapter includes components from the open source Cloud Foundry Korifi project as well as a number of proprietary components for deeper integration with Tanzu Application Platform.
@@ -46,7 +46,7 @@ For more details, see the dedicated [User Authentication Overview] docs.
 
 ## <a id="org-space-management"></a>Organization and Space management
 
-![Application Service Adapter Organization and Space diagram](images/org-space-diagram.png)
+![Application Service Adapter Organization and Space diagram. Details are described in the following text.](images/org-space-diagram.png)
 
 Cloud Foundry has a tiered tenancy system consisting of the cluster or "foundation" level, organization level, and space level. A Cloud Foundry installation will contain one or more organizations which will themselves contain one or more spaces. CF roles typically allow for read/write access in these various areas. For example, a "CF Admin" user can make shared domains for the entire CF installation as well as interact with apps within an individual space, while a "Space Developer" user will typically be able to view certain resources within their org as well as push apps within their assigned space.
 
@@ -54,18 +54,18 @@ Application Service Adapter models CF organizations and spaces using Kubernetes 
 
 ## <a id="building-applications"></a>Building (staging) applications
 
-![Application Service Adapter application building diagram](images/tas-adapter-application-building-diagram.png)
+![Application Service Adapter application building diagram. Details are described in the following text.](images/tas-adapter-application-building-diagram.png)
 
 Application Service Adapter uses [Tanzu Build Service](https://tanzu.vmware.com/build-service) and [Tanzu Buildpacks](https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/index.html) to build applications.
 
-Application source code is packaged and transmitted by CF clients to the Korifi API where it is converted into a single-layer container image, or "source image", that can be used by Tanzu Build Service. When CF clients create a Cloud Foundry Build through the Korifi API this is translated into a "BuildWorkload" custom resource by Korifi. By default, Application Service Adapter will use its `kpack-image-builder` controller to translate this "BuildWorkload" directly into Tanzu Build Service resources and a "build Pod" will be scheduled to build the app using Tanzu Buildpacks. Tanzu Buildpacks are [Cloud Native Buildpacks](https://buildpacks.io/) and can be thought of as an evolution of the [Cloud Foundry buildpacks](https://docs.cloudfoundry.org/buildpacks/) that Cloud Foundry operators may be familiar with. They differ mainly in that there are a few [configuration differences](buildpack-differences.md) and that they produce OCI container images instead of Cloud Foundry droplets.
+Application source code is packaged and transmitted by CF clients to the Korifi API where it is converted into a single-layer container image, or "source image," that can be used by Tanzu Build Service. When CF clients create a Cloud Foundry Build through the Korifi API this is translated into a "BuildWorkload" custom resource by Korifi. By default, Application Service Adapter will use its `kpack-image-builder` controller to translate this "BuildWorkload" directly into Tanzu Build Service resources and a "build Pod" will be scheduled to build the app using Tanzu Buildpacks. Tanzu Buildpacks are [Cloud Native Buildpacks](https://buildpacks.io/) and can be thought of as an evolution of the [Cloud Foundry buildpacks](https://docs.cloudfoundry.org/buildpacks/) that Cloud Foundry operators may be familiar with. They differ mainly in that there are a few [configuration differences](buildpack-differences.md) and that they produce OCI container images instead of Cloud Foundry droplets.
 
 ### Note on Blobstores
 Operators of Tanzu Application Service may be familiar with the platform's "blobstore" or object storage for application source code and staged droplets. Application Service Adapter does not rely on a blobstore and instead uses the image registry that is configured at installation time for storing source code and runnable app images.
 
 ## <a id="service"></a>Services
 
-![Application Service Adapter user-provided service instance diagram](images/tas-adapter-upsi-diagram.png)
+![Application Service Adapter user-provided service instance diagram. Details are described in the following text.](images/tas-adapter-upsi-diagram.png)
 
 Application Service Adapter has support for [user-provided service instances](https://docs.cloudfoundry.org/devguide/services/user-provided.html) through the CFServiceInstance and CFServiceBinding custom resources. These resources primarily exist to power the CF APIs and store additional state that isn't relevant downstream. They also implement the `ProvisionedService` "duck type" from the [Service Binding for Kubernetes specification](https://servicebinding.io/) which allow them to interoperate directly with other projects in the service bindings ecosystem (e.g. kpack, ServiceBinding reconcilers, etc.).
 
@@ -75,13 +75,13 @@ Additionally, Application Service Adapter integrates with the TAP Service Bindin
 
 ## <a id="routing"></a>Routing
 
-![Application Service Adapter routing diagram](images/tas-adapter-routing-diagram.png)
+![Application Service Adapter routing diagram. Details are described in the following text.](images/tas-adapter-routing-diagram.png)
 
 Application Service Adapter uses the Tanzu Application Platform installation's Contour to implement ingress routing for both the Korifi API and app workloads. The `CFRoute` custom resource backs the relevant Cloud Foundry route management APIs and is converted by the Korifi Controllers component into Contour `HTTPProxy` and Kubernetes `Service` resources. A validating admission webhook applies validation rules to the routes (e.g. no duplicate routes, route has a valid `CFDomain`, etc).
 
 ## <a id="app-logs-metrics"></a>App Logging and Metrics
 
-![Application Service Adapter logging and metrics diagram](images/tas-adapter-logging-metrics-diagram.png)
+![Application Service Adapter logging and metrics diagram. Details are described in the following text.](images/tas-adapter-logging-metrics-diagram.png)
 
 Application Service Adapter supports best-effort access to the latest logs and metrics for apps through the "cf app", "cf logs", and "cf push" cf CLI commands. The Korifi API implements the relevant Cloud Foundry APIs for querying these resources and translates the request into requests to the [Kubernetes metrics-server](https://github.com/kubernetes-sigs/metrics-server) (for Pod cpu/memory metrics) and the [Kubernetes Pod log API](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#read-log-pod-v1-core) (application/staging logs).
 

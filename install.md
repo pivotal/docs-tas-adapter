@@ -345,7 +345,7 @@ To configure the installation settings:
    - `API-AUTH-PROXY-TLS-CRT` is the CA certificate from the authentication proxy running along side your Kubernetes cluster.
    - `API-AUTH-PROXY-FQDN` is the FQDN for the authentication proxy running along side your Kubernetes cluster.
    - `API-PORT` is the port number which clients should use to connect to the Application Service Adapter API, and which the API will include in URLs that direct back to itself. When set to `0` or left unset, no port is included in those URLs, and clients should connect to port 443, the standard port for HTTPS traffic.
-   - `AWS-IAM-ROLE-ARN` is the Amazon Resource Name(ARN) of an AWS IAM role that can be used to access Elastic Container Registries(ECR).
+   - `AWS-IAM-ROLE-ARN` is the Amazon Resource Name (ARN) of an AWS IAM role that can be used to access Elastic Container Registries(ECR).
        - Required if you intend to use ECR as the application image registry.
    - `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM encoded multiline string containing the certificate authority (CA) certificate.
        - The value must be inserted into your values file as a YAML multiline string with a block scalar literal.

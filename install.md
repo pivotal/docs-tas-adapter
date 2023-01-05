@@ -360,7 +360,8 @@ To configure the installation settings:
        - Set "openshift" as the value when installing on an OpenShift environment.
        - Leave it unset for all other distributions.
    - `KUBERNETES-VERSION` is the kubernetes version of the cluster.
-       - Required if you are setting "openshift" as the value for `KUBERNETES-DISTRIBUTION`. 
+       - Only used if you are setting "openshift" as the value for `KUBERNETES-DISTRIBUTION`.
+       - Default is 1.23.3.
    - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
 
    The `requests` and `limits` text boxes map directly to the resource requests and limits text boxes on the Kubernetes containers for these system components.

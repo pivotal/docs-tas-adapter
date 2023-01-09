@@ -191,6 +191,18 @@ All run task object types are located within the targeted CFSpace Namespace.
 
 This section contains common failure scenarios and describes the appropriate troubleshooting techniques that can be used to gather further information and solve the issue.
 
+### Installation failed to finish successfully 
+#### Symptom
+When I install Application Service Adapter, the following error message is returned:
+```bash
+Finished unsuccessfully (Encountered failure condition ReconcileFailed == True:  (message: No matching export/secret))
+```
+#### Possible Causes
+1. The `Secret` for the application image registry does not exist.
+2. The `SecretExport` to copy the above Secret to the `cf` namespace does not exist. 
+#### Troubleshooting Steps/Potential Solutions
+1. Verify that both the `Secret` and `SecretExport` exist by following steps 3 and 4 in the ["Configure the installation settings"](install.md#configure-installation-settings) section of the installation docs.
+
 ### Organization not found when creating an Org.
 #### Symptom
 When I run `cf create org my-org`, the following error message is returned:
@@ -206,6 +218,26 @@ Creating org my-org as cf-admin...
 ```
 1. Verify that there is a RoleBinding in the `cf` namespace binding the `korifi-controllers-admin` ClusterRole to the given user and that it has the `cloudfoundry.org/propagate-cf-role: "true"` annotation.
 1. If that RoleBinding does not exist, either switch to a user that is bound to the `korifi-controllers-admin` ClusterRole or create a RoleBinding as a cluster admin.
+
+### Dev User unauthorized to target an Org or Space
+#### Symptom
+When I first login `cf login` and/or
+when I run `cf target -o my-org -s my-space`, the following error message is returned:
+```bash
+No org or space targeted, use 'cf target -o ORG -s SPACE'
+You are not authorized to perform the requested action
+FAILED
+```
+#### Possible Causes
+The user targeting the Org or Space is not bound to the following ClusterRoles:
+`korifi-controllers-root-namespace-user` in the root namespace (from the installation values file)
+`korifi-controllers-organization-user` in the cf-org namespace `cf-org-<ORG_GUID>` 
+`korifi-controllers-space-developer` in the cf-space namespace `cf-space-<SPACE_GUID>`
+
+#### Troubleshooting Steps/Potential Solutions
+1. Fetch the name of the user in the `cf curl /whoami` command output.
+1. Check RoleBindings in each of the namespaces with the name of that user as a Subject
+1. If the rolebindings do not exist, create them with cf set-role commands
 
 ### Pushing an app fails to build an image
 #### Symptom

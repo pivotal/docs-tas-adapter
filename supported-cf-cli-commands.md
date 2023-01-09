@@ -153,27 +153,31 @@ This section describes the org and space operations that Application Service Ada
 
 ### Org operations
 
-| Command | Supported? | Notes |
-|---------|------------|-------|
-|`cf orgs`| Y |   |
-|`cf org`| Y | Using the `--guid` flag to retrieve the GUID of the org is supported.<br/>Using the command without the `--guid` flag is not supported.  |
-|`cf create-org`| Y |   |
-|`cf delete-org`| Y |   |
-|`cf rename-org`| N |   |
+| Command             | Supported? | Notes |
+|---------------------|------------|-------|
+| `cf orgs`           | Y          |   |
+| `cf org`            | Y          | Using the `--guid` flag to retrieve the GUID of the org is supported.<br/>Using the command without the `--guid` flag is not supported.  |
+| `cf create-org`     | Y          |   |
+| `cf delete-org`     | Y          |   |
+| `cf rename-org`     | N          |   |
+| `cf set-org-role`   | Y     |   |
+| `cf unset-org-role` | Y     |   |
 
 ### Space operations
 
-| Command | Supported? | Notes |
-|---------|------------|-------|
-|`cf spaces`| Y |   |
-|`cf space`| Y | Using the `--guid` flag to retrieve the GUID of the space is supported.<br/>Using the command without the `--guid` flag is not supported. |
-|`cf create-space`| Y |   |
-|`cf delete-space`| Y |   |
-|`cf rename-space`| N |   |
-|`cf apply-manifest`| Y |   |
-|`cf allow-space-ssh`| N |   |
-|`cf disallow-space-ssh`| N |   |
-|`cf space-ssh-allowed`| N |   |
+| Command                 | Supported? | Notes |
+|-------------------------|------------|-------|
+| `cf spaces`             | Y |   |
+| `cf space`              | Y | Using the `--guid` flag to retrieve the GUID of the space is supported.<br/>Using the command without the `--guid` flag is not supported. |
+| `cf create-space`       | Y |   |
+| `cf delete-space`       | Y |   |
+| `cf rename-space`       | N |   |
+| `cf apply-manifest`     | Y |   |
+| `cf allow-space-ssh`    | N |   |
+| `cf disallow-space-ssh` | N |   |
+| `cf space-ssh-allowed`  | N |   |
+| `cf set-space-role`     | Y     |   |
+| `cf unset-space-role`   | Y     |   |
 
 
 ## <a id="route-domain-operations"></a> Route and domain operations

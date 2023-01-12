@@ -188,6 +188,9 @@ To configure the installation settings:
 
 3. If you do not already have a secret containing the host name, user name, and password for your application image registry, create one:
 
+> **Warning:**
+> The app registry secret and secret export are not required when using ECR.
+ 
     ```bash
     kubectl create namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
     kubectl create secret docker-registry APP-REGISTRY-CREDENTIALS-SECRET-NAME \
@@ -239,10 +242,8 @@ To configure the installation settings:
       credentials:
         secret_name: "APP-REGISTRY-CREDENTIALS-SECRET-NAME"
         namespace: "APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE"
-      hostname: "APP-REGISTRY-HOSTNAME"
-      path:
-        droplets: "APP-REGISTRY-PATH-DROPLETS"
-        packages: "APP-REGISTRY-PATH-PACKAGES"
+        aws_iam_role_arn: "AWS-IAM-ROLE-ARN"
+      repository_prefix: "REPOSITORY-PREFIX"
     ```
 
    Where:
@@ -254,19 +255,23 @@ To configure the installation settings:
    - `APP-TLS-SECRET-NAME` is the `kubernetes.io/tls` secret containing the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
    - `APP-TLS-SECRET-NAMESPACE` is the namespace containing the application TLS secret.
    - `APP-REGISTRY-CREDENTIALS-SECRET-NAME` is the `kubernetes.io/dockerconfigjson` secret containing the host, user name, and password for the application image registry.
+       - Not required if you intend to use ECR as the application image registry.
    - `APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE` is the namespace containing the application image registry secret.
-   - `APP-REGISTRY-HOSTNAME` is the host name of the registry used for app packages and droplets. For example:
-     - Harbor has the form `hostname: "my-harbor.io"`
-     - Docker Hub has the form `hostname: "index.docker.io"`
-     - Google Container Registry has the form `hostname: "gcr.io"`
-   - `APP-REGISTRY-PATH-DROPLETS` is the path to the directory or project in the app registry where Application Service Adapter uploads droplets, such as runnable application images. This value does not include the registry host name itself. Examples:
-     - Harbor has the form `droplets: "project-name/my-repo-name"`
-     - Docker Hub has the form `droplets: "my-dockerhub-username"`
-     - Google Container Registry has the form `droplets: "project-id/my-repo-name"`
-   - `APP-REGISTRY-PATH-PACKAGES` is the is the path to the directory or project in the app registry where Application Service Adapter uploads packages, such as application source code. This value does not include the registry host name itself. Examples:
-     - Harbor has the form `packages: "project-name/my-repo-name"`
-     - Docker Hub has the form `packages: "my-dockerhub-username"`
-     - Google Container Registry has the form `packages: "project-id/my-repo-name"`
+       - Not required if you intend to use ECR as the application image registry.
+   - `AWS-IAM-ROLE-ARN` is the Amazon Resource Name (ARN) of an AWS IAM role that can be used to access Elastic Container Registries(ECR). This is role is similar to the one
+used by TBS.
+       - Required if you intend to use ECR as the application image registry.
+   - `REPOSITORY-PREFIX` is the host and path combination used as the base for package and droplet images produced by the Application Service Adapter.
+
+Repository Prefix Examples:
+
+| Registry  | containerRepositoryPrefix                                         | Resultant Image Ref                                                                 | Notes                                                                                                        |
+|-----------|-------------------------------------------------------------------|-------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| ACR       | `<projectID>.azurecr.io/foo/bar/tas-adapter-`                     | `<projectID>.azurecr.io/foo/bar/tas-adapter-<appGUID>-packages`                     | Repositories are created dynamically during push by ACR                                                      |
+| DockerHub | `index.docker.io/<dockerOrganisation>/`                           | `index.docker.io/<dockerOrganisation>/<appGUID>-packages`                           | Docker does not support nested repositories                                                                  |
+| ECR       | `<projectID>.dkr.ecr.<region>.amazonaws.com/foo/bar/tas-adapter-` | `<projectID>.dkr.ecr.<region>.amazonaws.com/foo/bar/tas-adapter-<appGUID>-packages` | TAS Adapter will create the repository before pushing, as dynamic repository creation is not possible on ECR |
+| GAR       | `<region>-docker.pkg.dev/<projectID>/foo/bar/tas-adapter-`        | `<region>-docker.pkg.dev/<projectID>/foo/bar/tas-adapter-<appGUID>-packages`        | The `foo` repository must already exist in GAR                                                               |
+| GCR       | `gcr.io/<projectID>/foo/bar/tas-adapter-`                         | `gcr.io/<projectID>/foo/bar/tas-adapter-<appGUID>-packages`                         | Repositories are created dynamically during push by GCR                                                      |
 
    The following values are optional but recommended:
 
@@ -296,8 +301,6 @@ To configure the installation settings:
     api_ingress:
       port: "API-PORT"
     app_registry:
-      credentials:
-        aws_iam_role_arn: AWS-IAM-ROLE-ARN
       ca_cert:
         data: |
           PEM-ENCODED-CERTIFICATE-CONTENTS

@@ -9,7 +9,7 @@ This topic describes the Cloud Foundry command-line interface (cf CLI) commands 
 * [Route and domain operations](#route-domain-operations)
 * [Service operations](#service-operations)
 
-> **Note** Application Service Adapter supports the cf CLI commands listed below by providing a subset of [the endpoints the v3 CF API](https://v3-apidocs.cloudfoundry.org/) through its API server.
+> **Note:** Application Service Adapter supports the cf CLI commands listed below by providing a subset of [the endpoints the v3 CF API](https://v3-apidocs.cloudfoundry.org/) through its API server.
 
 ## <a id="getting-started"></a> Getting started
 

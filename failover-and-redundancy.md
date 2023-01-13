@@ -4,12 +4,11 @@ This topic describes the failover characteristics and redundancy of Application
 Service Adapter components and applications that are pushed with Application
 Service Adapter. It includes the following sections:
 
-- [Failover and redundancy](#failover-and-redundancy)
   - [<a id="cloud-foundry-api"></a>Cloud Foundry-compatible API](#cloud-foundry-compatible-api)
   - [<a id="controllers"></a>Controllers and Webhooks](#controllers-and-webhooks)
   - [<a id="applications"></a>Applications](#applications)
 
-For instructions to edit the scaling characteristics of your Application
+For instructions for editing the scaling characteristics of your Application
 Service Adapter installation, see [Scaling Application Service Adapter](scaling.md).
 
 ## <a id="cloud-foundry-api"></a>Cloud Foundry-compatible API
@@ -24,7 +23,7 @@ availability and performance. See [Scaling the Application Service Adapter API](
 Application Service Adapter deploys multiple components known as
 [controllers](https://kubernetes.io/docs/concepts/architecture/controller/) to
 the cluster. These components watch and update state on the cluster in what is
-known as a "control loop" and over time ensure that the state in the cluster is
+known as a "control loop," and over time, they ensure that the state in the cluster is
 consistent. Additionally, these components run [admission
 webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/)
 that validate and update Application Service Adapter resources.
@@ -48,12 +47,12 @@ applications.
    scale up the application or by declaring multiple instances in the app's
    manifest. A single-instance application incurs downtime during cluster
    upgrades and maintenance. When an application is configured to run with two
-   or more instances the Kubernetes Pod scheduler attempts to balance the
+   or more instances, the Kubernetes Pod scheduler attempts to balance the
    instances across nodes and minimize downtime. Additionally, Application
    Service Adapter creates a
    [`PodDisruptionBudget`](https://kubernetes.io/docs/tasks/run-application/configure-pdb/)
    for multi-instance applications that sets the min-available instances for an
-   app to be 50% of the total instances that you want to maintain availability during
+   app to be 50% of the total instances needed to maintain availability during
    these events.
 2. Ensure that all applications have the appropriate [health
    checks](https://docs.cloudfoundry.org/devguide/deploy-apps/healthchecks.html)

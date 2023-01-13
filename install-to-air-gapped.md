@@ -132,4 +132,4 @@ After the images are relocated:
 
 ---
 
-For installation and configuring instructions, see the [install](install.md) guide.
+For installation and configuration instructions, see the [install](install.md) guide.

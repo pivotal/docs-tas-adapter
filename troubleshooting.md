@@ -2,16 +2,6 @@
 
 This topic collects documentation related to the generic techniques for diagnosing the system health as well as specific steps to be taken in known scenarios.
 
-* [Generic Troubleshooting Techniques](#generic-troubleshooting-techniques)
-  * [Application Service Adapter Logs](#application-logs)
-  * [TAP Logs](#tap-logs)
-  * [CFApp Logs](#cfapp-logs)
-  * [Kubernetes System Events](#system-events)
-  * [System Object Types](#system-object-types)
-* [Common Failure Scenarios](#commmon-failure-scenarios)
-* [OpenShift Failure Scenarios](#openshift-failure-scenarios)
-* [Cartographer Failure Scenarios](#cartographer-failure-scenarios)
-
 
 ## <a id="generic-troubleshooting-techniques"></a>Generic Troubleshooting Techniques
 
@@ -19,7 +9,7 @@ This section contains generic techniques that can be used to gather information 
 
 ### <a id="application-logs"></a>Application Service Adapter Logs
 
-There are several Application Service Adapter deployments whose logs can be queried to gather information on failures that occurred within the system. 
+There are several Application Service Adapter deployments whose logs can be queried to gather information on failures that have occurred in the system.
 
 To fetch recent logs from all components of an Application Service Adapter installation:
 
@@ -43,16 +33,16 @@ For additional details and options, refer to the `kapp logs --help` help text.
 The following is a brief description of the specific Application Service Adapter deployments and what their main responsibilities are to help isolate which logs to query when troubleshooting.
 
 1. The `korifi-api-deployment` Deployment is tasked with responding to API requests sent to the Application Service Adapter. Logs for failures related to the image registry may also show up in this Deployment's logs.
-1. The `korifi-controllers-controller-manager` Deployment is tasked with processing commands for the Application Service Adapter. This Deployment's logs is an excellent starting point when debugging failures as it is where most commands flow through before being processed by more specific components (The exception being API commands that fail before getting to the controller manager).
-1. The `tas-adapter-telemetry-informer` Deployment is tasked with handling all outgoing telemetry.
-1. The `korifi-kpack-build-controller-manager` Deployment is tasked with building Images when using the default builder/runner flow.
-1. The `korifi-statefulset-runner-controller-manager` Deployment is tasked with generating StatefulSets for apps when using the default builder/runner flow.
-1. The `korifi-job-task-runner-controller-manager` Deployment is tasked with handling all task related functionality.
-1. The `cartographer-builder-runner-controller-manager` Deployment is tasked with creating Cartographer Workloads for apps when using the experimental Cartographer builder/runner flow.
+2. The `korifi-controllers-controller-manager` Deployment is tasked with processing commands for the Application Service Adapter. This Deployment's logs is an excellent starting point when debugging failures as most commands flow through here before being processed by more specific components (with the exception of API commands that fail before getting to the controller manager).
+3. The `tas-adapter-telemetry-informer` Deployment is tasked with handling all outgoing telemetry.
+4. The `korifi-kpack-build-controller-manager` Deployment is tasked with building Images when using the default builder/runner flow.
+5. The `korifi-statefulset-runner-controller-manager` Deployment is tasked with generating StatefulSets for apps when using the default builder/runner flow.
+6. The `korifi-job-task-runner-controller-manager` Deployment is tasked with handling all task related functionality.
+7. The `cartographer-builder-runner-controller-manager` Deployment is tasked with creating Cartographer Workloads for apps when using the experimental Cartographer builder/runner flow.
 
 ### <a id="tap-logs"></a>TAP Logs
 
-While not directly part of the Application Service Adapter, there are several TAP deployments that are utilized by the Application Service Adapter and can also provide further debug information on failures that occur. 
+While not directly part of the Application Service Adapter, there are several TAP deployments that are utilized by the Application Service Adapter and can also provide further debug information on failures that occur.
 
 To fetch recent logs from a given TAP application:
 
@@ -71,7 +61,7 @@ The following is a brief description of the specific TAP deployments used by the
 
 1. The `buildservice.app` application is tasked with processing any Tanzu Build Service (kpack) commands. If any failures in the build image process occurs in Tanzu Build Service itself, this application's logs can provide further information.
 1. The `contour.app` application is tasked with creating an ingress into the system. If a failure to connect to the Application Service Adapter or an Application occurs, this application's logs can provide further information.
-1. The `cartographer.app` application is tasked with processing Cartographer ClusterSupplyChains when using the experimental Cartographer builder/runner flow. If a failure to create an Image, Build, ConfigMap, or StatefulSet occurs, this application's logs can provide further information.
+2. The `cartographer.app` application is tasked with processing Cartographer ClusterSupplyChains when using the experimental Cartographer builder/runner flow. If creation of an Image, Build, ConfigMap, or StatefulSet fails, this application's logs can provide further information.
 
 ### <a id="cfapp-logs"></a>CFApp Logs
 
@@ -91,15 +81,15 @@ kubectl get events -A
 
 ### <a id="system-object-types"></a>System Object Types
 
-There are system objects created/used by Application Service Adapter that can be useful in debugging failures. Describing the objects can show error messages in their status fields. 
-Whether objects are present can also be useful in determining where in the command process failures have occurred and which logs should be queried for more information. 
+System objects created and used by Application Service Adapter can be useful in debugging failures. Describing the objects can show error messages in their status fields.
+Whether objects are present can also be useful in determining where in the command process failures have occurred and which logs should be queried for more information.
 
 For example, if an object in the image build chain is missing, the component in the "Created By" column can be queried for logs to see if any useful error messages are present.
-If no useful logs are found there, identify the previous object in the image build chain and check the logs of the component listed in the "Reconciled By" column to see if there are any error messages. 
+If no useful logs are found there, identify the previous object in the image build chain and check the logs of the component listed in the "Reconciled By" column to see if there are any error messages.
 
-Instructions for querying logs can be found for [Application Service Adapter](#application-logs) and [TAP](#tap-logs). 
+Instructions for querying logs can be found for [Application Service Adapter](#application-logs) and [TAP](#tap-logs).
 
-Some Kubernetes objects exist within a CFOrg or CFSpace namespace. To find the corresponding namespace of a CFOrg or CFSpace, you can run:
+Some Kubernetes objects exist within a CFOrg or CFSpace namespace. To find the corresponding namespace of a CFOrg or CFSpace, run:
 
 ```bash
 cf org --guid <CFOrg name>
@@ -191,7 +181,7 @@ All run task object types are located within the targeted CFSpace Namespace.
 
 This section contains common failure scenarios and describes the appropriate troubleshooting techniques that can be used to gather further information and solve the issue.
 
-### Installation failed to finish successfully 
+### Installation failed to finish successfully
 #### Symptom
 When I install Application Service Adapter, the following error message is returned:
 ```bash
@@ -199,7 +189,7 @@ Finished unsuccessfully (Encountered failure condition ReconcileFailed == True: 
 ```
 #### Possible Causes
 1. The `Secret` for the application image registry does not exist.
-2. The `SecretExport` to copy the above Secret to the `cf` namespace does not exist. 
+2. The `SecretExport` to copy the above Secret to the `cf` namespace does not exist.
 #### Troubleshooting Steps/Potential Solutions
 1. Verify that both the `Secret` and `SecretExport` exist by following steps 3 and 4 in the ["Configure the installation settings"](install.md#configure-installation-settings) section of the installation docs.
 
@@ -210,7 +200,7 @@ When I run `cf create org my-org`, the following error message is returned:
 Organization 'my-org' not found
 ```
 #### Possible Causes
-The user creating the CFOrg is not bound to the `korifi-controllers-admin` ClusterRole. 
+The user creating the CFOrg is not bound to the `korifi-controllers-admin` ClusterRole.
 #### Troubleshooting Steps/Potential Solutions
 1. Verify the user in the `cf create org` command output.
 ```bash
@@ -231,7 +221,7 @@ FAILED
 #### Possible Causes
 The user targeting the Org or Space is not bound to the following ClusterRoles:
 `korifi-controllers-root-namespace-user` in the root namespace (from the installation values file)
-`korifi-controllers-organization-user` in the cf-org namespace `cf-org-<ORG_GUID>` 
+`korifi-controllers-organization-user` in the cf-org namespace `cf-org-<ORG_GUID>`
 `korifi-controllers-space-developer` in the cf-space namespace `cf-space-<SPACE_GUID>`
 
 #### Troubleshooting Steps/Potential Solutions
@@ -319,8 +309,8 @@ When I install the Application Service Adapter on an OpenShift cluster, I get th
 #### Possible Causes
 The OpenShift setting is not enabled.
 #### Troubleshooting Steps/Potential Solutions
-Without the SecurityContextConstraint/ClusterRole/ClusterRoleBinding/RoleBinding, the Application Service Adapter deployments will not be able to deploy Pods. 
-1. Query the [Application Service Adapter Deployments](#system-object-types) and check if their `Ready` counts are listed as `0/0`. 
+Without the SecurityContextConstraint/ClusterRole/ClusterRoleBinding/RoleBinding, the Application Service Adapter deployments will not be able to deploy Pods.
+1. Query the [Application Service Adapter Deployments](#system-object-types) and check if their `Ready` counts are listed as `0/0`.
 1. Reinstall Application Service Adapter with the OpenShift setting enabled.
 
 ### Pushing an app on an OpenShift cluster fails to start
@@ -336,7 +326,7 @@ The ServiceAccount being used by the StatefulSets does not have permission to cr
 
 ## <a id="cartographer-failure-scenarios"></a>Cartographer Failure Scenarios
 
-This section contains common failure scenarios specific to the use of the experimental optional Cartographer feature and describes the appropriate troubleshooting techniques that can be used to gather further information and solve the issue. 
+This section contains common failure scenarios specific to the use of the experimental optional Cartographer feature and describes the appropriate troubleshooting techniques that can be used to gather further information and solve the issue.
 
 ### Cartographer Setting
 The experimental Cartographer installation setting for the Application Service Adapter can be set in the `tas-adapter-values.yml` as described [here](install.md)

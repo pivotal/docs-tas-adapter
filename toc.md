@@ -17,6 +17,7 @@ This is the table of contents from which the Application Service Adapter for Tan
   - [Scaling guidance](scaling.md)
   - [Upgrading](upgrading.md)
 - [Uninstalling Application Service Adapter](uninstall.md)
+- [Troubleshooting Guide](troubleshooting.md)
 - [Concepts](concepts.md)
   - [Architecture](technical-architecture.md)
   - [User authentication overview](user-authentication-overview.md)
@@ -24,5 +25,4 @@ This is the table of contents from which the Application Service Adapter for Tan
   - [Application environment variables](environment-variables.md)
   - [Differences between buildpacks in TAS for VMs and Application Service Adapter](buildpack-differences.md)
   - [Supported cf CLI commands](supported-cf-cli-commands.md)
-  - [Troubleshooting Guide](troubleshooting.md)
   - [User Management](user-management.md)

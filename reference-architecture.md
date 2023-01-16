@@ -1,10 +1,10 @@
 # Reference Architecture
 
-This topic gives you a path to creating a production deployment of
+This topic provides a path to creating a production deployment of
 Application Service Adapter. However, do not feel constrained to follow this exact
 path if your specific use cases warrant a different architecture.
 
-Design decisions enumerated in this document exemplify the main design issues
+Design decisions described in this topic exemplify the main design issues
 you will encounter in planning your Application Service Adapter environment and
 the rationale behind a chosen solution path. Understanding these decisions can
 help provide a rationale for any necessary deviation from this architecture.
@@ -13,14 +13,13 @@ help provide a rationale for any necessary deviation from this architecture.
 
 Application Service Adapter is installed on top of the Tanzu Application
 Platform (TAP), and uses TAP components to build and deploy workloads. Because
-both "build" and "run" steps are executed on the same cluster, it is necessary to
+both "build" and "run" steps are executed on the same cluster, you need to
 install the required TAP packages to a single cluster before installing the
 Application Service Adapter. This type of installation maps most closely to the
 "iterate cluster" described in the [TAP reference architecture](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap-reference-architecture/GUID-reference-designs-tap-architecture-planning.html#iterate-cluster-requirements-10).
 
 Some packages included in an "iterate cluster" installation are optional when
-preparing a cluster for Application Service Adapter. Required packages are as
-follows:
+preparing a cluster for Application Service Adapter. The required packages are:
 
 ```
 buildservice.tanzu.vmware.com
@@ -47,7 +46,7 @@ controller.conventions.apps.tanzu.vmware.com
 Application Service Adapter installs a Cloud Foundry API server and a set of
 controller runtime components on top of the base TAP installation. Although
 these components will consume cluster resources, the recommended minimum sizing
-for a TAP "iterate cluster" should be sufficient to accomodate Application
+for a TAP "iterate cluster" should be sufficient to accommodate Application
 Service Adapter system components running with modest load.
 
 Specifically, TAP recommends the following for an "iterate cluster":
@@ -61,15 +60,15 @@ Specifically, TAP recommends the following for an "iterate cluster":
 
 Note that with increased API traffic or deployed object counts, Application
 Service Adapter components may need to be scaled as described in the [scaling
-topic](scaling.md) which may require additional cluster resources.
+topic](scaling.md), and they may require additional cluster resources.
 
 ## <a id="app-reqs"></a>Application workload requirements
 
 Since `cf push`ed applications are run as Pods on the same cluster as the
 Application Service Adapter itself, you should plan the capacity of your cluster
-to accomodate those applications.
+to accommodate those applications.
 
-Planning capacity for application workloads depends heavily on the applications
+Planning capacity for application workloads depends on the applications
 you plan to deploy and how they are scaled, but default memory, cpu, and disk
 allocations for each application instance are as follows:
 
@@ -84,5 +83,5 @@ requests:
 ```
 
 Planning total capacity on your cluster is largely a matter of understanding the
-size of your planned applications, and then adding those resources up to make
+size of your planned applications, and then adding up those resources to make
 sure you have sufficient resources on your cluster.

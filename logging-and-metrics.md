@@ -2,9 +2,6 @@
 
 This topic provides guidance on accessing system component logs and metrics.
 
-* [Gathering system logs](#system-logs)
-* [Querying performance metrics](#metrics)
-
 ## <a id="system-logs"></a>Gathering system logs
 
 Logs for Application Service Adapter system components flow through standard

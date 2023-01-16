@@ -1,14 +1,6 @@
 # Installing Application Service Adapter
 
-This topic describes how to install the Application Service Adapter for VMware Tanzu Application Platform system:
-
-* [Install the package repository](#install-package-repo)
-* [Configure the installation settings](#configure-installation-settings)
-* [Install Application Service Adapter](#install-adapter)
-* [Configure DNS for the Application Service Adapter](#configure-dns)
-* [Assign the admin role to a user](#assign-admin-user)
-
-----
+This topic describes how to install the Application Service Adapter for VMware Tanzu Application Platform system.
 
 After you complete the steps in [Installing Prerequisites](install-prerequisites.md), set the Kubernetes context to the cluster where you installed kpack and Contour.
 
@@ -357,11 +349,10 @@ To configure the installation settings:
    - `API-MEMORY-REQUEST` is the memory resource request that you want for the pods in the specified deployment. Default is 100Mi.
    - `API-REPLICA-COUNT` is the number of replicas that you want for the specified deployment. Default is 1.
    - `KUBERNETES-DISTRIBUTION` is the name of the Kubernetes distribution. Defaults to "".
-       - Set "openshift" as the value when installing on an OpenShift environment.
-       - Leave it unset for all other distributions.
-   - `KUBERNETES-VERSION` is the kubernetes version of the cluster.
-       - Only used if you are setting "openshift" as the value for `KUBERNETES-DISTRIBUTION`.
-       - Default is 1.23.3.
+       - Set to "openshift" when installing on an OpenShift environment.
+       - For all other distributions, leave the default setting.
+   - `KUBERNETES-VERSION` is the kubernetes version of the cluster. Default is 1.23.3.
+       - Use only if you are setting `KUBERNETES-DISTRIBUTION` to "openshift".
    - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
 
    The `requests` and `limits` text boxes map directly to the resource requests and limits text boxes on the Kubernetes containers for these system components.
@@ -456,7 +447,7 @@ To configure DNS for Application Service Adapter:
     kubectl -n tanzu-system-ingress get service envoy -ojsonpath='{.status.loadBalancer.ingress[*].ip}'
     ```
 
-   > **Not:e** If you are using a cluster deployed on AWS, your LoadBalancer has a DNS name instead of an IP address.
+   > **Note:** If you are using a cluster deployed on AWS, your LoadBalancer has a DNS name instead of an IP address.
 
 2. Create an A record in your DNS zone that resolves the configured API FQDN to the external IP address from step 1. This step varies depending on your DNS provider.
 

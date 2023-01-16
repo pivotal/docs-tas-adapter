@@ -1,9 +1,6 @@
 # Disaster recovery
 
-This topic provides an overview of the options and considerations for disaster recovery. It includes the following sections:
-
-* [State Storage](#state-storage)
-* [Backup and Restore](#backing-up-cluster-state)
+This topic provides an overview of the options and considerations for disaster recovery.
 
 Operators have a range of approaches for ensuring they can recover their Application Service Adapter deployment, apps, and data in case of a disaster. These approaches fall into two categories:
 

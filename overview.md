@@ -6,7 +6,7 @@ Application Service Adapter aims to provide compatibility with [Cloud Foundry](h
 
 The following diagram shows a high level architecture of Application Service Adapter with user flows. These are also described below.
 
-![Application Service Adapter architecture diagram with user flows](images/architecture.png)
+![alt-text="Application Service Adapter architecture diagram shows user flows."](images/architecture.png)
 
 Application Service Adapter is distributed as a [Carvel package](https://carvel.dev/) for platform teams to configure and install to a Kubernetes cluster with the Tanzu CLI tool. The key user personas of Application Service Adapter remain the same as the user personas of Tanzu Application Serivce: the Platform Operator and the App Developer.
 

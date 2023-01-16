@@ -2,11 +2,7 @@
 
 This topic describes the failover characteristics and redundancy of Application
 Service Adapter components and applications that are pushed with Application
-Service Adapter. It includes the following sections:
-
-  - [<a id="cloud-foundry-api"></a>Cloud Foundry-compatible API](#cloud-foundry-compatible-api)
-  - [<a id="controllers"></a>Controllers and Webhooks](#controllers-and-webhooks)
-  - [<a id="applications"></a>Applications](#applications)
+Service Adapter.
 
 For instructions for editing the scaling characteristics of your Application
 Service Adapter installation, see [Scaling Application Service Adapter](scaling.md).
@@ -14,7 +10,7 @@ Service Adapter installation, see [Scaling Application Service Adapter](scaling.
 ## <a id="cloud-foundry-api"></a>Cloud Foundry-compatible API
 
 Application Service Adapter deploys two replicas of a v3 Cloud
-Foundry-compatible API (Korifi API) that clients communicate with. This API is
+Foundry-compatible API (Korifi API) with which clients communicate. This API is
 stateless and is horizontally scaled for increased
 availability and performance. See [Scaling the Application Service Adapter API](scaling.md#api).
 
@@ -30,7 +26,7 @@ that validate and update Application Service Adapter resources.
 
 Application Service Adapter controllers are effectively singletons. They have
 leader election turned on by default so only a single controller instance is
-active at a time. All instances can serve the webhooks. They are scaled horizontally for faster failover and for higher-availability of the
+active at a time. All instances can serve the webhooks. They are scaled horizontally for faster failover and higher availability of the
 webhooks. In the event that a controller fails, it is automatically
 restarted by the platform. Application Service Adapter controllers are
 idempotent and the newly restarted instance carries on where the failed one

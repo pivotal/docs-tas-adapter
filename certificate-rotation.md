@@ -1,10 +1,6 @@
 # Rotating certificates
 
-This topic describes how to rotate Application Service Adapter for VMware Tanzu Application Platform system certificates, and includes the following sections:
-
-- [Rotating certificates](#rotating-certificates)
-  - [<a id="rotating-ingress-certificates"></a>Rotating ingress certificates](#rotating-ingress-certificates)
-  - [<a id="rotating-internal-certificates"></a>Rotating internal certificates](#rotating-internal-certificates)
+This topic describes how to rotate Application Service Adapter for VMware Tanzu Application Platform system certificates.
 
 > **Note:** Certificate rotation does not result in downtime.
 

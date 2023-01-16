@@ -1,12 +1,6 @@
 # Getting started with Application Service Adapter
 
-This topic provides an overview of how to get started using the Application Service Adapter for Tanzu Application Platform:
-
-* [Create orgs and spaces](#create-orgs-spaces)
-* [Deploy a sample app](#deploy-sample-app)
-* [Route to an app](#routing-sample-app)
-* [Create and bind to a user-provided service instance](#user-provided-services)
-
+This topic provides an overview of how to get started using the Application Service Adapter for Tanzu Application Platform.
 
 ## <a id="create-orgs-spaces"></a>Create orgs and spaces
 

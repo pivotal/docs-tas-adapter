@@ -2,7 +2,6 @@
 
 This topic collects documentation related to the generic techniques for diagnosing the system health as well as specific steps to be taken in known scenarios.
 
-
 ## <a id="generic-troubleshooting-techniques"></a>Generic Troubleshooting Techniques
 
 This section contains generic techniques that can be used to gather information about the status of the Application Service Adapter to aid in troubleshooting. We recommend keeping up to date with the latest version of the Application Service Adapter to get access to the latest bug fixes and stability improvements.

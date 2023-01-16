@@ -9,10 +9,6 @@ you will encounter in planning your Application Service Adapter environment and
 the rationale behind a chosen solution path. Understanding these decisions can
 help provide a rationale for any necessary deviation from this architecture.
 
-* [Tanzu Application Platform installation](#tap-install)
-* [Adapter system requirements](#adapter-reqs)
-* [Application workload requirements](#app-reqs)
-
 ## <a id="tap-install"></a>Tanzu Application Platform installation
 
 Application Service Adapter is installed on top of the Tanzu Application

@@ -2,16 +2,6 @@
 
 This document describes the technical architecture of Application Service Adapter and its subsystems.
 
-* [Overview](#overview)
-* [High-level architecture](#high-level-architecture)
-* [Experimental Cartographer integration](#cartographer-integration)
-* [Authentication and authorization](#authentication-authorization)
-* [Organization and Space management](#org-space-management)
-* [Building (staging) applications](#building-and-staging-applications)
-* [Services](#services)
-* [Routing](#routing)
-* [App Logging and Metrics](#app-logs-metrics)
-
 ## <a id="overview"></a>Overview
 Application Service Adapter implements a subset of the [v3 Cloud Foundry APIs](https://v3-apidocs.cloudfoundry.org/) to support common Cloud Foundry developer workflows. Application Service Adapter is installed directly onto a Kubernetes cluster than has Tanzu Application Platform (TAP) installed and provides a CF API translation layer that converts CF API calls into underlying and Kubernetes resources. In addition to this API, Application Service Adapter also provides a set of Kubernetes [custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), [controllers](https://kubernetes.io/docs/concepts/architecture/controller/), and [admission webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/).
 

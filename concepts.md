@@ -4,4 +4,3 @@ This topic collects documentation on Application Service Adapter system concepts
 
 * [Architecture](technical-architecture.md)
 * [User authentication overview](user-authentication-overview.md)
-

@@ -58,9 +58,9 @@ For additional details and options, refer to the `kapp logs --help` help text.
 
 The following is a brief description of the specific TAP deployments used by the Application Service Adapter and what their main responsibilities are to help determine which logs to query when troubleshooting.
 
-1. The `buildservice.app` application is tasked with processing any Tanzu Build Service (kpack) commands. If any failures in the build image process occurs in Tanzu Build Service itself, this application's logs can provide further information.
-1. The `contour.app` application is tasked with creating an ingress into the system. If a failure to connect to the Application Service Adapter or an Application occurs, this application's logs can provide further information.
-2. The `cartographer.app` application is tasked with processing Cartographer ClusterSupplyChains when using the experimental Cartographer builder/runner flow. If creation of an Image, Build, ConfigMap, or StatefulSet fails, this application's logs can provide further information.
+1. The `buildservice.app` application is tasked with processing Tanzu Build Service (kpack) commands. If any failures in the build image process occurs in Tanzu Build Service itself, see the application logs for further information.
+2. The `contour.app` application is tasked with creating an ingress into the system. If a failure to connect to the Application Service Adapter or an Application occurs, see the application logs for further information.
+3. The `cartographer.app` application is tasked with processing Cartographer ClusterSupplyChains when using the experimental Cartographer builder/runner flow. If creation of an Image, Build, ConfigMap, or StatefulSet fails, see the application logs for further information.
 
 ### <a id="cfapp-logs"></a>CFApp Logs
 

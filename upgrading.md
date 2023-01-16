@@ -4,7 +4,7 @@ This document describes how to upgrade Application Service Adapter for VMware Ta
 
 You can perform a fresh installation of the Application Service Adapter by following the instructions in [Installing Application Service Adapter](install.md).
 
-When upgrading to a new major or minor version of Application Service Adapter, please see that versions' documentation for version-specific configuration and upgrade instructions.
+When upgrading to a new major or minor version of Application Service Adapter, see the documentation for that version for version-specific configuration and upgrade instructions.
 
 These instructions cover upgrading to a new patch version of the currently installed version of Application Service Adapter.
 
@@ -14,10 +14,10 @@ These instructions cover upgrading to a new patch version of the currently insta
 
 Before you upgrade Application Service Adapter:
 
-- Verify that you meet all the [prerequisites](install-prerequisites.md) of the target Tanzu Application Service Adapter for TAP version. If the target Tanzu Application version does not support your existing Kubernetes version, VMware recommends upgrading to a supported version before proceeding with the upgrade.
+- Verify that you meet all the [prerequisites](install-prerequisites.md) of the target Tanzu Application Service Adapter version. If the target Tanzu Application version does not support your existing Kubernetes version, VMware recommends upgrading to a supported version before proceeding with the upgrade.
 - [Install or update the Tanzu CLI and plugins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install-tanzu-cli.html#install-or-update-the-tanzu-cli-and-plugins-3)
-- For information about installing or updating the Tanzu CLI and plug-ins, see [Install or update the Tanzu CLI and plugins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install-tanzu-cli.html#install-or-update-the-tanzu-cli-and-plugins-3).
-- Verify all packages are reconciled by running `tanzu package installed list -A`.
+  - For information about installing or updating the Tanzu CLI and plug-ins, see [Install or update the Tanzu CLI and plugins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install-tanzu-cli.html#install-or-update-the-tanzu-cli-and-plugins-3).
+- Verify that all packages are reconciled by running `tanzu package installed list -A`.
 - It is strongly recommended to [upgrade](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-upgrading.html) the Tanzu Application Platform version to the latest patch version of the currently installed major-minor (for example, 1.2).
 
 ## <a id="add-new-package-repo"></a> Update the new package repository
@@ -42,7 +42,6 @@ Follow these steps to update the new package repository:
 ## <a id="upgrade-tap"></a> Perform the upgrade of Application Service Adapter
 
 Perform the upgrade by running:
-
 
 ```bash
 tanzu package installed update tas-adapter \

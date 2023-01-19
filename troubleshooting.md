@@ -31,13 +31,13 @@ For additional details and options, refer to the `kapp logs --help` help text.
 
 The following is a brief description of the specific Application Service Adapter deployments and what their main responsibilities are to help isolate which logs to query when troubleshooting.
 
-1. The `korifi-api-deployment` Deployment is tasked with responding to API requests sent to the Application Service Adapter. Logs for failures related to the image registry may also show up in this Deployment's logs.
-2. The `korifi-controllers-controller-manager` Deployment is tasked with processing commands for the Application Service Adapter. This Deployment's logs is an excellent starting point when debugging failures as most commands flow through here before being processed by more specific components (with the exception of API commands that fail before getting to the controller manager).
-3. The `tas-adapter-telemetry-informer` Deployment is tasked with handling all outgoing telemetry.
-4. The `korifi-kpack-build-controller-manager` Deployment is tasked with building Images when using the default builder/runner flow.
-5. The `korifi-statefulset-runner-controller-manager` Deployment is tasked with generating StatefulSets for apps when using the default builder/runner flow.
-6. The `korifi-job-task-runner-controller-manager` Deployment is tasked with handling all task related functionality.
-7. The `cartographer-builder-runner-controller-manager` Deployment is tasked with creating Cartographer Workloads for apps when using the experimental Cartographer builder/runner flow.
+1. The `korifi-api-deployment` deployment is tasked with responding to API requests sent to the Application Service Adapter. Logs for failures related to the image registry may also show up in this Deployment's logs.
+2. The `korifi-controllers-controller-manager` deployment is tasked with processing commands for the Application Service Adapter. This Deployment's logs is an excellent starting point when debugging failures as most commands flow through here before being processed by more specific components (with the exception of API commands that fail before getting to the controller manager).
+3. The `tas-adapter-telemetry-informer` deployment is tasked with handling all outgoing telemetry.
+4. The `korifi-kpack-build-controller-manager` deployment is tasked with building Images when using the default builder/runner flow.
+5. The `korifi-statefulset-runner-controller-manager` deployment is tasked with generating StatefulSets for apps when using the default builder/runner flow.
+6. The `korifi-job-task-runner-controller-manager` deployment is tasked with handling all task related functionality.
+7. The `cartographer-builder-runner-controller-manager` deployment is tasked with creating Cartographer Workloads for apps when using the experimental Cartographer builder/runner flow.
 
 ### <a id="tap-logs"></a>TAP Logs
 

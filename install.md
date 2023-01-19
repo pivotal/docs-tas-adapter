@@ -258,8 +258,8 @@ To configure the installation settings:
        - Not required if you intend to use ECR as the application image registry.
    - `APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE` is the namespace containing the application image registry secret.
        - Not required if you intend to use ECR as the application image registry.
-   - `AWS-IAM-ROLE-ARN` is the Amazon Resource Name (ARN) of an AWS IAM role that can be used to access Elastic Container Registries(ECR). This is role is similar to the one
-used by TBS.
+   - `AWS-IAM-ROLE-ARN` is the Amazon Resource Name (ARN) of an AWS IAM role that can be used to access Elastic Container Registries(ECR). This is role may be the same as the one
+used by TBS. Refer back to the TBS installation documentation for information on how to configure the role.
        - Required if you intend to use ECR as the application image registry.
    - `REPOSITORY-PREFIX` is the host and path combination used as the base for package and droplet images produced by the Application Service Adapter.
 

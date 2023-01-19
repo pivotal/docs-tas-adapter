@@ -7,6 +7,7 @@ This is the table of contents from which the Application Service Adapter for Tan
 - [Reference architecture](reference-architecture.md)
 - [Installing prerequisites](install-prerequisites.md)
 - [Installing Application Service Adapter](install.md)
+  - [Installing to air-gapped environments](install-to-air-gapped.md) 
 - [Getting started with Application Service Adapter](getting-started.md)
   - [Push the spring-music sample application](push-spring-music.md)
 - [Administering Application Service Adapter](administering.md)

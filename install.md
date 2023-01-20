@@ -1,4 +1,4 @@
-# Installing Application Service Adapter
+# Install Application Service Adapter
 
 This topic describes how to install the Application Service Adapter for VMware Tanzu Application Platform system.
 
@@ -190,7 +190,7 @@ To configure the installation settings:
 
 > **Warning:**
 > The app registry secret and secret export are not required when using ECR.
- 
+
     ```bash
     kubectl create namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
     kubectl create secret docker-registry APP-REGISTRY-CREDENTIALS-SECRET-NAME \

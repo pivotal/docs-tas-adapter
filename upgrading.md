@@ -2,7 +2,7 @@
 
 This document describes how to upgrade Application Service Adapter for VMware Tanzu Application Platform.
 
-You can perform a fresh installation of the Application Service Adapter by following the instructions in [Installing Application Service Adapter](install.md).
+You can perform a fresh installation of the Application Service Adapter by following the instructions in [Install Application Service Adapter](install.md).
 
 When upgrading to a new major or minor version of Application Service Adapter, see the documentation for that version for version-specific configuration and upgrade instructions.
 

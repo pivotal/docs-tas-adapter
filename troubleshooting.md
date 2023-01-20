@@ -1,4 +1,4 @@
-# Troubleshooting Application Service Adapter
+# Troubleshoot Application Service Adapter
 
 This topic collects documentation related to the generic techniques for diagnosing the system health as well as specific steps to be taken in known scenarios.
 

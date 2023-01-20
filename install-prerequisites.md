@@ -1,4 +1,4 @@
-# Installing prerequisites
+# Installation prerequisites
 
 This topic describes the first part of installation for the Application Service Adapter for VMware Tanzu Application Platform.
 
@@ -76,4 +76,4 @@ The following dependencies are recommended to be installed to the target Kuberne
 * [Kubernetes Metrics Server](https://github.com/kubernetes-sigs/metrics-server/) v0.4.0 or later for app instance resource metrics.
   > **Note:** Many Kubernetes distributions automatically come with the Metrics Server installed. If the API resources in your target cluster include the `PodMetrics` Kind in the `metrics.k8s.io` API group, the Metrics Server is already present.
 
-After you installed these prerequisites, proceed to [Installing Application Service Adapter](install.md).
+After you installed these prerequisites, proceed to [Install Application Service Adapter](install.md).

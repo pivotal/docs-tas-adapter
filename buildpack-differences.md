@@ -1,6 +1,6 @@
-# Differences between buildpacks in TAS for VMs and Application Service Adapter
+# Buildpacks
 
-This topic describes the differences between the buildpack systems of Tanzu Application Service for VMs (TAS for VMs) and Application Service Adapter.
+This topic describes the differences between the buildpack systems of Tanzu Application Service for VMs (TAS for VMs) and the buildpacks Application Service Adapter uses.
 Consider these differences when moving applications between the two platforms.
 
 ## <a id="overview"></a>Buildpack overview

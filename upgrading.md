@@ -37,7 +37,7 @@ Follow these steps to update the new package repository:
       --namespace tap-install
     ```
 
-## <a id="upgrading-to-version-11"></a> Upgrading to Version v1.1.0
+## <a id="upgrading-to-version-1-1"></a> Upgrading to Version v1.1.0
 
 1. Update your `tas-adapter-values.yml` file
 
@@ -63,7 +63,7 @@ Follow these steps to update the new package repository:
     - `REPOSITORY-PREFIX` is the host and path combination used as the base for package and droplet images produced by the Application Service Adapter.
       - For example:  if `REPOSITORY-PREFIX` is `gcr.io/tas-adapter-`, then app's package images will be stored at `gcr.io/tas-adapter-<app-guid>-packages` and app's droplet images will be stored at `gcr.io/tas-adapter-<app-guid>-droplets`.
 
-## <a id="upgrade-tap"></a> Perform the upgrade of Application Service Adapter
+## <a id="perform-the-upgrade-of-application-service-adapter"></a> Perform the upgrade of Application Service Adapter
 
 Perform the upgrade by running:
 

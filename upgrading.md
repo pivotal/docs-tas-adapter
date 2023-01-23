@@ -6,8 +6,6 @@ You can perform a fresh installation of the Application Service Adapter by follo
 
 When upgrading to a new major or minor version of Application Service Adapter, see the documentation for that version for version-specific configuration and upgrade instructions.
 
-These instructions cover upgrading to a new patch version of the currently installed version of Application Service Adapter.
-
 > **Note:** Discover new patch versions of the Application Service Adapter on the TanzuNet product page directly, or [sign up to receive email alerts](https://network.tanzu.vmware.com/docs/faq#alerts) when the product is updated.
 
 ## <a id='prereqs'></a> Prerequisites
@@ -39,7 +37,33 @@ Follow these steps to update the new package repository:
       --namespace tap-install
     ```
 
-## <a id="upgrade-tap"></a> Perform the upgrade of Application Service Adapter
+## <a id="upgrading-to-version-1-1"></a> Upgrading to Version v1.1.0
+
+1. Update your `tas-adapter-values.yml` file
+
+   Image repositories are now being created for each app instead of using one repo for all images. You are no longer required to specify paths for `packages` and `droplets`. 
+   
+   Edit your `tas-adapter-values.yml` and remove the following config
+
+   ```yaml
+   app_registry:
+    hostname: "APP-REGISTRY-HOSTNAME"
+    path:
+      droplets: "APP-REGISTRY-PATH-DROPLETS"
+      packages: "APP-REGISTRY-PATH-PACKAGES"
+   ```
+   
+   And replace it with the below config
+
+   ```yaml
+   app_registry:
+      repository_prefix: "REPOSITORY-PREFIX"
+   ```
+   Where:
+    - `REPOSITORY-PREFIX` is the host and path combination used as the base for package and droplet images produced by the Application Service Adapter.
+      - For example:  if `REPOSITORY-PREFIX` is `gcr.io/tas-adapter-`, then app's package images will be stored at `gcr.io/tas-adapter-<app-guid>-packages` and app's droplet images will be stored at `gcr.io/tas-adapter-<app-guid>-droplets`.
+
+## <a id="perform-the-upgrade-of-application-service-adapter"></a> Perform the upgrade of Application Service Adapter
 
 Perform the upgrade by running:
 

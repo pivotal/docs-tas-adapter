@@ -1,6 +1,6 @@
 # Troubleshoot Application Service Adapter
 
-This topic collects documentation related to the generic techniques for diagnosing the system health as well as specific steps to be taken in known scenarios.
+This topic documents generic techniques for diagnosing the system health as well as specific steps to be taken in known scenarios.
 
 ## <a id="generic-troubleshooting-techniques"></a>Generic troubleshooting techniques
 
@@ -94,7 +94,7 @@ cf org --guid <CFOrg name>
 cf space --guid <CFSpace name>
 ```
 
-#### Installed Object Types
+#### Installed object types
 | Kind                      | Component    | Namespace or Scope   | Notes                                                                                                                                                                                                                                                                                                                                                                                |
 |---------------------------|--------------|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | ClusterBuilder            | kpack        | Cluster              | ClusterBuilders are Tanzu Build Service (kpack) components installed by Tanzu Application Platform that are used to build images. If they are not present, image builds may not complete successfully.                                                                                                                                                                                                      |
@@ -106,13 +106,13 @@ cf space --guid <CFSpace name>
 | SecurityContextConstraint | openshift    | Cluster              | SecurityContextConstraints are specific to OpenShift and are used to grant required permissions to Application Service Adapter components in that environment. These CRDs do not exist in non-OpenShift environments. An associated ClusterRole, ClusterRoleBinding, and RoleBinding is also installed if the `kubernetes_distribution` shared setting is set to `openshift`.   |
 | ClusterSupplyChain        | Cartographer | Cluster              | When using the experimental Cartographer builder/runner flow, a ClusterSupplyChain is created during Application Service Adapter installation at the cluster scope. The `cartographer-ctrl` uses this to creates the image, build, ConfigMap, and StatefulSets in the builder/runner flow.                                                                                   |
 
-#### CFOrg/CFSpace Object Types
+#### CFOrg/CFSpace object types
 | Kind            | Component | Namespace or Scope | Created By                   | Reconciled By                                      | Notes                                                                                                                                                                    |
 |-----------------|-----------|--------------------|------------------------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | CFOrg           | CF        | `cf`               | `korifi-api-deployment`      | `korifi-controllers-controller-manager`            | CFOrg resources are created by the `cf create-org` command. A corresponding namespace should also be created by the `korifi-controllers-controller-manager`.             |
 | CFSpace         | CF        | CFOrg Namespace    | `korifi-api-deployment`      | `korifi-controllers-controller-manager`            | CFSpace resources are created by the `cf create-space` command. A corresponding namespace should also be created by the `korifi-controllers-controller-manager`.         |
 
-#### Image Build Object Types (Default Builder/Runner)
+#### Image build object types (default builder/runner)
 All image build object types are located within the targeted CFSpace Namespace.
 
 | Kind                        | Component | Created By                              | Reconciled By                                | Notes                                                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -124,7 +124,7 @@ All image build object types are located within the targeted CFSpace Namespace.
 | Image                       | kpack     | `korifi-kpack-build-controller-manager` | `buildservice-ctrl`                          | The 5th object in the image build chain that's created when the `cf push` command is run. The full object path for image objects are kpack.io/v1alpha2/images. This may need to be specified when querying in certain environments like OpenShift since there are other resources with the same name. The image is a kpack resource that provides configuration to build and maintains a docker image utilizing Cloud Native Buildpacks.  |
 | Build                       | kpack     | `buildservice-ctrl`                     | NA                                           | The 6th object in the image build chain that's created when the `cf push` command is run. The full object path for build objects are kpack.io/v1alpha2/builds. This may need to be specified when querying in certain environments like OpenShift since there are other resources with the same name. The build is a kpack resource that schedules and runs a single Cloud Native Buildpacks build. The build object spawns a build pod. |
 
-#### Run App Object Types (Default Builder/Runner)
+#### Run app object types (default builder/runner)
 All run app object types are located within the targeted CFSpace namespace.
 
 | Kind         | Component  | Created By                                     | Reconciled By                                  | Notes                                                                                                                                                                                                                                 |
@@ -138,7 +138,7 @@ All run app object types are located within the targeted CFSpace namespace.
  | HTTPProxy    | contour    | `korifi-controllers-controller-manager`        | NA                                             | The HTTPProxy is a Contour resource created by the `korifi-controllers-controller-manager` to reach running apps.                                                                                                             |
 
 
-#### Image Build Object Types (Cartographer Builder/Runner)
+#### Image build object types (Cartographer builder/runner)
 All image build object types are located within the targeted CFSpace namespace.
 
 | Kind             | Component     | Created By                                       | Reconciled By                                    | Notes                                                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -151,7 +151,7 @@ All image build object types are located within the targeted CFSpace namespace.
 | Image            | kpack         | `cartographer-ctrl`                              | `buildservice-ctrl`                              | The 6th object in the image build chain that's created when the `cf push` command is run. The full object path for image objects are kpack.io/v1alpha2/images. This may need to be specified when querying in certain environments like OpenShift since there are other resources with the same name. The image is a kpack resource that provides configuration to build and maintain a docker image utilizing Cloud Native Buildpacks.  |
 | Build            | kpack         | `buildservice-ctrl`                              | NA                                               | The 7th object in the image build chain that's created when the `cf push` command is run. The full object path for build objects are kpack.io/v1alpha2/builds. This may need to be specified when querying in certain environments like OpenShift since there are other resources with the same name. The build is a kpack resource that schedules and runs a single Cloud Native Buildpacks build. The build object spawns a build pod. |
 
-#### Run App Object Types (Cartographer Builder/Runner)
+#### Run app object types (Cartographer builder/runner)
 All run app object types are located within the targeted CFSpace namespace.
 
 | Kind        | Component  | Created By                                     | Reconciled By                                    | Notes                                                                                                                                                                                                                                                                                                                                                          |
@@ -165,7 +165,7 @@ All run app object types are located within the targeted CFSpace namespace.
 | CFRoute     | CF         | `korifi-api-deployment`                        | `korifi-controllers-controller-manager`          | CFRoutes are created to be able to reach running apps. They can be created as part of the `cf push` command if a default or random route is specified, defined in a manifest, or as part of the `cf create-route` command.                                                                                                                                     |
 | HTTPProxy   | contour    | `korifi-controllers-controller-manager`        | NA                                               | The HTTPProxy is a Contour resource that is created by the `korifi-controllers-controller-manager` to reach running apps.                                                                                                                                                                                                                                      |
 
-#### Run Task Object Types
+#### Run task object types
 All run task object types are located within the targeted CFSpace namespace.
 
 | Kind         | Component  | Created By                                  | Reconciled By                                | Notes                                                                                                                                                |
@@ -189,7 +189,7 @@ When I install Application Service Adapter, the following error message is retur
 Finished unsuccessfully (Encountered failure condition ReconcileFailed == True:  (message: No matching export/secret))
 ```
 
-#### Possible Causes
+#### Possible causes
 
 1. The `Secret` for the application image registry does not exist.
 2. The `SecretExport` to copy the above secret to the `cf` namespace does not exist.
@@ -198,7 +198,7 @@ Finished unsuccessfully (Encountered failure condition ReconcileFailed == True: 
 
 1. Verify that both the `Secret` and `SecretExport` exist by following steps 3 and 4 in the ["Configure the installation settings"](install.md#configure-installation-settings) section of the installation docs.
 
-### Organization not found when creating an Org
+### Organization not found when creating an org
 
 #### Symptom
 
@@ -238,127 +238,182 @@ FAILED
 
 #### Possible causes
 
-The user targeting the Org or Space is not bound to the following ClusterRoles:
-`korifi-controllers-root-namespace-user` in the root namespace (from the installation values file)
-`korifi-controllers-organization-user` in the cf-org namespace `cf-org-<ORG_GUID>`
-`korifi-controllers-space-developer` in the cf-space namespace `cf-space-<SPACE_GUID>`
+The user targeting the org or space is not bound to the following ClusterRoles:
 
-#### Troubleshooting Steps/Potential Solutions
+- `korifi-controllers-root-namespace-user` in the root namespace (from the installation values file)
+- `korifi-controllers-organization-user` in the cf-org namespace `cf-org-<ORG_GUID>`
+- `korifi-controllers-space-developer` in the cf-space namespace `cf-space-<SPACE_GUID>`
+
+#### Troubleshooting steps and potential solutions
+
 1. Fetch the name of the user in the `cf curl /whoami` command output.
-1. Check RoleBindings in each of the namespaces with the name of that user as a Subject
-1. If the rolebindings do not exist, create them with cf set-role commands
+1. Check RoleBindings in each of the namespaces with the name of that user as a subject.
+1. If the rolebindings do not exist, create them with cf set-role commands.
 
 ### Pushing an app fails to build an image
+
 #### Symptom
+
 When I run `cf push`, the CF CLI does not respond with a built image.
+
 #### Possible causes
+
 1. ClusterBuilder is not ready.
 1. A failure occurred in one of the Tanzu Application Platform or Application Service Adapter components.
-#### Troubleshooting Steps/Potential Solutions
+
+#### Troubleshooting steps and potential solutions
+
 1. Check the status of the ClusterBuilders by running `kubectl get clusterbuilder`. The `Ready` column should show `True`.
-1. If the ClusterBuilder's `Ready` state is not `True`, run `kubectl describe clusterbuilder` and check the status section for more information.
-1. Walk through the list of [image build object types](#system-object-types) and check if any objects are missing. For any missing objects, check the logs of the [Tanzu Application Platform](#tap-logs) or [Application Service Adapter](#application-logs) component listed in the "Created By" column to see if there are any error messages.
-1. If the component listed in the "Created By" column does not have any helpful error messages, identify the previous object in the image build chain and check the logs of the component listed in the "Reconciled By" column to see if there are any error messages.
+2. If the ClusterBuilder's `Ready` state is not `True`, run `kubectl describe clusterbuilder` and check the status section for more information.
+3. Walk through the list of [image build object types](#system-object-types) and check if any objects are missing. For any missing objects, check the logs of the [Tanzu Application Platform](#tap-logs) or [Application Service Adapter](#application-logs) component listed in the **Created By** column to see if there are any error messages.
+4. If the component listed in the **Created By** column does not have any helpful error messages, identify the previous object in the image build chain and check the logs of the component listed in the **Reconciled By** column to see if there are any error messages.
 
 ### Pushing an app fails to upload an image to the image registry
+
 #### Symptom
+
 When I run `cf push`, the following output/error message is returned:
+
 ```bash
     Unexpected Response
     Response Code: 500
     Code: 0, Title: , Detail: {"errors":[{"detail":"An unknown error occurred.","title":"UnknownError","code":10001}]}
 ```
-#### Possible Causes
+
+#### Possible causes
 The image registry is unavailable/unauthorized.
-#### Troubleshooting Steps/Potential Solutions
-1. Check the `korifi-api-deployment` [logs](#application-logs) for registry related failures like `failed to upload image`.
-1. Determine the cause of the upload failure like connection refused, credentials failed, certificate untrusted, etc.
+
+#### Troubleshooting steps and potential solutions
+
+1. Check the `korifi-api-deployment` [logs](#application-logs) for registry-related failures like `failed to upload image`.
+1. Determine the cause of the upload failure like connection refused, credentials failed, certificate untrusted, and so on.
 1. Check the image registry settings provided to the Application Service Adapter installation related to the failure and reinstall Application Service Adapter with the correct image registry settings.
 
 ### Pushing an app fails to start
+
 #### Symptom
+
 When I run `cf push`, my app stages correctly, but fails to start or become healthy.
-#### Possible Causes
+
+#### Possible causes
+
 1. There is an issue with the application's code.
 1. The Kubernetes cluster cannot schedule the application.
 1. The Application Service Adapter cannot turn the app into a StatefulSet.
-#### Troubleshooting Steps/Potential Solutions
-1. To debug the application's code, check the [application logs](#cfapp-logs)
+
+#### Troubleshooting steps and potential solutions
+
+1. To debug the application's code, check the [application logs](#cfapp-logs).
 1. To debug applications that fail to be scheduled, check the [Kubernetes System Logs](#system-events) and the [StatefulSet](#system-object-types) status in the CFSpace namespace.
-1. Walk through the list of [run app object types](#system-object-types) and check if any objects are missing. For any missing objects, check the logs of the [Tanzu Application Platform](#tap-logs) or [Application Service Adapter](#application-logs) component listed in the "Created By" column to see if there are any error messages.
-1. If the component listed in the "Created By" column does not have any helpful error messages, identify the previous object in the run app chain and check the logs of the component listed in the "Reconciled By" column to see if there are any error messages.
+1. Walk through the list of [run app object types](#system-object-types) and check if any objects are missing. For any missing objects, check the logs of the [Tanzu Application Platform](#tap-logs) or [Application Service Adapter](#application-logs) component listed in the **Created By** column to see if there are any error messages.
+1. If the component listed in the **Created By** column does not have any helpful error messages, identify the previous object in the run app chain and check the logs of the component listed in the **Reconciled By** column to see if there are any error messages.
 
 ### Deployed apps fail to become routable
-#### Symptom
-When I run `cf push`, my app stages and runs, but fails to be routable.
-#### Possible Causes
-1. There is an issue with the Application Service Adapter Deployments
-1. There is an issue with the cluster's routing.
-#### Troubleshooting Steps/Potential Solutions
-1. Check the [logs](#application-logs) for the `korifi-controllers-controller-manager` and see if there is any additional information.
-1. Check the status of the [CFRoute](#system-object-types) corresponding to the app's route in the CFSpace namespace and see if there are any error messages.
-2. Check the status of the [HTTPProxy](#system-object-types) corresponding to the app's route in the CFSpace namespace and see if there are any error messages.
 
-## <a id="openshift-failure-scenarios"></a>OpenShift Failure Scenarios
+#### Symptom
+
+When I run `cf push`, my app stages and runs, but fails to be routable.
+
+#### Possible causes
+
+1. There is an issue with the Application Service Adapter Deployments.
+1. There is an issue with the cluster's routing.
+
+#### Troubleshooting steps and potential solutions
+
+1. Check the [logs](#application-logs) for the `korifi-controllers-controller-manager` to see if there is any additional information.
+2. Check the status of the [CFRoute](#system-object-types) corresponding to the app's route in the CFSpace namespace to see if there are any error messages.
+3. Check the status of the [HTTPProxy](#system-object-types) corresponding to the app's route in the CFSpace namespace to see if there are any error messages.
+
+## <a id="openshift-failure-scenarios"></a>OpenShift failure scenarios
 
 This section contains common failure scenarios specific to operation on the OpenShift platform and describes the appropriate troubleshooting techniques that can be used to gather further information and solve the issue.
 
-### OpenShift Setting
-The OpenShift installation setting for Application Service Adapter can be set in the `tas-adapter-values.yml` as described [here](install.md).
+### OpenShift setting
+
+The OpenShift installation setting for Application Service Adapter can be set in the `tas-adapter-values.yml` as described in [Install Application Service Adapter](install.md).
 
 ### Installing the Application Service Adapter on a non-OpenShift Kubernetes distribution fails
+
 #### Symptom
+
 When I install the Application Service Adapter on a non-OpenShift cluster, I get the following error message:
+
 ```bash
 kapp: Error: Expected to find kind 'security.openshift.io/v1/SecurityContextConstraints', but did not:
 - Kubernetes API server did not have matching apiVersion + kind
 - No matching CRD was found in given configuration
 ```
-#### Possible Causes
+
+#### Possible causes
+
 The OpenShift setting is enabled.
-#### Troubleshooting Steps/Potential Solutions
-Creating the SecurityContextConstraint will fail on a non-OpenShift cluster because the SecurityContextConstraint CRD is only present on OpenShift. Reinstall Application Service Adapter with the OpenShift setting turned off.
+
+#### Troubleshooting steps and potential solutions
+
+Creating the SecurityContextConstraint faila on a non-OpenShift cluster because the SecurityContextConstraint CRD is only present on OpenShift. Reinstall Application Service Adapter with the OpenShift setting turned off.
 
 ### Installing the Application Service Adapter on an OpenShift Kubernetes distribution fails
+
 #### Symptom
+
 When I install the Application Service Adapter on an OpenShift cluster, I get the following error message:
+
 ```bash
 1:41:32PM:  ^ Retryable error: Creating resource cfdomain/apps.openshift-aro.k8s-dev.relint.rocks (korifi.cloudfoundry.org/v1alpha1) namespace: cf: API server says: Internal error occurred: failed calling webhook "vcfdomain.korifi.cloudfoundry.org": failed to call webhook: Post "https://korifi-controllers-webhook-service.tas-adapter-system.svc:443/validate-korifi-cloudfoundry-org-v1alpha1-cfdomain?timeout=10s": no endpoints available for service "korifi-controllers-webhook-service" (reason: InternalError)
 ```
-#### Possible Causes
+
+#### Possible causes
+
 The OpenShift setting is not enabled.
-#### Troubleshooting Steps/Potential Solutions
-Without the SecurityContextConstraint/ClusterRole/ClusterRoleBinding/RoleBinding, the Application Service Adapter deployments will not be able to deploy Pods.
+
+#### Troubleshooting steps and potential solutions
+
+Without the SecurityContextConstraint/ClusterRole/ClusterRoleBinding/RoleBinding, the Application Service Adapter deployments are not able to deploy pods.
+
 1. Query the [Application Service Adapter Deployments](#system-object-types) and check if their `Ready` counts are listed as `0/0`.
-1. Reinstall Application Service Adapter with the OpenShift setting enabled.
+2. Reinstall Application Service Adapter with the OpenShift setting enabled.
 
 ### Pushing an app on an OpenShift cluster fails to start
+
 #### Symptom
+
 When I run `cf push` on an OpenShift cluster, my app stages correctly, but fails to start or become healthy.
-#### Possible Causes
+
+#### Possible causes
+
 The ServiceAccount being used by the StatefulSets does not have permission to create pods.
-#### Troubleshooting Steps/Potential Solutions
-1. Query the [StatefulSet](#system-object-types) and check if their `Ready` counts are listed as `0/0`.
+
+#### Troubleshooting steps and potential solutions
+
+1. Query the [StatefulSet](#system-object-types) to check if their `Ready` counts are listed as `0/0`.
 1. Verify that the `ServiceAccount` field is set to `korifi-app`.
 1. Verify that there is a RoleBinding in the CFSpace namespace that links `system:tas-adapter:scc:tas-adapter-scc` to `korifi-app`.
 1. If any of those objects are not present, reinstall Application Service Adapter with the OpenShift setting enabled.
 
-## <a id="cartographer-failure-scenarios"></a>Cartographer Failure Scenarios
+## <a id="cartographer-failure-scenarios"></a>Cartographer failure scenarios
 
 This section contains common failure scenarios specific to the use of the experimental optional Cartographer feature and describes the appropriate troubleshooting techniques that can be used to gather further information and solve the issue.
 
-### Cartographer Setting
-The experimental Cartographer installation setting for the Application Service Adapter can be set in the `tas-adapter-values.yml` as described [here](install.md)
+### Cartographer setting
+
+The experimental Cartographer installation setting for the Application Service Adapter can be set in the `tas-adapter-values.yml` as described [Install Application Service Adapter](install.md)
 
 ### Pushing an app fails to start
+
 #### Symptom
+
 When I run `cf push`, my app stages correctly, but fails to start or become healthy.
-#### Possible Causes
+
+#### Possible causes
+
 There is a failure in the `cartographer-builder-runner-controller-manager`, the SupplyChain, or the `cartographer-ctrl`.
-#### Troubleshooting Steps/Potential Solutions
-1. Check the status of the [Workload](#system-object-types) and see if there are any error messages.
-1. Check the status of the [BuildWorkload](#system-object-types) and see if there are any error messages.
-1. Check the status of the [AppWorkload](#system-object-types) and see if there are any error messages.
-1. Check the [logs](#application-logs) for the `cartographer-builder-runner-controller-manager` and see if there is any additional information.
+
+#### Troubleshooting steps and potential solutions
+
+1. Check the status of the [Workload](#system-object-types) to see if there are any error messages.
+1. Check the status of the [BuildWorkload](#system-object-types) to see if there are any error messages.
+1. Check the status of the [AppWorkload](#system-object-types) to see if there are any error messages.
+1. Check the [logs](#application-logs) for the `cartographer-builder-runner-controller-manager` to see if there is any additional information.
 1. Verify that there is a cluster-scoped [SupplyChain](#system-object-types) present.
-1. Check the [logs](#tap-logs) for the `cartographer-ctrl` and see if there is any additional information.
+1. Check the [logs](#tap-logs) for the `cartographer-ctrl` to see if there is any additional information.

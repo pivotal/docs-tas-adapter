@@ -4,11 +4,11 @@ This topic collects documentation related to the generic techniques for diagnosi
 
 ## <a id="generic-troubleshooting-techniques"></a>Generic Troubleshooting Techniques
 
-This section contains generic techniques that can be used to gather information about the status of the Application Service Adapter to aid in troubleshooting. We recommend keeping up to date with the latest version of the Application Service Adapter to get access to the latest bug fixes and stability improvements.
+This section contains generic techniques for gathering information about the status of Application Service Adapter to aid in troubleshooting. VMware recommends keeping up to date with the latest version of Application Service Adapter to get the latest bug fixes and stability improvements.
 
-### <a id="application-logs"></a>Application Service Adapter Logs
+### <a id="application-logs"></a>Application Service Adapter logs
 
-There are several Application Service Adapter deployments whose logs can be queried to gather information on failures that have occurred in the system.
+You can query the logs of several Application Service Adapter deployments to gather information about failures that have occurred in the system.
 
 To fetch recent logs from all components of an Application Service Adapter installation:
 
@@ -21,7 +21,7 @@ To fetch recent logs from a specific deployment:
     ```bash
     kapp logs --app tas-adapter.app -n tap-install --pod-name DEPLOYMENT-NAME%
     ```
-    Where DEPLOYMENT-NAME is the name of the Kubernetes Deployment (e.g.
+    Where DEPLOYMENT-NAME is the name of the Kubernetes deployment. For example,
     "korifi-api-deployment").
 
 To stream logs instead of fetching the most recent logs, add the `--follow` flag to the above `kapp logs` commands.
@@ -29,40 +29,39 @@ For additional details and options, refer to the `kapp logs --help` help text.
 
 #### Deployments
 
-The following is a brief description of the specific Application Service Adapter deployments and what their main responsibilities are to help isolate which logs to query when troubleshooting.
+The following is a brief description of specific Application Service Adapter deployments and their main responsibilities. This can help you isolate which logs to query when troubleshooting.
 
-1. The `korifi-api-deployment` deployment is tasked with responding to API requests sent to the Application Service Adapter. Logs for failures related to the image registry may also show up in this Deployment's logs.
-2. The `korifi-controllers-controller-manager` deployment is tasked with processing commands for the Application Service Adapter. This Deployment's logs is an excellent starting point when debugging failures as most commands flow through here before being processed by more specific components (with the exception of API commands that fail before getting to the controller manager).
+1. The `korifi-api-deployment` deployment is tasked with responding to API requests sent to the Application Service Adapter. Logs for failures related to the image registry may also show up in this deployment's logs.
+2. The `korifi-controllers-controller-manager` deployment is tasked with processing commands for Application Service Adapter. This deployment's logs is an excellent starting point when debugging failures. Most commands flow through here before being processed by more specific components, with the exception of API commands that fail before getting to the controller manager.
 3. The `tas-adapter-telemetry-informer` deployment is tasked with handling all outgoing telemetry.
-4. The `korifi-kpack-build-controller-manager` deployment is tasked with building Images when using the default builder/runner flow.
+4. The `korifi-kpack-build-controller-manager` deployment is tasked with building images when using the default builder/runner flow.
 5. The `korifi-statefulset-runner-controller-manager` deployment is tasked with generating StatefulSets for apps when using the default builder/runner flow.
-6. The `korifi-job-task-runner-controller-manager` deployment is tasked with handling all task related functionality.
-7. The `cartographer-builder-runner-controller-manager` deployment is tasked with creating Cartographer Workloads for apps when using the experimental Cartographer builder/runner flow.
+6. The `korifi-job-task-runner-controller-manager` deployment is tasked with handling all task-related functionality.
+7. The `cartographer-builder-runner-controller-manager` deployment is tasked with creating Cartographer workloads for apps when using the experimental Cartographer builder/runner flow.
 
-### <a id="tap-logs"></a>TAP Logs
+### <a id="tap-logs"></a>Tanzu Application Platform logs
 
-While not directly part of the Application Service Adapter, there are several TAP deployments that are utilized by the Application Service Adapter and can also provide further debug information on failures that occur.
+While not directly part of Application Service Adapter, there are several Tanzu Application Platform deployments utilized by Application Service Adapter. These can also provide further debug information on failures.
 
-To fetch recent logs from a given TAP application:
+To fetch recent logs from a given Tanzu Application Platform application, run:
 
     ```bash
     kapp logs --app APP-NAME -n tap-install
     ```
-    Where APP-NAME is the name of the TAP application (e.g.
-    "buildservice.app").
+    Where APP-NAME is the name of the Tanzu Application Platform application. For example, "buildservice.app").
 
 To stream logs instead of fetching the most recent logs, add the `--follow` flag to the above `kapp logs` command.
 For additional details and options, refer to the `kapp logs --help` help text.
 
 #### Deployments
 
-The following is a brief description of the specific TAP deployments used by the Application Service Adapter and what their main responsibilities are to help determine which logs to query when troubleshooting.
+The following is a brief description of the specific Tanzu Application Platform deployments used by Application Service Adapter and what their main responsibilities are to help determine which logs to query when troubleshooting.
 
-1. The `buildservice.app` application is tasked with processing Tanzu Build Service (kpack) commands. If any failures in the build image process occurs in Tanzu Build Service itself, see the application logs for further information.
-2. The `contour.app` application is tasked with creating an ingress into the system. If a failure to connect to the Application Service Adapter or an Application occurs, see the application logs for further information.
-3. The `cartographer.app` application is tasked with processing Cartographer ClusterSupplyChains when using the experimental Cartographer builder/runner flow. If creation of an Image, Build, ConfigMap, or StatefulSet fails, see the application logs for further information.
+1. The `buildservice.app` application is tasked with processing Tanzu Build Service (kpack) commands. If failures in the build image process occur in Tanzu Build Service itself, see the application logs for further information.
+2. The `contour.app` application is tasked with creating an ingress into the system. If you fail to connect to Application Service Adapter or to an application, see the application logs for further information.
+3. The `cartographer.app` application is tasked with processing Cartographer ClusterSupplyChains when using the experimental Cartographer builder/runner flow. If creation of an image, build, ConfigMap, or StatefulSet fails, see the application logs for further information.
 
-### <a id="cfapp-logs"></a>CFApp Logs
+### <a id="cfapp-logs"></a>CFApp logs
 
 For CFApps that have been staged, the cf logs command can be used to get more information in the event of run failures:
 
@@ -70,23 +69,23 @@ For CFApps that have been staged, the cf logs command can be used to get more in
 cf logs <CFApp name>
 ```
 
-### <a id="system-events"></a>Kubernetes System Events
+### <a id="system-events"></a>Kubernetes system events
 
-Kubernetes system events can provide debug information in cases where system restrictions prevent objects from being created. These events may be caused by insufficient resources or evicted pods, for example. The logs for the system can be queried with the following command:
+Kubernetes system events can provide debug information in cases where system restrictions prevent objects from being created. For example, these events may be caused by insufficient resources or evicted pods. To query the logs for the system, run:
 
 ```bash
 kubectl get events -A
 ```
 
-### <a id="system-object-types"></a>System Object Types
+### <a id="system-object-types"></a>System object types
 
 System objects created and used by Application Service Adapter can be useful in debugging failures. Describing the objects can show error messages in their status fields.
 Whether objects are present can also be useful in determining where in the command process failures have occurred and which logs should be queried for more information.
 
-For example, if an object in the image build chain is missing, the component in the "Created By" column can be queried for logs to see if any useful error messages are present.
+For example, if an object in the image build chain is missing, the component in the "Created By" column can be queried for logs to see whether any useful error messages are present.
 If no useful logs are found there, identify the previous object in the image build chain and check the logs of the component listed in the "Reconciled By" column to see if there are any error messages.
 
-Instructions for querying logs can be found for [Application Service Adapter](#application-logs) and [TAP](#tap-logs).
+Instructions for querying logs can be found for [Application Service Adapter](#application-logs) and [Tanzu Application Platform](#tap-logs).
 
 Some Kubernetes objects exist within a CFOrg or CFSpace namespace. To find the corresponding namespace of a CFOrg or CFSpace, run:
 
@@ -98,14 +97,14 @@ cf space --guid <CFSpace name>
 #### Installed Object Types
 | Kind                      | Component    | Namespace or Scope   | Notes                                                                                                                                                                                                                                                                                                                                                                                |
 |---------------------------|--------------|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ClusterBuilder            | kpack        | Cluster              | ClusterBuilders are Tanzu Build Service (kpack) components installed by TAP that are used to build images. If they are not present, image builds may not complete successfully.                                                                                                                                                                                                      |
-| Deployment                | kubernetes   | `tas-adapter-system` | All of the Application Service Adapter Deployment's `Ready` counts should be listed as `1/1` except for `korifi-api-deployment` which should be `2/2`. Should this not be the case, the system is not functioning correctly and the status/events fields of the inoperable Deployment should be analyzed. This issue can sometimes be related to RBAC.                               |
+| ClusterBuilder            | kpack        | Cluster              | ClusterBuilders are Tanzu Build Service (kpack) components installed by Tanzu Application Platform that are used to build images. If they are not present, image builds may not complete successfully.                                                                                                                                                                                                      |
+| Deployment                | kubernetes   | `tas-adapter-system` | All of the Application Service Adapter deployment's `Ready` counts should be listed as `1/1` except for `korifi-api-deployment` that should be `2/2`. If this is not the case, the system is not functioning correctly. To find the cause, analyze the status/events fields of the inoperable deployment. This issue can sometimes be related to RBAC.                               |
 | ClusterRole               | kubernetes   | Cluster              | ClusterRoles are created to manage system privileges at the cluster scope.                                                                                                                                                                                                                                                                                                           |
 | ClusterRoleBinding        | kubernetes   | Cluster              | ClusterRoleBindings are created to manage system privileges at the cluster scope.                                                                                                                                                                                                                                                                                                    |
-| ServiceAccount            | kubernetes   | `cf`                 | ServiceAccounts are created to manage CF permissions. Some ServiceAccounts are designed to be propagated to CFOrg/CFSpace namespaces. These objects will be designated with the `cloudfoundry.org/propagate-service-account: "true"` annotation.                                                                                                                                     |
-| RoleBinding               | kubernetes   | `cf`                 | RoleBindings are created to manage CF permissions. Some RoleBindings are designed to be propagated to CFOrg/CFSpace namespaces. These objects will be designated with the `cloudfoundry.org/propagate-cf-role: "true"` annotation.                                                                                                                                                   |
-| SecurityContextConstraint | openshift    | Cluster              | SecurityContextConstraints are specific to OpenShift and are used to grant required permissions to Application Service Adapter components in that environment. These CRDs do not exist in non-OpenShift environments. An associated ClusterRole, ClusterRoleBinding, and RoleBinding will also be installed if the `kubernetes_distribution` shared setting is set to `openshift`.   |
-| ClusterSupplyChain        | Cartographer | Cluster              | When using the experimental Cartographer builder/runner flow, a ClusterSupplyChain is created during Application Service Adapter installation at the cluster scope. This is what the `cartographer-ctrl` uses to creates the Image, Build, ConfigMap, and StatefulSets in the builder/runner flow.                                                                                   |
+| ServiceAccount            | kubernetes   | `cf`                 | ServiceAccounts are created to manage CF permissions. Some ServiceAccounts are designed to be propagated to CFOrg/CFSpace namespaces. These objects are designated with the `cloudfoundry.org/propagate-service-account: "true"` annotation.                                                                                                                                     |
+| RoleBinding               | kubernetes   | `cf`                 | RoleBindings are created to manage CF permissions. Some RoleBindings are designed to be propagated to CFOrg/CFSpace namespaces. These objects are designated with the `cloudfoundry.org/propagate-cf-role: "true"` annotation.                                                                                                                                                   |
+| SecurityContextConstraint | openshift    | Cluster              | SecurityContextConstraints are specific to OpenShift and are used to grant required permissions to Application Service Adapter components in that environment. These CRDs do not exist in non-OpenShift environments. An associated ClusterRole, ClusterRoleBinding, and RoleBinding is also installed if the `kubernetes_distribution` shared setting is set to `openshift`.   |
+| ClusterSupplyChain        | Cartographer | Cluster              | When using the experimental Cartographer builder/runner flow, a ClusterSupplyChain is created during Application Service Adapter installation at the cluster scope. The `cartographer-ctrl` uses this to creates the image, build, ConfigMap, and StatefulSets in the builder/runner flow.                                                                                   |
 
 #### CFOrg/CFSpace Object Types
 | Kind            | Component | Namespace or Scope | Created By                   | Reconciled By                                      | Notes                                                                                                                                                                    |
@@ -118,106 +117,127 @@ All image build object types are located within the targeted CFSpace Namespace.
 
 | Kind                        | Component | Created By                              | Reconciled By                                | Notes                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 |-----------------------------|-----------|-----------------------------------------|----------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CFApp                       | CF        | `korifi-api-deployment`                 | `korifi-controllers-controller-manager`      | The 1st object in the image build chain that's created when the `cf push` command is run. The CFApp resource represents the Application.                                                                                                                                                                                                                                                                                                 |
+| CFApp                       | CF        | `korifi-api-deployment`                 | `korifi-controllers-controller-manager`      | The 1st object in the image build chain that's created when the `cf push` command is run. The CFApp resource represents the application.                                                                                                                                                                                                                                                                                                 |
 | CFPackage                   | CF        | `korifi-api-deployment`                 | `korifi-controllers-controller-manager`      | The 2nd object in the image build chain that's created when the `cf push` command is run. The CFPackage resource contains a reference to the uploaded app source code.                                                                                                                                                                                                                                                                   |
 | CFBuild                     | CF        | `korifi-api-deployment`                 | `korifi-controllers-controller-manager`      | The 3rd object in the image build chain that's created when the `cf push` command is run. The CFBuild resource initiates the build and eventually contains a reference to the runnable app image.                                                                                                                                                                                                                                        |
 | BuildWorkload               | CF        | `korifi-controllers-controller-manager` | `korifi-kpack-build-controller-manager`      | The 4th object in the image build chain that's created when the `cf push` command is run. The BuildWorkload is an intermediate resource that contains information about the build.                                                                                                                                                                                                                                                       |
-| Image                       | kpack     | `korifi-kpack-build-controller-manager` | `buildservice-ctrl`                          | The 5th object in the image build chain that's created when the `cf push` command is run. The full object path for Image objects are kpack.io/v1alpha2/images. This may need to be specified when querying in certain environments like OpenShift since there are other resources with the same name. The Image is a kpack resource that provides configuration to build and maintain a docker image utilizing Cloud Native Buildpacks.  |
-| Build                       | kpack     | `buildservice-ctrl`                     | NA                                           | The 6th object in the image build chain that's created when the `cf push` command is run. The full object path for Build objects are kpack.io/v1alpha2/builds. This may need to be specified when querying in certain environments like OpenShift since there are other resources with the same name. The Build is a kpack resource that schedules and runs a single Cloud Native Buildpacks build. The Build object spawns a build Pod. |
+| Image                       | kpack     | `korifi-kpack-build-controller-manager` | `buildservice-ctrl`                          | The 5th object in the image build chain that's created when the `cf push` command is run. The full object path for image objects are kpack.io/v1alpha2/images. This may need to be specified when querying in certain environments like OpenShift since there are other resources with the same name. The image is a kpack resource that provides configuration to build and maintains a docker image utilizing Cloud Native Buildpacks.  |
+| Build                       | kpack     | `buildservice-ctrl`                     | NA                                           | The 6th object in the image build chain that's created when the `cf push` command is run. The full object path for build objects are kpack.io/v1alpha2/builds. This may need to be specified when querying in certain environments like OpenShift since there are other resources with the same name. The build is a kpack resource that schedules and runs a single Cloud Native Buildpacks build. The build object spawns a build pod. |
 
 #### Run App Object Types (Default Builder/Runner)
-All run app object types are located within the targeted CFSpace Namespace.
+All run app object types are located within the targeted CFSpace namespace.
 
 | Kind         | Component  | Created By                                     | Reconciled By                                  | Notes                                                                                                                                                                                                                                 |
 |--------------|------------|------------------------------------------------|------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CFProcess    | CF         | `korifi-api-deployment`                        | `korifi-controllers-controller-manager`        | The 1st object in the app run chain that's created when the `cf push` command is run. The CFProcess resource represents a single Process.                                                                                             |
-| AppWorkload  | CF         | `korifi-controllers-controller-manager`        | `korifi-statefulset-runner-controller-manager` | The 2nd object in the app run chain that's created when the `cf push` command is run. The AppWorkload is an intermediate resource that contains information about the Application/Process.                                            |
-| StatefulSet  | Kubernetes | `korifi-statefulset-runner-controller-manager` | NA                                             | The 3rd object in the app run chain that's created when the `cf push` command is run. The StatefulSet is a Kubernetes resource that represents a single Process for an Application. There should be a StatefulSet for each CFProcess. |
-| ReplicaSet   | Kubernetes | Kubernetes                                     | NA                                             | The 4th object in the app run chain that's created when the `cf push` command is run. The ReplicaSet is created by Kubernetes to maintain a stable set of replica Pods for the StatefulSet.                                           |
-| Pod          | Kubernetes | Kubernetes                                     | NA                                             | The App Process Pods are last in the app run chain and created by Kubernetes based on the ReplicaSet. The number of Pods are based on the ReplicaSet replicas parameter.                                                              |
+| CFProcess    | CF         | `korifi-api-deployment`                        | `korifi-controllers-controller-manager`        | The 1st object in the app run chain that's created when the `cf push` command is run. The CFProcess resource represents a single process.                                                                                             |
+| AppWorkload  | CF         | `korifi-controllers-controller-manager`        | `korifi-statefulset-runner-controller-manager` | The 2nd object in the app run chain that's created when the `cf push` command is run. The AppWorkload is an intermediate resource that contains information about the application/process.                                            |
+| StatefulSet  | Kubernetes | `korifi-statefulset-runner-controller-manager` | NA                                             | The 3rd object in the app run chain that's created when the `cf push` command is run. The StatefulSet is a Kubernetes resource that represents a single process for an application. There should be a StatefulSet for each CFProcess. |
+| ReplicaSet   | Kubernetes | Kubernetes                                     | NA                                             | The 4th object in the app run chain that's created when the `cf push` command is run. The ReplicaSet is created by Kubernetes to maintain a stable set of replica pods for the StatefulSet.                                           |
+| Pod          | Kubernetes | Kubernetes                                     | NA                                             | The app process pods are last in the app run chain and created by Kubernetes based on the ReplicaSet. The number of pods are based on the ReplicaSet replicas parameter.                                                              |
 | CFRoute      | CF         | `korifi-api-deployment`                        | `korifi-controllers-controller-manager`        | CFRoutes are created to be able to reach running apps. They can be created as part of the `cf push` command if a default or random route is specified, defined in a manifest, or as part of the `cf create-route` command.            |
- | HTTPProxy    | contour    | `korifi-controllers-controller-manager`        | NA                                             | The HTTPProxy is a Contour resource that is created by the `korifi-controllers-controller-manager` to reach running apps.                                                                                                             |
+ | HTTPProxy    | contour    | `korifi-controllers-controller-manager`        | NA                                             | The HTTPProxy is a Contour resource created by the `korifi-controllers-controller-manager` to reach running apps.                                                                                                             |
 
 
 #### Image Build Object Types (Cartographer Builder/Runner)
-All image build object types are located within the targeted CFSpace Namespace.
+All image build object types are located within the targeted CFSpace namespace.
 
 | Kind             | Component     | Created By                                       | Reconciled By                                    | Notes                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 |------------------|---------------|--------------------------------------------------|--------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CFApp            | CF            | `korifi-api-deployment`                          | `korifi-controllers-controller-manager`          | The 1st object in the image build chain that's created when the `cf push` command is run.  The CFApp resource represents the Application.                                                                                                                                                                                                                                                                                                |
+| CFApp            | CF            | `korifi-api-deployment`                          | `korifi-controllers-controller-manager`          | The 1st object in the image build chain that's created when the `cf push` command is run.  The CFApp resource represents the application.                                                                                                                                                                                                                                                                                                |
 | CFPackage        | CF            | `korifi-api-deployment`                          | `korifi-controllers-controller-manager`          | The 2nd object in the image build chain that's created when the `cf push` command is run. The CFPackage resource contains a reference to the uploaded app source code.                                                                                                                                                                                                                                                                   |
 | CFBuild          | CF            | `korifi-api-deployment`                          | `korifi-controllers-controller-manager`          | The 3rd object in the image build chain that's created when the `cf push` command is run. The CFBuild resource initiates the build and eventually contains a reference to the runnable app image.                                                                                                                                                                                                                                        |
 | BuildWorkload    | CF            | `korifi-controllers-controller-manager`          | `cartographer-builder-runner-controller-manager` | The 4th object in the image build chain that's created when the `cf push` command is run. The BuildWorkload is an intermediate resource that contains information about the build.                                                                                                                                                                                                                                                       |
-| Workload         | Cartographer  | `cartographer-builder-runner-controller-manager` | `cartographer-ctrl`                              | The 5th object in the image build chain that's created when the `cf push` command is run. The Workload is a Cartographer resource that contains information used by the `buildservice-ctrl` in conjunction with the SupplyChain to create an Image and later a ConfigMap containing the StatefulSet definition.                                                                                                                          |
-| Image            | kpack         | `cartographer-ctrl`                              | `buildservice-ctrl`                              | The 6th object in the image build chain that's created when the `cf push` command is run. The full object path for Image objects are kpack.io/v1alpha2/images. This may need to be specified when querying in certain environments like OpenShift since there are other resources with the same name. The Image is a kpack resource that provides configuration to build and maintain a docker image utilizing Cloud Native Buildpacks.  |
-| Build            | kpack         | `buildservice-ctrl`                              | NA                                               | The 7th object in the image build chain that's created when the `cf push` command is run. The full object path for Build objects are kpack.io/v1alpha2/builds. This may need to be specified when querying in certain environments like OpenShift since there are other resources with the same name. The Build is a kpack resource that schedules and runs a single Cloud Native Buildpacks build. The Build object spawns a build Pod. |
+| Workload         | Cartographer  | `cartographer-builder-runner-controller-manager` | `cartographer-ctrl`                              | The 5th object in the image build chain that's created when the `cf push` command is run. The workload is a Cartographer resource that contains information used by the `buildservice-ctrl` in conjunction with the SupplyChain to create an image and later a ConfigMap containing the StatefulSet definition.                                                                                                                          |
+| Image            | kpack         | `cartographer-ctrl`                              | `buildservice-ctrl`                              | The 6th object in the image build chain that's created when the `cf push` command is run. The full object path for image objects are kpack.io/v1alpha2/images. This may need to be specified when querying in certain environments like OpenShift since there are other resources with the same name. The image is a kpack resource that provides configuration to build and maintain a docker image utilizing Cloud Native Buildpacks.  |
+| Build            | kpack         | `buildservice-ctrl`                              | NA                                               | The 7th object in the image build chain that's created when the `cf push` command is run. The full object path for build objects are kpack.io/v1alpha2/builds. This may need to be specified when querying in certain environments like OpenShift since there are other resources with the same name. The build is a kpack resource that schedules and runs a single Cloud Native Buildpacks build. The build object spawns a build pod. |
 
 #### Run App Object Types (Cartographer Builder/Runner)
-All run app object types are located within the targeted CFSpace Namespace.
+All run app object types are located within the targeted CFSpace namespace.
 
 | Kind        | Component  | Created By                                     | Reconciled By                                    | Notes                                                                                                                                                                                                                                                                                                                                                          |
 |-------------|------------|------------------------------------------------|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CFProcess   | CF         | `korifi-api-deployment`                        | `korifi-controllers-controller-manager`          | The 1st object in the app run chain that's created when the `cf push` command is run. The CFProcess resource represents a single Process.                                                                                                                                                                                                                      |
-| AppWorkload | CF         | `korifi-controllers-controller-manager`        | `cartographer-builder-runner-controller-manager` | The 2nd object in the app run chain that's created when the `cf push` command is run.  The AppWorkload is an intermediate resource that contains information about the Application/Process. `cartographer-builder-runner-controller-manager` edits the Cartographer Workload created during the image build process with the information from the AppWorkload. |
+| CFProcess   | CF         | `korifi-api-deployment`                        | `korifi-controllers-controller-manager`          | The 1st object in the app run chain that's created when the `cf push` command is run. The CFProcess resource represents a single process.                                                                                                                                                                                                                      |
+| AppWorkload | CF         | `korifi-controllers-controller-manager`        | `cartographer-builder-runner-controller-manager` | The 2nd object in the app run chain that's created when the `cf push` command is run.  The AppWorkload is an intermediate resource that contains information about the application/process. `cartographer-builder-runner-controller-manager` edits the Cartographer workload created during the image build process with the information from the AppWorkload. |
 | ConfigMap   | Kubernetes | `cartographer-ctrl`                            | NA                                               | The 3rd object in the app run chain that's created when the `cf push` command is run. A Kubernetes ConfigMap resource containing the StatefulSet definition is created that `cartographer-ctrl` uses to spawns a StatefulSet by means of kapp.                                                                                                                 |
-| StatefulSet | Kubernetes | `cartographer-ctrl`                            | NA                                               | The 4th object in the app run chain that's created when the `cf push` command is run. The StatefulSet is a Kubernetes resource that represents a single Process for an Application. There should be a StatefulSet for each CFProcess.                                                                                                                          |
-| ReplicaSet  | Kubernetes | Kubernetes                                     | NA                                               | The 5th object in the app run chain that's created when the `cf push` command is run. The ReplicaSet is created by Kubernetes to maintain a stable set of replica Pods for the StatefulSet.                                                                                                                                                                    |
-| Pod         | Kubernetes | Kubernetes                                     | NA                                               | The App Process Pods are last in the app run chain and created by Kubernetes based on the ReplicaSet. The number of Pods are based on the ReplicaSet replicas parameter.                                                                                                                                                                                       |
+| StatefulSet | Kubernetes | `cartographer-ctrl`                            | NA                                               | The 4th object in the app run chain that's created when the `cf push` command is run. The StatefulSet is a Kubernetes resource that represents a single process for an application. There should be a StatefulSet for each CFProcess.                                                                                                                          |
+| ReplicaSet  | Kubernetes | Kubernetes                                     | NA                                               | The 5th object in the app run chain that's created when the `cf push` command is run. The ReplicaSet is created by Kubernetes to maintain a stable set of replica pods for the StatefulSet.                                                                                                                                                                    |
+| Pod         | Kubernetes | Kubernetes                                     | NA                                               | The app process pods are last in the app run chain and created by Kubernetes based on the ReplicaSet. The number of pods are based on the ReplicaSet replicas parameter.                                                                                                                                                                                       |
 | CFRoute     | CF         | `korifi-api-deployment`                        | `korifi-controllers-controller-manager`          | CFRoutes are created to be able to reach running apps. They can be created as part of the `cf push` command if a default or random route is specified, defined in a manifest, or as part of the `cf create-route` command.                                                                                                                                     |
 | HTTPProxy   | contour    | `korifi-controllers-controller-manager`        | NA                                               | The HTTPProxy is a Contour resource that is created by the `korifi-controllers-controller-manager` to reach running apps.                                                                                                                                                                                                                                      |
 
 #### Run Task Object Types
-All run task object types are located within the targeted CFSpace Namespace.
+All run task object types are located within the targeted CFSpace namespace.
 
 | Kind         | Component  | Created By                                  | Reconciled By                                | Notes                                                                                                                                                |
 |--------------|------------|---------------------------------------------|----------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
 | CFTask       | CF         | `korifi-api-deployment`                     | `korifi-controllers-controller-manager`      | The 1st object in the run task chain that's created when the `cf run-task` command is run.                                                           |
 | TaskWorkload | CF         | `korifi-controllers-controller-manager`     | `korifi-job-task-runner-controller-manager`  | The 2nd object in the run task chain that's created when the `cf run-task` command is run.                                                           |
 | Job          | Kubernetes | `korifi-job-task-runner-controller-manager` | NA                                           | The 3rd object in the run task chain that's created when the `cf run-task` command is run.                                                           |
-| Pod          | Kubernetes | Kubernetes                                  | NA                                           | The running Job Pods are last in the run task chain and created by Kubernetes based on the Job. The Job Pod will complete when its command is run.   |
+| Pod          | Kubernetes | Kubernetes                                  | NA                                           | The running job pods are last in the run task chain and created by Kubernetes based on the job. The job pod completes when its command is run.   |
 
-## <a id="commmon-failure-scenarios"></a>Common Failure Scenarios
+## <a id="commmon-failure-scenarios"></a>Common failure scenarios
 
-This section contains common failure scenarios and describes the appropriate troubleshooting techniques that can be used to gather further information and solve the issue.
+This section contains common failure scenarios and describes the appropriate troubleshooting techniques you can use to gather further information and solve the issue.
 
 ### Installation failed to finish successfully
+
 #### Symptom
+
 When I install Application Service Adapter, the following error message is returned:
+
 ```bash
 Finished unsuccessfully (Encountered failure condition ReconcileFailed == True:  (message: No matching export/secret))
 ```
+
 #### Possible Causes
+
 1. The `Secret` for the application image registry does not exist.
-2. The `SecretExport` to copy the above Secret to the `cf` namespace does not exist.
-#### Troubleshooting Steps/Potential Solutions
+2. The `SecretExport` to copy the above secret to the `cf` namespace does not exist.
+
+#### Troubleshooting steps and potential solutions
+
 1. Verify that both the `Secret` and `SecretExport` exist by following steps 3 and 4 in the ["Configure the installation settings"](install.md#configure-installation-settings) section of the installation docs.
 
-### Organization not found when creating an Org.
+### Organization not found when creating an Org
+
 #### Symptom
+
 When I run `cf create org my-org`, the following error message is returned:
+
 ```bash
 Organization 'my-org' not found
 ```
-#### Possible Causes
+
+#### Possible causes
+
 The user creating the CFOrg is not bound to the `korifi-controllers-admin` ClusterRole.
-#### Troubleshooting Steps/Potential Solutions
+
+#### Troubleshooting steps and potential solutions
+
 1. Verify the user in the `cf create org` command output.
+
 ```bash
 Creating org my-org as cf-admin...
 ```
-1. Verify that there is a RoleBinding in the `cf` namespace binding the `korifi-controllers-admin` ClusterRole to the given user and that it has the `cloudfoundry.org/propagate-cf-role: "true"` annotation.
-1. If that RoleBinding does not exist, either switch to a user that is bound to the `korifi-controllers-admin` ClusterRole or create a RoleBinding as a cluster admin.
 
-### Dev User unauthorized to target an Org or Space
+1. Verify that there is a RoleBinding in the `cf` namespace binding the `korifi-controllers-admin` ClusterRole to the given user and that it has the `cloudfoundry.org/propagate-cf-role: "true"` annotation.
+2. If that RoleBinding does not exist, either switch to a user that is bound to the `korifi-controllers-admin` ClusterRole or create a RoleBinding as a cluster admin.
+
+### Dev user unauthorized to target an org or space
+
 #### Symptom
-When I first login `cf login` and/or
+
+When I first log in `cf login` and/or
 when I run `cf target -o my-org -s my-space`, the following error message is returned:
+
 ```bash
 No org or space targeted, use 'cf target -o ORG -s SPACE'
 You are not authorized to perform the requested action
 FAILED
 ```
-#### Possible Causes
+
+#### Possible causes
+
 The user targeting the Org or Space is not bound to the following ClusterRoles:
 `korifi-controllers-root-namespace-user` in the root namespace (from the installation values file)
 `korifi-controllers-organization-user` in the cf-org namespace `cf-org-<ORG_GUID>`
@@ -233,11 +253,11 @@ The user targeting the Org or Space is not bound to the following ClusterRoles:
 When I run `cf push`, the CF CLI does not respond with a built image.
 #### Possible causes
 1. ClusterBuilder is not ready.
-1. A failure occurred in one of the TAP or Application Service Adapter components.
+1. A failure occurred in one of the Tanzu Application Platform or Application Service Adapter components.
 #### Troubleshooting Steps/Potential Solutions
 1. Check the status of the ClusterBuilders by running `kubectl get clusterbuilder`. The `Ready` column should show `True`.
 1. If the ClusterBuilder's `Ready` state is not `True`, run `kubectl describe clusterbuilder` and check the status section for more information.
-1. Walk through the list of [image build object types](#system-object-types) and check if any objects are missing. For any missing objects, check the logs of the [TAP](#tap-logs) or [Application Service Adapter](#application-logs) component listed in the "Created By" column to see if there are any error messages.
+1. Walk through the list of [image build object types](#system-object-types) and check if any objects are missing. For any missing objects, check the logs of the [Tanzu Application Platform](#tap-logs) or [Application Service Adapter](#application-logs) component listed in the "Created By" column to see if there are any error messages.
 1. If the component listed in the "Created By" column does not have any helpful error messages, identify the previous object in the image build chain and check the logs of the component listed in the "Reconciled By" column to see if there are any error messages.
 
 ### Pushing an app fails to upload an image to the image registry
@@ -265,7 +285,7 @@ When I run `cf push`, my app stages correctly, but fails to start or become heal
 #### Troubleshooting Steps/Potential Solutions
 1. To debug the application's code, check the [application logs](#cfapp-logs)
 1. To debug applications that fail to be scheduled, check the [Kubernetes System Logs](#system-events) and the [StatefulSet](#system-object-types) status in the CFSpace namespace.
-1. Walk through the list of [run app object types](#system-object-types) and check if any objects are missing. For any missing objects, check the logs of the [TAP](#tap-logs) or [Application Service Adapter](#application-logs) component listed in the "Created By" column to see if there are any error messages.
+1. Walk through the list of [run app object types](#system-object-types) and check if any objects are missing. For any missing objects, check the logs of the [Tanzu Application Platform](#tap-logs) or [Application Service Adapter](#application-logs) component listed in the "Created By" column to see if there are any error messages.
 1. If the component listed in the "Created By" column does not have any helpful error messages, identify the previous object in the run app chain and check the logs of the component listed in the "Reconciled By" column to see if there are any error messages.
 
 ### Deployed apps fail to become routable

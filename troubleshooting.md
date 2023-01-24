@@ -2,7 +2,7 @@
 
 This topic collects documentation related to the generic techniques for diagnosing the system health as well as specific steps to be taken in known scenarios.
 
-## <a id="generic-troubleshooting-techniques"></a>Generic Troubleshooting Techniques
+## <a id="generic-troubleshooting-techniques"></a>Generic troubleshooting techniques
 
 This section contains generic techniques for gathering information about the status of Application Service Adapter to aid in troubleshooting. VMware recommends keeping up to date with the latest version of Application Service Adapter to get the latest bug fixes and stability improvements.
 

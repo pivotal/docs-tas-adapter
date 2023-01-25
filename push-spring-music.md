@@ -94,7 +94,7 @@ Ensure you are logged into the Application Service Adapter environment you inten
     instances:       0/0
     memory usage:    1024M
     start command:   java "org.springframework.boot.loader.JarLauncher"
-    There are no running instances of this process.   
+    There are no running instances of this process.
     ```
 
 1. The manifest for the spring-music application assigns it a random route by default, which is present in the `routes` field of the `cf push` output. Navigate to the route URL in your browser and verify that it serves requests correctly. You should see a webpage similar to the following:
@@ -120,7 +120,7 @@ Ensure you are logged into the Application Service Adapter environment you inten
 
 ## Create a database service for persistent storage
 
-> **Note** The following instructions provide an easy way to create a MySQL database on the same Kubernetes cluster as the Application Service Adapter installation, but this database deployment is not suitable for production use. If you require a production-grade database on Kubernetes, consider using [VMware Tanzu SQL with MySQL for Kubernetes](https://docs.vmware.com/en/VMware-Tanzu-SQL-with-MySQL-for-Kubernetes/index.html) or [VMware Tanzu SQL with Postgres for Kubernetes](https://docs.vmware.com/en/VMware-Tanzu-SQL-with-Postgres-for-Kubernetes/index.html).
+> **Caution** The following instructions provide an easy way to create a MySQL database on the same Kubernetes cluster as the Application Service Adapter installation, but this database deployment is not suitable for production use. If you require a production-grade database on Kubernetes, consider using [VMware Tanzu SQL with MySQL for Kubernetes](https://docs.vmware.com/en/VMware-Tanzu-SQL-with-MySQL-for-Kubernetes/index.html) or [VMware Tanzu SQL with Postgres for Kubernetes](https://docs.vmware.com/en/VMware-Tanzu-SQL-with-Postgres-for-Kubernetes/index.html).
 
 1. Create a separate namespace to run a containerized MySQL database:
 

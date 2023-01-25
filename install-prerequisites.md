@@ -23,7 +23,9 @@ The following tools must be installed in the workstation environment in which yo
 * The Kubernetes CLI (kubectl) v1.22 or v1.23.
 
 * Tanzu CLI and its plug-ins. See [Install or update the Tanzu CLI and plugins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-install-tanzu-cli.html#install-or-update-the-tanzu-cli-and-plugins-3) in _Accepting Tanzu Application Platform EULAs and installing Tanzu CLI_.
-   > **Note** After you install the Tanzu CLI, run `tanzu plugin list` to verify that the required `package` and `secret` plug-ins are installed. To install these plug-ins, run:
+
+After you install the Tanzu CLI, run `tanzu plugin list` to verify that the required `package` and `secret` plug-ins are installed. To install these plug-ins, run:
+
     ```bash
     tanzu plugin install --local cli package
     tanzu plugin install --local cli secret

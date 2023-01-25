@@ -353,7 +353,7 @@ To configure the installation settings:
    - `API-REPLICA-COUNT` is the number of replicas that you want for the specified deployment. Default is 1.
    - `KUBERNETES-DISTRIBUTION` is the name of the Kubernetes distribution. Defaults to "".
        - Set "openshift" as the value when installing on an OpenShift environment.
-       - Leave it unset for all other distributions. 
+       - Leave it unset for all other distributions.
    - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
 
    The `requests` and `limits` text boxes map directly to the resource requests and limits text boxes on the Kubernetes containers for these system components.
@@ -389,7 +389,7 @@ Your Application Service Adapter deployment no longer emits telemetry, and you a
 
 ### <a id="custom-ca-registry"></a>(Optional) Configure a Registry With a Custom Certificate Authority
 
-> **Note** Your Kubernetes cluster nodes and the Tanzu Build Service component of Tanzu Application Platform must also both be configured to trust this Certificate Authority for the registry.
+Your Kubernetes cluster nodes and the Tanzu Build Service component of Tanzu Application Platform must also both be configured to trust this Certificate Authority for the registry.
 
 To configure Application Service Adapter to trust a registry that has a custom or self-signed certificate authority:
 
@@ -397,7 +397,7 @@ To configure Application Service Adapter to trust a registry that has a custom o
 
 ### <a id="experimental-cartographer-integration"></a>(Optional) Configure the Experimental Cartographer Integration
 
-> **Note** Opting into the experimental Cartographer integration requires a larger set of Tanzu Application Platform packages to be installed. See [Required components for experimental Cartographer integration](install-prerequisites.md#required-components-cartographer) in _Install Prerequisites_.
+Opting into the experimental Cartographer integration requires a larger set of Tanzu Application Platform packages to be installed. See [Required components for experimental Cartographer integration](install-prerequisites.md#required-components-cartographer) in _Install Prerequisites_.
 
 To configure the experimental Cartographer integration:
 
@@ -504,6 +504,6 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to A
 
     The value of the `name` text box in the response is the subject name of the user, and matches the name configured in `admin.users`.
 
-    >**Note** The `kind` text box in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log in to the Application Service Adapter with an account for a user in the Kubernetes cluster.
+    The `kind` text box in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log in to the Application Service Adapter with an account for a user in the Kubernetes cluster.
 
    To test Application Service Adapter, continue to [Getting Started](getting-started.md).

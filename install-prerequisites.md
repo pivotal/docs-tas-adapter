@@ -69,9 +69,9 @@ The following dependencies are required to be installed to the target Kubernetes
 * Tekton v0.33.5 or later.
    * If you installed Tanzu Application Platform v1.2 without using a profile, see [Install Tekton](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-tekton-install-tekton.html).
 
-### <a id="recommended-components"></a>Recommended Components
+### <a id="recommended-components"></a>Recommended components
 
-The following dependencies are recommended to be installed to the target Kubernetes cluster.
+VMware recommends installing the following dependencies to the target Kubernetes cluster.
 
 * [Kubernetes Metrics Server](https://github.com/kubernetes-sigs/metrics-server/) v0.4.0 or later for app instance resource metrics.
   > **Note** Many Kubernetes distributions automatically come with the Metrics Server installed. If the API resources in your target cluster include the `PodMetrics` Kind in the `metrics.k8s.io` API group, the Metrics Server is already present.

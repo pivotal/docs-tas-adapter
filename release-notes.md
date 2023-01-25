@@ -2,9 +2,9 @@
 
 This topic contains release notes for the Application Service Adapter for VMware Tanzu Application Platform.
 
-## <a id='1-0-0'></a> v1.0.0 Release
+## <a id='1-0-0'></a> v1.1.0 Release
 
-**Release Date**: November 10, 2022
+**Release Date**: January xx, 2023
 
 ### Features
 
@@ -124,7 +124,7 @@ This release contains the following components:
 * tas-adapter-telemetry-controller @ 0a2e7ba
 
 
-### Known Issues
+### Known issues
 
 * If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application will fail to build with an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app will continue to fail to build.
 * If you change the application code so that the build process generates a different start command for the app, the app's start command is not updated, and the app may fail to start correctly. As a workaround, you can manually override the start command with the `command` property in the application manifest or with the `-c` flag on `cf push`.

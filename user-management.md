@@ -9,4 +9,4 @@ Users can be assigned Cloud Foundry roles using the [role management commands](h
 ## <a id="aws-iam-user-management-eks"></a>AWS IAM user management for EKS
 To configure an AWS IAM user for an EKS cluster, you must configure the `aws-auth` ConfigMap on the EKS cluster to map IAM resources by ARN to the cluster. Follow the AWS [IAM user and role access documentation](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html) for more information.
 
-> **Note:** The AWS documentation recommends using `eksctl` to edit the ConfigMap.
+> **Note** The AWS documentation recommends using `eksctl` to edit the ConfigMap.

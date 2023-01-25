@@ -1,4 +1,4 @@
-# Reference Architecture
+# Reference architecture
 
 This topic gives you a path to creating a production deployment of
 Application Service Adapter. However, do not feel constrained to follow this exact
@@ -16,11 +16,11 @@ help provide a rationale for any necessary deviation from this architecture.
 ## <a id="tap-install"></a>Tanzu Application Platform installation
 
 Application Service Adapter is installed on top of the Tanzu Application
-Platform (TAP), and uses TAP components to build and deploy workloads. Because
-both "build" and "run" steps are executed on the same cluster, it is necessary to
-install the required TAP packages to a single cluster before installing the
+Platform, and uses Tanzu Application Platform components to build and deploy workloads. Because
+both "build" and "run" steps are executed on the same cluster, you need to
+install the required Tanzu Application Platform packages to a single cluster before installing the
 Application Service Adapter. This type of installation maps most closely to the
-"iterate cluster" described in the [TAP reference architecture](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap-reference-architecture/GUID-reference-designs-tap-architecture-planning.html#iterate-cluster-requirements-10).
+"iterate cluster" described in the [Tanzu Application Platform reference architecture](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap-reference-architecture/GUID-reference-designs-tap-architecture-planning.html#iterate-cluster-requirements-10).
 
 Some packages included in an "iterate cluster" installation are optional when
 preparing a cluster for Application Service Adapter. Required packages are as
@@ -48,12 +48,12 @@ controller.source.apps.tanzu.vmware.com
 ## <a id="adapter-reqs"></a>Adapter system requirements
 
 Application Service Adapter installs a Cloud Foundry API server and a set of
-controller runtime components on top of the base TAP installation. Although
+controller runtime components on top of the base Tanzu Application Platform installation. Although
 these components will consume cluster resources, the recommended minimum sizing
-for a TAP "iterate cluster" should be sufficient to accomodate Application
+for a Tanzu Application Platform "iterate cluster" should be sufficient to accommodate Application
 Service Adapter system components running with modest load.
 
-Specifically, TAP recommends the following for an "iterate cluster":
+Specifically, VMware recommends the following for an "iterate cluster":
 
 - LoadBalancer for ingress controller (2 external IP addresses)
 - Default storage class

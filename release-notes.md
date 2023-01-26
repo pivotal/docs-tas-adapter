@@ -4,7 +4,7 @@ This topic contains release notes for the Application Service Adapter for VMware
 
 ## <a id='1-1-0'></a> v1.1.0 Release
 
-**Release Date**: MMM DD, 2023
+**Release Date**: MM DD, 2023
 
 ### Features
 
@@ -25,12 +25,12 @@ This topic contains release notes for the Application Service Adapter for VMware
 
 #### Supply Chain Choreographer integration (experimental)
 
-> **Note**: Upgrades from v1.0 to v1.1 are not supported if you have enabled the experimental Cartographer integration. Existing application workloads will not behave correctly after upgrading from v1.0 to v1.1.
+> **Note** Upgrades from v1.0 to v1.1 are not supported if you have enabled the experimental Cartographer integration. Existing application workloads don't behave correctly after upgrading from v1.0 to v1.1.
 
-* Application developers can run `tanzu apps workload get` to display the Pods for application instances.
+* Application developers can run `tanzu apps workload get` to display the pods for application instances.
 * Application developers can run `tanzu apps workload tail` to display build logs for applications and running logs for application instances.
-* Application process types in addition to the default `web` type now also run, with each process type running as a separate TAP Workload.
-* The TAP Convention Service applies its conventions to applications processed in a supply chain.
+* Application process types in addition to the default `web` type now also run. Each process type runs as a separate Tanzu Application Platform Workload.
+* The Tanzu Application Platform Convention Service applies its conventions to applications processed in a supply chain.
 
 
 ### Components
@@ -43,7 +43,7 @@ This release contains the following components:
 
 ### Known issues
 
-* If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application will fail to build with an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app will continue to fail to build.
+* If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application fails to build with an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app continues to fail to build.
 * The organization manager role does not have permissions to create Cloud Foundry spaces. As a workaround, instead use the Cloud Foundry admin role to create spaces in organizations.
 
 ### Deprecations

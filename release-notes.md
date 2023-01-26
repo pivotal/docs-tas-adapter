@@ -10,7 +10,7 @@ This topic contains release notes for the Application Service Adapter for VMware
 
 #### Application management
 
-* **FIXED**: When an application developer changes application code so that the build process generates a different start command for the application, the application's start command is now updated correctly.
+* **FIXED**: When an application developer changes application code so that the build process generates a different start command for the application, the application's start command updates correctly.
 
 #### Labels and annotations
 

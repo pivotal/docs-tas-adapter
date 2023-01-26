@@ -14,7 +14,7 @@ To install the Application Service Adapter, you need:
 * Admin access to a Kubernetes cluster that meets the same requirements as the version of Tanzu Application Platform you have installed, either v1.2 or v1.3. See [Kubernetes cluster requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-prerequisites.html#kubernetes-cluster-requirements-3) in _Prerequisites_.
   * As of Tanzu Application Platform v1.3, Kubernetes v1.22, v1.23, or v1.24 is required. There are additional requirements for some implementations. For example, Amazon Elastic Kubernetes Service (EKS) requires containerd as the Container Runtime Interface (CRI) among with other requirements.
 
-* A container image registry. See [VMware Tanzu Network and container image registry requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-prerequisites.html#vmware-tanzu-network-and-container-image-registry-requirements-0) in _Prerequisites_. The Application Service Adapter does not support Amazon's Elastic Container Registry (ECR).
+* A container image registry. See [VMware Tanzu Network and container image registry requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/prerequisites.html) in _Prerequisites_.
 
 ### <a id="required-installation-tools"></a>Required installation tools
 
@@ -77,3 +77,26 @@ The following dependencies are recommended to be installed to the target Kuberne
   > **Note:** Many Kubernetes distributions automatically come with the Metrics Server installed. If the API resources in your target cluster include the `PodMetrics` Kind in the `metrics.k8s.io` API group, the Metrics Server is already present.
 
 After you installed these prerequisites, proceed to [Installing Application Service Adapter](install.md).
+
+### <a id="ecr-configuration"></a>AWS IAM Configuration for ECR
+
+When installed to Amazon Elastic Container Service with ECR, Application Service
+Adapter requires a similar configuration to the [setup required by Tanzu
+Application Service](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/aws-resources.html#create-iam-roles-5),
+but needs access to additional resources and trusted service accounts.
+
+Follow the TAP instructions, with these amendments:
+
+* In `build-service-trust-policy.json` add the following service accounts to the
+  list of trusted service accounts:
+  * "system:serviceaccount:tas-adapter-system:korifi-api-system-serviceaccount"
+  * "system:serviceaccount:tas-adapter-system:korifi-controllers-controller-manager"
+  * "system:serviceaccount:tas-adapter-system:korifi-kpack-build-controller-manager"
+  * "system:serviceaccount:tas-adapter-system:cartographer-builder-runner-controller-manager"
+  * "system:serviceaccount:*:kpack-service-account"
+
+* In build-service-policy.json add the following Resource:
+ * "arn:aws:ecr:${AWS_REGION}:${AWS_ACCOUNT_ID}:repository/${REPOSITORY_PREFIX_PATH}*"
+   Where `REPOSITORY_PREFIX_PATH` is the path portion of the `REPOSITORY-PREFIX`
+   you will provide when setting `tas-adapter-values.yml` for installation.
+

@@ -5,5 +5,5 @@ This topic collects reference documentation for Application Service Adapter, inc
 * [Application environment variables](environment-variables.md)
 * [Differences between buildpacks in TAS for VMs and Application Service Adapter](buildpack-differences.md)
 * [Supported cf CLI commands](supported-cf-cli-commands.md)
-* [Troubleshooting Application Service Adapter](troubleshooting.md)
-* [User Management](user-management.md)
+* [Troubleshoot Application Service Adapter](troubleshooting.md)
+* [User management](user-management.md)

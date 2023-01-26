@@ -1,4 +1,4 @@
-# System Logging and Metrics
+# System logging and metrics
 
 This topic provides guidance on accessing system component logs and metrics.
 

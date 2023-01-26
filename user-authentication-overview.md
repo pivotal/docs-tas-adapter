@@ -19,7 +19,7 @@ The Application Service Adapter relies on core Kubernetes role-based access cont
 
 The Application Service Adapter API requires that users connect to it using HTTPS because the Authorization header contains the user’s authentication token or client certificate or keypair. The API translates the CAPI request into Kubernetes API requests using the provided credentials.
 
->**Note** The user is authenticated through their Kubernetes token or client certificate or key for each request to the Adapter's API, with no persistent session data stored between requests.
+>**Note** The user is authenticated through their Kubernetes token or client certificate or key for each request to the Adapter's API. There is no persistent session data stored between requests.
 
 VMware recommends using short-lived tokens or certificates to authenticate with the Application Service Adapter.
 The Application Service Adapter warns users if their certificate is still valid in one week.

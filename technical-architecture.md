@@ -24,15 +24,15 @@ Application Service Adapter includes components from the open source Cloud Found
 
 The Korifi components are primarily tasked with implementing the Cloud Foundry data model and APIs. They are:
 
-* **Korifi CRDs:** A set of Kubernetes custom resources under the korifi.cloudfoundry.org API Group that implement the core V3 Cloud Foundry resources. These custom resources replicate the Cloud Foundry data model and are used to store persistent state for the CF API translation layer. These resources serve as an extension point for further interoperability and are accessible directly to Kubernetes users via existing Kubernetes tooling (e.g. the kubectl CLI).
-* **Korifi API Deployment:** A Golang implementation of a core set of V3 Cloud Foundry APIs that is backed by the Korifi CRDs. Existing Cloud Foundry API clients (such as the cf CLI) can target the Korifi API and continue to use their existing CF developer workflows.
-* **Korifi Controllers Deployment:** A set of Kubernetes controllers that implement CF subsystems by orchestrating and reconciling the Korifi CRDs into consolidated intermediate resources that contain the information necessary to build and run an application. This deployment also runs admission webhooks that validate and normalize Korifi resources.
+* **Korifi CRDs:** A set of Kubernetes custom resources under the korifi.cloudfoundry.org API Group that implement the core V3 Cloud Foundry resources. These custom resources replicate the Cloud Foundry data model and are used to store persistent state for the CF API translation layer. These resources serve as an extension point for further interoperability and are accessible to Kubernetes users using existing Kubernetes tooling (e.g. the kubectl CLI).
+* **Korifi API deployment:** A Golang implementation of a core set of V3 Cloud Foundry APIs that is backed by the Korifi CRDs. Existing Cloud Foundry API clients (such as the cf CLI) can target the Korifi API and continue to use their existing CF developer workflows.
+* **Korifi Controllers deployment:** A set of Kubernetes controllers that implement CF subsystems by orchestrating and reconciling the Korifi CRDs into consolidated intermediate resources that contain the information necessary to build and run an application. This deployment also runs admission webhooks that validate and normalize Korifi resources.
 
 Application Service Adapter converts these intermediate resources using its default builder/runner controller implementations into TAP and Kubernetes resources such as Tanzu Build Service (kpack) Images for building applications and Kubernetes StatefulSets for running them. These intermediate resources and default implementations are:
 
-* **BuildWorkload Resource**: A custom resource that serves as an interface to the underlying build system used for staging applications. This resource contains all the information needed to stage an app and controller implementations communicate back via its status. The `kpack-image-builder` component is the default implementation for application staging that uses [Tanzu Build Service](https://tanzu.vmware.com/build-service) and [Tanzu Buildpacks](https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/index.html). When the experimental Cartographer integration is activated this resource is reconciled by the `cartographer-builder-runner` component. For more details on the application building process view the [build (staging) applications](#building-and-staging-applications) section below.
-* **AppWorkload Resource**: A custom resource that serves as an interface to the underlying runtime. This resource contains all the information needed to run an app, and controller implementations communicate back via its status. The `statefulset-runner` component is the default implementation that runs apps using Kubernetes `StatefulSets`. `StatefulSets` allow Application Service Adapter to support Cloud Foundry features such as the `CF_INSTANCE_INDEX` (an ordered numeric index for each container) environment variable and APIs. When the experimental Cartographer integration is activated this resource is reconciled by the `cartographer-builder-runner` component.
-* **TaskWorkload Resource**: A custom resource that serves as an interface to the underlying runtime. This resource contains all the information needed to run a Cloud Foundry task, and controller implementations communicate back via its status. The `job-task-runner` component is the default implementation that runs tasks via Kubernetes `Jobs`.
+* **BuildWorkload resource**: A custom resource that serves as an interface to the underlying build system used for staging applications. This resource contains all the information needed to stage an app, and controller implementations communicate back via its status. The `kpack-image-builder` component is the default implementation for application staging that uses [Tanzu Build Service](https://tanzu.vmware.com/build-service) and [Tanzu Buildpacks](https://docs.vmware.com/en/VMware-Tanzu-Buildpacks/index.html). When the experimental Cartographer integration is activated, this resource is reconciled by the `cartographer-builder-runner` component. For more details on the application building process, see the [build (staging) applications](#building-and-staging-applications) section below.
+* **AppWorkload resource**: A custom resource that serves as an interface to the underlying runtime. This resource contains all the information needed to run an app, and controller implementations communicate back via its status. The `statefulset-runner` component is the default implementation that runs apps using Kubernetes `StatefulSets`. `StatefulSets` allow Application Service Adapter to support Cloud Foundry features such as the `CF_INSTANCE_INDEX` (an ordered numeric index for each container) environment variable and APIs. When the experimental Cartographer integration is activated, this resource is reconciled by the `cartographer-builder-runner` component.
+* **TaskWorkload resource**: A custom resource that serves as an interface to the underlying runtime. This resource contains all the information needed to run a Cloud Foundry task, and controller implementations communicate back via its status. The `job-task-runner` component is the default implementation that runs tasks via Kubernetes `Jobs`.
 
 ## <a id="cartographer-integration"></a>Experimental Cartographer integration
 
@@ -44,7 +44,7 @@ Application Service Adapter does not include its own user management or permissi
 
 For more details, see the dedicated [User Authentication Overview] docs.
 
-## <a id="org-space-management"></a>Organization and Space management
+## <a id="org-space-management"></a>Organization and space management
 
 ![Application Service Adapter Organization and Space diagram](images/org-space-diagram.png)
 
@@ -60,8 +60,8 @@ Application Service Adapter uses [Tanzu Build Service](https://tanzu.vmware.com/
 
 Application source code is packaged and transmitted by CF clients to the Korifi API where it is converted into a single-layer container image, or "source image", that can be used by Tanzu Build Service. When CF clients create a Cloud Foundry Build through the Korifi API this is translated into a "BuildWorkload" custom resource by Korifi. By default, Application Service Adapter will use its `kpack-image-builder` controller to translate this "BuildWorkload" directly into Tanzu Build Service resources and a "build Pod" will be scheduled to build the app using Tanzu Buildpacks. Tanzu Buildpacks are [Cloud Native Buildpacks](https://buildpacks.io/) and can be thought of as an evolution of the [Cloud Foundry buildpacks](https://docs.cloudfoundry.org/buildpacks/) that Cloud Foundry operators may be familiar with. They differ mainly in that there are a few [configuration differences](buildpack-differences.md) and that they produce OCI container images instead of Cloud Foundry droplets.
 
-### Note on Blobstores
-Operators of Tanzu Application Service may be familiar with the platform's "blobstore" or object storage for application source code and staged droplets. Application Service Adapter does not rely on a blobstore and instead uses the image registry that is configured at installation time for storing source code and runnable app images.
+### Note on blobstores
+Operators of Tanzu Application Service may be familiar with the platform's "blobstore," or object storage for application source code and staged droplets. Application Service Adapter does not rely on a blobstore and instead uses the image registry that is configured at installation time for storing source code and runnable app images.
 
 ## <a id="service"></a>Services
 
@@ -79,7 +79,7 @@ Additionally, Application Service Adapter integrates with the TAP Service Bindin
 
 Application Service Adapter uses the Tanzu Application Platform installation's Contour to implement ingress routing for both the Korifi API and app workloads. The `CFRoute` custom resource backs the relevant Cloud Foundry route management APIs and is converted by the Korifi Controllers component into Contour `HTTPProxy` and Kubernetes `Service` resources. A validating admission webhook applies validation rules to the routes (e.g. no duplicate routes, route has a valid `CFDomain`, etc).
 
-## <a id="app-logs-metrics"></a>App Logging and Metrics
+## <a id="app-logs-metrics"></a>App logging and metrics
 
 ![Application Service Adapter logging and metrics diagram](images/tas-adapter-logging-metrics-diagram.png)
 

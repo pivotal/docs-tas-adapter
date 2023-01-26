@@ -37,7 +37,7 @@ Follow these steps to update the new package repository:
       --namespace tap-install
     ```
 
-## <a id="upgrade-tap"></a> Perform the upgrade of Application Service Adapter
+## <a id="upgrade-tap"></a> Upgrade Application Service Adapter
 
 To upgrade, run:
 

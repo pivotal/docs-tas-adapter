@@ -1,10 +1,10 @@
-# Troubleshooting Application Service Adapter
+# Troubleshoot Application Service Adapter
 
 This topic collects documentation related to the generic techniques for diagnosing the system health as well as specific steps to be taken in known scenarios.
 
 * [Generic Troubleshooting Techniques](#generic-troubleshooting-techniques)
   * [Application Service Adapter Logs](#application-logs)
-  * [TAP Logs](#tap-logs)
+  * [Tanzu Application Platform Logs](#tap-logs)
   * [CFApp Logs](#cfapp-logs)
   * [Kubernetes System Events](#system-events)
   * [System Object Types](#system-object-types)
@@ -13,13 +13,13 @@ This topic collects documentation related to the generic techniques for diagnosi
 * [Cartographer Failure Scenarios](#cartographer-failure-scenarios)
 
 
-## <a id="generic-troubleshooting-techniques"></a>Generic Troubleshooting Techniques
+## <a id="generic-troubleshooting-techniques"></a>Generic troubleshooting techniques
 
 This section contains generic techniques that can be used to gather information about the status of the Application Service Adapter to aid in troubleshooting. We recommend keeping up to date with the latest version of the Application Service Adapter to get access to the latest bug fixes and stability improvements.
 
-### <a id="application-logs"></a>Application Service Adapter Logs
+### <a id="application-logs"></a>Application Service Adapter logs
 
-There are several Application Service Adapter deployments whose logs can be queried to gather information on failures that occurred within the system. 
+There are several Application Service Adapter deployments whose logs can be queried to gather information on failures that occurred within the system.
 
 To fetch recent logs from all components of an Application Service Adapter installation:
 
@@ -50,24 +50,25 @@ The following is a brief description of the specific Application Service Adapter
 1. The `korifi-job-task-runner-controller-manager` Deployment is tasked with handling all task related functionality.
 1. The `cartographer-builder-runner-controller-manager` Deployment is tasked with creating Cartographer Workloads for apps when using the experimental Cartographer builder/runner flow.
 
-### <a id="tap-logs"></a>TAP Logs
+### <a id="tap-logs"></a>Tanzu Application Platform logs
 
-While not directly part of the Application Service Adapter, there are several TAP deployments that are utilized by the Application Service Adapter and can also provide further debug information on failures that occur. 
+While not directly part of the Application Service Adapter, there are several Tanzu Application Platform deployments that are utilized by the Application Service Adapter and can also provide further debug information on failures that occur.
 
-To fetch recent logs from a given TAP application:
+To fetch recent logs from a given Tanzu Application Platform application:
 
     ```bash
     kapp logs --app APP-NAME -n tap-install
     ```
-    Where APP-NAME is the name of the TAP application (e.g.
-    "buildservice.app").
+
+    Where APP-NAME is the name of the Tanzu Application Platform application. For example,
+    "buildservice.app".
 
 To stream logs instead of fetching the most recent logs, add the `--follow` flag to the above `kapp logs` command.
 For additional details and options, refer to the `kapp logs --help` help text.
 
 #### Deployments
 
-The following is a brief description of the specific TAP deployments used by the Application Service Adapter and what their main responsibilities are to help determine which logs to query when troubleshooting.
+The following is a brief description of the specific Tanzu Application Platform deployments used by the Application Service Adapter and what their main responsibilities are to help determine which logs to query when troubleshooting.
 
 1. The `buildservice.app` application is tasked with processing any Tanzu Build Service (kpack) commands. If any failures in the build image process occurs in Tanzu Build Service itself, this application's logs can provide further information.
 1. The `contour.app` application is tasked with creating an ingress into the system. If a failure to connect to the Application Service Adapter or an Application occurs, this application's logs can provide further information.
@@ -91,13 +92,13 @@ kubectl get events -A
 
 ### <a id="system-object-types"></a>System Object Types
 
-There are system objects created/used by Application Service Adapter that can be useful in debugging failures. Describing the objects can show error messages in their status fields. 
-Whether objects are present can also be useful in determining where in the command process failures have occurred and which logs should be queried for more information. 
+There are system objects created/used by Application Service Adapter that can be useful in debugging failures. Describing the objects can show error messages in their status fields.
+Whether objects are present can also be useful in determining where in the command process failures have occurred and which logs should be queried for more information.
 
 For example, if an object in the image build chain is missing, the component in the "Created By" column can be queried for logs to see if any useful error messages are present.
-If no useful logs are found there, identify the previous object in the image build chain and check the logs of the component listed in the "Reconciled By" column to see if there are any error messages. 
+If no useful logs are found there, identify the previous object in the image build chain and check the logs of the component listed in the "Reconciled By" column to see if there are any error messages.
 
-Instructions for querying logs can be found for [Application Service Adapter](#application-logs) and [TAP](#tap-logs). 
+Instructions for querying logs can be found for [Application Service Adapter](#application-logs) and [Tanzu Application Platform](#tap-logs).
 
 Some Kubernetes objects exist within a CFOrg or CFSpace namespace. To find the corresponding namespace of a CFOrg or CFSpace, you can run:
 
@@ -109,7 +110,7 @@ cf space --guid <CFSpace name>
 #### Installed Object Types
 | Kind                      | Component    | Namespace or Scope   | Notes                                                                                                                                                                                                                                                                                                                                                                                |
 |---------------------------|--------------|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ClusterBuilder            | kpack        | Cluster              | ClusterBuilders are Tanzu Build Service (kpack) components installed by TAP that are used to build images. If they are not present, image builds may not complete successfully.                                                                                                                                                                                                      |
+| ClusterBuilder            | kpack        | Cluster              | ClusterBuilders are Tanzu Build Service (kpack) components installed by Tanzu Application Platform that are used to build images. If they are not present, image builds may not complete successfully.                                                                                                                                                                                                      |
 | Deployment                | kubernetes   | `tas-adapter-system` | All of the Application Service Adapter Deployment's `Ready` counts should be listed as `1/1` except for `korifi-api-deployment` which should be `2/2`. Should this not be the case, the system is not functioning correctly and the status/events fields of the inoperable Deployment should be analyzed. This issue can sometimes be related to RBAC.                               |
 | ClusterRole               | kubernetes   | Cluster              | ClusterRoles are created to manage system privileges at the cluster scope.                                                                                                                                                                                                                                                                                                           |
 | ClusterRoleBinding        | kubernetes   | Cluster              | ClusterRoleBindings are created to manage system privileges at the cluster scope.                                                                                                                                                                                                                                                                                                    |
@@ -198,7 +199,7 @@ When I run `cf create org my-org`, the following error message is returned:
 Organization 'my-org' not found
 ```
 #### Possible Causes
-The user creating the CFOrg is not bound to the `korifi-controllers-admin` ClusterRole. 
+The user creating the CFOrg is not bound to the `korifi-controllers-admin` ClusterRole.
 #### Troubleshooting Steps/Potential Solutions
 1. Verify the user in the `cf create org` command output.
 ```bash
@@ -212,11 +213,11 @@ Creating org my-org as cf-admin...
 When I run `cf push`, the CF CLI does not respond with a built image.
 #### Possible causes
 1. ClusterBuilder is not ready.
-1. A failure occurred in one of the TAP or Application Service Adapter components.
+1. A failure occurred in one of the Tanzu Application Platform or Application Service Adapter components.
 #### Troubleshooting Steps/Potential Solutions
 1. Check the status of the ClusterBuilders by running `kubectl get clusterbuilder`. The `Ready` column should show `True`.
 1. If the ClusterBuilder's `Ready` state is not `True`, run `kubectl describe clusterbuilder` and check the status section for more information.
-1. Walk through the list of [image build object types](#system-object-types) and check if any objects are missing. For any missing objects, check the logs of the [TAP](#tap-logs) or [Application Service Adapter](#application-logs) component listed in the "Created By" column to see if there are any error messages.
+1. Walk through the list of [image build object types](#system-object-types) and check if any objects are missing. For any missing objects, check the logs of the [Tanzu Application Platform](#tap-logs) or [Application Service Adapter](#application-logs) component listed in the "Created By" column to see if there are any error messages.
 1. If the component listed in the "Created By" column does not have any helpful error messages, identify the previous object in the image build chain and check the logs of the component listed in the "Reconciled By" column to see if there are any error messages.
 
 ### Pushing an app fails to upload an image to the image registry
@@ -244,7 +245,7 @@ When I run `cf push`, my app stages correctly, but fails to start or become heal
 #### Troubleshooting Steps/Potential Solutions
 1. To debug the application's code, check the [application logs](#cfapp-logs)
 1. To debug applications that fail to be scheduled, check the [Kubernetes System Logs](#system-events) and the [StatefulSet](#system-object-types) status in the CFSpace namespace.
-1. Walk through the list of [run app object types](#system-object-types) and check if any objects are missing. For any missing objects, check the logs of the [TAP](#tap-logs) or [Application Service Adapter](#application-logs) component listed in the "Created By" column to see if there are any error messages.
+1. Walk through the list of [run app object types](#system-object-types) and check if any objects are missing. For any missing objects, check the logs of the [Tanzu Application Platform](#tap-logs) or [Application Service Adapter](#application-logs) component listed in the "Created By" column to see if there are any error messages.
 1. If the component listed in the "Created By" column does not have any helpful error messages, identify the previous object in the run app chain and check the logs of the component listed in the "Reconciled By" column to see if there are any error messages.
 
 ### Deployed apps fail to become routable
@@ -287,8 +288,8 @@ When I install the Application Service Adapter on an OpenShift cluster, I get th
 #### Possible Causes
 The OpenShift setting is not enabled.
 #### Troubleshooting Steps/Potential Solutions
-Without the SecurityContextConstraint/ClusterRole/ClusterRoleBinding/RoleBinding, the Application Service Adapter deployments will not be able to deploy Pods. 
-1. Query the [Application Service Adapter Deployments](#system-object-types) and check if their `Ready` counts are listed as `0/0`. 
+Without the SecurityContextConstraint/ClusterRole/ClusterRoleBinding/RoleBinding, the Application Service Adapter deployments will not be able to deploy Pods.
+1. Query the [Application Service Adapter Deployments](#system-object-types) and check if their `Ready` counts are listed as `0/0`.
 1. Reinstall Application Service Adapter with the OpenShift setting enabled.
 
 ### Pushing an app on an OpenShift cluster fails to start
@@ -304,7 +305,7 @@ The ServiceAccount being used by the StatefulSets does not have permission to cr
 
 ## <a id="cartographer-failure-scenarios"></a>Cartographer Failure Scenarios
 
-This section contains common failure scenarios specific to the use of the experimental optional Cartographer feature and describes the appropriate troubleshooting techniques that can be used to gather further information and solve the issue. 
+This section contains common failure scenarios specific to the use of the experimental optional Cartographer feature and describes the appropriate troubleshooting techniques that can be used to gather further information and solve the issue.
 
 ### Cartographer Setting
 The experimental Cartographer installation setting for the Application Service Adapter can be set in the `tas-adapter-values.yml` as described [here](install.md)

@@ -14,7 +14,7 @@ Foundry-compatible API (Korifi API) with which clients communicate. This API is
 stateless and is horizontally scaled for increased
 availability and performance. See [Scaling the Application Service Adapter API](scaling.md#api).
 
-## <a id="controllers"></a>Controllers and Webhooks
+## <a id="controllers"></a>Controllers and webhooks
 
 Application Service Adapter deploys multiple components known as
 [controllers](https://kubernetes.io/docs/concepts/architecture/controller/) to

@@ -63,7 +63,7 @@ same deployments also serve webhook requests, you may choose to add horizontal s
 to improve webhook performance. You may also choose to scale your
 deployments to improve controller availability. Multi-instance deployments
 allow rolling deployments so that controllers and webhooks don't become
-unresponsive during upgrades. Horizontal scaling can be achieved using the
+unresponsive during upgrades. Horizontal scaling can be achieved by using the
 `replicas` scaling configuration.
 
 ## <a id="api"></a>Scaling the Application Service Adapter API

@@ -9,7 +9,7 @@ Operators have a range of approaches for ensuring they can recover their Applica
 
 This topic focuses on the first approach by outlining where Application Service Adapter stores state and suggestions for backing up.
 
-## <a id="state-storage"></a>State Storage
+## <a id="state-storage"></a>State storage
 
 In contrast to TAS for VMs, Application Service Adapter has no dedicated databases or blobstore. Instead, state is stored in two places:
 
@@ -18,30 +18,30 @@ In contrast to TAS for VMs, Application Service Adapter has no dedicated databas
 
 To help illustrate this, consider the following scenarios.
 
-### Application Service Adapter Installation Resources
+### Application Service Adapter installation resources
 
 ![alt-text=""](images/tas-adapter-install-state-storage.png)
 
 TAS operators are familiar with backing up their Ops Manager and BOSH Director databases to safeguard their installation configuration. For Application Service Adapter, this works differently. Application Service Adapter is installed using the `tanzu package install` command. This causes the creation of a variety of [Carvel](https://carvel.dev/) package installation resources and `ConfigMaps` on the cluster which are managed by `kapp-controller`. These installation resources are stored in the Kubernetes API as custom resources, which are ultimately stored in etcd.
 
-### Application Service Adapter Cloud Foundry API Resources
+### Application Service Adapter Cloud Foundry API resources
 
 ![alt-text="State storage of Application Service Adapter CF resources."](images/tas-adapter-cf-resource-state-storage.png)
 
 TAS for VMs stores CF API state and application configuration across a number of databases, with the majority of it held within the Cloud Controller API's CCDB database. Application Service Adapter does not maintain its own datastore for this purpose, but instead represents all Cloud Foundry resources as Kubernetes custom resources. These custom resources are managed by the Kubernetes API and stored in etcd.
 
-### Application Source Code
+### Application source code
 
 ![alt-text=""](images/tas-adapter-app-source-state-storage.png)
 
 Application Service Adapter converts application source code into single-layer OCI images that are stored in the registry specified at installation.
 
-### Runnable Application Artifacts
+### Runnable application artifacts
 
 ![alt-text=""](images/tas-adapter-staged-app-state-storage.png)
 
 TAS for VMs operators can be familiar with the concept of droplets, or TAR files representing staged apps that are ready to run on the platform. Rather than TAS-style droplets, Application Service Adapter, using Tanzu Build Service, produces runnable container images that are stored in the registry specified at installation.
 
-## <a id="backing-up-cluster-state"></a>Backup and Restore
+## <a id="backing-up-cluster-state"></a>Backup and restore
 
 VMware recommends that operators take frequent backups of both the Kubernetes cluster's etcd and the registry using open source tools such as [Velero](https://velero.io/) or the native backup function provided by their infrastructure platform.

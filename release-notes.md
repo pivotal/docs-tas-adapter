@@ -25,7 +25,7 @@ This topic contains release notes for the Application Service Adapter for VMware
 
 #### Supply Chain Choreographer integration (experimental)
 
-> **Note** Upgrades from v1.0 to v1.1 are not supported if you have enabled the experimental Cartographer integration. Existing application workloads don't behave correctly after upgrading from v1.0 to v1.1.
+> **Note** Upgrades from v1.0 to v1.1 are not supported if you have enabled the experimental Cartographer integration. Existing application workloads will not behave correctly after upgrading from v1.0 to v1.1.
 
 * Application developers can run `tanzu apps workload get` to display the pods for application instances.
 * Application developers can run `tanzu apps workload tail` to display build logs for applications and running logs for application instances.

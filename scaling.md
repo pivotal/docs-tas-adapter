@@ -22,7 +22,7 @@ starting place for understanding production cluster concerns.
 
 ## <a id="controllers"></a>Scaling the Application Service Adapter controller managers
 
-### Vertical Scaling
+### Vertical scaling
 The Application Service Adapter deploys a set of controller managers responsible
 for reconciling various custom resources into running pods on your Kubernetes
 cluster. If these controller managers are resource constrained, scaling them up
@@ -53,7 +53,7 @@ scaling parameters as described in the [Configure installation
 settings](install.md#configure-installation-settings) instructions, and then
 re-running the [installation step](install.md#install-adapter).
 
-### Horizontal Scaling
+### Horizontal scaling
 
 As described in the [Failover and redundancy
 topic](failover-and-redundancy.md#controllers), controller managers use
@@ -61,8 +61,8 @@ leader-election to designate a single active instance, so horizontal scaling is
 not an effective strategy to improve performance of a slow controller. Since the
 same deployments also serve webhook requests, you may choose to add horizontal scale
 to improve webhook performance. You may also choose to scale your
-deployments to improve controller availability. Multi-instance deployments will
-allow rolling deployments so that controllers and web-hooks don't become
+deployments to improve controller availability. Multi-instance deployments
+allow rolling deployments so that controllers and webhooks don't become
 unresponsive during upgrades. Horizontal scaling can be achieved using the
 `replicas` scaling configuration.
 

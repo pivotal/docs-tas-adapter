@@ -37,7 +37,7 @@ Follow these steps to update the new package repository:
       --namespace tap-install
     ```
 
-## <a id="upgrading-to-version-1-1"></a> Upgrading to Version v1.1.0
+## <a id="upgrading-to-version-1-1"></a> Upgrading to v1.1.0
 
 1. Update your `tas-adapter-values.yml` file
 

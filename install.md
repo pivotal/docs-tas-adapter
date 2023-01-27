@@ -1,4 +1,4 @@
-# Installing Application Service Adapter
+# Install Application Service Adapter
 
 This topic describes how to install the Application Service Adapter for VMware Tanzu Application Platform system.
 
@@ -190,7 +190,7 @@ To configure the installation settings:
 
 > **Warning:**
 > The app registry secret and secret export are not required when using ECR.
- 
+
     ```bash
     kubectl create namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
     kubectl create secret docker-registry APP-REGISTRY-CREDENTIALS-SECRET-NAME \
@@ -288,7 +288,7 @@ Repository Prefix Examples:
      - For Amazon EKS, see the [AWS IAM user management for EKS section](user-management.md#aws-iam-user-management-eks) of the User Management topic for information on additional required cluster configuration to map AWS IAM users and roles to Kubernetes roles.
      - For clusters configured to use authentication proxies such as [Pinniped](https://pinniped.dev/), you can authenticate to the cluster and use the output of `cf curl /whoami` to see the user account name to provide.
 
-   > **Note:** These user names are the ones that Kubernetes recognizes as user identifiers in the subject section of its RBAC resources, such as `RoleBindings`, and may differ from the names of the user entries in your local Kubeconfig file. If you are not certain of this user name, you can leave this entry empty for the initial installation. After completing the installation and logging in with the cf CLI, use the `cf curl /whoami` command to confirm the user name and then update the installation with the correct name value. For more information about user subject names in Kubernetes, see the [Referring to subjects](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-subjects) section of _Using RBAC Authorization_ and the [Authenticating](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) topic in the Kubernetes project documentation.
+   > **Note** These user names are the ones that Kubernetes recognizes as user identifiers in the subject section of its RBAC resources, such as `RoleBindings`, and may differ from the names of the user entries in your local Kubeconfig file. If you are not certain of this user name, you can leave this entry empty for the initial installation. After completing the installation and logging in with the cf CLI, use the `cf curl /whoami` command to confirm the user name and then update the installation with the correct name value. For more information about user subject names in Kubernetes, see the [Referring to subjects](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-subjects) section of _Using RBAC Authorization_ and the [Authenticating](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) topic in the Kubernetes project documentation.
 
    See additional optional values in the following example. For more information on optional values, see the Tanzu CLI output.
 
@@ -391,7 +391,7 @@ Your Application Service Adapter deployment no longer emits telemetry, and you a
 
 ### <a id="custom-ca-registry"></a>(Optional) Configure a Registry With a Custom Certificate Authority
 
-> **Note:** Your Kubernetes cluster nodes and the Tanzu Build Service component of Tanzu Application Platform must also both be configured to trust this Certificate Authority for the registry.
+Your Kubernetes cluster nodes and the Tanzu Build Service component of Tanzu Application Platform must also both be configured to trust this Certificate Authority for the registry.
 
 To configure Application Service Adapter to trust a registry that has a custom or self-signed certificate authority:
 
@@ -399,7 +399,7 @@ To configure Application Service Adapter to trust a registry that has a custom o
 
 ### <a id="experimental-cartographer-integration"></a>(Optional) Configure the Experimental Cartographer Integration
 
-> **Note:** Opting into the experimental Cartographer integration requires a larger set of Tanzu Application Platform packages to be installed. See [Required components for experimental Cartographer integration](install-prerequisites.md#required-components-cartographer) in _Install Prerequisites_.
+Opting into the experimental Cartographer integration requires a larger set of Tanzu Application Platform packages to be installed. See [Required components for experimental Cartographer integration](install-prerequisites.md#required-components-cartographer) in _Install Prerequisites_.
 
 To configure the experimental Cartographer integration:
 
@@ -450,11 +450,11 @@ To configure DNS for Application Service Adapter:
     kubectl -n tanzu-system-ingress get service envoy -ojsonpath='{.status.loadBalancer.ingress[*].ip}'
     ```
 
-   > **Note:** If you are using a cluster deployed on AWS, your LoadBalancer has a DNS name instead of an IP address.
+   > **Note** If you are using a cluster deployed on AWS, your LoadBalancer has a DNS name instead of an IP address.
 
 2. Create an A record in your DNS zone that resolves the configured API FQDN to the external IP address from step 1. This step varies depending on your DNS provider.
 
-   > **Note:** If you are using a cluster deployed on AWS, create a CNAME record that resolves to the DNS name of the load balancer instead of an A record.
+   > **Note** If you are using a cluster deployed on AWS, create a CNAME record that resolves to the DNS name of the load balancer instead of an A record.
 
 3. Create a wildcard A record in your DNS zone that resolves all sub-domains of the configured application domain to the external IP address from step 1. This step varies depending on your DNS provider.
 
@@ -482,7 +482,7 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to A
 
     Where `API-FQDN` is the fully qualified domain name (FQDN) for the Application Service Adapter API.
 
-    > **Note:** If you configured the Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
+    > **Note** If you configured the Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
 
 2. Log in with the cf CLI.
 
@@ -506,6 +506,6 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to A
 
     The value of the `name` text box in the response is the subject name of the user, and matches the name configured in `admin.users`.
 
-    >**Note:** The `kind` text box in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log in to the Application Service Adapter with an account for a user in the Kubernetes cluster.
+    The `kind` text box in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log in to the Application Service Adapter with an account for a user in the Kubernetes cluster.
 
    To test Application Service Adapter, continue to [Getting Started](getting-started.md).

@@ -1,4 +1,4 @@
-# Installing prerequisites
+# Installation prerequisites
 
 This topic describes the first part of installation for the Application Service Adapter for VMware Tanzu Application Platform.
 
@@ -23,7 +23,9 @@ The following tools must be installed in the workstation environment in which yo
 * The Kubernetes CLI (kubectl) v1.22 or v1.23.
 
 * Tanzu CLI and its plug-ins. See [Install or update the Tanzu CLI and plugins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-install-tanzu-cli.html#install-or-update-the-tanzu-cli-and-plugins-3) in _Accepting Tanzu Application Platform EULAs and installing Tanzu CLI_.
-   > **Note:** After you install the Tanzu CLI, run `tanzu plugin list` to verify that the required `package` and `secret` plug-ins are installed. To install these plug-ins, run:
+
+After you install the Tanzu CLI, run `tanzu plugin list` to verify that the required `package` and `secret` plug-ins are installed. To install these plug-ins, run:
+
     ```bash
     tanzu plugin install --local cli package
     tanzu plugin install --local cli secret
@@ -34,7 +36,7 @@ The following tools must be installed in the workstation environment in which yo
 The following dependencies must be installed to the target Kubernetes cluster before installing Application Service Adapter. If you completed an installation of the `full` profile or the `iterate` profile of Tanzu Application Platform v1.2 in your target Kubernetes cluster, these dependencies are already present.
 
 * Cluster Essentials. See [Deploying Cluster Essentials v1.3](https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/1.3/cluster-essentials/GUID-deploy.html).
-   > **Note:** If you are operating a Tanzu Kubernetes Grid cluster, the Cluster Essentials are already installed.
+   > **Note** If you are operating a Tanzu Kubernetes Grid cluster, the Cluster Essentials are already installed.
 
 * cert-manager v1.5.3 or later for managing internal certificates.
    * If you installed Tanzu Application Platform v1.3 with a profile, this package is installed.
@@ -43,7 +45,7 @@ The following dependencies must be installed to the target Kubernetes cluster be
 * Contour v1.18.2 or later for ingress control.
    * If you installed Tanzu Application Platform v1.3 with a profile, this package is installed.
    * If you installed Tanzu Application Platform v1.3 without using a profile, see [Install Contour](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-cert-mgr-contour-fcd-install-cert-mgr.html#install-contour-2) in _Install cert-manager, Contour_.
-   > **Note:** You must configure Contour's ingress to provision a LoadBalancer. See the default configuration in [Install your Tanzu Application Platform profile](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-install.html#install-your-tanzu-application-platform-profile-1) in _Installing Tanzu Application Platform Package and Profiles_.
+   > **Note** You must configure Contour's ingress to provision a LoadBalancer. See the default configuration in [Install your Tanzu Application Platform profile](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-install.html#install-your-tanzu-application-platform-profile-1) in _Installing Tanzu Application Platform Package and Profiles_.
 
 * Service Bindings v0.7.2 or later.
    * If you installed Tanzu Application Platform v1.3 with the `full`, `iterate`, or `run` profile, this package is installed.
@@ -69,14 +71,14 @@ The following dependencies are required to be installed to the target Kubernetes
 * Tekton v0.33.5 or later.
    * If you installed Tanzu Application Platform v1.2 without using a profile, see [Install Tekton](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-tekton-install-tekton.html).
 
-### <a id="recommended-components"></a>Recommended Components
+### <a id="recommended-components"></a>Recommended components
 
-The following dependencies are recommended to be installed to the target Kubernetes cluster.
+VMware recommends installing the following dependencies to the target Kubernetes cluster.
 
 * [Kubernetes Metrics Server](https://github.com/kubernetes-sigs/metrics-server/) v0.4.0 or later for app instance resource metrics.
-  > **Note:** Many Kubernetes distributions automatically come with the Metrics Server installed. If the API resources in your target cluster include the `PodMetrics` Kind in the `metrics.k8s.io` API group, the Metrics Server is already present.
+  > **Note** Many Kubernetes distributions automatically come with the Metrics Server installed. If the API resources in your target cluster include the `PodMetrics` Kind in the `metrics.k8s.io` API group, the Metrics Server is already present.
 
-After you installed these prerequisites, proceed to [Installing Application Service Adapter](install.md).
+After you installed these prerequisites, proceed to [Install Application Service Adapter](install.md).
 
 ### <a id="ecr-configuration"></a>AWS IAM Configuration for ECR
 
@@ -99,4 +101,3 @@ Follow the TAP instructions, with these amendments:
  * "arn:aws:ecr:${AWS_REGION}:${AWS_ACCOUNT_ID}:repository/${REPOSITORY_PREFIX_PATH}*"
    Where `REPOSITORY_PREFIX_PATH` is the path portion of the `REPOSITORY-PREFIX`
    you will provide when setting `tas-adapter-values.yml` for installation.
-

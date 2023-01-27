@@ -8,7 +8,7 @@ Environment variables are the means by which Application Service Adapter communi
 
 For information about setting your own app-specific environment variables, see the [Environment Variable](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#env-block) section of the _Deploying with App Manifests_ topic.
 
-## <a id='view-env'></a> View Environment Variables
+## <a id='view-env'></a> View environment variables
 
 Using the Cloud Foundry Command Line Interface (cf CLI), you can run the `cf env` command to view the Application Service Adapter environment variables for your app. The `cf env` command displays the following environment variables:
 
@@ -34,7 +34,7 @@ No staging env variables have been set
 </pre>
 
 
-## <a id='app-system-env'></a> App-Specific System Variables
+## <a id='app-system-env'></a> App-specific system variables
 
 This section describes the environment variables that Application Service Adapter makes available to your app container. Some of these variables are the same across instances of a single app, and some vary from instance to instance.
 

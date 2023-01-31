@@ -62,6 +62,7 @@ Service credentials are provided to apps through user-provided service instances
 To create and bind user-provided service instances, do the following:
 
 1. Create a user-provided service instance containing the credentials necessary for accessing your service:
+
   ```bash
   cf create-user-provided-service SERVICE-INSTANCE-NAME -p '{"credential-name": "credential-value"}'
   ```
@@ -69,11 +70,13 @@ To create and bind user-provided service instances, do the following:
   Where `SERVICE-INSTANCE-NAME` is the name of your service instance.
 
 1. Bind the service instance to your app:
+
   ```bash
   cf bind-service APP-NAME SERVICE-INSTANCE-NAME
   ```
 
 1. Restart (or restage if a buildpack relies on the service) the app to make the service credentials available:
+
   ```bash
   cf restart APP-NAME
   ```

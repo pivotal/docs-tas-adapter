@@ -1,4 +1,4 @@
-# Upgrading Application Service Adapter
+# Upgrade Application Service Adapter
 
 This document describes how to upgrade Application Service Adapter for VMware Tanzu Application Platform.
 

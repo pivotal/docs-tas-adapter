@@ -106,8 +106,8 @@ To install Application Service Adapter:
 
 To configure the installation settings:
 
-1. If you do not already have a secret containing a certificate and private keypair for HTTPS ingress to the Application Service Adapter API:
-   * If you have a certificate and private keypair, create a secret containing them:
+1. If you do not already have a secret containing a certificate and private key pair for HTTPS ingress to the Application Service Adapter API:
+   * If you have a certificate and private key pair, create a secret containing them:
 
       ```bash
       kubectl create namespace API-TLS-SECRET-NAMESPACE
@@ -117,7 +117,7 @@ To configure the installation settings:
         --namespace API-TLS-SECRET-NAMESPACE
      ```
 
-   * If you do not have a certificate and private keypair, you can [use cert-manager to generate a secret containing a self-signed certificate](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources) in the cert-manager documentation:
+   * If you do not have a certificate and private key pair, you can [use cert-manager to generate a secret containing a self-signed certificate](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources) in the cert-manager documentation:
 
       ```bash
       kubectl apply -f - <<EOF
@@ -150,8 +150,8 @@ To configure the installation settings:
       EOF
       ```
 
-2. If you do not already have a secret containing a wildcard certificate and private keypair for HTTPS application ingress:
-   * If you have a wildcard certificate and private keypair, create a secret containing them:
+2. If you do not already have a secret containing a wildcard certificate and private key pair for HTTPS application ingress:
+   * If you have a wildcard certificate and private key pair, create a secret containing them:
 
       ```bash
       kubectl create namespace APP-TLS-SECRET-NAMESPACE
@@ -161,7 +161,7 @@ To configure the installation settings:
         --namespace APP-TLS-SECRET-NAMESPACE
      ```
 
-   * If you do not have a wildcard certificate and private keypair, you can [use cert-manager to generate a Secret containing a self-signed wildcard certificate](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources) in the cert-manager documentation:
+   * If you do not have a wildcard certificate and private key pair, you can [use cert-manager to generate a Secret containing a self-signed wildcard certificate](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources) in the cert-manager documentation:
 
       ```bash
       kubectl apply -f - <<EOF

@@ -1,6 +1,6 @@
 # Get started with Application Service Adapter
 
-This topic provides an overview of how to get started using the Application Service Adapter for Tanzu Application Platform.
+This topic provides an overview of how to get started using Application Service Adapter for Tanzu Application Platform.
 
 ## <a id="create-orgs-spaces"></a>Create orgs and spaces
 

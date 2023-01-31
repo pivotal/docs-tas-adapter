@@ -33,10 +33,10 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
 
     - `NEW-API-TLS-SECRET-NAME` is the kubernetes.io/tls secret containing the PEM-encoded public certificate for the Application Service Adapter API.
     - `NEW-API-TLS-SECRET-NAMESPACE` is namespace containing the Application Service Adapter API secret.
-    - `NEW-APP-TLS-SECRET-NAME` is the kubernetes.io/tls secret containing the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
+    - `NEW-APP-TLS-SECRET-NAME` is the kubernetes.io/tls secret containing the PEM-encoded public certificate for applications deployed using Application Service Adapter.
     - `NEW-APP-TLS-SECRET-NAMESPACE` is the namespace containing the Application Service Adapter applications secret.
 
-3. Install the Application Service Adapter to the cluster by running:
+3. Install Application Service Adapter to the cluster by running:
 
     ```bash
     tanzu package install tas-adapter \

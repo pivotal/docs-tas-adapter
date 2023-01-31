@@ -299,7 +299,7 @@ When I run `cf push`, my app stages correctly, but fails to start or become heal
 
 1. There is an issue with the application's code.
 1. The Kubernetes cluster cannot schedule the application.
-1. The Application Service Adapter cannot turn the app into a StatefulSet.
+1. Application Service Adapter cannot turn the app into a StatefulSet.
 
 #### Troubleshooting steps and potential solutions
 
@@ -333,11 +333,11 @@ This section contains common failure scenarios specific to operation on the Open
 
 The OpenShift installation setting for Application Service Adapter can be set in the `tas-adapter-values.yml` as described in [Install Application Service Adapter](install.md).
 
-### Installing the Application Service Adapter on a non-OpenShift Kubernetes distribution fails
+### Installing Application Service Adapter on a non-OpenShift Kubernetes distribution fails
 
 #### Symptom
 
-When I install the Application Service Adapter on a non-OpenShift cluster, I get the following error message:
+When I install Application Service Adapter on a non-OpenShift cluster, I get the following error message:
 
 ```bash
 kapp: Error: Expected to find kind 'security.openshift.io/v1/SecurityContextConstraints', but did not:
@@ -353,7 +353,7 @@ The OpenShift setting is enabled.
 
 Creating the SecurityContextConstraint faila on a non-OpenShift cluster because the SecurityContextConstraint CRD is only present on OpenShift. Reinstall Application Service Adapter with the OpenShift setting turned off.
 
-### Installing the Application Service Adapter on an OpenShift Kubernetes distribution fails
+### Installing Application Service Adapter on an OpenShift Kubernetes distribution fails
 
 #### Symptom
 
@@ -397,7 +397,7 @@ This section contains common failure scenarios specific to the use of the experi
 
 ### Cartographer setting
 
-The experimental Cartographer installation setting for the Application Service Adapter can be set in the `tas-adapter-values.yml` as described [Install Application Service Adapter](install.md)
+The experimental Cartographer installation setting for Application Service Adapter can be set in the `tas-adapter-values.yml` as described [Install Application Service Adapter](install.md)
 
 ### Pushing an app fails to start
 

@@ -1,6 +1,6 @@
 # Install Application Service Adapter
 
-This topic describes how to install the Application Service Adapter for VMware Tanzu Application Platform system.
+This topic describes how to install Application Service Adapter for VMware Tanzu Application Platform.
 
 After you complete the steps in [Installing Prerequisites](install-prerequisites.md), set the Kubernetes context to the cluster where you installed kpack and Contour.
 
@@ -252,7 +252,7 @@ To configure the installation settings:
    - `API-TLS-SECRET-NAME` is the `kubernetes.io/tls` secret containing the PEM-encoded public certificate for the Application Service Adapter API.
    - `API-TLS-SECRET-NAMESPACE` is the namespace containing the API TLS secret.
    - `DEFAULT-APP-DOMAIN` is the domain that you want to use for automatically configured application routes. Example: `apps.example.com`.
-   - `APP-TLS-SECRET-NAME` is the `kubernetes.io/tls` secret containing the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
+   - `APP-TLS-SECRET-NAME` is the `kubernetes.io/tls` secret containing the PEM-encoded public certificate for applications deployed using Application Service Adapter.
    - `APP-TLS-SECRET-NAMESPACE` is the namespace containing the application TLS secret.
    - `APP-REGISTRY-CREDENTIALS-SECRET-NAME` is the `kubernetes.io/dockerconfigjson` secret containing the host, user name, and password for the application image registry.
        - Not required if you intend to use ECR as the application image registry.
@@ -261,7 +261,7 @@ To configure the installation settings:
    - `AWS-IAM-ROLE-ARN` is the Amazon Resource Name (ARN) of an AWS IAM role that can be used to access Elastic Container Registries(ECR). This is role is similar to the one
 used by TBS.
        - Required if you intend to use ECR as the application image registry.
-   - `REPOSITORY-PREFIX` is the host and path combination used as the base for package and droplet images produced by the Application Service Adapter.
+   - `REPOSITORY-PREFIX` is the host and path combination used as the base for package and droplet images produced by Application Service Adapter.
 
 Repository Prefix Examples:
 
@@ -482,7 +482,7 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to A
 
     Where `API-FQDN` is the fully qualified domain name (FQDN) for the Application Service Adapter API.
 
-    > **Note** If you configured the Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
+    > **Note** If you configured Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
 
 2. Log in with the cf CLI.
 
@@ -506,6 +506,6 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to A
 
     The value of the `name` text box in the response is the subject name of the user, and matches the name configured in `admin.users`.
 
-    The `kind` text box in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log in to the Application Service Adapter with an account for a user in the Kubernetes cluster.
+    The `kind` text box in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log in to Application Service Adapter with an account for a user in the Kubernetes cluster.
 
    To test Application Service Adapter, continue to [Getting Started](getting-started.md).

@@ -30,7 +30,7 @@ For additional details and options, see the `kapp logs --help` help text.
 
 ## <a id="metrics"></a>Query performance metrics
 
-All of the controller-managers deployed by the Application Service Adapter
+All of the controller-managers deployed by Application Service Adapter
 provide [standard Prometheus performance
 metrics](https://book.kubebuilder.io/reference/metrics-reference.html) generated
 by the Kubernetes controller-runtime library.

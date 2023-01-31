@@ -14,7 +14,7 @@ This is the table of contents from which the Application Service Adapter for Tan
   - [Disaster recovery](disaster-recovery.md)
   - [Failover and redundancy](failover-and-redundancy.md)
   - [Rotating certificates](certificate-rotation.md)
-  - [System logging and metrics](logging-and-metrics.md)
+  - [System logs and metrics](logging-and-metrics.md)
   - [Scale](scaling.md)
   - [Upgrade](upgrading.md)
 - [Uninstall Application Service Adapter](uninstall.md)

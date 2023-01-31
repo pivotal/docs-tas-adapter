@@ -1,8 +1,8 @@
-# System logging and metrics
+# System logs and metrics
 
 This topic provides guidance on accessing system component logs and metrics.
 
-## <a id="system-logs"></a>Gathering system logs
+## <a id="system-logs"></a>Gather system logs
 
 Logs for Application Service Adapter system components flow through standard
 Kubernetes logging channels and can be retrieved using the tooling of your
@@ -28,7 +28,7 @@ Where `DEPLOYMENT-NAME` is the name of the Kubernetes Deployment, such as
 To stream logs instead of fetching the most recent logs, add the `--follow` flag to the earlier `kapp logs` commands.
 For additional details and options, see the `kapp logs --help` help text.
 
-## <a id="metrics"></a>Querying performance metrics
+## <a id="metrics"></a>Query performance metrics
 
 All of the controller-managers deployed by the Application Service Adapter
 provide [standard Prometheus performance

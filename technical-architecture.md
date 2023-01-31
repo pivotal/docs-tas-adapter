@@ -69,7 +69,7 @@ Additionally, Application Service Adapter integrates with the TAP Service Bindin
 
 Application Service Adapter uses the Tanzu Application Platform installation's Contour to implement ingress routing for both the Korifi API and app workloads. The `CFRoute` custom resource backs the relevant Cloud Foundry route management APIs and is converted by the Korifi Controllers component into Contour `HTTPProxy` and Kubernetes `Service` resources. A validating admission webhook applies validation rules to the routes (e.g. no duplicate routes, route has a valid `CFDomain`, etc).
 
-## <a id="app-logs-metrics"></a>App logging and metrics
+## <a id="app-logs-metrics"></a>App logs and metrics
 
 ![Application Service Adapter logging and metrics diagram. Details are described in the following text.](images/tas-adapter-logging-metrics-diagram.png)
 

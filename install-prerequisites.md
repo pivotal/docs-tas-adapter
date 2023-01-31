@@ -1,6 +1,6 @@
 # Installation prerequisites
 
-This topic describes the first part of installation for the Application Service Adapter for VMware Tanzu Application Platform.
+This topic describes the first part of installation for Application Service Adapter for VMware Tanzu Application Platform.
 
 ----
 
@@ -9,12 +9,12 @@ For more information, see the [cf CLI repository](https://github.com/cloudfoundr
 
 ### <a id="kubernetes-cluster-image-registry"></a>Kubernetes cluster and container image registry
 
-To install the Application Service Adapter, you need:
+To install Application Service Adapter, you need:
 
 * Admin access to a Kubernetes cluster that meets the same requirements as the version of Tanzu Application Platform you have installed, either v1.2 or v1.3. See [Kubernetes cluster requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-prerequisites.html#kubernetes-cluster-requirements-3) in _Prerequisites_.
   * As of Tanzu Application Platform v1.3, Kubernetes v1.22, v1.23, or v1.24 is required. There are additional requirements for some implementations. For example, Amazon Elastic Kubernetes Service (EKS) requires containerd as the Container Runtime Interface (CRI) among with other requirements.
 
-* A container image registry. See [VMware Tanzu Network and container image registry requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-prerequisites.html#vmware-tanzu-network-and-container-image-registry-requirements-0) in _Prerequisites_. The Application Service Adapter does not support Amazon's Elastic Container Registry (ECR).
+* A container image registry. See [VMware Tanzu Network and container image registry requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-prerequisites.html#vmware-tanzu-network-and-container-image-registry-requirements-0) in _Prerequisites_. Application Service Adapter does not support Amazon's Elastic Container Registry (ECR).
 
 ### <a id="required-installation-tools"></a>Required installation tools
 

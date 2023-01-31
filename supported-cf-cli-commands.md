@@ -1,6 +1,6 @@
 # Supported cf CLI commands
 
-This topic describes the Cloud Foundry command-line interface (cf CLI) commands and options that this version of the Application Service Adapter supports:
+This topic describes the Cloud Foundry command-line interface (cf CLI) commands and options that this version of Application Service Adapter supports:
 
 * [Getting started](#getting-started)
 * [cf push](#cf-push)

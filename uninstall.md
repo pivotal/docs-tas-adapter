@@ -1,6 +1,6 @@
 # Uninstall Application Service Adapter
 
-This topic describes how to uninstall the Application Service Adapter for VMware Tanzu Application Platform.
+This topic describes how to uninstall Application Service Adapter for VMware Tanzu Application Platform.
 
 To uninstall Application Service Adapter:
 

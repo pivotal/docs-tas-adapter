@@ -17,7 +17,7 @@ The Application Service Adapter relies on core Kubernetes role-based access cont
 
 ![CF API User Authentication Flow, showing user connection through cd CLI and TLS into the Kubernetes cluster.](images/tas_adapter_user_auth_flow.jpg)
 
-The Application Service Adapter API requires that users connect to it using HTTPS because the Authorization header contains the user’s authentication token or client certificate or keypair. The API translates the CAPI request into Kubernetes API requests using the provided credentials.
+The Application Service Adapter API requires that users connect to it using HTTPS because the Authorization header contains the user’s authentication token or client certificate or key pair. The API translates the CAPI request into Kubernetes API requests using the provided credentials.
 
 >**Note** The user is authenticated through their Kubernetes token or client certificate or key for each request to the Adapter's API. There is no persistent session data stored between requests.
 

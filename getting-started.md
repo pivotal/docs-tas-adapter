@@ -63,23 +63,23 @@ To create and bind user-provided service instances, do the following:
 
 1. Create a user-provided service instance containing the credentials necessary for accessing your service:
 
-  ```bash
-  cf create-user-provided-service SERVICE-INSTANCE-NAME -p '{"credential-name": "credential-value"}'
-  ```
+    ```bash
+    cf create-user-provided-service SERVICE-INSTANCE-NAME -p '{"credential-name": "credential-value"}'
+    ```
 
-  Where `SERVICE-INSTANCE-NAME` is the name of your service instance.
+    Where `SERVICE-INSTANCE-NAME` is the name of your service instance.
 
 1. Bind the service instance to your app:
 
-  ```bash
-  cf bind-service APP-NAME SERVICE-INSTANCE-NAME
-  ```
+    ```bash
+    cf bind-service APP-NAME SERVICE-INSTANCE-NAME
+    ```
 
 1. Restart (or restage if a buildpack relies on the service) the app to make the service credentials available:
 
-  ```bash
-  cf restart APP-NAME
-  ```
+    ```bash
+    cf restart APP-NAME
+    ```
 
 User-provided service instance credentials is provided to the app and staging tasks in two ways to support both existing TAS applications and next-generation frameworks, such as [Spring Cloud Bindings](https://github.com/spring-cloud/spring-cloud-bindings):
 

@@ -26,9 +26,9 @@ Tanzu Application Service operators are familiar with backing up their Ops Manag
 
 ### Application Service Adapter Cloud Foundry API resources
 
-![alt-text="State storage of Application Service Adapter CF resources."](images/tas-adapter-cf-resource-state-storage.png)
+![alt-text="State storage of Application Service Adapter Cloud Foundry resources."](images/tas-adapter-cf-resource-state-storage.png)
 
-Tanzu Application Service for VMs stores CF API state and application configuration across a number of databases, with the majority of it held within the Cloud Controller API's CCDB database. Application Service Adapter does not maintain its own datastore for this purpose, but instead represents all Cloud Foundry resources as Kubernetes custom resources. These custom resources are managed by the Kubernetes API and stored in etcd.
+Tanzu Application Service for VMs stores Cloud Foundry API state and application configuration across a number of databases, with the majority of it held within the Cloud Controller API's CCDB database. Application Service Adapter does not maintain its own datastore for this purpose, but instead represents all Cloud Foundry resources as Kubernetes custom resources. These custom resources are managed by the Kubernetes API and stored in etcd.
 
 ### Application source code
 

@@ -14,7 +14,7 @@ This topic contains release notes for Application Service Adapter for VMware Tan
 
 #### Labels and annotations
 
-* Application developers can use CF API endpoints to read, set, and unset annotations on application packages, processes, and routes.
+* Application developers can use Cloud Foundry API endpoints to read, set, and unset annotations on application packages, processes, and routes.
 
 #### System operation
 

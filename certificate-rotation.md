@@ -71,4 +71,4 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
 
 ## <a id="rotating-internal-certificates"></a>Rotating internal certificates
 
-Internal certificates are managed by Certificate Manager with a self-signed Certificate Authority. The default [Certificate Manager](https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec) configuration provides certificates that are valid for 90 days. Certificates are renewed 30 days before expiry.
+Internal certificates are managed by Certificate Manager with a self-signed Certificate Authority. The default Certificate Manager configuration provides certificates that are valid for 90 days. Certificates are renewed 30 days before expiry. For more information, see the [cert-manager documentation](https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec).

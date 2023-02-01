@@ -9,7 +9,7 @@ Application platforms such as Tanzu Application Service for VMs and Tanzu Applic
 
 Tanzu Application Service for VMs uses Cloud Foundry buildpacks and provides a collection of system buildpacks that process many common languages and frameworks for cloud-native web applications. For more information about Cloud Foundry buildpacks, see [How Buildpacks Work](https://docs.pivotal.io/application-service/buildpacks/understand-buildpacks.html) in the Tanzu Application Service for VMs documentation.
 
-Tanzu Application Platform instead uses Tanzu Buildpacks, which implement the newer Cloud Native Buildpack specification, to process application source code. For more information about Cloud Native Buildpacks, see the [Cloud Native Buildpacks project website](https://buildpacks.io/).
+Tanzu Application Platform instead uses Tanzu Buildpacks, which implement the later Cloud Native Buildpack specification to process application source code. For more information about Cloud Native Buildpacks, see the [Cloud Native Buildpacks project website](https://buildpacks.io/).
 
 An installation of Tanzu Application Platform provides a default collection of Tanzu Buildpacks, and Application Service Adapter uses this same set of Tanzu Buildpacks to stage Cloud Foundry applications. Although this collection of Tanzu Buildpacks processes many of the same application languages and frameworks that the Tanzu Application Service for VMs system buildpacks do, there are some differences in the set of languages it can process, as well as differences in how certain buildpacks detect application code or accept configuration parameters.
 

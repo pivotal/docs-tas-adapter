@@ -8,6 +8,8 @@ When upgrading to a new major or minor version of Application Service Adapter, s
 
 You can find new patch versions of Application Service Adapter on the TanzuNet product page directly, or [sign up to receive email alerts](https://network.tanzu.vmware.com/docs/faq#alerts) when the product is updated.
 
+> **Note:** Upgrades are not currently supported if you have enabled the experimental Cartographer integration. Existing application workloads will not behave correctly after upgrading from v1.0 to v1.1.
+
 ## <a id='prereqs'></a> Prerequisites
 
 Before you upgrade Application Service Adapter:

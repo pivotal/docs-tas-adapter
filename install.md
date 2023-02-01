@@ -82,9 +82,9 @@ To install Application Service Adapter:
       KEY                         DEFAULT  TYPE     DESCRIPTION
       api_auth_proxy.ca_cert.data          string   TLS CA certificate of your cluster's auth proxy
       api_auth_proxy.host                  string   FQDN of your cluster's auth proxy
-      api_ingress.fqdn                     string   FQDN used to access the CF API
-      api_ingress.tls.secret_name          string   Name of the secret containing the TLS certificate for the CF API (PEM format)
-      api_ingress.tls.namespace            string   Namespace containing the CF API TLS secret
+      api_ingress.fqdn                     string   FQDN used to access the Cloud Foundry API
+      api_ingress.tls.secret_name          string   Name of the secret containing the TLS certificate for the Cloud Foundry API (PEM format)
+      api_ingress.tls.namespace            string   Namespace containing the Cloud Foundry API TLS secret
       app_ingress.default_domain           string   Default application domain
       app_ingress.tls.secret_name          string   Name of the secret containing the TLS certificate for the default application domain (PEM format)
       app_ingress.tls.namespace            string   Namespace containing the default application domain TLS secret

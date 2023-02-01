@@ -115,9 +115,9 @@ After the images are relocated:
       KEY                         DEFAULT  TYPE     DESCRIPTION
       api_auth_proxy.ca_cert.data          string   TLS CA certificate of your cluster's auth proxy
       api_auth_proxy.host                  string   FQDN of your cluster's auth proxy
-      api_ingress.fqdn                     string   FQDN used to access the CF API
-      api_ingress.tls.crt                  string   TLS certificate for the CF API (PEM format)
-      api_ingress.tls.key                  string   TLS private key for the CF API (PEM format)
+      api_ingress.fqdn                     string   FQDN used to access the Cloud Foundry API
+      api_ingress.tls.crt                  string   TLS certificate for the Cloud Foundry API (PEM format)
+      api_ingress.tls.key                  string   TLS private key for the Cloud Foundry API (PEM format)
       app_ingress.default_domain           string   Default application domain
       app_ingress.tls.crt                  string   TLS certificate for the default application domain (PEM format)
       app_ingress.tls.key                  string   TLS private key for the default application domain (PEM format)

@@ -13,7 +13,7 @@ This is the table of contents from which Application Service Adapter for Tanzu A
 - [Administering Application Service Adapter](administering.md)
   - [Disaster recovery](disaster-recovery.md)
   - [Failover and redundancy](failover-and-redundancy.md)
-  - [Rotating certificates](certificate-rotation.md)
+  - [Rotate certificates](certificate-rotation.md)
   - [System logs and metrics](logging-and-metrics.md)
   - [Scale](scaling.md)
   - [Upgrade](upgrading.md)

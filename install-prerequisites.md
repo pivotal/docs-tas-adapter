@@ -92,7 +92,7 @@ Adapter requires a similar configuration to the [setup required by Tanzu
 Application Service](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/aws-resources.html#create-iam-roles-5),
 but needs access to additional resources and trusted service accounts.
 
-Follow the TAP instructions, with these amendments:
+Follow the Tanzu Application Platform instructions, with these amendments:
 
 * In `build-service-trust-policy.json` add the following service accounts to the
   list of trusted service accounts:
@@ -102,7 +102,8 @@ Follow the TAP instructions, with these amendments:
   * "system:serviceaccount:tas-adapter-system:cartographer-builder-runner-controller-manager"
   * "system:serviceaccount:*:kpack-service-account"
 
-* In build-service-policy.json add the following Resource:
+* In build-service-policy.json, add the following Resource:
  * "arn:aws:ecr:${AWS_REGION}:${AWS_ACCOUNT_ID}:repository/${REPOSITORY_PREFIX_PATH}*"
+
    Where `REPOSITORY_PREFIX_PATH` is the path portion of the `REPOSITORY-PREFIX`
    you will provide when setting `tas-adapter-values.yml` for installation.

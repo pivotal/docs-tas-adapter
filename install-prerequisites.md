@@ -84,3 +84,26 @@ VMware recommends installing the following dependencies to the target Kubernetes
   > **Note** Many Kubernetes distributions automatically come with the Metrics Server installed. If the API resources in your target cluster include the `PodMetrics` Kind in the `metrics.k8s.io` API group, the Metrics Server is already present.
 
 After you installed these prerequisites, proceed to [Install Application Service Adapter](install.md).
+
+### <a id="ecr-configuration"></a>AWS IAM Configuration for ECR
+
+When installed to Amazon Elastic Container Service with ECR, Application Service
+Adapter requires a similar configuration to the [setup required by Tanzu
+Application Service](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/aws-resources.html#create-iam-roles-5),
+but needs access to additional resources and trusted service accounts.
+
+Follow the Tanzu Application Platform instructions, with these amendments:
+
+* In `build-service-trust-policy.json` add the following service accounts to the
+  list of trusted service accounts:
+  * "system:serviceaccount:tas-adapter-system:korifi-api-system-serviceaccount"
+  * "system:serviceaccount:tas-adapter-system:korifi-controllers-controller-manager"
+  * "system:serviceaccount:tas-adapter-system:korifi-kpack-build-controller-manager"
+  * "system:serviceaccount:tas-adapter-system:cartographer-builder-runner-controller-manager"
+  * "system:serviceaccount:*:kpack-service-account"
+
+* In build-service-policy.json, add the following Resource:
+ * "arn:aws:ecr:${AWS_REGION}:${AWS_ACCOUNT_ID}:repository/${REPOSITORY_PREFIX_PATH}*"
+
+   Where `REPOSITORY_PREFIX_PATH` is the path portion of the `REPOSITORY-PREFIX`
+   you will provide when setting `tas-adapter-values.yml` for installation.

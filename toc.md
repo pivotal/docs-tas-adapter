@@ -1,6 +1,6 @@
 # Application Service Adapter for VMware Tanzu Application Platform
 
-This is the table of contents from which the Application Service Adapter for Tanzu Application Platform Documentation site on docs.vmware.com is built.
+This is the table of contents from which Application Service Adapter for Tanzu Application Platform Documentation site on docs.vmware.com is built.
 
 - [Application Service Adapter v1.2](overview.md)
 - [Release notes](release-notes.md)
@@ -13,10 +13,10 @@ This is the table of contents from which the Application Service Adapter for Tan
 - [Administering Application Service Adapter](administering.md)
   - [Disaster recovery](disaster-recovery.md)
   - [Failover and redundancy](failover-and-redundancy.md)
-  - [Rotating certificates](certificate-rotation.md)
-  - [System logging and metrics](logging-and-metrics.md)
-  - [Scaling](scaling.md)
-  - [Upgrading](upgrading.md)
+  - [Rotate certificates](certificate-rotation.md)
+  - [System logs and metrics](logging-and-metrics.md)
+  - [Scale](scaling.md)
+  - [Upgrade](upgrading.md)
 - [Uninstall Application Service Adapter](uninstall.md)
 - [Troubleshoot](troubleshooting.md)
 - [Concepts](concepts.md)

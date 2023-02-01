@@ -1,6 +1,6 @@
 # Get started with Application Service Adapter
 
-This topic provides an overview of how to get started using the Application Service Adapter for Tanzu Application Platform.
+This topic provides an overview of how to get started using Application Service Adapter for Tanzu Application Platform.
 
 ## <a id="create-orgs-spaces"></a>Create orgs and spaces
 
@@ -56,23 +56,26 @@ Service credentials are provided to apps through user-provided service instances
 To create and bind user-provided service instances, do the following:
 
 1. Create a user-provided service instance containing the credentials necessary for accessing your service:
-  ```bash
-  cf create-user-provided-service SERVICE-INSTANCE-NAME -p '{"credential-name": "credential-value"}'
-  ```
 
-  Where `SERVICE-INSTANCE-NAME` is the name of your service instance.
+    ```bash
+    cf create-user-provided-service SERVICE-INSTANCE-NAME -p '{"credential-name": "credential-value"}'
+    ```
+
+    Where `SERVICE-INSTANCE-NAME` is the name of your service instance.
 
 1. Bind the service instance to your app:
-  ```bash
-  cf bind-service APP-NAME SERVICE-INSTANCE-NAME
-  ```
+
+    ```bash
+    cf bind-service APP-NAME SERVICE-INSTANCE-NAME
+    ```
 
 1. Restart (or restage if a buildpack relies on the service) the app to make the service credentials available:
-  ```bash
-  cf restart APP-NAME
-  ```
 
-User-provided service instance credentials is provided to the app and staging tasks in two ways to support both existing TAS applications and next-generation frameworks, such as [Spring Cloud Bindings](https://github.com/spring-cloud/spring-cloud-bindings):
+    ```bash
+    cf restart APP-NAME
+    ```
+
+User-provided service instance credentials is provided to the app and staging tasks in two ways to support both existing Tanzu Application Service applications and next-generation frameworks, such as [Spring Cloud Bindings](https://github.com/spring-cloud/spring-cloud-bindings):
 
 * As part of the traditional Cloud Foundry [VCAP_SERVICES environment variable](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES)
 * As volume mounted secrets in accordance with the [Service Bindings for Kubernetes specification](https://servicebinding.io/spec/core/1.0.0/#workload-projection)

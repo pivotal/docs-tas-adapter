@@ -154,16 +154,17 @@ All image build object types are located within the targeted CFSpace namespace.
 #### Run app object types (Cartographer builder/runner)
 All run app object types are located within the targeted CFSpace namespace.
 
-| Kind        | Component  | Created By                                     | Reconciled By                                    | Notes                                                                                                                                                                                                                                                                                                                                                          |
-|-------------|------------|------------------------------------------------|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CFProcess   | CF         | `korifi-api-deployment`                        | `korifi-controllers-controller-manager`          | The 1st object in the app run chain that's created when the `cf push` command is run. The CFProcess resource represents a single process.                                                                                                                                                                                                                      |
-| AppWorkload | CF         | `korifi-controllers-controller-manager`        | `cartographer-builder-runner-controller-manager` | The 2nd object in the app run chain that's created when the `cf push` command is run.  The AppWorkload is an intermediate resource that contains information about the application/process. `cartographer-builder-runner-controller-manager` edits the Cartographer workload created during the image build process with the information from the AppWorkload. |
-| ConfigMap   | Kubernetes | `cartographer-ctrl`                            | NA                                               | The 3rd object in the app run chain that's created when the `cf push` command is run. A Kubernetes ConfigMap resource containing the StatefulSet definition is created that `cartographer-ctrl` uses to spawns a StatefulSet by means of kapp.                                                                                                                 |
-| StatefulSet | Kubernetes | `cartographer-ctrl`                            | NA                                               | The 4th object in the app run chain that's created when the `cf push` command is run. The StatefulSet is a Kubernetes resource that represents a single process for an application. There should be a StatefulSet for each CFProcess.                                                                                                                          |
-| ReplicaSet  | Kubernetes | Kubernetes                                     | NA                                               | The 5th object in the app run chain that's created when the `cf push` command is run. The ReplicaSet is created by Kubernetes to maintain a stable set of replica pods for the StatefulSet.                                                                                                                                                                    |
-| Pod         | Kubernetes | Kubernetes                                     | NA                                               | The app process pods are last in the app run chain and created by Kubernetes based on the ReplicaSet. The number of pods are based on the ReplicaSet replicas parameter.                                                                                                                                                                                       |
-| CFRoute     | CF         | `korifi-api-deployment`                        | `korifi-controllers-controller-manager`          | CFRoutes are created to be able to reach running apps. They can be created as part of the `cf push` command if a default or random route is specified, defined in a manifest, or as part of the `cf create-route` command.                                                                                                                                     |
-| HTTPProxy   | contour    | `korifi-controllers-controller-manager`        | NA                                               | The HTTPProxy is a Contour resource that is created by the `korifi-controllers-controller-manager` to reach running apps.                                                                                                                                                                                                                                      |
+| Kind        | Component    | Created By                              | Reconciled By                                    | Notes                                                                                                                                                                                                                                                                                                                                                          |
+|-------------|--------------|-----------------------------------------|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CFProcess   | CF           | `korifi-api-deployment`                 | `korifi-controllers-controller-manager`          | The 1st object in the app run chain that's created when the `cf push` command is run. The CFProcess resource represents a single process.                                                                                                                                                                                                                      |
+| AppWorkload | CF           | `korifi-controllers-controller-manager` | `cartographer-builder-runner-controller-manager` | The 2nd object in the app run chain that's created when the `cf push` command is run.  The AppWorkload is an intermediate resource that contains information about the application/process. `cartographer-builder-runner-controller-manager` edits the Cartographer workload created during the image build process with the information from the AppWorkload. |
+| PodIntent   | Cartographer | App Operator                            | `conventions-controller-manager`                 | An optional object in the app run chain. Convention Service enables app operators to consistently apply desired runtime configurations to fleets of workloads.                                                                                                                                                                                                 |
+| ConfigMap   | Kubernetes   | `cartographer-ctrl`                     | NA                                               | The 3rd object in the app run chain that's created when the `cf push` command is run. A Kubernetes ConfigMap resource containing the StatefulSet definition is created that `cartographer-ctrl` uses to spawns a StatefulSet by means of kapp.                                                                                                                 |
+| StatefulSet | Kubernetes   | `cartographer-ctrl`                     | NA                                               | The 4th object in the app run chain that's created when the `cf push` command is run. The StatefulSet is a Kubernetes resource that represents a single process for an application. There should be a StatefulSet for each CFProcess.                                                                                                                          |
+| ReplicaSet  | Kubernetes   | Kubernetes                              | NA                                               | The 5th object in the app run chain that's created when the `cf push` command is run. The ReplicaSet is created by Kubernetes to maintain a stable set of replica pods for the StatefulSet.                                                                                                                                                                    |
+| Pod         | Kubernetes   | Kubernetes                              | NA                                               | The app process pods are last in the app run chain and created by Kubernetes based on the ReplicaSet. The number of pods are based on the ReplicaSet replicas parameter.                                                                                                                                                                                       |
+| CFRoute     | CF           | `korifi-api-deployment`                 | `korifi-controllers-controller-manager`          | CFRoutes are created to be able to reach running apps. They can be created as part of the `cf push` command if a default or random route is specified, defined in a manifest, or as part of the `cf create-route` command.                                                                                                                                     |
+| HTTPProxy   | contour      | `korifi-controllers-controller-manager` | NA                                               | The HTTPProxy is a Contour resource that is created by the `korifi-controllers-controller-manager` to reach running apps.                                                                                                                                                                                                                                      |
 
 #### Run task object types
 All run task object types are located within the targeted CFSpace namespace.
@@ -299,7 +300,7 @@ When I run `cf push`, my app stages correctly, but fails to start or become heal
 
 1. There is an issue with the application's code.
 1. The Kubernetes cluster cannot schedule the application.
-1. The Application Service Adapter cannot turn the app into a StatefulSet.
+1. Application Service Adapter cannot turn the app into a StatefulSet.
 
 #### Troubleshooting steps and potential solutions
 
@@ -333,11 +334,11 @@ This section contains common failure scenarios specific to operation on the Open
 
 The OpenShift installation setting for Application Service Adapter can be set in the `tas-adapter-values.yml` as described in [Install Application Service Adapter](install.md).
 
-### Installing the Application Service Adapter on a non-OpenShift Kubernetes distribution fails
+### Installing Application Service Adapter on a non-OpenShift Kubernetes distribution fails
 
 #### Symptom
 
-When I install the Application Service Adapter on a non-OpenShift cluster, I get the following error message:
+When I install Application Service Adapter on a non-OpenShift cluster, I get the following error message:
 
 ```bash
 kapp: Error: Expected to find kind 'security.openshift.io/v1/SecurityContextConstraints', but did not:
@@ -353,7 +354,7 @@ The OpenShift setting is enabled.
 
 Creating the SecurityContextConstraint faila on a non-OpenShift cluster because the SecurityContextConstraint CRD is only present on OpenShift. Reinstall Application Service Adapter with the OpenShift setting turned off.
 
-### Installing the Application Service Adapter on an OpenShift Kubernetes distribution fails
+### Installing Application Service Adapter on an OpenShift Kubernetes distribution fails
 
 #### Symptom
 
@@ -397,7 +398,7 @@ This section contains common failure scenarios specific to the use of the experi
 
 ### Cartographer setting
 
-The experimental Cartographer installation setting for the Application Service Adapter can be set in the `tas-adapter-values.yml` as described [Install Application Service Adapter](install.md)
+The experimental Cartographer installation setting for Application Service Adapter can be set in the `tas-adapter-values.yml` as described [Install Application Service Adapter](install.md)
 
 ### Pushing an app fails to start
 

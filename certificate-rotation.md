@@ -1,10 +1,10 @@
-# Rotating certificates
+# Rotate certificates
 
 This topic describes how to rotate Application Service Adapter for VMware Tanzu Application Platform system certificates.
 
 > **Note** Certificate rotation does not result in downtime.
 
-## <a id="rotating-ingress-certificates"></a>Rotating ingress certificates
+## <a id="rotating-ingress-certificates"></a>Rotate ingress certificates
 
 1. Set up environment variables for the installation:
 
@@ -33,10 +33,10 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
 
     - `NEW-API-TLS-SECRET-NAME` is the kubernetes.io/tls secret containing the PEM-encoded public certificate for the Application Service Adapter API.
     - `NEW-API-TLS-SECRET-NAMESPACE` is namespace containing the Application Service Adapter API secret.
-    - `NEW-APP-TLS-SECRET-NAME` is the kubernetes.io/tls secret containing the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
+    - `NEW-APP-TLS-SECRET-NAME` is the kubernetes.io/tls secret containing the PEM-encoded public certificate for applications deployed using Application Service Adapter.
     - `NEW-APP-TLS-SECRET-NAMESPACE` is the namespace containing the Application Service Adapter applications secret.
 
-3. Install the Application Service Adapter to the cluster by running:
+3. Install Application Service Adapter to the cluster by running:
 
     ```bash
     tanzu package install tas-adapter \
@@ -67,4 +67,4 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
 
 ## <a id="rotating-internal-certificates"></a>Rotating internal certificates
 
-Internal certificates are managed by Certificate Manager with a self-signed Certificate Authority. The default [Certificate Manager](https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec) configuration provides certificates that are valid for 90 days. Certificates are renewed 30 days before expiry.
+Internal certificates are managed by Certificate Manager with a self-signed Certificate Authority. The default Certificate Manager configuration provides certificates that are valid for 90 days. Certificates are renewed 30 days before expiry. For more information, see the [cert-manager documentation](https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec).

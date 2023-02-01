@@ -1,6 +1,6 @@
 # Install Application Service Adapter
 
-This topic describes how to install the Application Service Adapter for VMware Tanzu Application Platform system.
+This topic describes how to install Application Service Adapter for VMware Tanzu Application Platform.
 
 After you complete the steps in [Installing Prerequisites](install-prerequisites.md), set the Kubernetes context to the cluster where you installed kpack and Contour.
 
@@ -98,8 +98,8 @@ To install Application Service Adapter:
 
 To configure the installation settings:
 
-1. If you do not already have a secret containing a certificate and private keypair for HTTPS ingress to the Application Service Adapter API:
-   * If you have a certificate and private keypair, create a secret containing them:
+1. If you do not already have a secret containing a certificate and private key pair for HTTPS ingress to the Application Service Adapter API:
+   * If you have a certificate and private key pair, create a secret containing them:
 
       ```bash
       kubectl create namespace API-TLS-SECRET-NAMESPACE
@@ -109,7 +109,7 @@ To configure the installation settings:
         --namespace API-TLS-SECRET-NAMESPACE
      ```
 
-   * If you do not have a certificate and private keypair, you can [use cert-manager to generate a secret containing a self-signed certificate](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources) in the cert-manager documentation:
+   * If you do not have a certificate and private key pair, you can [use cert-manager to generate a secret containing a self-signed certificate](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources) in the cert-manager documentation:
 
       ```bash
       kubectl apply -f - <<EOF
@@ -142,8 +142,8 @@ To configure the installation settings:
       EOF
       ```
 
-2. If you do not already have a secret containing a wildcard certificate and private keypair for HTTPS application ingress:
-   * If you have a wildcard certificate and private keypair, create a secret containing them:
+2. If you do not already have a secret containing a wildcard certificate and private key pair for HTTPS application ingress:
+   * If you have a wildcard certificate and private key pair, create a secret containing them:
 
       ```bash
       kubectl create namespace APP-TLS-SECRET-NAMESPACE
@@ -153,7 +153,7 @@ To configure the installation settings:
         --namespace APP-TLS-SECRET-NAMESPACE
      ```
 
-   * If you do not have a wildcard certificate and private keypair, you can [use cert-manager to generate a Secret containing a self-signed wildcard certificate](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources) in the cert-manager documentation:
+   * If you do not have a wildcard certificate and private key pair, you can [use cert-manager to generate a Secret containing a self-signed wildcard certificate](https://cert-manager.io/docs/usage/certificate/#creating-certificate-resources) in the cert-manager documentation:
 
       ```bash
       kubectl apply -f - <<EOF
@@ -252,7 +252,7 @@ To configure the installation settings:
    - `API-TLS-SECRET-NAME` is the `kubernetes.io/tls` secret containing the PEM-encoded public certificate for the Application Service Adapter API.
    - `API-TLS-SECRET-NAMESPACE` is the namespace containing the API TLS secret.
    - `DEFAULT-APP-DOMAIN` is the domain that you want to use for automatically configured application routes. Example: `apps.example.com`.
-   - `APP-TLS-SECRET-NAME` is the `kubernetes.io/tls` secret containing the PEM-encoded public certificate for applications deployed using the Application Service Adapter.
+   - `APP-TLS-SECRET-NAME` is the `kubernetes.io/tls` secret containing the PEM-encoded public certificate for applications deployed using Application Service Adapter.
    - `APP-TLS-SECRET-NAMESPACE` is the namespace containing the application TLS secret.
    - `APP-REGISTRY-CREDENTIALS-SECRET-NAME` is the `kubernetes.io/dockerconfigjson` secret containing the host, user name, and password for the application image registry.
        - Not required if you intend to use ECR as the application image registry.
@@ -261,7 +261,7 @@ To configure the installation settings:
    - `AWS-IAM-ROLE-ARN` is the Amazon Resource Name (ARN) of an AWS IAM role that can be used to access Elastic Container Registries (ECR). This is role may be the same as the one
 used by TBS. Refer to additional Application Service Adapter requirements in [AWS IAM Configuration for ECR](install-prerequisites.md#ecr-configuration).
        - Required if you intend to use ECR as the application image registry.
-   - `REPOSITORY-PREFIX` is the host and path combination used as the base for package and droplet images produced by the Application Service Adapter.
+   - `REPOSITORY-PREFIX` is the host and path combination used as the base for package and droplet images produced by Application Service Adapter.
 
 Repository Prefix Examples:
 
@@ -269,7 +269,7 @@ Repository Prefix Examples:
 |-----------|-------------------------------------------------------------------|-------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
 | ACR       | `<projectID>.azurecr.io/foo/bar/tas-adapter-`                     | `<projectID>.azurecr.io/foo/bar/tas-adapter-<appGUID>-packages`                     | Repositories are created dynamically during push by ACR                                                      |
 | DockerHub | `index.docker.io/<dockerOrganisation>/`                           | `index.docker.io/<dockerOrganisation>/<appGUID>-packages`                           | Docker does not support nested repositories                                                                  |
-| ECR       | `<projectID>.dkr.ecr.<region>.amazonaws.com/foo/bar/tas-adapter-` | `<projectID>.dkr.ecr.<region>.amazonaws.com/foo/bar/tas-adapter-<appGUID>-packages` | TAS Adapter will create the repository before pushing, as dynamic repository creation is not possible on ECR |
+| ECR       | `<projectID>.dkr.ecr.<region>.amazonaws.com/foo/bar/tas-adapter-` | `<projectID>.dkr.ecr.<region>.amazonaws.com/foo/bar/tas-adapter-<appGUID>-packages` | Tanzu Application Service Adapter creates the repository before pushing, as dynamic repository creation is not possible on ECR |
 | GAR       | `<region>-docker.pkg.dev/<projectID>/foo/bar/tas-adapter-`        | `<region>-docker.pkg.dev/<projectID>/foo/bar/tas-adapter-<appGUID>-packages`        | The `foo` repository must already exist in GAR                                                               |
 | GCR       | `gcr.io/<projectID>/foo/bar/tas-adapter-`                         | `gcr.io/<projectID>/foo/bar/tas-adapter-<appGUID>-packages`                         | Repositories are created dynamically during push by GCR                                                      |
 
@@ -482,7 +482,7 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to A
 
     Where `API-FQDN` is the fully qualified domain name (FQDN) for the Application Service Adapter API.
 
-    > **Note** If you configured the Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
+    > **Note** If you configured Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
 
 2. Log in with the cf CLI.
 
@@ -506,6 +506,6 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to A
 
     The value of the `name` text box in the response is the subject name of the user, and matches the name configured in `admin.users`.
 
-    The `kind` text box in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log in to the Application Service Adapter with an account for a user in the Kubernetes cluster.
+    The `kind` text box in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log in to Application Service Adapter with an account for a user in the Kubernetes cluster.
 
    To test Application Service Adapter, continue to [Getting Started](getting-started.md).

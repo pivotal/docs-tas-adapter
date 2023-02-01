@@ -1,15 +1,15 @@
-# Scaling Application Service Adapter
+# Scale Application Service Adapter
 
 This topic provides guidance on scaling Application Service Adapter components
 for performance or availability.
 
 ## <a id="system-performance"></a>Notes on system performance
 
-The Application Service Adapter runs on a Kubernetes cluster and
+Application Service Adapter runs on a Kubernetes cluster and
 uses the Kubernetes API to store and manage resources, so the
-performance of the Application Service Adapter is very dependent on
+performance of Application Service Adapter is very dependent on
 the underlying Kubernetes control plane. If you observe slow performance or
-timeouts when using the Application Service Adapter, a good first step is to
+timeouts when using Application Service Adapter, a good first step is to
 ensure that the control plane for your Kubernetes cluster is properly resourced.
 
 For managed clusters that come from public-cloud IaaSes, you generally won't
@@ -23,7 +23,7 @@ starting place for understanding production cluster concerns.
 ## <a id="controllers"></a>Scaling the Application Service Adapter controller managers
 
 ### Vertical scaling
-The Application Service Adapter deploys a set of controller managers responsible
+Application Service Adapter deploys a set of controller managers responsible
 for reconciling various custom resources into running pods on your Kubernetes
 cluster. If these controller managers are resource constrained, scaling them up
 vertically may improve performance. Controller managers maintain an in-memory

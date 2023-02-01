@@ -1,12 +1,12 @@
-# Upgrading Application Service Adapter
+# Upgrade Application Service Adapter
 
 This document describes how to upgrade Application Service Adapter for VMware Tanzu Application Platform.
 
-You can perform a fresh installation of the Application Service Adapter by following the instructions in [Install Application Service Adapter](install.md).
+You can perform a fresh installation of Application Service Adapter by following the instructions in [Install Application Service Adapter](install.md).
 
 When upgrading to a new major or minor version of Application Service Adapter, see the documentation for that version for version-specific configuration and upgrade instructions.
 
-You can find new patch versions of the Application Service Adapter on the TanzuNet product page directly, or [sign up to receive email alerts](https://network.tanzu.vmware.com/docs/faq#alerts) when the product is updated.
+You can find new patch versions of Application Service Adapter on the TanzuNet product page directly, or [sign up to receive email alerts](https://network.tanzu.vmware.com/docs/faq#alerts) when the product is updated.
 
 ## <a id='prereqs'></a> Prerequisites
 
@@ -61,7 +61,7 @@ Follow these steps to update the new package repository:
    ```
 
    Where:
-    - `REPOSITORY-PREFIX` is the host and path combination used as the base for package and droplet images produced by the Application Service Adapter.
+    - `REPOSITORY-PREFIX` is the host and path combination used as the base for package and droplet images produced by Application Service Adapter.
       - For example:  if `REPOSITORY-PREFIX` is `gcr.io/tas-adapter-`, then app's package images are stored at `gcr.io/tas-adapter-<app-guid>-packages` and app's droplet images are stored at `gcr.io/tas-adapter-<app-guid>-droplets`.
 
 ## <a id="perform-the-upgrade-of-application-service-adapter"></a> Perform the upgrade of Application Service Adapter

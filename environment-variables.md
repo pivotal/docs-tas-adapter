@@ -1,6 +1,6 @@
 # Application environment variables
 
-This topic describes the environment variables that the Application Service Adapter for Tanzu Application Platform set when building and running an application.
+This topic describes the environment variables that Application Service Adapter for Tanzu Application Platform sets when building and running an application.
 
 ## <a id='overview'></a> Overview
 

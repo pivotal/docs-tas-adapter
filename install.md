@@ -509,16 +509,14 @@ eliminate resources from the cluster.
 
 > **Note** Task logs are no longer viewable using the `cf logs` command once a task has been purged from Application Service Adapter due to its age.
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    tasks:
      ttl: "TASK-TTL-AGE"
    ```
 
-   Where:
-
-   - `TASK-TTL-AGE` is the length of time until completed tasks are purged from the cluster. This value can be specified as a time duration in seconds, minutes, hours or days. For example, "86400s", "1440m", "24h", or "1d".
+   Where `TASK-TTL-AGE` is the length of time until completed tasks are purged from the cluster. This value can be specified as a time duration in seconds, minutes, hours or days. For example, "86400s", "1440m", "24h", or "1d".
 
 ### <a id="opt-out-telemetry"></a>(Optional) Opt out of telemetry reporting
 

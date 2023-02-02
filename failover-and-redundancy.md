@@ -22,12 +22,13 @@ availability and performance. See [Scaling the Application Service Adapter API](
 ## <a id="controllers"></a>Controllers and webhooks
 
 Application Service Adapter deploys multiple components known as
-[controllers](https://kubernetes.io/docs/concepts/architecture/controller/) to
-the cluster. These components watch and update state on the cluster in what is
-known as a "control loop" and over time ensure that the state in the cluster is
-consistent. Additionally, these components run [admission
-webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/)
-that validate and update Application Service Adapter resources.
+controllers to
+the cluster. For more information about controllers, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/architecture/controller/).
+These components watch and update state on the cluster in what is
+known as a "control loop," and over time, they ensure that the state in the cluster is
+consistent. Additionally, these components run admission
+webhooks that validate and update Application Service Adapter resources. For more information about dynamic admission control and admission webhooks, see the [Kubernetes documentation](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/).
+
 
 Application Service Adapter controllers are effectively singletons. They have
 leader election turned on by default so only a single controller instance is
@@ -40,7 +41,7 @@ left off.
 ## <a id="applications"></a>Applications
 
 The failover characteristics and redundancy recommendations for applications
-that are pushed with the adapter are highly dependent on the application itself.
+that are pushed with the adapter depend on the application itself.
 However, there are some common recommendations that are provided for all
 applications.
 
@@ -48,18 +49,21 @@ applications.
    scale up the application or by declaring multiple instances in the app's
    manifest. A single-instance application incurs downtime during cluster
    upgrades and maintenance. When an application is configured to run with two
-   or more instances the Kubernetes Pod scheduler attempts to balance the
+   or more instances, the Kubernetes pod scheduler attempts to balance the
    instances across nodes and minimize downtime. Additionally, Application
-   Service Adapter creates a
-   [`PodDisruptionBudget`](https://kubernetes.io/docs/tasks/run-application/configure-pdb/)
-   for multi-instance applications that sets the min-available instances for an
-   app to be 50% of the total instances that you want to maintain availability during
-   these events.
-2. Ensure that all applications have the appropriate [health
-   checks](https://docs.cloudfoundry.org/devguide/deploy-apps/healthchecks.html)
-   configured to accurately verify the readiness and liveness of your apps.
+   Service Adapter creates a `PodDisruptionBudget` for multi-instance applications
+   that sets the minimum available instances for an
+   app to be 50% of the total instances needed to maintain availability during
+   these events. For more information about Protecting an Application with a `PodDisruptionBudget`,
+   see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/run-application/configure-pdb/).
+
+2. Ensure that all applications have the appropriate health
+   checks configured to accurately verify the readiness and liveness of your apps.
+   For more information about app health checks, see the
+   [Cloud Foundry documentation](https://docs.cloudfoundry.org/devguide/deploy-apps/healthchecks.html).
+
    Application Service Adapter represents Cloud Foundry app health checks using
    `startupProbes` and `livenessProbes` on the underlying pods running the
    application. By default, a `port` health check is set to verify whether
-   the app can accept TCP connections, but more advanced `http` health
-   checks can be configured to better detect readiness of the application.
+   the app can accept TCP connections, but you can configure more advanced `http` health
+   checks to better detect readiness of the application.

@@ -15,7 +15,7 @@ ensure that the control plane for your Kubernetes cluster is properly resourced.
 For managed clusters that come from public-cloud IaaSes, you generally won't
 have direct control over how the control plane is provisioned, so you won't be
 able to scale up control place resources. If you are managing your own
-Kubernetes clusters, you will need to ensure that you have provisioned adequate
+Kubernetes clusters, you must ensure you have provisioned adequate
 capacity for the `apiserver` and `etcd` components. See the [Kubernetes
 documentation](https://kubernetes.io/docs/setup/production-environment/) as a
 starting place for understanding production cluster concerns.
@@ -39,7 +39,7 @@ Controller manager deployments in the `tas-adapter-system` namespace are:
 - `korifi-kpack-build-controller-manager`
 - `korifi-statefulset-runner-controller-manager`
 
-To determine whether or not your controller managers face CPU or memory
+To determine whether your controller managers face CPU or memory
 pressure, you can check the Prometheus metrics for your controllers as described
 in the [Metrics topic](logging-and-metrics.md#metrics).
 

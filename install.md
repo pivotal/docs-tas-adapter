@@ -271,7 +271,9 @@ Repository Prefix Examples:
 
 ### (Optional) Configure your admin users
 
-VMware recommends configuring one or more administrative users for Application Service Adapter. To do this, include the following values in your `tas-adapter-values.yml` file:
+VMware recommends configuring one or more administrative users for Application Service Adapter. To do this:
+
+1. Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    admin:
@@ -310,7 +312,9 @@ To configure Application Service Adapter to use a different Kpack cluster builde
 
 ### <a id="openshift"></a>(Optional) Configuration for OpenShift
 
-To configure Application Service Adapter for installation on OpenShift, include the following values in your `tas-adapter-values.yml` file:
+To configure Application Service Adapter for installation on OpenShift:
+
+1. Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    shared:
@@ -344,7 +348,9 @@ To use AWS IAM authentication:
 
 > **Note** Your Kubernetes cluster nodes and the Tanzu Build Service component of Tanzu Application Platform must also both be configured to trust this Certificate Authority for the registry.
 
-To configure Application Service Adapter to trust a registry that has a custom or self-signed certificate authority, include the following values in your `tas-adapter-values.yml` file:
+To configure Application Service Adapter to trust a registry that has a custom or self-signed certificate authority:
+
+1. Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    app_registry:
@@ -353,16 +359,16 @@ To configure Application Service Adapter to trust a registry that has a custom o
          PEM-ENCODED-CERTIFICATE-CONTENTS
    ```
 
-   Where:
-
-   - `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM-encoded multiline string containing the certificate authority (CA) certificate.
-     - The value must be inserted into your values file as a YAML multiline string with a block scalar literal.
+   Where `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM-encoded multiline string containing the certificate authority (CA) certificate.
+   The value must be inserted into your values file as a YAML multiline string with a block scalar literal.
 
 ### <a id="legacy-app-registry-settings"></a>(Optional) Configure a registry using the legacy installation settings
 
 > **Note** These settings have been deprecated as of Application Service Adapter v1.1 and will be removed in a future version.
 
-To configure Application Service Adapter using the legacy installation settings, include the following values in your `tas-adapter-values.yml` file:
+To configure Application Service Adapter using the legacy installation settings:
+
+1. Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    app_registry:
@@ -382,11 +388,13 @@ To configure Application Service Adapter using the legacy installation settings,
      - Docker Hub has the form `droplets: "my-dockerhub-username"`.
      - Google Container Registry has the form `droplets: "project-id/my-repo-name"`.
 
-The values specified for `app_registry.hostname` and `app_registry.path.droplets` are combined (separated by a `/`) to form the value for the new `app_registry.repository_prefix` setting. The value of the `app_registry.path.packages` setting is ignored. Source package images are stored in the specified droplets repository.
+    The values specified for `app_registry.hostname` and `app_registry.path.droplets` are combined (separated by a `/`) to form the value for the new `app_registry.repository_prefix` setting. The value of the `app_registry.path.packages` setting is ignored. Source package images are stored in the specified droplets repository.
 
 ### <a id="cert-manager-certificate-issuer"></a>(Optional) Configure the Cert Manager certificate issuer to use for ingress certificates
 
-By default, Application Service Adapter uses the `tap-ingress-selfsigned` cluster issuer provided by Tanzu Application Platform. To configure Application Service Adapter to use a different Cert Manager certificate issuer, include the following values in your `tas-adapter-values.yml` file:
+By default, Application Service Adapter uses the `tap-ingress-selfsigned` cluster issuer provided by Tanzu Application Platform. To configure Application Service Adapter to use a different Cert Manager certificate issuer:
+
+1. Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    shared:
@@ -399,7 +407,9 @@ By default, Application Service Adapter uses the `tap-ingress-selfsigned` cluste
 
 Users can provide their own certificates for either the Application Service Adapter API or applications, or both.
 
-To configure the ingress certificate for the API, include the following values in your `tas-adapter-values.yml` file:
+To configure the ingress certificate for the API:
+
+1. Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    api_ingress:
@@ -413,7 +423,7 @@ To configure the ingress certificate for the API, include the following values i
    - `API-TLS-SECRET-NAME` is the `kubernetes.io/tls` secret containing the PEM-encoded public certificate for the Application Service Adapter API.
    - `API-TLS-SECRET-NAMESPACE` is the namespace containing the API TLS secret.
 
-To configure the ingress certificate for workloads, include the following values in your `tas-adapter-values.yml` file:
+1. To configure the ingress certificate for workloads, include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    app_ingress:
@@ -433,7 +443,7 @@ To configure the ingress certificate for workloads, include the following values
 
 To configure the experimental Cartographer integration:
 
-Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    experimental_use_cartographer: true
@@ -441,7 +451,9 @@ Include the following values in your `tas-adapter-values.yml` file:
 
 ### <a id="scaling-components"></a>(Optional) Scale Application Service Adapter components
 
-To configure the scaling parameters for each component of Application Service Adapter, include the following values in your `tas-adapter-values.yml` file:
+To configure the scaling parameters for each component of Application Service Adapter:
+
+1. Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    scaling:
@@ -474,18 +486,24 @@ To configure the scaling parameters for each component of Application Service Ad
 
 ### <a id="custom-api-ingress-port"></a>(Optional) Configure a custom API ingress port
 
-By default, the Application Service Adapter API is configured to listen on port 443, the standard port for HTTPS traffic. To change this value, include the following values in your `tas-adapter-values.yml` file:
+By default, the Application Service Adapter API is configured to listen on port 443, the standard port for HTTPS traffic. To change this value:
+
+1. Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    api_ingress:
      port: "API-PORT"
    ```
 
-   Where `API-PORT` is the port number which clients should use to connect to the Application Service Adapter API, and which the API will include in URLs that direct back to itself. When set to `0` or left unset, no port is included in those URLs, and clients should connect to port 443, the standard port for HTTPS traffic.
+   Where `API-PORT` is the port number which clients should use to connect to the Application Service Adapter API,
+   and which the API includes in URLs that direct back to itself. When set to `0` or left unset, no port is included in those URLs,
+   and clients should connect to port 443, the standard port for HTTPS traffic.
 
 ### <a id=""></a>(Optional) Configure an authentication proxy
 
-To configure Application Service Adapter to use an authentication proxy, include the following values in your `tas-adapter-values.yml` file:
+To configure Application Service Adapter to use an authentication proxy:
+
+1. Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    api_auth_proxy:
@@ -509,22 +527,23 @@ eliminate resources from the cluster.
 
 > **Note** Task logs are no longer viewable using the `cf logs` command once a task has been purged from Application Service Adapter due to its age.
 
-Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    tasks:
      ttl: "TASK-TTL-AGE"
    ```
 
-   Where `TASK-TTL-AGE` is the length of time until completed tasks are purged from the cluster. This value can be specified as a time duration in seconds, minutes, hours or days. For example, "86400s", "1440m", "24h", or "1d".
+   Where `TASK-TTL-AGE` is the length of time until completed tasks are purged from the cluster.
+   This value can be specified as a time duration in seconds, minutes, hours or days. For example, "86400s", "1440m", "24h", or "1d".
 
 ### <a id="opt-out-telemetry"></a>(Optional) Opt out of telemetry reporting
 
-When you install Application Service Adapter, you opt into telemetry collection by default. To deactivate telemetry collection, complete the following instructions:
+When you install Application Service Adapter, you opt into telemetry collection by default. To deactivate telemetry collection, complete the following:
 
 1. Ensure that your Kubernetes context is pointing to the cluster where Application Service Adapter is installed.
 
-1. Run the following kubectl command:
+2. Run the following kubectl command:
 
    ```bash
    kubectl apply -f - <<EOF
@@ -548,18 +567,24 @@ Your Application Service Adapter deployment no longer emits telemetry, and you a
 
 ### <a id="telemetry-reporting-interval"></a>(Optional) Configure the telemetry reporting interval:
 
-The default telemetry reporting interval is 24 hours. To change how frequently telemetry data is sent to VMware, include the following values in your `tas-adapter-values.yml` file:
+The default telemetry reporting interval is 24 hours. To change how frequently telemetry data is sent to VMware:
+
+1. Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    telemetry:
      heartbeat_interval: TELEMETRY-HEARTBEAT-INTERVAL
    ```
 
-   Where `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours. This value must be specified as a time duration in hours. For example, "24h", not "1d".
+   Where `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
+   This value must be specified as a time duration in hours. For example, "24h", not "1d".
 
 ### <a id="user-cert-expiration-warning"></a>(Optional) Configure the user certificate expiration warning duration
 
-For security, the Application Service Adapter API returns a warning in the `X-Cf-Warnings` header of the `/v3/orgs` endpoint when a user authenticates with a certificate that is valid for longer than the specified duration. To change this value, include the following values in your `tas-adapter-values.yml` file:
+For security, the Application Service Adapter API returns a warning in the `X-Cf-Warnings` header of the `/v3/orgs`
+endpoint when a user authenticates with a certificate that is valid for longer than the specified duration. To change this value:
+
+1. Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    user_certificate_expiration_warning_duration: "USER-CERT-EXPIRY-WARNING-DURATION"

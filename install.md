@@ -16,9 +16,7 @@ To add the Application Service Adapter package repository to your cluster:
    export TAS_ADAPTER_VERSION=VERSION-NUMBER
    ```
 
-   Where:
-
-   - `VERSION-NUMBER` is the version of Application Service Adapter you want to install. For example, `1.1.0`.
+   Where `VERSION-NUMBER` is the version of Application Service Adapter you want to install. For example, `1.1.0`.
 
 1. Verify that the `tap-install` namespace exists in your cluster.
 
@@ -27,6 +25,7 @@ To add the Application Service Adapter package repository to your cluster:
    ```
 
    The output lists the status of the `tap-install` namespace:
+
    ```bash
    NAME          STATUS   AGE
    tap-install   Active   2d
@@ -81,7 +80,7 @@ To add the Application Service Adapter package repository to your cluster:
 
    It should output a list of settings similar to:
 
-   ```
+   ```bash
    | Retrieving package details for application-service-adapter.tanzu.vmware.com/1.1.0...
      KEY                         DEFAULT  TYPE     DESCRIPTION
      api_auth_proxy.ca_cert.data          string   TLS CA certificate of your cluster's auth proxy
@@ -92,8 +91,8 @@ To add the Application Service Adapter package repository to your cluster:
      app_ingress.default_domain           string   Default application domain
      app_ingress.tls.secret_name          string   Name of the secret containing the TLS certificate for the default application domain (PEM format)
      app_ingress.tls.namespace            string   Namespace containing the default application domain TLS secret
-     app_registry.path.droplets           string   Container registry repository where staged, runnable app images (Droplets) will be stored
-     app_registry.path.packages           string   Container registry repository where uploaded app source code (Packages) will be stored
+     app_registry.path.droplets           string   Container registry repository where staged, runnable app images (droplets) will be stored
+     app_registry.path.packages           string   Container registry repository where uploaded app source code (packages) will be stored
      kpack_clusterbuilder_name   default  string   Name of the kpack cluster builder to use for staging
      ...
    ```
@@ -150,6 +149,7 @@ To configure the installation settings:
       ```
 
 2. If you do not already have a secret containing a wildcard certificate and private key pair for HTTPS application ingress:
+
    * If you have a wildcard certificate and private key pair, create a secret containing them:
 
       ```bash
@@ -195,7 +195,7 @@ To configure the installation settings:
 
 3. If you do not already have a secret containing the host name, user name, and password for your application image registry, create one:
 
-> **Note** The app registry secret and secret export are not required when using ECR.
+> **Note** The app registry secret and secret export are not required when using Amazon Elastic Container Registry (ECR).
 
    ```bash
    kubectl create namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
@@ -271,9 +271,7 @@ Repository Prefix Examples:
 
 ### (Optional) Configure your admin users
 
-It is recommended to configure one or more administrative users for Application Service Adapter:
-
-1. Include the following values in your `tas-adapter-values.yml` file:
+VMware recommends configuring one or more administrative users for Application Service Adapter. To do this, include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    admin:
@@ -285,14 +283,14 @@ It is recommended to configure one or more administrative users for Application 
    Where:
 
    - `ADMIN-USERNAME` is the name of an existing user in the Kubernetes cluster to whom to grant system admin privileges. You can specify as many users as you want, one per line. These names are identifiers for Kubernetes user accounts, not Kubernetes service accounts.
-     - For Amazon EKS, see the [AWS IAM user management for EKS section](user-management.md#aws-iam-user-management-eks) of the User Management topic for information on additional required cluster configuration to map AWS IAM users and roles to Kubernetes roles.
+     - For Amazon EKS, see the [AWS IAM user management for EKS section](user-management.md#aws-iam-user-management-eks) of the User Management topic for information about additional required cluster configuration to map AWS IAM users and roles to Kubernetes roles.
      - For clusters configured to use authentication proxies such as [Pinniped](https://pinniped.dev/), you can authenticate to the cluster and use the output of `cf curl /whoami` to see the user account name to provide.
 
-> **Note** These user names are the ones that Kubernetes recognizes as user identifiers in the subject section of its RBAC resources, such as `RoleBindings`, and may differ from the names of the user entries in your local Kubeconfig file. If you are not certain of this user name, you can leave this entry empty for the initial installation. After completing the installation and logging in with the cf CLI, use the `cf curl /whoami` command to confirm the user name and then update the installation with the correct name value. For more information about user subject names in Kubernetes, see the [Referring to subjects](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-subjects) section of _Using RBAC Authorization_ and the [Authenticating](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) topic in the Kubernetes project documentation.
+    These user names are the ones Kubernetes recognizes as user identifiers in the subject section of its role-based access control (RBAC) resources, such as `RoleBindings`. They can differ from the names of the user entries in your local Kubeconfig file. If you are not certain of this user name, you can leave this entry empty for the initial installation. After completing the installation and logging in with the cf CLI, use the `cf curl /whoami` command to confirm the user name and then update the installation with the correct name value. For more information about user subject names in Kubernetes, see the [Referring to subjects](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-subjects) section of _Using RBAC Authorization_ and the [Authenticating](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) topic in the Kubernetes project documentation.
 
 ### <a id="kpack-cluster-builder"></a>(Optional) Configure the Kpack cluster builder to use for staging
 
-Out of the box, Application Service Adapter uses the `default` cluster builder provided by Tanzu Build Service. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.9/vmware-tanzu-build-service/managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
+Application Service Adapter uses the `default` cluster builder provided by Tanzu Build Service. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.9/vmware-tanzu-build-service/managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
 
 To configure Application Service Adapter to use a different Kpack cluster builder for staging:
 
@@ -308,15 +306,11 @@ To configure Application Service Adapter to use a different Kpack cluster builde
    kpack_clusterbuilder_name: "KPACK-CLUSTER-BUILDER-NAME"
    ```
 
-   Where:
-
-   - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.4/vmware-tanzu-build-service-v13/GUID-managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
+   Where `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.4/vmware-tanzu-build-service-v13/GUID-managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
 
 ### <a id="openshift"></a>(Optional) Configuration for OpenShift
 
-To configure Application Service Adapter for installation on OpenShift:
-
-1. Include the following values in your `tas-adapter-values.yml` file:
+To configure Application Service Adapter for installation on OpenShift, include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    shared:
@@ -324,9 +318,7 @@ To configure Application Service Adapter for installation on OpenShift:
      kubernetes_version: "KUBERNETES-VERSION"
    ```
 
-   Where:
-
-   - `KUBERNETES-VERSION` is the kubernetes version of the cluster. Default is 1.23.3.
+   Where `KUBERNETES-VERSION` is the kubernetes version of the cluster. Default is 1.23.3.
 
 ### <a id="aws-iam-registry-auth"></a>(Optional) Use AWS IAM authentication for registry credentials
 
@@ -344,19 +336,15 @@ To use AWS IAM authentication:
        aws_iam_role_arn: "AWS-IAM-ROLE-ARN"
    ```
 
-   Where:
+   Where `AWS-IAM-ROLE-ARN` is the Amazon Resource Name (ARN) of an AWS IAM role that can be used to access an Elastic Container Registry (ECR).
 
-   - `AWS-IAM-ROLE-ARN` is the Amazon Resource Name (ARN) of an AWS IAM role that can be used to access an Elastic Container Registry (ECR).
-
-> **Note** The `app_registry.credentials.secret_name` and `app_registry.credentials.namespace` properties should be omitted from your `tas-adapter-values.yml` file.
+   The `app_registry.credentials.secret_name` and `app_registry.credentials.namespace` properties should be omitted from your `tas-adapter-values.yml` file.
 
 ### <a id="custom-ca-registry"></a>(Optional) Configure a registry with a custom Certificate Authority
 
 > **Note** Your Kubernetes cluster nodes and the Tanzu Build Service component of Tanzu Application Platform must also both be configured to trust this Certificate Authority for the registry.
 
-To configure Application Service Adapter to trust a registry that has a custom or self-signed certificate authority:
-
-1. Include the following values in your `tas-adapter-values.yml` file:
+To configure Application Service Adapter to trust a registry that has a custom or self-signed certificate authority, include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    app_registry:
@@ -374,9 +362,7 @@ To configure Application Service Adapter to trust a registry that has a custom o
 
 > **Note** These settings have been deprecated as of Application Service Adapter v1.1 and will be removed in a future version.
 
-To configure Application Service Adapter using the legacy installation settings:
-
-1. Include the following values in your `tas-adapter-values.yml` file:
+To configure Application Service Adapter using the legacy installation settings, include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    app_registry:
@@ -388,40 +374,32 @@ To configure Application Service Adapter using the legacy installation settings:
    Where:
 
    - `APP-REGISTRY-HOSTNAME` is the host name of the registry used for app packages and droplets. For example:
-     - Harbor has the form `hostname: "my-harbor.io"`
-     - Docker Hub has the form `hostname: "index.docker.io"`
-     - Google Container Registry has the form `hostname: "gcr.io"`
+     - Harbor has the form `hostname: "my-harbor.io"`.
+     - Docker Hub has the form `hostname: "index.docker.io"`.
+     - Google Container Registry has the form `hostname: "gcr.io"`.
    - `APP-REGISTRY-PATH-DROPLETS` is the path to the directory or project in the app registry where Application Service Adapter uploads droplets, such as runnable application images. This value does not include the registry host name itself. Examples:
-     - Harbor has the form `droplets: "project-name/my-repo-name"`
-     - Docker Hub has the form `droplets: "my-dockerhub-username"`
-     - Google Container Registry has the form `droplets: "project-id/my-repo-name"`
+     - Harbor has the form `droplets: "project-name/my-repo-name"`.
+     - Docker Hub has the form `droplets: "my-dockerhub-username"`.
+     - Google Container Registry has the form `droplets: "project-id/my-repo-name"`.
 
-> **Note** The values specified for `app_registry.hostname` and `app_registry.path.droplets` will be combined (separated by a `/`) to form the value for the new `app_registry.repository_prefix` setting. The value of the `app_registry.path.packages` setting will be ignored. Source package images will be stored in the specified droplets repository.
+The values specified for `app_registry.hostname` and `app_registry.path.droplets` are combined (separated by a `/`) to form the value for the new `app_registry.repository_prefix` setting. The value of the `app_registry.path.packages` setting is ignored. Source package images are stored in the specified droplets repository.
 
 ### <a id="cert-manager-certificate-issuer"></a>(Optional) Configure the Cert Manager certificate issuer to use for ingress certificates
 
-Out of the box, Application Service Adapter uses the `tap-ingress-selfsigned` cluster issuer provided by Tanzu Application Platform.
-
-To configure Application Service Adapter to use a different Cert Manager certificate issuer:
-
-1. Include the following values in your `tas-adapter-values.yml` file:
+By default, Application Service Adapter uses the `tap-ingress-selfsigned` cluster issuer provided by Tanzu Application Platform. To configure Application Service Adapter to use a different Cert Manager certificate issuer, include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    shared:
      ingress_issuer: "CERTIFICATE-ISSUER-NAME"
    ```
 
-   Where:
-
-   - `CERTIFICATE-ISSUER-NAME` is the name of the cert-manager cluster issuer to use to generate certificates for HTTPS ingress to Application Service Adapter. Defaults to `tap-ingress-selfsigned`.
+   Where `CERTIFICATE-ISSUER-NAME` is the name of the cert-manager cluster issuer to use to generate certificates for HTTPS ingress to Application Service Adapter. Defaults to `tap-ingress-selfsigned`.
 
 ### <a id="user-provided-ingress-certs"></a>(Optional) Configure ingress certificates using a secret name and namespace
 
-If desired, users can provide their own certificates for either the Application Service Adapter API or applications, or both.
+Users can provide their own certificates for either the Application Service Adapter API or applications, or both.
 
-To configure the ingress certificate for the API:
-
-1. Include the following values in your `tas-adapter-values.yml` file:
+To configure the ingress certificate for the API, include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    api_ingress:
@@ -435,9 +413,7 @@ To configure the ingress certificate for the API:
    - `API-TLS-SECRET-NAME` is the `kubernetes.io/tls` secret containing the PEM-encoded public certificate for the Application Service Adapter API.
    - `API-TLS-SECRET-NAMESPACE` is the namespace containing the API TLS secret.
 
-To configure the ingress certificate for workloads:
-
-1. Include the following values in your `tas-adapter-values.yml` file:
+To configure the ingress certificate for workloads, include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    app_ingress:
@@ -457,7 +433,7 @@ To configure the ingress certificate for workloads:
 
 To configure the experimental Cartographer integration:
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+Include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    experimental_use_cartographer: true
@@ -465,9 +441,7 @@ To configure the experimental Cartographer integration:
 
 ### <a id="scaling-components"></a>(Optional) Scale Application Service Adapter components
 
-To configure the scaling parameters for each component of Application Service Adapter:
-
-1. Include the following values in your `tas-adapter-values.yml` file:
+To configure the scaling parameters for each component of Application Service Adapter, include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    scaling:
@@ -500,24 +474,18 @@ To configure the scaling parameters for each component of Application Service Ad
 
 ### <a id="custom-api-ingress-port"></a>(Optional) Configure a custom API ingress port
 
-By default, the Application Service Adapter API is configured to listen on port 443, the standard port for HTTPS traffic. To change this value, complete the following instructions:
-
-1. Include the following values in your `tas-adapter-values.yml` file:
+By default, the Application Service Adapter API is configured to listen on port 443, the standard port for HTTPS traffic. To change this value, include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    api_ingress:
      port: "API-PORT"
    ```
 
-   Where:
-
-   - `API-PORT` is the port number which clients should use to connect to the Application Service Adapter API, and which the API will include in URLs that direct back to itself. When set to `0` or left unset, no port is included in those URLs, and clients should connect to port 443, the standard port for HTTPS traffic.
+   Where `API-PORT` is the port number which clients should use to connect to the Application Service Adapter API, and which the API will include in URLs that direct back to itself. When set to `0` or left unset, no port is included in those URLs, and clients should connect to port 443, the standard port for HTTPS traffic.
 
 ### <a id=""></a>(Optional) Configure an authentication proxy
 
-To configure Application Service Adapter to use an authentication proxy:
-
-1. Include the following values in your `tas-adapter-values.yml` file:
+To configure Application Service Adapter to use an authentication proxy, include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    api_auth_proxy:
@@ -550,9 +518,7 @@ eliminate resources from the cluster.
 
    Where:
 
-   - `TASK-TTL-AGE` is the length of time until completed tasks are purged from the cluster.
-
-   > **Note** This value can be specified as a time duration in seconds, minutes, hours or days. For example, "86400s", "1440m", "24h", or "1d".
+   - `TASK-TTL-AGE` is the length of time until completed tasks are purged from the cluster. This value can be specified as a time duration in seconds, minutes, hours or days. For example, "86400s", "1440m", "24h", or "1d".
 
 ### <a id="opt-out-telemetry"></a>(Optional) Opt out of telemetry reporting
 
@@ -584,36 +550,24 @@ Your Application Service Adapter deployment no longer emits telemetry, and you a
 
 ### <a id="telemetry-reporting-interval"></a>(Optional) Configure the telemetry reporting interval:
 
-The default telemetry reporting interval is 24 hours. To change how frequently telemetry data is sent to VMware:
-
-1. Include the following values in your `tas-adapter-values.yml` file:
+The default telemetry reporting interval is 24 hours. To change how frequently telemetry data is sent to VMware, include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    telemetry:
      heartbeat_interval: TELEMETRY-HEARTBEAT-INTERVAL
    ```
 
-   Where:
-
-   - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
-
-   > **Note** This value must be specified as a time duration in hours. For example, "24h", not "1d".
+   Where `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours. This value must be specified as a time duration in hours. For example, "24h", not "1d".
 
 ### <a id="user-cert-expiration-warning"></a>(Optional) Configure the user certificate expiration warning duration
 
-For security, the Application Service Adapter API will return a warning in the `X-Cf-Warnings` header of the `/v3/orgs` endpoint when a user authenticates with a certificate that is valid for longer than the specified duration. To change this value:
-
-1. Include the following values in your `tas-adapter-values.yml` file:
+For security, the Application Service Adapter API returns a warning in the `X-Cf-Warnings` header of the `/v3/orgs` endpoint when a user authenticates with a certificate that is valid for longer than the specified duration. To change this value, include the following values in your `tas-adapter-values.yml` file:
 
    ```yaml
    user_certificate_expiration_warning_duration: "USER-CERT-EXPIRY-WARNING-DURATION"
    ```
 
-   Where:
-
-   - `USER-CERT-EXPIRY-WARNING-DURATION` is the duration beyond which user are warned to use short-lived certificates for authentication. Defaults to 168 hours.
-
-   > **Note** This value must be specified as a time duration in hours. For example, "168h", not "7d".
+   Where `USER-CERT-EXPIRY-WARNING-DURATION` is the duration beyond which users are warned to use short-lived certificates for authentication. Defaults to 168 hours. This value must be specified as a time duration in hours. For example, "168h", not "7d".
 
 ## <a id="install-adapter"></a>Install Application Service Adapter
 
@@ -654,7 +608,7 @@ To configure DNS for Application Service Adapter:
 
 1. Determine the external IP address to use for ingress to your cluster. This step varies depending on the IaaS used to provision your cluster.
 
-   For clusters that support LoadBalancer services, you can obtain the external IP address of the LoadBalancer Service that is associated with Contour's Envoy proxy. The Namespace for this service is typically either `tanzu-system-ingress` or `projectcontour` depending on how Contour was installed.
+   For clusters that support LoadBalancer services, you can obtain the external IP address of the LoadBalancer Service associated with Contour's Envoy proxy. The namespace for this service is typically either `tanzu-system-ingress` or `projectcontour` depending on how Contour was installed.
 
    ```bash
    kubectl -n tanzu-system-ingress get service envoy -ojsonpath='{.status.loadBalancer.ingress[*].ip}'
@@ -675,6 +629,7 @@ To configure DNS for Application Service Adapter:
    ```
 
    The following is an example output:
+
    ```bash
    NAME               FQDN       TLS SECRET                STATUS   STATUS DESCRIPTION
    korifi-api-proxy   API-FQDN   korifi-api-ingress-cert   valid    Valid HTTPProxy
@@ -710,12 +665,12 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to t
 
    The output looks like the following:
 
-   ```
+   ```bash
    {"name":"my_user@example.com","kind":"User"}
    ```
 
    The value of the `name` text box in the response is the subject name of the user, and matches the name configured in `admin.users`.
 
-   > **Note** The `kind` text box in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log in to Application Service Adapter with an account for a user in the Kubernetes cluster.
+   The `kind` text box in the output must have the value `User`. If it is some other value, such as `ServiceAccount`, log in to Application Service Adapter with an account for a user in the Kubernetes cluster.
 
    To test Application Service Adapter, continue to [Getting Started](getting-started.md).

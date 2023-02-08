@@ -4,7 +4,7 @@ This topic contains release notes for Application Service Adapter for VMware Tan
 
 ## <a id='1-1-0'></a> v1.1.0 Release
 
-**Release Date**: MM DD, 2023
+**Release Date**: February 8, 2023
 
 ### Features
 

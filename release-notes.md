@@ -43,6 +43,7 @@ This release contains the following components:
 
 ### Known issues
 
+* Credentials for service instances are not provided to application instances as directories of files under the service-binding root directory, although they are still present in the `VCAP_SERVICES` environment variable. Applications that rely on libraries that consume the file-based presentation of these credentials, such as the spring-cloud-bindings library from the Tanzu Java Buildpack, may fail to process these credentials as a result.
 * If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application fails to build with an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app continues to fail to build.
 * The organization manager role does not have permissions to create Cloud Foundry spaces. As a workaround, instead use the Cloud Foundry admin role to create spaces in organizations.
 

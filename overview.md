@@ -16,9 +16,9 @@ Application developers log in to their Application Service Adapter installation 
 
 Application Service Adapter integrates with an existing installation of [Tanzu Build Service](https://tanzu.vmware.com/build-service) component of Tanzu Application Platform to build container images for app code deployed to the platform. It also integrates with [Contour](https://projectcontour.io/) to realize ingress routes to running apps.
 
-To understand Kubernetes cluster requirements and plan your installation, refer to the [Reference architecture](reference-architecture.md) topic.
+To learn about Kubernetes cluster requirements and to plan your installation, see [Reference architecture](reference-architecture.md).
 
-To install Application Service Adapter and its dependencies, proceed to [Installing prerequisites](install-prerequisites.md).
+To install Application Service Adapter and its dependencies, go to [Installing prerequisites](install-prerequisites.md).
 
 ## <a id='telemetry-notice'></a> Notice of telemetry collection for Application Service Adapter
 

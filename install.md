@@ -308,7 +308,7 @@ To configure Application Service Adapter to use a different Kpack cluster builde
    kpack_clusterbuilder_name: "KPACK-CLUSTER-BUILDER-NAME"
    ```
 
-   Where `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.4/vmware-tanzu-build-service-v13/GUID-managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
+   Where `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.9/vmware-tanzu-build-service/managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
 
 ### <a id="openshift"></a>(Optional) Configuration for OpenShift
 

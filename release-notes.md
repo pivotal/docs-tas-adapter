@@ -8,6 +8,8 @@ This topic contains release notes for Application Service Adapter for VMware Tan
 
 ### Resolved issues
 
+The following issues are resolved in this release:
+
 * Credentials for service instances are now provided to application instances as directories of files under the service-binding root directory.
 
 ### Components
@@ -19,6 +21,8 @@ This release contains the following components:
 * tas-adapter-telemetry-controller @ 3692dc1
 
 ### Known issues
+
+This release has the following known issues:
 
 * If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application fails to build with an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app continues to fail to build.
 * The organization manager role does not have permissions to create Cloud Foundry spaces. As a workaround, instead use the Cloud Foundry admin role to create spaces in organizations.

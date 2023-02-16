@@ -8,7 +8,7 @@ This topic contains release notes for the Application Service Adapter for VMware
 
 ### Security fixes
 
-* System components in this release have been rebuilt with Go 1.19.5 to ensure [CVE-2022-41717](https://nvd.nist.gov/vuln/detail/CVE-2022-41717) and [CVE-2022-41720](https://nvd.nist.gov/vuln/detail/CVE-2022-41720) are patched.
+* System components in this release have been rebuilt with Go 1.19.5 to fix [CVE-2022-41717](https://nvd.nist.gov/vuln/detail/CVE-2022-41717) and [CVE-2022-41720](https://nvd.nist.gov/vuln/detail/CVE-2022-41720).
 
 ## <a id='1-0-1'></a> v1.0.1 Release
 

@@ -39,6 +39,64 @@ The following is a brief description of specific Application Service Adapter dep
 6. The `korifi-job-task-runner-controller-manager` deployment is tasked with handling all task-related functionality.
 7. The `cartographer-builder-runner-controller-manager` deployment is tasked with creating Cartographer workloads for apps when using the experimental Cartographer builder/runner flow.
 
+#### Dynamically changing component logging level
+
+While it is possible to [change the logging level](install.md#component-log-level) for each component of Application Service Adapter during an upgrade, this will result in the component being restarted.
+
+To avoid these component restarts, you can temporarily change the logging level for a specific component by modifying the `logLevel` setting in the corresponding ConfigMap.
+
+Before you perform any customization to the ConfigMaps, you must prevent the platform from reverting your changes back to their original install values.
+
+To do this, you must pause the PackageInstall/tas-adapter object by setting the packageinstall.spec.pause parameter to true. Run:
+
+```bash
+kubectl edit -n tap-install packageinstall tas-adapter
+```
+
+```yaml
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  name: tas-adapter
+  namespace: tap-install
+spec:
+  paused: true # <- add this parameter to the resource definition
+  packageRef:
+    refName: application-service-adapter.tanzu.vmware.com
+    versionSelection:
+# ...
+```
+
+> **Note** You will need to unpause the PackageInstall/tas-adapter object before attempting to perform a platform upgrade. If you wish to persist changes to the logging level for a given component, you should update your values YAML file to match the new logging level.
+
+To set the logging level for a given component dynamically, you can change the value of the `logLevel` setting in the corresponding ConfigMap. Run:
+
+```bash
+kubectl get -n tas-adapter-system configmap | grep COMPONENT-NAME
+kubectl edit -n tas-adapter-system configmap CONFIGMAP-NAME
+```
+
+Where:
+- `COMPONENT-NAME` is the name of the component.
+- `CONFIGMAP-NAME` is the name of the ConfigMap for the specified component.
+
+For example, to set the logging level for the `korifi-api` component:
+
+```yaml
+kind: ConfigMap
+metadata:
+  name: korifi-api-config-ver-1
+  namespace: tas-adapter-system
+apiVersion: v1
+data:
+  korifi_api_config.yaml: |
+    # ...
+    logLevel: info # <- Set the desired logging level. This must be one of error, warn, info, or debug.
+    # ...
+```
+
+> **Note** After changing the logging level for a component, it could take a few minutes for the cluster to reconcile the change. You should see a message that indicates that the logging level has changed, with the old and new logging level displayed.
+
 ### <a id="tap-logs"></a>Tanzu Application Platform logs
 
 While not directly part of Application Service Adapter, there are several Tanzu Application Platform deployments utilized by Application Service Adapter. These can also provide further debug information on failures.

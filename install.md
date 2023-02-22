@@ -449,6 +449,23 @@ To configure the experimental Cartographer integration:
    experimental_use_cartographer: true
    ```
 
+### <a id="component-log-level"></a>(Optional) Configure logging level for Application Service Adapter components
+
+To configure the logging level for each component of Application Service Adapter:
+
+1. Include the following values in your `tas-adapter-values.yml` file:
+
+   ```yaml
+   log_level:
+     cartographer_builder_runner: <LOG-LEVEL>
+     korifi_api: <LOG-LEVEL>
+     korifi_controllers: <LOG-LEVEL>
+   ```
+
+   Where:
+
+   - `LOG-LEVEL` is the desired log level. Valid values are: error, warn, info and debug. Default is info.
+
 ### <a id="scaling-components"></a>(Optional) Scale Application Service Adapter components
 
 To configure the scaling parameters for each component of Application Service Adapter:

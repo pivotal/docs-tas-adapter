@@ -35,9 +35,6 @@ Controller manager deployments in the `tas-adapter-system` namespace are:
 
 - `cartographer-builder-runner-controller-manager`
 - `korifi-controllers-controller-manager`
-- `korifi-job-task-runner-controller-manager`
-- `korifi-kpack-build-controller-manager`
-- `korifi-statefulset-runner-controller-manager`
 
 To determine whether your controller managers face CPU or memory
 pressure, you can check the Prometheus metrics for your controllers as described

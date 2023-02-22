@@ -98,7 +98,6 @@ Follow the Tanzu Application Platform instructions, with these amendments:
   list of trusted service accounts:
   * "system:serviceaccount:tas-adapter-system:korifi-api-system-serviceaccount"
   * "system:serviceaccount:tas-adapter-system:korifi-controllers-controller-manager"
-  * "system:serviceaccount:tas-adapter-system:korifi-kpack-build-controller-manager"
   * "system:serviceaccount:tas-adapter-system:cartographer-builder-runner-controller-manager"
   * "system:serviceaccount:*:kpack-service-account"
 

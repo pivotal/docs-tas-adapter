@@ -12,17 +12,18 @@ You can query the logs of several Application Service Adapter deployments to gat
 
 To fetch recent logs from all components of an Application Service Adapter installation:
 
-    ```bash
-    kapp logs --app tas-adapter.app -n tap-install
-    ```
+```bash
+kapp logs --app tas-adapter.app -n tap-install
+```
 
 To fetch recent logs from a specific deployment:
 
-    ```bash
-    kapp logs --app tas-adapter.app -n tap-install --pod-name DEPLOYMENT-NAME%
-    ```
-    Where DEPLOYMENT-NAME is the name of the Kubernetes deployment. For example,
-    "korifi-api-deployment").
+```bash
+kapp logs --app tas-adapter.app -n tap-install --pod-name DEPLOYMENT-NAME%
+```
+
+Where DEPLOYMENT-NAME is the name of the Kubernetes deployment. For example,
+"korifi-api-deployment").
 
 To stream logs instead of fetching the most recent logs, add the `--follow` flag to the above `kapp logs` commands.
 For additional details and options, refer to the `kapp logs --help` help text.
@@ -103,10 +104,11 @@ While not directly part of Application Service Adapter, there are several Tanzu 
 
 To fetch recent logs from a given Tanzu Application Platform application, run:
 
-    ```bash
-    kapp logs --app APP-NAME -n tap-install
-    ```
-    Where APP-NAME is the name of the Tanzu Application Platform application. For example, "buildservice.app").
+```bash
+kapp logs --app APP-NAME -n tap-install
+```
+
+Where APP-NAME is the name of the Tanzu Application Platform application. For example, "buildservice.app").
 
 To stream logs instead of fetching the most recent logs, add the `--follow` flag to the above `kapp logs` command.
 For additional details and options, refer to the `kapp logs --help` help text.
@@ -194,7 +196,6 @@ All run app object types are located within the targeted CFSpace namespace.
 | Pod          | Kubernetes | Kubernetes                                     | NA                                             | The app process pods are last in the app run chain and created by Kubernetes based on the ReplicaSet. The number of pods are based on the ReplicaSet replicas parameter.                                                              |
 | CFRoute      | Cloud Foundry         | `korifi-api-deployment`                        | `korifi-controllers-controller-manager`        | CFRoutes are created to be able to reach running apps. They can be created as part of the `cf push` command if a default or random route is specified, defined in a manifest, or as part of the `cf create-route` command.            |
  | HTTPProxy    | contour    | `korifi-controllers-controller-manager`        | NA                                             | The HTTPProxy is a Contour resource created by the `korifi-controllers-controller-manager` to reach running apps.                                                                                                             |
-
 
 #### Image build object types (Cartographer builder/runner)
 All image build object types are located within the targeted CFSpace namespace.
@@ -334,9 +335,9 @@ When I run `cf push`, the Cloud Foundry CLI does not respond with a built image.
 When I run `cf push`, the following output/error message is returned:
 
 ```bash
-    Unexpected Response
-    Response Code: 500
-    Code: 0, Title: , Detail: {"errors":[{"detail":"An unknown error occurred.","title":"UnknownError","code":10001}]}
+Unexpected Response
+Response Code: 500
+Code: 0, Title: , Detail: {"errors":[{"detail":"An unknown error occurred.","title":"UnknownError","code":10001}]}
 ```
 
 #### Possible causes

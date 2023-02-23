@@ -59,11 +59,9 @@ logs to query when troubleshooting.
 
 You can [change the logging level](install.md#component-log-level) for each
 component of Application Service Adapter during an upgrade, but this results in
-the component being restarted.
-
-To avoid component restarts, you can temporarily change the logging level for a
-specific component by modifying the `logLevel` setting in the corresponding
-ConfigMap.
+the component being restarted. To avoid component restarts, you can temporarily
+change the logging level for a specific component by modifying the `logLevel`
+setting in the corresponding ConfigMap.
 
 Before you perform any customization to the ConfigMaps, you must prevent the
 platform from reverting your changes back to their original install values. To

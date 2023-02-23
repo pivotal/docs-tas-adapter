@@ -41,20 +41,34 @@ The following is a brief description of specific Application Service Adapter
 deployments and their main responsibilities. This can help you isolate which
 logs to query when troubleshooting.
 
-1. The `korifi-api-deployment` deployment is tasked with responding to API requests sent to the Application Service Adapter. Logs for failures related to the image registry may also show up in this deployment's logs.
-2. The `korifi-controllers-controller-manager` deployment is tasked with processing commands for Application Service Adapter. This deployment's logs is an excellent starting point when debugging failures. Most commands flow through here before being processed by more specific components, with the exception of API commands that fail before getting to the controller manager.
-3. The `tas-adapter-telemetry-informer` deployment is tasked with handling all outgoing telemetry.
-4. The `cartographer-builder-runner-controller-manager` deployment is tasked with creating Cartographer workloads for apps when using the experimental Cartographer builder/runner flow.
+1. The `korifi-api-deployment` deployment is tasked with responding to API
+   requests sent to the Application Service Adapter. Logs for failures related
+   to the image registry may also show up in this deployment's logs.
+2. The `korifi-controllers-controller-manager` deployment is tasked with
+   processing commands for Application Service Adapter. This deployment's logs
+   is an excellent starting point when debugging failures. Most commands flow
+   through here before being processed by more specific components, with the
+   exception of API commands that fail before getting to the controller manager.
+3. The `tas-adapter-telemetry-informer` deployment is tasked with handling all
+   outgoing telemetry.
+4. The `cartographer-builder-runner-controller-manager` deployment is tasked
+   with creating Cartographer workloads for apps when using the experimental
+   Cartographer builder/runner flow.
 
 #### Dynamically changing component logging level
 
-While it is possible to [change the logging level](install.md#component-log-level) for each component of Application Service Adapter during an upgrade, this will result in the component being restarted.
+You can [change the logging level](install.md#component-log-level) for each
+component of Application Service Adapter during an upgrade, but this results in
+the component being restarted.
 
-To avoid these component restarts, you can temporarily change the logging level for a specific component by modifying the `logLevel` setting in the corresponding ConfigMap.
+To avoid component restarts, you can temporarily change the logging level for a
+specific component by modifying the `logLevel` setting in the corresponding
+ConfigMap.
 
-Before you perform any customization to the ConfigMaps, you must prevent the platform from reverting your changes back to their original install values.
-
-To do this, you must pause the PackageInstall/tas-adapter object by setting the packageinstall.spec.pause parameter to true. Run:
+Before you perform any customization to the ConfigMaps, you must prevent the
+platform from reverting your changes back to their original install values. To
+do this, you must pause the PackageInstall/tas-adapter object by setting the
+packageinstall.spec.pause parameter to true. Run:
 
 ```bash
 kubectl edit -n tap-install packageinstall tas-adapter
@@ -74,9 +88,13 @@ spec:
 # ...
 ```
 
-> **Note** You will need to unpause the PackageInstall/tas-adapter object before attempting to perform a platform upgrade. If you wish to persist changes to the logging level for a given component, you should update your values YAML file to match the new logging level.
+> **Note** You need to unpause the PackageInstall/tas-adapter object before
+> attempting to perform a platform upgrade. If you wish to persist changes to
+> the logging level for a given component, you should update your values YAML
+> file to match the new logging level.
 
-To set the logging level for a given component dynamically, you can change the value of the `logLevel` setting in the corresponding ConfigMap. Run:
+To set the logging level for a given component dynamically, you can change the
+value of the `logLevel` setting in the corresponding ConfigMap. Run:
 
 ```bash
 kubectl get -n tas-adapter-system configmap | grep COMPONENT-NAME
@@ -102,7 +120,10 @@ data:
     # ...
 ```
 
-> **Note** After changing the logging level for a component, it could take a few minutes for the cluster to reconcile the change. You should see a message that indicates that the logging level has changed, with the old and new logging level displayed.
+> **Note** After changing the logging level for a component, it can take a few
+> minutes for the cluster to reconcile the change. You should see a message that
+> indicates that the logging level has changed, with the old and new logging
+> level displayed.
 
 ### <a id="tap-logs"></a>Tanzu Application Platform logs
 
@@ -120,8 +141,8 @@ Where `APP-NAME` is the name of the Tanzu Application Platform application. For
 example, `buildservice.app`).
 
 To stream logs instead of fetching the most recent logs, add the `--follow` flag
-to the above `kapp logs` command. For additional details and options, refer to
-the `kapp logs --help` help text.
+to the earlier `kapp logs` command. For additional details and options, see the
+`kapp logs --help` help text.
 
 #### Deployments
 

@@ -457,14 +457,14 @@ To configure the logging level for each component of Application Service Adapter
 
    ```yaml
    log_level:
-     cartographer_builder_runner: <LOG-LEVEL>
-     korifi_api: <LOG-LEVEL>
-     korifi_controllers: <LOG-LEVEL>
+     cartographer_builder_runner: LOG-LEVEL
+     korifi_api: LOG-LEVEL
+     korifi_controllers: LOG-LEVEL
    ```
 
    Where:
 
-   - `LOG-LEVEL` is the desired log level. Valid values are: error, warn, info and debug. Default is info.
+   - `LOG-LEVEL` is the log level that you want. Valid values are: error, warn, info, and debug. Default is info.
 
 ### <a id="scaling-components"></a>(Optional) Scale Application Service Adapter components
 

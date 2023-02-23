@@ -449,6 +449,23 @@ To configure the experimental Cartographer integration:
    experimental_use_cartographer: true
    ```
 
+### <a id="component-log-level"></a>(Optional) Configure logging level for Application Service Adapter components
+
+To configure the logging level for each component of Application Service Adapter:
+
+1. Include the following values in your `tas-adapter-values.yml` file:
+
+   ```yaml
+   log_level:
+     cartographer_builder_runner: <LOG-LEVEL>
+     korifi_api: <LOG-LEVEL>
+     korifi_controllers: <LOG-LEVEL>
+   ```
+
+   Where:
+
+   - `LOG-LEVEL` is the desired log level. Valid values are: error, warn, info and debug. Default is info.
+
 ### <a id="scaling-components"></a>(Optional) Scale Application Service Adapter components
 
 To configure the scaling parameters for each component of Application Service Adapter:
@@ -499,7 +516,7 @@ By default, the Application Service Adapter API is configured to listen on port 
    and which the API includes in URLs that direct back to itself. When set to `0` or left unset, no port is included in those URLs,
    and clients should connect to port 443, the standard port for HTTPS traffic.
 
-### <a id=""></a>(Optional) Configure an authentication proxy
+### <a id="auth-proxy"></a>(Optional) Configure an authentication proxy
 
 To configure Application Service Adapter to use an authentication proxy:
 

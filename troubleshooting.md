@@ -12,17 +12,18 @@ You can query the logs of several Application Service Adapter deployments to gat
 
 To fetch recent logs from all components of an Application Service Adapter installation:
 
-    ```bash
-    kapp logs --app tas-adapter.app -n tap-install
-    ```
+```bash
+kapp logs --app tas-adapter.app -n tap-install
+```
 
 To fetch recent logs from a specific deployment:
 
-    ```bash
-    kapp logs --app tas-adapter.app -n tap-install --pod-name DEPLOYMENT-NAME%
-    ```
-    Where DEPLOYMENT-NAME is the name of the Kubernetes deployment. For example,
-    "korifi-api-deployment").
+```bash
+kapp logs --app tas-adapter.app -n tap-install --pod-name DEPLOYMENT-NAME%
+```
+
+Where DEPLOYMENT-NAME is the name of the Kubernetes deployment. For example,
+"korifi-api-deployment").
 
 To stream logs instead of fetching the most recent logs, add the `--follow` flag to the above `kapp logs` commands.
 For additional details and options, refer to the `kapp logs --help` help text.
@@ -36,16 +37,75 @@ The following is a brief description of specific Application Service Adapter dep
 3. The `tas-adapter-telemetry-informer` deployment is tasked with handling all outgoing telemetry.
 4. The `cartographer-builder-runner-controller-manager` deployment is tasked with creating Cartographer workloads for apps when using the experimental Cartographer builder/runner flow.
 
+#### Dynamically changing component logging level
+
+While it is possible to [change the logging level](install.md#component-log-level) for each component of Application Service Adapter during an upgrade, this will result in the component being restarted.
+
+To avoid these component restarts, you can temporarily change the logging level for a specific component by modifying the `logLevel` setting in the corresponding ConfigMap.
+
+Before you perform any customization to the ConfigMaps, you must prevent the platform from reverting your changes back to their original install values.
+
+To do this, you must pause the PackageInstall/tas-adapter object by setting the packageinstall.spec.pause parameter to true. Run:
+
+```bash
+kubectl edit -n tap-install packageinstall tas-adapter
+```
+
+```yaml
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  name: tas-adapter
+  namespace: tap-install
+spec:
+  paused: true # <- add this parameter to the resource definition
+  packageRef:
+    refName: application-service-adapter.tanzu.vmware.com
+    versionSelection:
+# ...
+```
+
+> **Note** You will need to unpause the PackageInstall/tas-adapter object before attempting to perform a platform upgrade. If you wish to persist changes to the logging level for a given component, you should update your values YAML file to match the new logging level.
+
+To set the logging level for a given component dynamically, you can change the value of the `logLevel` setting in the corresponding ConfigMap. Run:
+
+```bash
+kubectl get -n tas-adapter-system configmap | grep COMPONENT-NAME
+kubectl edit -n tas-adapter-system configmap CONFIGMAP-NAME
+```
+
+Where:
+- `COMPONENT-NAME` is the name of the component.
+- `CONFIGMAP-NAME` is the name of the ConfigMap for the specified component.
+
+For example, to set the logging level for the `korifi-api` component:
+
+```yaml
+kind: ConfigMap
+metadata:
+  name: korifi-api-config-ver-1
+  namespace: tas-adapter-system
+apiVersion: v1
+data:
+  korifi_api_config.yaml: |
+    # ...
+    logLevel: info # <- Set the desired logging level. This must be one of error, warn, info, or debug.
+    # ...
+```
+
+> **Note** After changing the logging level for a component, it could take a few minutes for the cluster to reconcile the change. You should see a message that indicates that the logging level has changed, with the old and new logging level displayed.
+
 ### <a id="tap-logs"></a>Tanzu Application Platform logs
 
 While not directly part of Application Service Adapter, there are several Tanzu Application Platform deployments utilized by Application Service Adapter. These can also provide further debug information on failures.
 
 To fetch recent logs from a given Tanzu Application Platform application, run:
 
-    ```bash
-    kapp logs --app APP-NAME -n tap-install
-    ```
-    Where APP-NAME is the name of the Tanzu Application Platform application. For example, "buildservice.app").
+```bash
+kapp logs --app APP-NAME -n tap-install
+```
+
+Where APP-NAME is the name of the Tanzu Application Platform application. For example, "buildservice.app").
 
 To stream logs instead of fetching the most recent logs, add the `--follow` flag to the above `kapp logs` command.
 For additional details and options, refer to the `kapp logs --help` help text.
@@ -133,7 +193,6 @@ All run app object types are located within the targeted CFSpace namespace.
 | Pod          | Kubernetes | Kubernetes                                     | NA                                             | The app process pods are last in the app run chain and created by Kubernetes based on the ReplicaSet. The number of pods are based on the ReplicaSet replicas parameter.                                                              |
 | CFRoute      | Cloud Foundry         | `korifi-api-deployment`                        | `korifi-controllers-controller-manager`        | CFRoutes are created to be able to reach running apps. They can be created as part of the `cf push` command if a default or random route is specified, defined in a manifest, or as part of the `cf create-route` command.            |
 | HTTPProxy    | contour    | `korifi-controllers-controller-manager`        | NA                                             | The HTTPProxy is a Contour resource created by the `korifi-controllers-controller-manager` to reach running apps.                                                                                                             |
-
 
 #### Image build object types (Cartographer builder/runner)
 All image build object types are located within the targeted CFSpace namespace.
@@ -273,9 +332,9 @@ When I run `cf push`, the Cloud Foundry CLI does not respond with a built image.
 When I run `cf push`, the following output/error message is returned:
 
 ```bash
-    Unexpected Response
-    Response Code: 500
-    Code: 0, Title: , Detail: {"errors":[{"detail":"An unknown error occurred.","title":"UnknownError","code":10001}]}
+Unexpected Response
+Response Code: 500
+Code: 0, Title: , Detail: {"errors":[{"detail":"An unknown error occurred.","title":"UnknownError","code":10001}]}
 ```
 
 #### Possible causes

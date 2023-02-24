@@ -15,6 +15,7 @@ You can find new patch versions of Application Service Adapter on the TanzuNet p
 Before you upgrade Application Service Adapter:
 
 - Verify that you meet all the [prerequisites](install-prerequisites.md) of the target Tanzu Application Service Adapter version. If the target Tanzu Application version does not support your existing Kubernetes version, VMware recommends upgrading to a supported version before proceeding with the upgrade.
+- Backup important cluster state (Kubernetes `etcd` and the container registries used for storing app images) as described in the [Disaster Recovery](disaster-recovery.md) topic.
 - [Install or update the Tanzu CLI and plugins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install-tanzu-cli.html#install-or-update-the-tanzu-cli-and-plugins-3)
   - For information about installing or updating the Tanzu CLI and plug-ins, see [Install or update the Tanzu CLI and plugins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install-tanzu-cli.html#install-or-update-the-tanzu-cli-and-plugins-3).
 - Verify that all packages are reconciled by running `tanzu package installed list -A`.
@@ -42,6 +43,7 @@ Follow these steps to update the new package repository:
 ## <a id="upgrading-to-version-1-1"></a> Upgrading to v1.2.0
 
 1. Update your `tas-adapter-values.yml` file
+   > **Note:** It is recommended to make a backup copy of `tas-adapter-values.yml` before modifying it
 
    Image repositories are now being created for each app instead of using one repo for all images. You are no longer required to specify paths for `packages` and `droplets`.
 

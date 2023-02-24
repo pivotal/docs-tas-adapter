@@ -44,7 +44,7 @@ Follow these steps to update the new package repository:
 
 1. Update your `tas-adapter-values.yml` file.
 
-   > **Note** VMware recommends making a backup copy of `tas-adapter-values.yml` before modifying it.
+   > **Important** VMware recommends making a backup copy of `tas-adapter-values.yml` before modifying it.
 
    Image repositories are now being created for each app instead of using one repo for all images. You are no longer required to specify paths for `packages` and `droplets`.
 

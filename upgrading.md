@@ -17,9 +17,9 @@ Before you upgrade Application Service Adapter:
 - Verify that you meet all the [prerequisites](install-prerequisites.md) of the target Tanzu Application Service Adapter version. If the target Tanzu Application version does not support your existing Kubernetes version, VMware recommends upgrading to a supported version before proceeding with the upgrade.
 - Back up important cluster state, Kubernetes `etcd` and the container registries used for storing app images, as described in the [Disaster Recovery](disaster-recovery.md) topic.
 - [Install or update the Tanzu CLI and plug-ins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install-tanzu-cli.html#install-or-update-the-tanzu-cli-and-plugins-3)
-  - For information about installing or updating the Tanzu CLI and plug-ins, see [Install or update the Tanzu CLI and plugins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install-tanzu-cli.html#install-or-update-the-tanzu-cli-and-plugins-3).
+  - For information about installing or updating the Tanzu CLI and plug-ins, see [Install or update the Tanzu CLI and plug-ins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install-tanzu-cli.html#install-or-update-the-tanzu-cli-and-plugins-3).
 - Verify that all packages are reconciled by running `tanzu package installed list -A`.
-- It is strongly recommended to [upgrade](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-upgrading.html) the Tanzu Application Platform version to the latest patch version of the currently installed major-minor (for example, 1.2).
+- VMware recommends [upgrading](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-upgrading.html) the Tanzu Application Platform version to the latest patch version of the currently installed major-minor (for example, 1.2).
 
 ## <a id="add-new-package-repo"></a> Update the new package repository
 

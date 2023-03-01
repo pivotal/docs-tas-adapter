@@ -21,7 +21,7 @@ This is the table of contents from which Application Service Adapter for Tanzu A
 - [Troubleshoot](troubleshooting.md)
 - [Concepts](concepts.md)
   - [Architecture](technical-architecture.md)
-  - [User authentication overview](user-authentication-overview.md)
+  - [User authentication](user-authentication-overview.md)
 - [Reference](reference.md)
   - [Application environment variables](environment-variables.md)
   - [Buildpacks](buildpack-differences.md)

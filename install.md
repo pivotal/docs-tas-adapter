@@ -325,7 +325,7 @@ To configure Application Service Adapter for installation on OpenShift:
      kubernetes_version: "KUBERNETES-VERSION"
    ```
 
-   Where `KUBERNETES-VERSION` is the kubernetes version of the cluster. Default is 1.23.3.
+   Where `KUBERNETES-VERSION` is the Kubernetes version of the cluster. Default is v1.23.3.
 
 ### <a id="aws-iam-registry-auth"></a>(Optional) Use AWS IAM authentication for registry credentials
 

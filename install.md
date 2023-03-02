@@ -284,11 +284,14 @@ VMware recommends configuring one or more administrative users for Application S
 
    Where:
 
-   - `ADMIN-USERNAME` is the name of an existing user in the Kubernetes cluster to whom to grant system admin privileges. You can specify as many users as you want, one per line. These names are identifiers for Kubernetes user accounts, not Kubernetes service accounts.
+   - `ADMIN-USERNAME` is the name of an existing user in the Kubernetes cluster
+     to whom you want to grant system admin privileges. You can specify as many
+     users as you want, one per line. These names are identifiers for Kubernetes
+     user accounts, not Kubernetes service accounts.
      - For Amazon EKS, see the [AWS IAM user management for EKS section](user-management.md#aws-iam-user-management-eks) of the User Management topic for information about additional required cluster configuration to map AWS IAM users and roles to Kubernetes roles.
      - For clusters configured to use authentication proxies such as [Pinniped](https://pinniped.dev/), you can authenticate to the cluster and use the output of `cf curl /whoami` to see the user account name to provide.
 
-    These user names are the ones Kubernetes recognizes as user identifiers in the subject section of its role-based access control (RBAC) resources, such as `RoleBindings`. They can differ from the names of the user entries in your local Kubeconfig file. If you are not certain of this user name, you can leave this entry empty for the initial installation. After completing the installation and logging in with the cf CLI, use the `cf curl /whoami` command to confirm the user name and then update the installation with the correct name value. For more information about user subject names in Kubernetes, see the [Referring to subjects](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-subjects) section of _Using RBAC Authorization_ and the [Authenticating](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) topic in the Kubernetes project documentation.
+    These user names are those Kubernetes recognizes as user identifiers in the subject section of its role-based access control (RBAC) resources, such as `RoleBindings`. They can differ from the names of the user entries in your local Kubeconfig file. If you are not certain of this user name, you can leave this entry empty for the initial installation. After completing the installation and logging in with the cf CLI, use the `cf curl /whoami` command to confirm the user name and then update the installation with the correct name value. For more information about user subject names in Kubernetes, see the [Referring to subjects](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-subjects) section of _Using RBAC Authorization_ and the [Authenticating](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) topic in the Kubernetes project documentation.
 
 ### <a id="kpack-cluster-builder"></a>(Optional) Configure the Kpack cluster builder to use for staging
 

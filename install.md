@@ -209,9 +209,9 @@ To configure the installation settings:
    Where:
 
    - `APP-REGISTRY-SERVER` is the address of the registry used for app packages and droplets. This value is the same as the server name in a `dockerconfigjson` Kubernetes secret. For example:
-     - Harbor has the form `"my-harbor.io"`
-     - Docker Hub the form `"https://index.docker.io/v1/"`
-     - Google Container Registry has the form `"gcr.io"`
+     - Harbor has the form `my-harbor.io`.
+     - Docker Hub the form `https://index.docker.io/v1/`.
+     - Google Container Registry has the form `gcr.io`.
 
 4. Create a `SecretExport` to allow Application Service Adapter to copy the application image registry credentials secret into the `cf` namespace.
 
@@ -538,7 +538,7 @@ eliminate resources from the cluster.
    ```
 
    Where `TASK-TTL-AGE` is the length of time until completed tasks are purged from the cluster.
-   This value can be specified as a time duration in seconds, minutes, hours or days. For example, "86400s", "1440m", "24h", or "1d".
+   You can specify this value as a time duration in seconds, minutes, hours, or days. For example, "86400s", "1440m", "24h", or "1d".
 
 ### <a id="opt-out-telemetry"></a>(Optional) Opt out of telemetry reporting
 

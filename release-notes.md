@@ -2,6 +2,31 @@
 
 This topic contains release notes for Application Service Adapter for VMware Tanzu Application Platform.
 
+## <a id='1-1-2'></a> v1.1.2 Release
+
+**Release Date**: March 7, 2023
+
+### Resolved issues
+
+The following issues are resolved in this release:
+
+* When using shared ClusterIssuer to generate ingress certificates, tas-adapter sets `commonName` that is not present in the list of `dnsNames`. 
+
+### Components
+
+This release contains the following components:
+
+* cartographer-builder-runner @ baf5676
+* Korifi @ [v0.5.0](https://github.com/cloudfoundry/korifi/tree/v0.5.0)
+* tas-adapter-telemetry-controller @ 3692dc1
+
+### Known issues
+
+This release has the following known issues:
+
+* If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application fails to build with an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app continues to fail to build.
+* The organization manager role does not have permissions to create Cloud Foundry spaces. As a workaround, instead use the Cloud Foundry admin role to create spaces in organizations.
+
 ## <a id='1-1-1'></a> v1.1.1 Release
 
 **Release Date**: February 15, 2023

@@ -327,23 +327,23 @@ Organization 'my-org' not found
 
 #### Possible causes
 
-The user creating the CFOrg is not bound to the `korifi-controllers-admin`
-ClusterRole.
+1. The user creating the CFOrg does not have a `RoleBinding` that is bound to the `korifi-controllers-admin` ClusterRole.
+2. The user has a `RoleBinding` but the binding is assigned to a username that is defined in the user's local Kubeconfig but isn't a recognized user on the Kubernetes cluster. 
 
 #### Troubleshooting steps and potential solutions
 
-1. Verify the user in the `cf create org` command output.
+1. Get the actual username that Kubernetes recognizes from `cf curl /whoami` command output.
 
 ```bash
-Creating org my-org as cf-admin...
+{"name":"cf-admin","kind":"User"}
 ```
 
 1. Verify that there is a RoleBinding in the `cf` namespace binding the
-   `korifi-controllers-admin` ClusterRole to the given user and that it has the
+   `korifi-controllers-admin` ClusterRole to the given username and that it has the
    `cloudfoundry.org/propagate-cf-role: "true"` annotation.
 2. If that RoleBinding does not exist, either switch to a user that is bound to
-   the `korifi-controllers-admin` ClusterRole or create a RoleBinding as a
-   cluster admin.
+   the `korifi-controllers-admin` ClusterRole or create a RoleBinding referencing
+   the `korifi-controllers-admin` ClusterRole for that user.
 
 ### Dev user unauthorized to target an org or space
 

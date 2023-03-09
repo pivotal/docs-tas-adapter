@@ -328,7 +328,7 @@ Organization 'my-org' not found
 #### Possible causes
 
 1. The user creating the CFOrg does not have a `RoleBinding` that is bound to the `korifi-controllers-admin` ClusterRole.
-2. The user has a `RoleBinding` but the binding is assigned to a username that is defined in the user's local Kubeconfig but isn't a recognized user on the Kubernetes cluster. 
+2. The user has a `RoleBinding`, but the binding is assigned to a local Kubeconfig user entry that does not match a recognized user on the Kubernetes cluster.
 
 #### Troubleshooting steps and potential solutions
 

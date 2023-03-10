@@ -46,7 +46,7 @@ Follow these steps to update the new package repository:
 
    > **Important** VMware recommends making a backup copy of `tas-adapter-values.yml` before modifying it.
 
-   Image repositories are now being created for each app instead of using one repo for all images. You are no longer required to specify paths for `packages` and `droplets`.
+   Image repositories are now created for each app instead of using one repository for all images. You are no longer required to specify paths for `packages` and `droplets`.
 
    Edit your `tas-adapter-values.yml` and remove the following config:
 

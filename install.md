@@ -515,9 +515,10 @@ By default, the Application Service Adapter API is configured to listen on port 
      port: "API-PORT"
    ```
 
-   Where `API-PORT` is the port number which clients should use to connect to the Application Service Adapter API,
-   and which the API includes in URLs that direct back to itself. When set to `0` or left unset, no port is included in those URLs,
-   and clients should connect to port 443, the standard port for HTTPS traffic.
+   Where `API-PORT` is the port number that clients can use to connect to the Application Service Adapter API.
+   The API includes this number in URLs that direct back to itself, but when set to
+   `0` or left unset, no port number is in those URLs.
+   In that case, clients can connect to port 443, the standard port for HTTPS traffic.
 
 ### <a id="auth-proxy"></a>(Optional) Configure an authentication proxy
 

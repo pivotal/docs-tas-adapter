@@ -249,9 +249,8 @@ Finished unsuccessfully (Encountered failure condition ReconcileFailed == True: 
 #### Troubleshooting steps and potential solutions
 
 1. Verify that both the `Secret` and `SecretExport` exist by following steps 3
-   and 4 in the ["Configure the installation
-   settings"](install.md#configure-installation-settings) section of the
-   installation docs.
+   and 4 in [Configure the installation
+   settings](install.md#configure-installation-settings).
 
 ### Organization not found when creating an org
 

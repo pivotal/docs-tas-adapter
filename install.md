@@ -227,7 +227,7 @@ To configure the installation settings:
    EOF
    ```
 
-5. Create a `tas-adapter-values.yml` file with the installation settings that you want, following the schema specified for the package.
+5. Create a `tas-adapter-values.yaml` file with the installation settings that you want, following the schema specified for the package.
 
    The following values are required:
 
@@ -393,7 +393,7 @@ Your Kubernetes cluster nodes and the Tanzu Build Service component of Tanzu App
 
 To configure Application Service Adapter to trust a registry that has a custom or self-signed certificate authority:
 
-1. Set the value of the `app_registry_credentials.ca_cert_data` property in the `tas-adapter-values.yml` file with the PEM encoded certificate for the registry's Certificate Authority.
+1. Set the value of the `app_registry_credentials.ca_cert_data` property in the `tas-adapter-values.yaml` file with the PEM encoded certificate for the registry's Certificate Authority.
 
 ### <a id="experimental-cartographer-integration"></a>(Optional) Configure the Experimental Cartographer Integration
 
@@ -401,7 +401,8 @@ Opting into the experimental Cartographer integration requires a larger set of T
 
 To configure the experimental Cartographer integration:
 
-1. Set the value of the `experimental_use_cartographer` property in the `tas-adapter-values.yml
+1. Set the value of the `experimental_use_cartographer` property in the
+   `tas-adapter-values.yaml file.
 
 ## <a id="install-adapter"></a>Install Application Service Adapter
 
@@ -413,7 +414,7 @@ To install Application Service Adapter:
     tanzu package install tas-adapter \
       --package-name application-service-adapter.tanzu.vmware.com \
       --version "${TAS_ADAPTER_VERSION}" \
-      --values-file tas-adapter-values.yml \
+      --values-file tas-adapter-values.yaml \
       --namespace tap-install
     ```
 

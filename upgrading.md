@@ -46,7 +46,7 @@ To upgrade, run:
 tanzu package installed update tas-adapter \
   --package-name application-service-adapter.tanzu.vmware.com \
   --version "${TAS_ADAPTER_VERSION}" \
-  --values-file tas-adapter-values.yml \
+  --values-file tas-adapter-values.yaml \
   --namespace tap-install
 ```
 
@@ -54,7 +54,7 @@ Where `TAS_ADAPTER_VERSION` is the target revision of Application Service Adapte
 
 ## <a id="verify"></a> Verify the upgrade
 
-> **Important** Run the following command in the directory where the `tas-adapter-values.yml` file resides.
+> **Important** Run the following command in the directory where the `tas-adapter-values.yaml` file resides.
 
 To verify the versions of packages after the upgrade, run:
 

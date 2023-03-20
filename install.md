@@ -344,7 +344,12 @@ To configure the installation settings:
    - `API-PORT` is the port number which clients should use to connect to the Application Service Adapter API, and which the API will include in URLs that direct back to itself. When set to `0` or left unset, no port is included in those URLs, and clients should connect to port 443, the standard port for HTTPS traffic.
    - `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM encoded multiline string containing the certificate authority (CA) certificate.
        - The value must be inserted into your values file as a YAML multiline string with a block scalar literal.
-   - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service-v13/GUID-managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
+   - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to
+     use for staging. Tanzu Build Service provides two cluster builders named
+     `base` and `default`. To create your own builder, see [Managing
+     Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.3/vmware-tanzu-build-service/GUID-managing-builders.html)
+     in the Tanzu Build Service documentation, and update this setting with the
+     corresponding builder name.
    - `USER-CERT-EXPIRY-WARNING-DURATION` is the recommended duration beyond which user are warned to use short-lived certificates for authentication. Default is 168 hours.
    - `API-CPU-LIMIT` is the CPU resource limit for the pods that you want in the specified deployment. Default is 1 CPU.
    - `API-MEMORY-LIMIT` is the memory resource limit that you want for the pods in the specified deployment. Default is 1000Mi.

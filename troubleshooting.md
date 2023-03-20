@@ -571,8 +571,8 @@ solve the issue.
 ### Cartographer setting
 
 The experimental Cartographer installation setting for Application Service
-Adapter can be set in the `tas-adapter-values.yaml` as described [Install
-Application Service Adapter](install.md)
+Adapter can be set in the `tas-adapter-values.yaml`, as described in [Install
+Application Service Adapter](install.md).
 
 ### Pushing an app fails to start
 

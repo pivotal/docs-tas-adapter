@@ -14,7 +14,7 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
 
     Where `VERSION-NUMBER` is the version of Application Service Adapter you want to install. For example, `1.0.0`.
 
-2. Update your `tas-adapter-values.yml` file with new API and App Ingress TLS certificates, such as crt and key.
+2. Update your `tas-adapter-values.yaml` file with new API and App Ingress TLS certificates, such as crt and key.
 
     The following values are updated:
 
@@ -42,7 +42,7 @@ This topic describes how to rotate Application Service Adapter for VMware Tanzu 
     tanzu package install tas-adapter \
       --package-name application-service-adapter.tanzu.vmware.com \
       --version "${TAS_ADAPTER_VERSION}" \
-      --values-file tas-adapter-values.yml \
+      --values-file tas-adapter-values.yaml \
       --namespace tap-install
     ```
 

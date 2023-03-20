@@ -42,13 +42,13 @@ Follow these steps to update the new package repository:
 
 ## <a id="upgrading-to-version-1-1"></a> Upgrading to v1.2.0
 
-1. Update your `tas-adapter-values.yml` file.
+1. Update your `tas-adapter-values.yaml` file.
 
-   > **Important** VMware recommends making a backup copy of `tas-adapter-values.yml` before modifying it.
+   > **Important** VMware recommends making a backup copy of `tas-adapter-values.yaml` before modifying it.
 
    Image repositories are now created for each app instead of using one repository for all images. You are no longer required to specify paths for `packages` and `droplets`.
 
-   Edit your `tas-adapter-values.yml` and remove the following config:
+   Edit your `tas-adapter-values.yaml` and remove the following config:
 
    ```yaml
    app_registry:
@@ -79,7 +79,7 @@ To upgrade, run:
 tanzu package installed update tas-adapter \
   --package-name application-service-adapter.tanzu.vmware.com \
   --version "${TAS_ADAPTER_VERSION}" \
-  --values-file tas-adapter-values.yml \
+  --values-file tas-adapter-values.yaml \
   --namespace tap-install
 ```
 
@@ -87,7 +87,7 @@ Where `TAS_ADAPTER_VERSION` is the target revision of Application Service Adapte
 
 ## <a id="verify"></a> Verify the upgrade
 
-> **Important** Run the following command in the directory where the `tas-adapter-values.yml` file resides.
+> **Important** Run the following command in the directory where the `tas-adapter-values.yaml` file resides.
 
 To verify the versions of packages after the upgrade, run:
 

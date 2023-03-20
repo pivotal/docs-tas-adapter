@@ -120,7 +120,7 @@ Ensure you are logged into the Application Service Adapter environment you inten
 
 ## Create a database service for persistent storage
 
-> **Caution** The following instructions provide an easy way to create a MySQL database on the same Kubernetes cluster as the Application Service Adapter installation, but this database deployment is not suitable for production use. If you require a production-grade database on Kubernetes, consider using [VMware Tanzu SQL with MySQL for Kubernetes](https://docs.vmware.com/en/VMware-Tanzu-SQL-with-MySQL-for-Kubernetes/index.html) or [VMware Tanzu SQL with Postgres for Kubernetes](https://docs.vmware.com/en/VMware-Tanzu-SQL-with-Postgres-for-Kubernetes/index.html).
+> **Caution** The following instructions provide an easy way to create a MySQL database on the same Kubernetes cluster as the Application Service Adapter installation, but this database deployment is not suitable for production use. If you require a production-grade database on Kubernetes, consider using [VMware Tanzu SQL with MySQL for Kubernetes](https://docs.vmware.com/en/VMware-Tanzu-SQL-with-MySQL-for-Kubernetes/1.2/tanzu-mysql-k8s/GUID-index.html) or [VMware Tanzu SQL with Postgres for Kubernetes](https://docs.vmware.com/en/VMware-Tanzu-SQL-with-Postgres-for-Kubernetes/index.html).
 
 1. Create a separate namespace to run a containerized MySQL database:
 

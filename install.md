@@ -228,7 +228,7 @@ To configure the installation settings:
    EOF
    ```
 
-5. Create a `tas-adapter-values.yml` file with the installation settings that you want, following the schema specified for the package.
+5. Create a `tas-adapter-values.yaml` file with the installation settings that you want, following the schema specified for the package.
 
    The following values are required:
 
@@ -273,7 +273,7 @@ Repository Prefix Examples:
 
 VMware recommends configuring one or more administrative users for Application Service Adapter. To do this:
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    admin:
@@ -291,7 +291,17 @@ VMware recommends configuring one or more administrative users for Application S
      - For Amazon EKS, see the [AWS IAM user management for EKS section](user-management.md#aws-iam-user-management-eks) of the User Management topic for information about additional required cluster configuration to map AWS IAM users and roles to Kubernetes roles.
      - For clusters configured to use authentication proxies such as [Pinniped](https://pinniped.dev/), you can authenticate to the cluster and use the output of `cf curl /whoami` to see the user account name to provide.
 
-    These user names are those Kubernetes recognizes as user identifiers in the subject section of its role-based access control (RBAC) resources, such as `RoleBindings`. They can differ from the names of the user entries in your local Kubeconfig file. If you are not certain of this user name, you can leave this entry empty for the initial installation. After completing the installation and logging in with the cf CLI, use the `cf curl /whoami` command to confirm the user name and then update the installation with the correct name value. For more information about user subject names in Kubernetes, see the [Referring to subjects](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-subjects) section of _Using RBAC Authorization_ and the [Authenticating](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) topic in the Kubernetes project documentation.
+    These user names must be identities that can be recognized as users in the
+    subject section of Kubernetes RBAC resources, such as `RoleBindings`. They
+    might not match the user entries in your local Kubeconfig file. During the
+    initial installation, you can leave this entry blank if you're unsure of the
+    user name. After installation, log in with the cf CLI and run the `cf curl
+    /whoami` command to confirm the user name. Then update the installation with
+    the correct name value. For more information about user subject names in
+    Kubernetes, see [Referring to
+    subjects](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-subjects)
+    section of _Using RBAC Authorization_ and
+    [Authenticating](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) in the Kubernetes project documentation.
 
 ### <a id="kpack-cluster-builder"></a>(Optional) Configure the Kpack cluster builder to use for staging
 
@@ -305,7 +315,7 @@ To configure Application Service Adapter to use a different Kpack cluster builde
    kubectl get clusterbuilder
    ```
 
-2. Include the following values in your `tas-adapter-values.yml` file:
+2. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    kpack_clusterbuilder_name: "KPACK-CLUSTER-BUILDER-NAME"
@@ -317,7 +327,7 @@ To configure Application Service Adapter to use a different Kpack cluster builde
 
 To configure Application Service Adapter for installation on OpenShift:
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    shared:
@@ -335,7 +345,7 @@ To use AWS IAM authentication:
 
 1. Configure an AWS IAM role that has read and write access to the repository in the container image registry used when installing Tanzu Application Platform.
 
-2. Include the following values in your `tas-adapter-values.yml` file:
+2. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    app_registry:
@@ -345,7 +355,7 @@ To use AWS IAM authentication:
 
    Where `AWS-IAM-ROLE-ARN` is the Amazon Resource Name (ARN) of an AWS IAM role that can be used to access an Elastic Container Registry (ECR).
 
-   The `app_registry.credentials.secret_name` and `app_registry.credentials.namespace` properties should be omitted from your `tas-adapter-values.yml` file.
+   The `app_registry.credentials.secret_name` and `app_registry.credentials.namespace` properties should be omitted from your `tas-adapter-values.yaml` file.
 
 ### <a id="custom-ca-registry"></a>(Optional) Configure a registry with a custom Certificate Authority
 
@@ -353,7 +363,7 @@ To use AWS IAM authentication:
 
 To configure Application Service Adapter to trust a registry that has a custom or self-signed certificate authority:
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    app_registry:
@@ -371,7 +381,7 @@ To configure Application Service Adapter to trust a registry that has a custom o
 
 To configure Application Service Adapter using the legacy installation settings:
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    app_registry:
@@ -397,7 +407,7 @@ To configure Application Service Adapter using the legacy installation settings:
 
 By default, Application Service Adapter uses the `tap-ingress-selfsigned` cluster issuer provided by Tanzu Application Platform. To configure Application Service Adapter to use a different Cert Manager certificate issuer:
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    shared:
@@ -412,7 +422,7 @@ Users can provide their own certificates for either the Application Service Adap
 
 To configure the ingress certificate for the API:
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    api_ingress:
@@ -426,7 +436,7 @@ To configure the ingress certificate for the API:
    - `API-TLS-SECRET-NAME` is the `kubernetes.io/tls` secret containing the PEM-encoded public certificate for the Application Service Adapter API.
    - `API-TLS-SECRET-NAMESPACE` is the namespace containing the API TLS secret.
 
-1. To configure the ingress certificate for workloads, include the following values in your `tas-adapter-values.yml` file:
+1. To configure the ingress certificate for workloads, include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    app_ingress:
@@ -446,7 +456,7 @@ To configure the ingress certificate for the API:
 
 To configure the experimental Cartographer integration:
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    experimental_use_cartographer: true
@@ -456,7 +466,7 @@ To configure the experimental Cartographer integration:
 
 To configure the scaling parameters for each component of Application Service Adapter:
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    scaling:
@@ -491,7 +501,7 @@ To configure the scaling parameters for each component of Application Service Ad
 
 By default, the Application Service Adapter API is configured to listen on port 443, the standard port for HTTPS traffic. To change this value:
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    api_ingress:
@@ -507,7 +517,7 @@ By default, the Application Service Adapter API is configured to listen on port 
 
 To configure Application Service Adapter to use an authentication proxy:
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    api_auth_proxy:
@@ -531,7 +541,7 @@ eliminate resources from the cluster.
 
 > **Note** Task logs are no longer viewable using the `cf logs` command once a task has been purged from Application Service Adapter due to its age.
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    tasks:
@@ -573,7 +583,7 @@ Your Application Service Adapter deployment no longer emits telemetry, and you a
 
 The default telemetry reporting interval is 24 hours. To change how frequently telemetry data is sent to VMware:
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    telemetry:
@@ -588,7 +598,7 @@ The default telemetry reporting interval is 24 hours. To change how frequently t
 For security, the Application Service Adapter API returns a warning in the `X-Cf-Warnings` header of the `/v3/orgs`
 endpoint when a user authenticates with a certificate that is valid for longer than the specified duration. To change this value:
 
-1. Include the following values in your `tas-adapter-values.yml` file:
+1. Include the following values in your `tas-adapter-values.yaml` file:
 
    ```yaml
    user_certificate_expiration_warning_duration: "USER-CERT-EXPIRY-WARNING-DURATION"
@@ -606,7 +616,7 @@ To install Application Service Adapter:
    tanzu package install tas-adapter \
      --package-name application-service-adapter.tanzu.vmware.com \
      --version "${TAS_ADAPTER_VERSION}" \
-     --values-file tas-adapter-values.yml \
+     --values-file tas-adapter-values.yaml \
      --namespace tap-install
    ```
 

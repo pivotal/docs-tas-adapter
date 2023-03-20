@@ -106,4 +106,4 @@ Follow the Tanzu Application Platform instructions, with these amendments:
  * "arn:aws:ecr:${AWS_REGION}:${AWS_ACCOUNT_ID}:repository/${REPOSITORY_PREFIX_PATH}*"
 
    Where `REPOSITORY_PREFIX_PATH` is the path portion of the `REPOSITORY-PREFIX`
-   you will provide when setting `tas-adapter-values.yml` for installation.
+   you will provide when setting `tas-adapter-values.yaml` for installation.

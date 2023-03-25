@@ -25,7 +25,7 @@ To fetch recent logs from a specific deployment:
 kapp logs --app tas-adapter.app -n tap-install --pod-name DEPLOYMENT-NAME%
 ```
 
-Where `DEPLOYMENT-NAME` is the name of the Kubernetes Deployment, such as
+Where `DEPLOYMENT-NAME` is the name of the Kubernetes Deployment, for example,
 `korifi-api-deployment`.
 
 To stream logs instead of fetching the most recent logs, add the `--follow` flag to the earlier `kapp logs` commands.

@@ -5,10 +5,10 @@ This topic provides guidance on accessing system component logs and metrics.
 ## <a id="system-logs"></a>Gather system logs
 
 Logs for Application Service Adapter system components flow through standard
-Kubernetes logging channels and can be retrieved using the tooling of your
+Kubernetes logging channels. You can retrieve them by using the tooling of your
 choice. For ad-hoc log retrieval, VMware recommends the `kapp logs` command in
-the [kapp cli](https://carvel.dev/kapp/docs/latest/install/) as the most
-convenient method to gather the logs from pods in one or more deployments.
+the kapp cli as the most
+convenient method to gather the logs from pods in one or more deployments. See the [Carvel documentation](https://carvel.dev/kapp/docs/latest/install/).
 
 To fetch recent logs from all components of an Application Service Adapter installation:
 
@@ -31,16 +31,19 @@ For additional details and options, see the `kapp logs --help` help text.
 ## <a id="metrics"></a>Query performance metrics
 
 All of the controller-managers deployed by Application Service Adapter
-provide [standard Prometheus performance
-metrics](https://book.kubebuilder.io/reference/metrics-reference.html) generated
-by the Kubernetes controller-runtime library.
+provide standard Prometheus performance
+metrics generated
+by the Kubernetes controller-runtime library. For more information, see the
+[Kubebuilder documentation](https://book.kubebuilder.io/reference/metrics-reference.html).
 
 Application Service Adapter controller managers are deployed with annotations
 that makes them discoverable by a Prometheus server deployed to the same
 cluster.
 
 After you have Prometheus deployed, you can query any of the available
-metrics. See [Default Exported Metrics References](https://book.kubebuilder.io/reference/metrics-reference.html).
+metrics. See [Default Exported Metrics
+References](https://book.kubebuilder.io/reference/metrics-reference.html) in the
+Kubebuilder documentation.
 In particular, queries for `workqueue_depth` or `workqueue_queue_duration_seconds`
 can help to indicate when a controller manager is resource constrained and must be scaled up.
 

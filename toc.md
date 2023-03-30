@@ -11,6 +11,7 @@ This is the table of contents from which Application Service Adapter for Tanzu A
 - [Get started](getting-started.md)
   - [Push the spring-music sample app](push-spring-music.md)
 - [Administering Application Service Adapter](administering.md)
+  - [Cleaning up old resources](resource-cleanup.md)
   - [Disaster recovery](disaster-recovery.md)
   - [Failover and redundancy](failover-and-redundancy.md)
   - [Rotate certificates](certificate-rotation.md)

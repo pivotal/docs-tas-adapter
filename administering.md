@@ -2,6 +2,7 @@
 
 The following topics are related to administering an Application Service Adapter installation:
 
+* [Cleaning up old resources](resource-cleanup.md)
 * [Disaster recovery](disaster-recovery.md)
 * [Failover and redundancy](failover-and-redundancy.md)
 * [Rotating certificates](certificate-rotation.md)

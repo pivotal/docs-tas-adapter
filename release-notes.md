@@ -4,15 +4,14 @@ This topic contains release notes for Application Service Adapter for VMware Tan
 
 ## <a id='1-1-3'></a> v1.1.3 Release
 
-**Release Date**: March 30, 2023
+**Release Date**: March 31, 2023
 
 ### Resolved issues
 
 The following issues are resolved in this release:
 
-* When using `shared.ingress_issuer` to generate ingress certificates, App's Ingress `HTTPProxy` is unhealthy due to a mismatched certificate secret.
-* Apps often restarts, including at push time.
-
+* Application routes are now configured correctly when using the `shared.ingress_issuer` configuration property to generate ingress certificates.
+* Applications no longer restart sporadically because of indeterminacy in the representation of their underlying StatefulSet resources.
 
 ### Components
 
@@ -51,7 +50,9 @@ This release contains the following components:
 
 This release has the following known issues:
 
+* When using the `shared.ingress_issuer` property to generate certificates for HTTPS ingress to Application Service Adapter, HTTPS routes to applications fail on account of a mismatched internal Secret name. As a workaround, instead use the `app_ingress.tls.secret_name` and `app_ingress.tls.namespace` properties to configure the TLS secret for application ingress routes.
 * If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application fails to build with an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app continues to fail to build.
+* Applications may restart sporadically on account of indeterminacy in how the Application Service Adapter system components represent the underlying StatefulSet for the application during periodic reconciliation.
 * The organization manager role does not have permissions to create Cloud Foundry spaces. As a workaround, instead use the Cloud Foundry admin role to create spaces in organizations.
 
 ## <a id='1-1-1'></a> v1.1.1 Release
@@ -77,7 +78,9 @@ This release contains the following components:
 This release has the following known issues:
 
 * When using the `shared.ingress_issuer` property to generate certificates for HTTPS ingress to Application Service Adapter, some issuers will fail to issue the certificates because the list of DNS SANs on the certificate request does not include the common name. In particular, the ACME issuer from Let's Encrypt reports this error when generating these certificates. As a workaround, issue the certificates separately, then use the `api_ingress.tls` and `app_ingress.tls` properties to configure Application Service Adapter with the Kubernetes Secret containing the certificate data.
+* When using the `shared.ingress_issuer` property to generate certificates for HTTPS ingress to Application Service Adapter, HTTPS routes to applications fail on account of a mismatched internal Secret name. As a workaround, instead use the `app_ingress.tls.secret_name` and `app_ingress.tls.namespace` properties to configure the TLS secret for application ingress routes.
 * If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application fails to build with an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app continues to fail to build.
+* Applications may restart sporadically on account of indeterminacy in how the Application Service Adapter system components represent the underlying StatefulSet for the application during periodic reconciliation.
 * The organization manager role does not have permissions to create Cloud Foundry spaces. As a workaround, instead use the Cloud Foundry admin role to create spaces in organizations.
 
 ## <a id='1-1-0'></a> v1.1.0 Release
@@ -123,7 +126,9 @@ This release contains the following components:
 
 * Credentials for service instances are not provided to application instances as directories of files under the service-binding root directory, although they are still present in the `VCAP_SERVICES` environment variable. Applications that rely on libraries that consume the file-based presentation of these credentials, such as the spring-cloud-bindings library from the Tanzu Java Buildpack, may fail to process these credentials as a result.
 * When using the `shared.ingress_issuer` property to generate certificates for HTTPS ingress to Application Service Adapter, some issuers will fail to issue the certificates because the list of DNS SANs on the certificate request does not include the common name. In particular, the ACME issuer from Let's Encrypt reports this error when generating these certificates. As a workaround, issue the certificates separately, then use the `api_ingress.tls` and `app_ingress.tls` properties to configure Application Service Adapter with the Kubernetes Secret containing the certificate data.
+* When using the `shared.ingress_issuer` property to generate certificates for HTTPS ingress to Application Service Adapter, HTTPS routes to applications fail on account of a mismatched internal Secret name. As a workaround, instead use the `app_ingress.tls.secret_name` and `app_ingress.tls.namespace` properties to configure the TLS secret for application ingress routes.
 * If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application fails to build with an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app continues to fail to build.
+* Applications may restart sporadically on account of indeterminacy in how the Application Service Adapter system components represent the underlying StatefulSet for the application during periodic reconciliation.
 * The organization manager role does not have permissions to create Cloud Foundry spaces. As a workaround, instead use the Cloud Foundry admin role to create spaces in organizations.
 
 ### Deprecations

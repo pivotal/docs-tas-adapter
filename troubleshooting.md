@@ -397,7 +397,9 @@ When I run `cf push`, the Cloud Foundry CLI does not respond with a built image.
    check if any objects are missing. For any missing objects, check the logs of
    the [Tanzu Application Platform](#tap-logs) or [Application Service
    Adapter](#application-logs) component listed in the **Created By** column to
-   see if there are any error messages.
+   see if there are any error messages. For objects that are present, check their status fields 
+   for any relevant failure information. For example, the kpack Build resource often has useful
+   information about builds that failed to run at all.
 4. If the component listed in the **Created By** column does not have any
    helpful error messages, identify the previous object in the image build chain
    and check the logs of the component listed in the **Reconciled By** column to

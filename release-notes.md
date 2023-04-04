@@ -24,7 +24,7 @@ This release contains the following components:
 
 This release has the following known issues:
 
-* If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application fails to build with an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app continues to fail to build.
+* If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application fails to build showing an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app continues to fail to build.
 * The organization manager role does not have permissions to create Cloud Foundry spaces. As a workaround, instead use the Cloud Foundry admin role to create spaces in organizations.
 
 ## <a id='1-1-3'></a> v1.1.3 Release
@@ -50,7 +50,7 @@ This release contains the following components:
 
 This release has the following known issues:
 
-* If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application fails to build with an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app continues to fail to build.
+* If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application fails to build showing an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app continues to fail to build.
 * Applications with more than one environment variable set may restart sporadically during periodic reconciliation because of indeterminacy in the representation of those environment variables on the applications' underlying StatefulSet resources.
 * The organization manager role does not have permissions to create Cloud Foundry spaces. As a workaround, instead use the Cloud Foundry admin role to create spaces in organizations.
 

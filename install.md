@@ -464,11 +464,12 @@ To configure DNS for Application Service Adapter:
 
 4. Verify that the Contour HTTPProxy for the API endpoint is valid.
 
-    ```bash
-    kubectl -n korifi-api-system get httpproxy korifi-api-proxy
-    ```
+   ```bash
+   kubectl -n tas-adapter-system get httpproxy korifi-api-proxy
+   ```
 
    The following is an example output:
+
     ```bash
     NAME               FQDN       TLS SECRET                STATUS   STATUS DESCRIPTION
     korifi-api-proxy   API-FQDN   korifi-api-ingress-cert   valid    Valid HTTPProxy

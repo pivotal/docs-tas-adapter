@@ -232,7 +232,7 @@ If using the experimental Choreographer integration, this SecretExport also must
 grant access to the secret in every cf space namespace. To do so, either:
 
 - Update the SecretExport spec.toNamespace field to "*".
-  > Caution: The wildcard namespace makes the secret available for import in all
+  > **Caution** The wildcard namespace makes the secret available for import in all
   > namespaces for users with the ability to create a SecretImport to or set the
   > "secretgen.carvel.dev/image-pull-secret" annotation on a secret.
 * Manually identify each cf space's namespace and update the spec to list each one under spec.toNamespaces.

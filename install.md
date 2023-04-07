@@ -227,10 +227,14 @@ To configure the installation settings:
      toNamespace: cf
    EOF
    ```
- 
-If using the experimental Choreographer integration, this SecretExport will also need to grant access to the secret in every cf space namespace. To do so, either:
-* Update the SecretExport spec.toNamespace field to "*" (Warning: the wildcard namespace will make the Secret available for import in all namespaces
-  for users with the ability to create a SecretImport or set the "secretgen.carvel.dev/image-pull-secret" annotation on a Secret)
+
+If using the experimental Choreographer integration, this SecretExport also must
+grant access to the secret in every cf space namespace. To do so, either:
+
+- Update the SecretExport spec.toNamespace field to "*".
+  > Caution: The wildcard namespace makes the secret available for import in all
+  > namespaces for users with the ability to create a SecretImport to or set the
+  > "secretgen.carvel.dev/image-pull-secret" annotation on a secret.
 * Manually identify each cf space's namespace and update the spec to list each one under spec.toNamespaces.
 
 For example:
@@ -265,7 +269,7 @@ Export manually to each known namespace:
    EOF
    ```
 
-5. Create a `tas-adapter-values.yaml` file with the installation settings that you want, following the schema specified for the package.
+1. Create a `tas-adapter-values.yaml` file with the installation settings that you want, following the schema specified for the package.
 
    The following values are required:
 

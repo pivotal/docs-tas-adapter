@@ -27,49 +27,24 @@ Follow these steps to update the new package repository:
 
 1. Add the target version of the Application Service Adapter package repository:
 
-    ```bash
-    tanzu package repository add tas-adapter-repository \
-      --url registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:${TAS_ADAPTER_VERSION} \
-      --namespace tap-install
-    ```
+   ```bash
+   tanzu package repository add tas-adapter-repository \
+     --url registry.tanzu.vmware.com/app-service-adapter/tas-adapter-package-repo:${TAS_ADAPTER_VERSION} \
+     --namespace tap-install
+   ```
+
+   Where `TAS_ADAPTER_VERSION` is the target revision of Application Service Adapter you are migrating to.
 
 1. Verify you have added the new package repository by running:
 
-    ```bash
-    tanzu package available list \
-      --namespace tap-install
-    ```
-
-## <a id="upgrading-to-version-1-1"></a> Upgrading to v1.2.0
-
-1. Update your `tas-adapter-values.yaml` file.
-
-   > **Important** VMware recommends making a backup copy of `tas-adapter-values.yaml` before modifying it.
-
-   Image repositories are now created for each app instead of using one repository for all images. You are no longer required to specify paths for `packages` and `droplets`.
-
-   Edit your `tas-adapter-values.yaml` and remove the following config:
-
-   ```yaml
-   app_registry:
-    hostname: "APP-REGISTRY-HOSTNAME"
-    path:
-      droplets: "APP-REGISTRY-PATH-DROPLETS"
-      packages: "APP-REGISTRY-PATH-PACKAGES"
+   ```bash
+   tanzu package available list \
+     --namespace tap-install
    ```
 
-   Replace it with the following config:
+## <a id="upgrading-to-version-1-2"></a> Upgrading to v1.2
 
-   ```yaml
-   app_registry:
-      repository_prefix: "REPOSITORY-PREFIX"
-   ```
-
-   Where `REPOSITORY-PREFIX` is the host and path combination used as the base
-   for package and droplet images produced by Application Service Adapter. For
-   example: If `REPOSITORY-PREFIX` is `gcr.io/tas-adapter-`, then app's package
-   images are stored at `gcr.io/tas-adapter-<app-guid>-packages` and app's
-   droplet images are stored at `gcr.io/tas-adapter-<app-guid>-droplets`.
+1. The `tas-adapter-values.yaml` file for v1.2 is compatible with the one used for v1.1.
 
 ## <a id="perform-the-upgrade-of-application-service-adapter"></a> Perform the upgrade of Application Service Adapter
 

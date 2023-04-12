@@ -14,7 +14,7 @@ ensure that the control plane for your Kubernetes cluster is properly resourced.
 
 For managed clusters that come from public-cloud IaaSes, you generally won't
 have direct control over how the control plane is provisioned, so you won't be
-able to scale up control place resources. If you are managing your own
+able to scale up control plane resources. If you are managing your own
 Kubernetes clusters, you must ensure you have provisioned adequate
 capacity for the `apiserver` and `etcd` components. See the [Kubernetes
 documentation](https://kubernetes.io/docs/setup/production-environment/) as a
@@ -70,8 +70,8 @@ managers both have sufficient resources, but you are still observing slow
 response times or timeouts from the Cloud Foundry API, scaling up the
 `korifi-api-deployment` in the `tas-adapter-system` namespace may help.
 
-Unlike the controller managers, requests to the pods in this deployment are load-
-balanced, so either horizontal or vertical scaling should improve performance.
+Unlike the controller managers, requests to the pods in this deployment are 
+load-balanced, so either horizontal or vertical scaling should improve performance.
 By default, `korifi-api-deployment` [runs with two
 replicas](failover-and-redundancy.md#cloud-foundry-api), so it should already
 maintain availability during upgrades unless it is scaled down.

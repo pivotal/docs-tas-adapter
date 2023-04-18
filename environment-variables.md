@@ -130,7 +130,7 @@ Application Service Adapter returns the results as a JSON document that contains
 
 The table below defines the attributes that describe a bound service. The key for each service in the JSON document is the same as the value of the `label` attribute.
 
-> **Note** Application Service Adapter does not support managed services, so the `label` for a user-provided service instance is always user-provided. VMware recommends that apps find connection details through the user-settable `tags` field when parsing `VCAP_SERVICES`.
+> **Note** Application Service Adapter does not support managed services, so the `label` for a user-provided service instance is always `user-provided`. VMware recommends that apps find connection details through the user-settable `tags` field when parsing `VCAP_SERVICES`.
 
 | Attribute          | Description                                                                                      |
 | ------------------ | ------------------------------------------------------------------------------------------------ |

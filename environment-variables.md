@@ -120,19 +120,23 @@ Deprecated name for the `PORT` variable.
 
 ### <a id='VCAP-SERVICES'></a> VCAP_SERVICES
 
-Application Service Adapter has support for [user-provided service instances](https://docs.cloudfoundry.org/devguide/services/user-provided.html) and adds their binding details to the `VCAP_SERVICES` environment variable.
+Application Service Adapter has support for user-provided service instances and
+adds their binding details to the `VCAP_SERVICES` environment variable.
+For more information, see [User-Provided Service
+Instances](https://docs.cloudfoundry.org/devguide/services/user-provided.html)
+in the Cloud Foundry documentation.
 
 Application Service Adapter returns the results as a JSON document that contains an object for each service for which one or more instances are bound to the app. The service object contains a child object for each instance of the service that is bound to the app.
 
-The table below defines the attributes that describe a bound service. The key for each service in the JSON document is the same as the value of the "label" attribute.
+The table below defines the attributes that describe a bound service. The key for each service in the JSON document is the same as the value of the `label` attribute.
 
-> **Note** Application Service Adapter does not support "managed" services so the "label" for a user-provided service instance is always `user-provided`. It is recommended that apps find connection details through the user-settable "tags" field when parsing `VCAP_SERVICES`.
+> **Note** Application Service Adapter does not support managed services, so the `label` for a user-provided service instance is always user-provided. VMware recommends that apps find connection details through the user-settable `tags` field when parsing `VCAP_SERVICES`.
 
 | Attribute          | Description                                                                                      |
 | ------------------ | ------------------------------------------------------------------------------------------------ |
-| `binding_guid`     | The guid of the service binding.                                                                 |
+| `binding_guid`     | The GUID of the service binding.                                                                 |
 | `binding_name`     | The name assigned to the service binding by the user.                                            |
-| `instance_guid`    | The guid of the service instance.                                                                |
+| `instance_guid`    | The GUID of the service instance.                                                                |
 | `instance_name`    | The name assigned to the service instance by the user.                                           |
 | `name`             | The `binding_name`, if it exists. Otherwise, the `instance_name`.                                |
 | `label`            | The name of the service offering.                                                                |
@@ -142,7 +146,7 @@ The table below defines the attributes that describe a bound service. The key fo
 | `volume_mounts`    | Not supported.                                                                                   |
 
 
-The example below shows the value of the `VCAP_SERVICES` environment variable for bound instances of user-provided service instances.
+The following example shows the value of the `VCAP_SERVICES` environment variable for bound instances of user-provided service instances.
 
 ~~~
 VCAP_SERVICES=

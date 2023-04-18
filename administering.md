@@ -8,3 +8,4 @@ The following topics are related to administering an Application Service Adapter
 * [Rotating certificates](certificate-rotation.md)
 * [System logs and metrics](logging-and-metrics.md)
 * [Scaling Application Service Adapter](scaling.md)
+* [Using Kubernetes API to create CF resources](using-k8s-api-to-create-cf-resources.md)

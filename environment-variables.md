@@ -96,7 +96,7 @@ For example: `CF_INSTANCE_IP=1.2.3.4`
 
 The root folder for the deployed app.
 
-For example: `HOME=/home/vcap/app`
+For example: `HOME=/home/cnb`
 
 ### <a id='PORT'></a> PORT
 
@@ -108,7 +108,7 @@ For example: `PORT=8080`
 
 The present working directory where the buildpack that processed the app ran.
 
-For example: `PWD=/home/vcap/app`
+For example: `PWD=/workspace`
 
 ### <a id='VCAP-APP-HOST'></a> VCAP_APP_HOST
 
@@ -120,73 +120,76 @@ Deprecated name for the `PORT` variable.
 
 ### <a id='VCAP-SERVICES'></a> VCAP_SERVICES
 
-For bindable services, Application Service Adapter adds connection details to the `VCAP_SERVICES` environment variable when you restart your app, after binding a service instance to your app. For more information about bindable services, see [Services Overview](https://docs.cloudfoundry.org/devguide/services/).
+Application Service Adapter has support for [user-provided service instances](https://docs.cloudfoundry.org/devguide/services/user-provided.html) and adds their binding details to the `VCAP_SERVICES` environment variable.
 
 Application Service Adapter returns the results as a JSON document that contains an object for each service for which one or more instances are bound to the app. The service object contains a child object for each instance of the service that is bound to the app.
 
 The table below defines the attributes that describe a bound service. The key for each service in the JSON document is the same as the value of the "label" attribute.
 
-| Attribute | Description |
-| --------- | ----------- |
-| `binding_guid` | The guid of the service binding. |
-| `binding_name` | The name assigned to the service binding by the user. |
-| `instance_guid` | The guid of the service instance. |
-| `instance_name` | The name assigned to the service instance by the user. |
-| `name` | The `binding_name`, if it exists. Otherwise, the `instance_name`. |
-| `label` | The name of the service offering. |
-| `tags` | An array of strings an app can use to identify a service instance. |
-| `plan` | The service plan selected when the service instance was created. |
-| `credentials` | A JSON object containing the service-specific credentials needed to access the service instance. |
-| `syslog_drain_url` | The service-specific syslog drain url. |
-| `volume_mounts` | An array of service-specific volume mounts. |
+> **Note** Application Service Adapter does not support "managed" services so the "label" for a user-provided service instance is always `user-provided`. It is recommended that apps find connection details through the user-settable "tags" field when parsing `VCAP_SERVICES`.
+
+| Attribute          | Description                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------ |
+| `binding_guid`     | The guid of the service binding.                                                                 |
+| `binding_name`     | The name assigned to the service binding by the user.                                            |
+| `instance_guid`    | The guid of the service instance.                                                                |
+| `instance_name`    | The name assigned to the service instance by the user.                                           |
+| `name`             | The `binding_name`, if it exists. Otherwise, the `instance_name`.                                |
+| `label`            | The name of the service offering.                                                                |
+| `tags`             | An array of strings an app can use to identify a service instance.                               |
+| `credentials`      | A JSON object containing the service-specific credentials needed to access the service instance. |
+| `syslog_drain_url` | Not supported.                                                                                   |
+| `volume_mounts`    | Not supported.                                                                                   |
 
 
-To see the value of the `VCAP_SERVICES` environment variable for an app pushed to Application Service Adapter, see [View Environment Variable Values](#view-env).
-
-The example below shows the value of the `VCAP_SERVICES` environment variable for bound instances of several services available in the Marketplace.
+The example below shows the value of the `VCAP_SERVICES` environment variable for bound instances of user-provided service instances.
 
 ~~~
 VCAP_SERVICES=
 {
-  "elephantsql": [
+  "user-provided": [
     {
-      "name": "elephantsql-binding-c6c60",
-      "binding_guid": "44ceb72f-100b-4f50-87a2-7809c8b42b8d",
-      "binding_name": "elephantsql-binding-c6c60",
-      "instance_guid": "391308e8-8586-4c42-b464-c7831aa2ad22",
-      "instance_name": "elephantsql-c6c60",
-      "label": "elephantsql",
-      "tags": [
-        "postgres",
-        "postgresql",
-        "relational"
-      ],
-      "plan": "turtle",
-      "credentials": {
-        "uri": "postgres://exampleuser:examplepass@babar.elephantsql.com:5432/exampleuser"
-      },
-      "syslog_drain_url": null,
-      "volume_mounts": []
-    }
-  ],
-  "sendgrid": [
-    {
-      "name": "mysendgrid",
-      "binding_guid": "6533b1b6-7916-488d-b286-ca33d3fa0081",
+      "binding_guid": "65ec345e-4f19-4499-ae70-a32b55c7f1cf",
       "binding_name": null,
-      "instance_guid": "8c907d0f-ec0f-44e4-87cf-e23c9ba3925d",
-      "instance_name": "mysendgrid",
-      "label": "sendgrid",
-      "tags": [
-        "smtp"
-      ],
-      "plan": "free",
       "credentials": {
-        "hostname": "smtp.sendgrid.net",
-        "username": "QvsXMbJ3rK",
-        "password": "HCHMOYluTv"
+        "hostname": "ca6efe83-8a9b-4395-98d0-124145d4e97a.mysql.service.internal",
+        "jdbcUrl": "jdbc:mysql://ca6efe83-8a9b-4395-98d0-124145d4e97a.mysql.service.internal:3306/service_instance_db?user=441123dedf5d4b7ab988d7fae43bc452&password=P4$$W0RD&useSSL=false",
+        "name": "service_instance_db",
+        "password": "P4$$W0RD",
+        "port": "3306",
+        "type": "user-provided",
+        "uri": "mysql://441123dedf5d4b7ab988d7fae43bc452:P4$$W0RD@ca6efe83-8a9b-4395-98d0-124145d4e97a.mysql.service.internal:3306/service_instance_db?reconnect=true",
+        "username": "441123dedf5d4b7ab988d7fae43bc452"
       },
+      "instance_guid": "0622de7e-2437-4a39-8048-a7df324c35df",
+      "instance_name": "mysql",
+      "label": "user-provided",
+      "name": "mysql",
       "syslog_drain_url": null,
+      "tags": [
+        "p.mysql",
+        "mysql",
+        "database"
+      ],
+      "volume_mounts": []
+    },
+    {
+      "binding_guid": "be7aba4d-a465-4e9d-9c01-9ce9861e68e7",
+      "binding_name": "custom-binding-name",
+      "credentials": {
+        "some-credential": "some-value",
+        "type": "user-provided"
+      },
+      "instance_guid": "f97f96d7-62f2-43db-866a-175f5a8e95bc",
+      "instance_name": "custom-user-provided-service",
+      "label": "user-provided",
+      "name": "custom-binding-name",
+      "syslog_drain_url": null,
+      "tags": [
+        "user-defined",
+        "arbitrary",
+        "tags"
+      ],
       "volume_mounts": []
     }
   ]

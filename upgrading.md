@@ -46,6 +46,8 @@ Follow these steps to update the new package repository:
 
 1. The `tas-adapter-values.yaml` file for v1.2 is compatible with the one used for v1.1.
 
+> **Note** Performing the update will cause downtime for any single-instance apps. To avoid downtime, scale the apps to 2 or more instances. If you have the experimental Choreographer integration enabled, then all apps will have downtime regardless of their instance counts.
+
 ## <a id="perform-the-upgrade-of-application-service-adapter"></a> Perform the upgrade of Application Service Adapter
 
 To upgrade, run:

@@ -130,7 +130,7 @@ Application Service Adapter returns the results as a JSON document that contains
 
 The table below defines the attributes that describe a bound service. The key for each service in the JSON document is the same as the value of the `label` attribute.
 
-> **Note** Application Service Adapter does not support managed services, so the `label` for a user-provided service instance is always `user-provided`. VMware recommends that apps find connection details through the user-settable `tags` field when parsing `VCAP_SERVICES`.
+> **Note** Application Service Adapter does not support managed services, so the `label` for a user-provided service instance is always `user-provided`. VMware recommends that apps find connection details through the user-settable `tags` field when parsing `VCAP_SERVICES`. Although Application Service Adapter does not support managed services, a user-provided service can be used to supply similar credentials. In these cases existing application code or libraries may expect the credentials to have a specific "label" value. To accommodate these apps, the label of a user-provided service instance can be specified by setting the `spec.serviceLabel` field on its associated `CFServiceInstance` custom resource using the `kubectl` CLI.
 
 | Attribute          | Description                                                                                      |
 | ------------------ | ------------------------------------------------------------------------------------------------ |
@@ -151,6 +151,23 @@ The following example shows the value of the `VCAP_SERVICES` environment variabl
 ~~~
 VCAP_SERVICES=
 {
+  "custom-service-label": [
+    {
+      "binding_guid": "5ef8a506-9c64-4a84-8901-7bb942da8660",
+      "binding_name": null,
+      "credentials": {
+        "sample-config": "sample-value",
+        "type": "user-provided"
+      },
+      "instance_guid": "3b5d58b4-cab3-4b47-b1fa-db204e54fa59",
+      "instance_name": "custom-labeled-service",
+      "label": "custom-service-label",
+      "name": "custom-labeled-service",
+      "syslog_drain_url": null,
+      "tags": [],
+      "volume_mounts": []
+    }
+  ],
   "user-provided": [
     {
       "binding_guid": "65ec345e-4f19-4499-ae70-a32b55c7f1cf",

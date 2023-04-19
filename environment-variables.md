@@ -42,31 +42,31 @@ You can access environment variables programmatically, including variables defin
 
 The table below lists the app-specific system environment variables available to your app container. See [App-Specific System Variables](https://docs.pivotal.io/application-service/3-0/devguide/deploy-apps/environment-variable.html#app-system-env) in _TAS for VMs Environment Variables_ for more information on each environment variable.
 
-| Environment Variable | Running | Staging |
-| -------------------- | ------- | ------- |
-| `CF_INSTANCE_ADDR` |  |  |
-| `CF_INSTANCE_GUID` | x |  |
-| `CF_INSTANCE_INDEX` | x |  |
-| `CF_INSTANCE_INTERNAL_IP` | x |  |
-| `CF_INSTANCE_IP` | x |  |
-| `CF_INSTANCE_PORT` |  |  |
-| `CF_INSTANCE_PORTS` |  |  |
-| `CF_STACK` |  |  |
-| `DATABASE_URL` |  |  |
-| `HOME` | x |  |
-| `INSTANCE_GUID` |  |  |
-| `INSTANCE_INDEX` |  |  |
-| `LANG` |  |  |
-| `MEMORY_LIMIT` |  |  |
-| `PATH` | x |  |
-| `PORT` | x |  |
-| `PWD` | x |  |
-| `TMPDIR` |  |  |
-| `USER` |  |  |
-| `VCAP_APP_HOST` | x |  |
-| `VCAP_APP_PORT` | x |  |
-| `VCAP_APPLICATION` |  |  |
-| `VCAP_SERVICES` | x |  |
+| Environment Variable     | Running | Staging |
+|--------------------------|---------| ------- |
+| `CF_INSTANCE_ADDR`       |         |  |
+| `CF_INSTANCE_GUID`       | x       |  |
+| `CF_INSTANCE_INDEX`      | x       |  |
+| `CF_INSTANCE_INTERNAL_IP` | x       |  |
+| `CF_INSTANCE_IP`         | x       |  |
+| `CF_INSTANCE_PORT`       |         |  |
+| `CF_INSTANCE_PORTS`      |         |  |
+| `CF_STACK`               |         |  |
+| `DATABASE_URL`           |         |  |
+| `HOME`                   | x       |  |
+| `INSTANCE_GUID`          |         |  |
+| `INSTANCE_INDEX`         |         |  |
+| `LANG`                   |         |  |
+| `MEMORY_LIMIT`           |         |  |
+| `PATH`                   | x       |  |
+| `PORT`                   | x       |  |
+| `PWD`                    | x       |  |
+| `TMPDIR`                 |         |  |
+| `USER`                   |         |  |
+| `VCAP_APP_HOST`          | x       |  |
+| `VCAP_APP_PORT`          | x       |  |
+| `VCAP_APPLICATION`       | x       |  |
+| `VCAP_SERVICES`          | x       |  |
 
 ### <a id='CF-INSTANCE-GUID'></a> CF_INSTANCE_GUID
 
@@ -118,6 +118,38 @@ Deprecated. Always set to `0.0.0.0`.
 
 Deprecated name for the `PORT` variable.
 
+### <a id='VCAP-APPLICATION'></a> VCAP_APPLICATION
+
+Application Service Adapter provides additional runtime information in the `VCAP_APPLICATION` environment variable.
+The following table lists the attributes that are returned in JSON format.
+
+| Attribute           | Description                                                                                              |
+|---------------------|----------------------------------------------------------------------------------------------------------|
+| `application_id`    | The GUID of the application.                                                                             |
+| `application_name`  | The name of the application.                                                                             |
+| `cf_api`            | The location of the Cloud Foundry API for the Application Service Adapter deployment where the app runs. |
+| `name`              | The name of the application (identical to `application_name`).                                           |
+| `organization_id`   | The GUID identifying the org where the app is deployed.                                                  |
+| `organization_name` | The human-readable name of the org where the app is deployed.                                            |
+| `space_id`          | The GUID identifying the space where the app is deployed.                                                |
+| `space_name`        | The human-readable name of the space where the app is deployed.                                          |
+
+The following example shows the value of the `VCAP_APPLICATION` environment variable:
+
+~~~
+VCAP_APPLICATION=
+{
+  "application_id": "6d36d101-e1ff-4a41-9bc8-c90f2cb329d3",
+  "application_name": "my-application",
+  "cf_api": "https://cf-api.example.com",
+  "name": "my-application",
+  "organization_id": "cf-org-95f15208-a6b6-4491-805c-7d46a4112343",
+  "organization_name": "my-org",
+  "space_id": "cf-space-28e4ede3-6399-45aa-bc4b-862040111814",
+  "space_name": "my-space"
+}
+~~~
+
 ### <a id='VCAP-SERVICES'></a> VCAP_SERVICES
 
 Application Service Adapter has support for user-provided service instances and
@@ -146,7 +178,7 @@ The table below defines the attributes that describe a bound service. The key fo
 | `volume_mounts`    | Not supported.                                                                                   |
 
 
-The following example shows the value of the `VCAP_SERVICES` environment variable for bound instances of user-provided service instances.
+The following example shows the value of the `VCAP_SERVICES` environment variable for bound user-provided service instances.
 
 ~~~
 VCAP_SERVICES=

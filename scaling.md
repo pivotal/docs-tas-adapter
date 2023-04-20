@@ -70,8 +70,8 @@ managers both have sufficient resources, but you are still observing slow
 response times or timeouts from the Cloud Foundry API, scaling up the
 `korifi-api-deployment` in the `tas-adapter-system` namespace may help.
 
-Unlike the controller managers, requests to the pods in this deployment are 
-load-balanced, so either horizontal or vertical scaling should improve performance.
+Unlike the controller managers, requests to the pods in this deployment are
+load balanced, so either horizontal or vertical scaling should improve performance.
 By default, `korifi-api-deployment` [runs with two
 replicas](failover-and-redundancy.md#cloud-foundry-api), so it should already
 maintain availability during upgrades unless it is scaled down.

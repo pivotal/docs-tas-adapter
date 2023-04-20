@@ -8,8 +8,12 @@ This topic describes the Cloud Foundry command-line interface (cf CLI) commands 
 * [Org and space operations](#org-space-operations)
 * [Route and domain operations](#route-domain-operations)
 * [Service operations](#service-operations)
+* [Metadata operations](#metadata-operations)
+* [User Role Management](#role-management)
 
 Application Service Adapter supports the following cf CLI commands by providing a subset of [the endpoints the v3 Cloud Foundry API](https://v3-apidocs.cloudfoundry.org/) through its API server.
+
+**Only the listed commands are supported** and other commands may fail or behave incorrectly.
 
 ## <a id="getting-started"></a> Getting started
 
@@ -244,3 +248,17 @@ This section describes the metadata operations that Application Service Adapter 
 | `cf labels` | Y | The `app`, `org`, and `space` resources are supported. |
 | `cf set-label` | Y | The `app`, `org`, and `space` resources are supported. |
 | `cf unset-label` | Y | The `app`, `org`, and `space` resources are supported. |
+
+## <a id="role-management"></a> User Role Management
+
+This section describes the operations for adding and removing roles that Application Service Adapter supports.
+These commands work for both Kubernetes users and Kubernetes service accounts. When assigning roles to [Kubernetes service accounts](https://kubernetes.io/docs/concepts/security/service-accounts/),
+specify the "username" in the format `system:serviceaccount:<ServiceAccountNamespace>:<ServiceAccountName>`, with
+`<ServiceAccountNamespace>` and `<ServiceAccountName>` replaced with the actual values.
+
+| Command               | Supported? | Notes                                                       |
+| --------------------- | ---------- |-------------------------------------------------------------|
+| `cf set-org-role`     | N          | The command succeeds, but there are no supported org roles. |
+| `cf unset-org-role`   | N          | The command succeeds, but there are no supported org roles. |
+| `cf set-space-role`   | Y          | Supported roles: `SpaceDeveloper`                           |
+| `cf unset-space-role` | Y          | Supported roles: `SpaceDeveloper`                           |

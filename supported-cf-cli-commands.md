@@ -252,13 +252,13 @@ This section describes the metadata operations that Application Service Adapter 
 ## <a id="role-management"></a> User Role Management
 
 This section describes the operations for adding and removing roles that Application Service Adapter supports.
-These commands work for both Kubernetes users and Kubernetes service accounts. When dealing with service accounts,
-give the "username" in the format `system:serviceaccount:<ServiceAccountNamespace>:<ServiceAccountName>`, with
+These commands work for both Kubernetes users and Kubernetes service accounts. When assigning roles to [Kubernetes service accounts](https://kubernetes.io/docs/concepts/security/service-accounts/),
+specify the "username" in the format `system:serviceaccount:<ServiceAccountNamespace>:<ServiceAccountName>`, with
 `<ServiceAccountNamespace>` and `<ServiceAccountName>` replaced with the actual values.
 
-| Command               | Supported? | Notes |
-|-----------------------|------------|-------|
-| `cf set-org-role`     | Y | |
-| `cf unset-org-role`   | Y | |
-| `cf set-space-role`   | Y | |
-| `cf unset-space-role` | Y | |
+| Command               | Supported? | Notes                                                       |
+| --------------------- | ---------- |-------------------------------------------------------------|
+| `cf set-org-role`     | N          | The command succeeds, but there are no supported org roles. |
+| `cf unset-org-role`   | N          | The command succeeds, but there are no supported org roles. |
+| `cf set-space-role`   | Y          | Supported roles: `SpaceDeveloper`                           |
+| `cf unset-space-role` | Y          | Supported roles: `SpaceDeveloper`                           |

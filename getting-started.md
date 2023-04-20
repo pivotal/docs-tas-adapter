@@ -58,7 +58,7 @@ To create and bind user-provided service instances, do the following:
 1. Create a user-provided service instance containing the credentials necessary for accessing your service:
 
     ```bash
-    cf create-user-provided-service SERVICE-INSTANCE-NAME -p '{"credential-name": "credential-value"}'
+    cf create-user-provided-service SERVICE-INSTANCE-NAME -p '{"credential-name": "credential-value"}' --tags "list, of, optional, tags"
     ```
 
     Where `SERVICE-INSTANCE-NAME` is the name of your service instance.
@@ -75,8 +75,16 @@ To create and bind user-provided service instances, do the following:
     cf restart APP-NAME
     ```
 
-User-provided service instance credentials is provided to the app and staging tasks in two ways to support both existing Tanzu Application Service applications and next-generation frameworks, such as [Spring Cloud Bindings](https://github.com/spring-cloud/spring-cloud-bindings):
+User-provided service instance credentials are provided to the app and staging tasks in two ways to support both existing Tanzu Application Service applications and next-generation frameworks, such as [Spring Cloud Bindings](https://github.com/spring-cloud/spring-cloud-bindings):
 
 * As part of the traditional Cloud Foundry [VCAP_SERVICES environment variable](https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES)
 * As volume mounted secrets in accordance with the [Service Bindings for Kubernetes specification](https://servicebinding.io/spec/core/1.0.0/#workload-projection)
   * This workload projection handles the [Service Bindings Package](https://docs.vmware.com/en/Tanzu-Application-Platform/1.1/tap/GUID-service-bindings-install-service-bindings.html) from Tanzu Application Platform
+
+Applications relying on the `VCAP_SERVICES` presentation of service credentials will typically look up service credential values from using either the "tags" or "labels" field in the payload (see the [environment variables](environment-variables.md) docs for additional details).
+For a user-provided service instance you can specify a list of tags during service creation using the `--tags` flag. The "label" key can be specified by manipulating the corresponding `CFServiceInstance` resource directly using the `kubectl` CLI's `patch` command.
+
+```bash
+kubectl -n $(cf space $SPACE_NAME --guid) patch cfserviceinstance $(cf service $SERVICE_INSTANCE_NAME --guid) \
+--patch '{"spec": {"serviceLabel": "custom-service-label"}}' --type=merge
+```

@@ -16,7 +16,7 @@ the underlying Kubernetes control plane. If you observe slow performance or
 timeouts when using the Application Service Adapter, a good first step is to
 ensure that the control plane for your Kubernetes cluster is properly resourced.
 
-For managed clusters that come from public-cloud IaaSes, you generally won't
+For managed clusters that come from a public-cloud IaaS, you generally won't
 have direct control over how the control plane is provisioned, so you won't be
 able to scale up control place resources. If you are managing your own
 Kubernetes clusters, you must ensure you have provisioned adequate
@@ -61,7 +61,7 @@ re-running the [install step](install.md#install-adapter).
 
 As described in the [failover and redundancy
 topic](failover-and-redundancy.md#controllers), controller managers use
-leader-election to designate a single active instance, so horizontal scaling is
+leader election to designate a single active instance, so horizontal scaling is
 not an effective strategy to improve performance of a slow controller. Since the
 same deployments also serve webhook requests, you may choose to add horizontal scale
 to improve webhook performance. You may also choose to scale your

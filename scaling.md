@@ -47,7 +47,8 @@ You can also inspect the running pods for these deployments using the [`kubectl
 top`](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#top)
 command.
 
-If you determine that one or more of your controller managers is resource-constrained, you can increase the available resources by setting the optional
+If you determine that one or more of your controller managers is resource-
+constrained, you can increase the available resources by setting the optional
 scaling parameters as described in the [Configure installation
 settings](install.md#configure-installation-settings) instructions, and then
 re-running the [installation step](install.md#install-adapter).

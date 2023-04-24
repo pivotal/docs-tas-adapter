@@ -1,13 +1,19 @@
-# Using Kubernetes API to create CF resources
+# Using Kubernetes API to create Cloud Foundry resources
 
-Application Service Adapter is backed entirely by Kubernetes [Custom Resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), enabling operators to manage organizations, spaces and roles declaratively through the Kubernetes API.
-Operators can use any Kubernetes API client (such as `kubectl`, `kapp` etc) to manage resources. We have documented examples using both clients. In the examples below we are assuming the default value of `cf` for `$ROOT_NAMESPACE`.
+Application Service Adapter is backed entirely by Kubernetes custom resources,
+enabling operators to manage organizations, spaces, and roles declaratively
+through the Kubernetes API. For more information, see [Custom
+Resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+in the Kubernetes documentation. Operators can use any Kubernetes API client
+(such as kubectl, `kapp`, and so on) to manage resources. VMware has documented
+examples using both clients. The following examples assume the default value of
+`cf` for `$ROOT_NAMESPACE`.
 
-## Using `kubectl` to manage resources
+## Using kubectl to manage resources
 
-### Creating Orgs
+### Creating orgs
 
-Use a `CFOrg` custom resource to create an Organization. For example:
+Use a `CFOrg` custom resource to create an organization. For example:
 
 ```sh
 cat <<EOF | kubectl apply -f -
@@ -22,13 +28,15 @@ EOF
 
 kubectl wait --for=condition=ready cforg/my-org-guid -n cf
 ```
-> **Note:** `CFOrg` objects can only be created within the `$ROOT_NAMESPACE`
 
-Once the `CFOrg` is `ready`, you can proceed to create spaces or grant users access to this organization.
+> **Note** `CFOrg` objects can only be created within the `$ROOT_NAMESPACE`.
 
-### Creating Spaces
+After the `CFOrg` is `ready`, you can proceed to create spaces or grant users
+access to this organization.
 
-Use a `CFSpace` custom resource to create a Space. For example:
+### Creating spaces
+
+Use a `CFSpace` custom resource to create a space. For example:
 
 ```sh
 cat <<EOF | kubectl apply -f -
@@ -43,25 +51,40 @@ EOF
 
 kubectl wait --for=condition=ready cfspace/my-space-guid -n my-org-guid
 ```
-> **Note:** `CFSpace` objects can only be created within a `CFOrg` namespace
 
-Once the `CFSpace` is `ready`, you can proceed to grant users access to this space.
+> **Note** `CFSpace` objects can only be created within a `CFOrg` namespace.
 
-### Grant users or service accounts access to Organizations and Spaces
+After the `CFSpace` is `ready`, you can proceed to grant users access to this
+space.
 
-Application Service Adapter relies on Kubernetes RBAC (`Roles`, `ClusterRoles`, `RoleBindings`) for authentication and authorization. On an Application Service Adapter cluster, [Cloud Foundry roles](https://docs.cloudfoundry.org/concepts/roles.html) (such as `Admin`, `SpaceDeveloper`) are represented as `ClusterRoles`.
-Users or ServiceAccounts are granted access by assigning them these roles through namespace-scoped `RoleBindings`.
+### Grant users or service accounts access to organizations and spaces
 
-> **Note:** Currently, Application Service Adapter only supports the Admin, OrgUser, and SpaceDeveloper roles.
+Application Service Adapter relies on Kubernetes role-based  access control
+(RBAC), `Roles`, `ClusterRoles`, `RoleBindings`, for authentication and
+authorization. On an Application Service Adapter cluster, [Cloud Foundry
+roles](https://docs.cloudfoundry.org/concepts/roles.html), such as `Admin` or
+`SpaceDeveloper`, are represented as `ClusterRoles`. Users or ServiceAccounts
+are granted access by assigning them these roles through namespace-scoped
+`RoleBindings`.
+
+> **Note** As of v1.2, Application Service Adapter only supports the Admin,
+> OrgUser, and SpaceDeveloper roles.
 
 #### Grant a user access to the Application Service Adapter API
-All Application Service Adapter users must have a `RoleBinding` in the `$ROOT_NAMESPACE` for the `ClusterRole` `korifi-controllers-root-namespace-user` to access the API.
 
-This is required:
-- to determine whether a user is allowed access to Application Service Adapter
-- to allow registered users to list `CFDomains`, `CFOrgs`, and `BuilderInfos` resources. These are stored in the `$ROOT_NAMESPACE` and should be listable by all registered users with any roles.
+All Application Service Adapter users must have a `RoleBinding` in the
+`$ROOT_NAMESPACE` for the `ClusterRole` `korifi-controllers-root-namespace-user`
+to access the API.
 
-Here is an example command to create this role binding for a user named "my-cf-user":
+This is required to:
+
+- Verify whether a user is allowed access to Application Service Adapter.
+- Allow registered users to list `CFDomains`, `CFOrgs`, and `BuilderInfos`
+  resources. These are stored in the `$ROOT_NAMESPACE` and must be listable by
+  all registered users with any roles.
+
+Here is an example command to create this role binding for a user named
+my-cf-user:
 
 ```sh
 cat <<EOF | kubectl apply -f -
@@ -83,12 +106,17 @@ EOF
 ```
 
 #### Grant a user admin-level access
-In Kubernetes, `RoleBindings` are namespace-scoped, which means that they are only valid within the namespace they were created in.
-In the case of an admin user, a rolebindings to the `korifi-contollers-admin` `ClusterRole` is required in the `$ROOT_NAMESPACE`, as well as the namespaces for all current and future orgs and spaces.
-To make this easier for operators, we have the `cloudfoundry.org/propagate-cf-role=true` annotation for rolebindings in the `$ROOT_NAMESPACE`.
-This annotation will propagate them into the namespaces that represent all orgs and spaces.
 
-Here is an example of assigning the admin role to the user "my-cf-user":
+In Kubernetes, `RoleBindings` are namespace-scoped, which means they are only
+valid within the namespace they are created in. In the case of an admin user, a
+rolebindings to the `korifi-contollers-admin` `ClusterRole` is required in the
+`$ROOT_NAMESPACE` and in the namespaces for all current and future orgs and
+spaces. To make this easier for operators, VMware has the
+`cloudfoundry.org/propagate-cf-role=true` annotation for rolebindings in the
+`$ROOT_NAMESPACE`. This annotation propagates them into the namespaces that
+represent all orgs and spaces.
+
+Here is an example of assigning the admin role to the user my-cf-user:
 
 ```sh
 cat <<EOF | kubectl apply -f -
@@ -112,9 +140,13 @@ EOF
 ```
 
 #### Granting a user space developer access
-If you only want to grant a user `SpaceDeveloper` access, you can instead create a `RoleBinding` to the `ClusterRole` `korifi-controllers-space-developer` in a space's namespace.
 
-Here is an example of assigning the `SpaceDeveloper` CF role to the user "my-cf-user" in the space with GUID "my-space-guid":
+If you only want to grant a user `SpaceDeveloper` access, you can instead create
+a `RoleBinding` to the `ClusterRole` `korifi-controllers-space-developer` in a
+space's namespace.
+
+Here is an example of assigning the `SpaceDeveloper` Cloud Foundry role to the user
+my-cf-user in the space with the GUID my-space-guid:
 
 ```sh
 cat <<EOF | kubectl apply -f -
@@ -135,10 +167,12 @@ subjects:
 EOF
 ```
 
-All non-admin users must also have the `OrgUser` role in the org that contains the space. This is represented by a `RoleBinding`
-to the `ClusterRole` `korifi-controllers-organization-user` in the org's namespace.
+All non-admin users must also have the `OrgUser` role in the org that contains
+the space. This is represented by a `RoleBinding` to the `ClusterRole`
+`korifi-controllers-organization-user` in the org's namespace.
 
-Here is an example of assigning the `OrgUser` CF role to the user "my-cf-user" in the org with GUID "my-org-guid":
+Here is an example of assigning the `OrgUser` Cloud Foundry role to the user my-cf-user in
+the org with the GUID my-org-guid:
 
 ```sh
 cat <<EOF | kubectl apply -f -
@@ -159,14 +193,20 @@ subjects:
 EOF
 ```
 
-> **Note:** When configuring a `RoleBinding`, it is possible to specify multiple `subjects` for a single binding. However, to maintain compatibility with CF CLI it is necessary to maintain a 1:1 ratio between `RoleBindings` and `Users`/`ServiceAccounts`.
+> **Note** When configuring a `RoleBinding`, it is possible to specify multiple
+> `subjects` for a single binding. However, to maintain compatibility with CF
+> CLI, you must maintain a 1:1 ratio between `RoleBindings` and
+> `Users`/`ServiceAccounts`.
 
 #### Granting roles to service accounts
-Application Service Adapter supports granting roles to both users and service accounts. To grant a role to a service account, follow the
-instructions above for granting a role to a user, but change the `subjects` field to specify a `ServiceAccount`.
 
-For example, here is how you could assign the `OrgUser` CF role to the service account "my-service-account" in
-namespace "my-service-account-namespace":
+Application Service Adapter supports granting roles to both users and service
+accounts. To grant a role to a service account, follow the earlier instructions
+for granting a role to a user but change the `subjects` field to specify a
+`ServiceAccount`.
+
+For example, here is how to assign the `OrgUser` Cloud Foundry role to the service
+account my-service-account in the namespace my-service-account-namespace:
 
 ```sh
 cat <<EOF | kubectl apply -f -
@@ -188,12 +228,16 @@ subjects:
 EOF
 ```
 
-## Using `kapp` to declaratively apply all resources in a single `yaml`.
+## Using `kapp` to declaratively apply all resources in a single `yaml`
 
-[`kapp`](https://carvel.dev/kapp/) is an open source kubernetes deployment tool that provides a simpler and more streamlined way to manage and deploy kubernetes applications using declarative configuration.
-See `kapp` [documentation](https://carvel.dev/kapp/docs/v0.54.0/) for installation and usage instructions
+[`kapp`](https://carvel.dev/kapp/) is an open source Kubernetes deployment tool
+that provides a streamlined way to manage and deploy Kubernetes applications by
+using declarative configuration. See the `kapp`
+[documentation](https://carvel.dev/kapp/docs/v0.54.0/) for installation and
+usage instructions.
 
-Here is an example of creating a `CFOrg`, `CFSpace` and granting the user "my-cf-user" the CF `Admin` role in a single command:
+Here is an example of creating a `CFOrg` `CFSpace` and granting the user
+my-cf-user the Cloud Foundry `Admin` role in a single command:
 
 ```sh
 cat <<EOF | kapp deploy -a my-config -y -f -

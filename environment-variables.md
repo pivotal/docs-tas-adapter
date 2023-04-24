@@ -195,8 +195,8 @@ attribute.
 > recommends that apps find connection details through the user-settable `tags`
 > field when parsing `VCAP_SERVICES`. Although Application Service Adapter does
 > not support managed services, a user-provided service can be used to supply
-> similar credentials. In these cases, existing application code or libraries might
-> expect the credentials to have a specific "label" value. To accommodate these
+> similar credentials. In this case, existing application code or libraries might
+> expect the credentials to have a specific label value. To accommodate these
 > apps, you can specify the label of a user-provided service instance by
 > setting the `spec.serviceLabel` field on its associated `CFServiceInstance`
 > custom resource by using the Kubernetes command line tool (kubectl CLI).

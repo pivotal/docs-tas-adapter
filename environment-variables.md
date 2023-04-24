@@ -1,20 +1,31 @@
 # Application environment variables
 
-This topic describes the environment variables that Application Service Adapter for Tanzu Application Platform sets when building and running an application.
+This topic describes the environment variables that Application Service Adapter
+for Tanzu Application Platform sets when building and running an application.
 
 ## <a id='overview'></a> Overview
 
-Environment variables are the means by which Application Service Adapter communicates with a deployed app about its environment.
+Environment variables are the means by which Application Service Adapter
+communicates with a deployed app about its environment.
 
-For information about setting your own app-specific environment variables, see the [Environment Variable](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#env-block) section of the _Deploying with App Manifests_ topic.
+For information about setting your own app-specific environment variables, see
+the [Environment
+Variable](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#env-block)
+section of the _Deploying with App Manifests_ topic.
 
 ## <a id='view-env'></a> View environment variables
 
-Using the Cloud Foundry Command Line Interface (cf CLI), you can run the `cf env` command to view the Application Service Adapter environment variables for your app. The `cf env` command displays the following environment variables:
+Using the Cloud Foundry Command Line Interface (cf CLI), run the
+`cf env` command to view the Application Service Adapter environment variables for
+your app. The `cf env` command displays the following environment variables:
 
 * The user-provided variables set using the `cf set-env` command
 
-For more information about the `cf env` command, see [env](http://cli.cloudfoundry.org/en-US/cf/env.html) in the cf CLI documentation. For more information about the `cf set-env` command, see [set-env](http://cli.cloudfoundry.org/en-US/cf/set-env.html) in the cf CLI documentation.
+For more information about the `cf env` command, see
+[env](http://cli.cloudfoundry.org/en-US/cf/env.html) in the cf CLI
+documentation. For more information about the `cf set-env` command, see
+[set-env](http://cli.cloudfoundry.org/en-US/cf/set-env.html) in the cf CLI
+documentation.
 
 The following example demonstrates the environment variables `cf env` displays:
 
@@ -36,37 +47,44 @@ No staging env variables have been set
 
 ## <a id='app-system-env'></a> App-specific system variables
 
-This section describes the environment variables that Application Service Adapter makes available to your app container. Some of these variables are the same across instances of a single app, and some vary from instance to instance.
+This section describes the environment variables that Application Service
+Adapter makes available to your application container. Some of these variables are the
+same across instances of a single app, and some vary from instance to instance.
 
-You can access environment variables programmatically, including variables defined by the buildpack.
+You can access environment variables programmatically, including variables
+defined by the buildpack.
 
-The table below lists the app-specific system environment variables available to your app container. See [App-Specific System Variables](https://docs.pivotal.io/application-service/3-0/devguide/deploy-apps/environment-variable.html#app-system-env) in _TAS for VMs Environment Variables_ for more information on each environment variable.
+The following table lists the app-specific system environment variables available to
+your application container. See [App-Specific System
+Variables](https://docs.pivotal.io/application-service/3-0/devguide/deploy-apps/environment-variable.html#app-system-env)
+in _TAS for VMs Environment Variables_ for more information about each environment
+variable.
 
 | Environment Variable     | Running | Staging |
 |--------------------------|---------| ------- |
-| `CF_INSTANCE_ADDR`       |         |  |
-| `CF_INSTANCE_GUID`       | x       |  |
-| `CF_INSTANCE_INDEX`      | x       |  |
-| `CF_INSTANCE_INTERNAL_IP` | x       |  |
-| `CF_INSTANCE_IP`         | x       |  |
-| `CF_INSTANCE_PORT`       |         |  |
-| `CF_INSTANCE_PORTS`      |         |  |
-| `CF_STACK`               |         |  |
-| `DATABASE_URL`           |         |  |
-| `HOME`                   | x       |  |
-| `INSTANCE_GUID`          |         |  |
-| `INSTANCE_INDEX`         |         |  |
-| `LANG`                   |         |  |
-| `MEMORY_LIMIT`           |         |  |
-| `PATH`                   | x       |  |
-| `PORT`                   | x       |  |
-| `PWD`                    | x       |  |
-| `TMPDIR`                 |         |  |
-| `USER`                   |         |  |
-| `VCAP_APP_HOST`          | x       |  |
-| `VCAP_APP_PORT`          | x       |  |
-| `VCAP_APPLICATION`       | x       |  |
-| `VCAP_SERVICES`          | x       |  |
+| `CF_INSTANCE_ADDR`       |  _n/a_       | _n/a_ |
+| `CF_INSTANCE_GUID`       | x       | _n/a_ |
+| `CF_INSTANCE_INDEX`      | x       | _n/a_ |
+| `CF_INSTANCE_INTERNAL_IP` | x       | _n/a_ |
+| `CF_INSTANCE_IP`         | x       | _n/a_ |
+| `CF_INSTANCE_PORT`       | _n/a_        | _n/a_ |
+| `CF_INSTANCE_PORTS`      | _n/a_        | _n/a_ |
+| `CF_STACK`               |  _n/a_       | _n/a_ |
+| `DATABASE_URL`           |  _n/a_       | _n/a_ |
+| `HOME`                   | x       |_n/a_  |
+| `INSTANCE_GUID`          |  _n/a_       | _n/a_ |
+| `INSTANCE_INDEX`         | _n/a_        | _n/a_ |
+| `LANG`                   |  _n/a_       | _n/a_ |
+| `MEMORY_LIMIT`           |  _n/a_       | _n/a_ |
+| `PATH`                   | x       | _n/a_ |
+| `PORT`                   | x       |_n/a_  |
+| `PWD`                    | x       |_n/a_  |
+| `TMPDIR`                 |  _n/a_       | _n/a_ |
+| `USER`                   |  _n/a_       | _n/a_ |
+| `VCAP_APP_HOST`          | x       | _n/a_ |
+| `VCAP_APP_PORT`          | x       | _n/a_ |
+| `VCAP_APPLICATION`       | x       | _n/a_ |
+| `VCAP_SERVICES`          | x       | _n/a_ |
 
 ### <a id='CF-INSTANCE-GUID'></a> CF_INSTANCE_GUID
 
@@ -100,7 +118,10 @@ For example: `HOME=/home/cnb`
 
 ### <a id='PORT'></a> PORT
 
-The port on which the app should listen for requests. Application Service Adapter allocates a port dynamically for each instance of the app, so code that obtains or uses the app port should refer to it using the `PORT` environment variable.
+The port on which the app listens for requests. Application Service
+Adapter allocates a port dynamically for each instance of the app, so code that
+obtains or uses the app port must refer to it by using the `PORT` environment
+variable.
 
 For example: `PORT=8080`
 
@@ -120,8 +141,9 @@ Deprecated name for the `PORT` variable.
 
 ### <a id='VCAP-APPLICATION'></a> VCAP_APPLICATION
 
-Application Service Adapter provides additional runtime information in the `VCAP_APPLICATION` environment variable.
-The following table lists the attributes that are returned in JSON format.
+Application Service Adapter provides added runtime information in the
+`VCAP_APPLICATION` environment variable. The following table lists the
+attributes that are returned in JSON format.
 
 | Attribute           | Description                                                                                              |
 |---------------------|----------------------------------------------------------------------------------------------------------|
@@ -134,7 +156,8 @@ The following table lists the attributes that are returned in JSON format.
 | `space_id`          | The GUID identifying the space where the app is deployed.                                                |
 | `space_name`        | The human-readable name of the space where the app is deployed.                                          |
 
-The following example shows the value of the `VCAP_APPLICATION` environment variable:
+The following example shows the value of the `VCAP_APPLICATION` environment
+variable:
 
 ~~~
 VCAP_APPLICATION=
@@ -153,16 +176,30 @@ VCAP_APPLICATION=
 ### <a id='VCAP-SERVICES'></a> VCAP_SERVICES
 
 Application Service Adapter has support for user-provided service instances and
-adds their binding details to the `VCAP_SERVICES` environment variable.
-For more information, see [User-Provided Service
+adds their binding details to the `VCAP_SERVICES` environment variable. For more
+information, see [User-Provided Service
 Instances](https://docs.cloudfoundry.org/devguide/services/user-provided.html)
 in the Cloud Foundry documentation.
 
-Application Service Adapter returns the results as a JSON document that contains an object for each service for which one or more instances are bound to the app. The service object contains a child object for each instance of the service that is bound to the app.
+Application Service Adapter returns the results as a JSON document that contains
+an object for each service for which one or more instances are bound to the app.
+The service object contains a child object for each instance of the service that
+is bound to the app.
 
-The table below defines the attributes that describe a bound service. The key for each service in the JSON document is the same as the value of the `label` attribute.
+The following table defines the attributes that describe a bound service. The key
+for each service in the JSON document is the same as the value of the `label`
+attribute.
 
-> **Note** Application Service Adapter does not support managed services, so the `label` for a user-provided service instance is always `user-provided`. VMware recommends that apps find connection details through the user-settable `tags` field when parsing `VCAP_SERVICES`. Although Application Service Adapter does not support managed services, a user-provided service can be used to supply similar credentials. In these cases existing application code or libraries may expect the credentials to have a specific "label" value. To accommodate these apps, the label of a user-provided service instance can be specified by setting the `spec.serviceLabel` field on its associated `CFServiceInstance` custom resource using the `kubectl` CLI.
+> **Note** Application Service Adapter does not support managed services, so the
+> `label` for a user-provided service instance is always `user-provided`. VMware
+> recommends that apps find connection details through the user-settable `tags`
+> field when parsing `VCAP_SERVICES`. Although Application Service Adapter does
+> not support managed services, a user-provided service can be used to supply
+> similar credentials. In these cases, existing application code or libraries might
+> expect the credentials to have a specific "label" value. To accommodate these
+> apps, you can specify the label of a user-provided service instance by
+> setting the `spec.serviceLabel` field on its associated `CFServiceInstance`
+> custom resource by using the Kubernetes command line tool (kubectl CLI).
 
 | Attribute          | Description                                                                                      |
 | ------------------ | ------------------------------------------------------------------------------------------------ |
@@ -178,7 +215,8 @@ The table below defines the attributes that describe a bound service. The key fo
 | `volume_mounts`    | Not supported.                                                                                   |
 
 
-The following example shows the value of the `VCAP_SERVICES` environment variable for bound user-provided service instances.
+The following example shows the value of the `VCAP_SERVICES` environment
+variable for bound user-provided service instances.
 
 ~~~
 VCAP_SERVICES=

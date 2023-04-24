@@ -234,7 +234,7 @@ EOF
 that provides a streamlined way to manage and deploy Kubernetes applications by
 using declarative configuration. See the `kapp`
 [documentation](https://carvel.dev/kapp/docs/v0.54.0/) for installation and
-usage instructions.
+use instructions.
 
 Here is an example of creating a `CFOrg` `CFSpace` and granting the user
 my-cf-user the Cloud Foundry `Admin` role in a single command:

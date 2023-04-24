@@ -17,6 +17,7 @@ This is the table of contents from which Application Service Adapter for Tanzu A
   - [Rotate certificates](certificate-rotation.md)
   - [System logs and metrics](logging-and-metrics.md)
   - [Scale](scaling.md)
+  - [Using Kubernetes API to create CF resources](using-k8s-api-to-create-cf-resources.md)
   - [Upgrade](upgrading.md)
 - [Uninstall Application Service Adapter](uninstall.md)
 - [Troubleshoot](troubleshooting.md)

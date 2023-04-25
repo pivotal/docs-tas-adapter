@@ -16,7 +16,9 @@ To add the Application Service Adapter package repository to your cluster:
    export TAS_ADAPTER_VERSION=VERSION-NUMBER
    ```
 
-   Where `VERSION-NUMBER` is the version of Application Service Adapter you want to install. For example, `1.1.0`.
+   Where:
+
+   - `VERSION-NUMBER` is the version of Application Service Adapter you want to install. For example, `1.1.0`.
 
 1. Verify that the `tap-install` namespace exists in your cluster.
 
@@ -332,7 +334,7 @@ VMware recommends configuring one or more administrative users for Application S
      - For Amazon EKS, see the [AWS IAM user management for EKS section](user-management.md#aws-iam-user-management-eks) of the User Management topic for information about additional required cluster configuration to map AWS IAM users and roles to Kubernetes roles.
      - For clusters configured to use authentication proxies such as [Pinniped](https://pinniped.dev/), you can authenticate to the cluster and use the output of `cf curl /whoami` to see the user account name to provide.
 
-    These user names must be identities that can be recognized as users in the
+    > **Note** These user names must be identities that can be recognized as users in the
     subject section of Kubernetes RBAC resources, such as `RoleBindings`. They
     might not match the user entries in your local Kubeconfig file. During the
     initial installation, you can leave this entry blank if you're unsure of the
@@ -362,7 +364,9 @@ To configure Application Service Adapter to use a different Kpack cluster builde
    kpack_clusterbuilder_name: "KPACK-CLUSTER-BUILDER-NAME"
    ```
 
-   Where `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.9/vmware-tanzu-build-service/managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
+   Where:
+
+   - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.9/vmware-tanzu-build-service/managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
 
 ### <a id="openshift"></a>(Optional) Configuration for OpenShift
 
@@ -376,7 +380,9 @@ To configure Application Service Adapter for installation on OpenShift:
      kubernetes_version: "KUBERNETES-VERSION"
    ```
 
-   Where `KUBERNETES-VERSION` is the Kubernetes version of the cluster. Default is `1.23.3`.
+   Where:
+
+   - `KUBERNETES-VERSION` is the Kubernetes version of the cluster. Default is `1.23.3`.
 
 ### <a id="aws-iam-registry-auth"></a>(Optional) Use AWS IAM authentication for registry credentials
 
@@ -394,9 +400,11 @@ To use AWS IAM authentication:
        aws_iam_role_arn: "AWS-IAM-ROLE-ARN"
    ```
 
-   Where `AWS-IAM-ROLE-ARN` is the Amazon Resource Name (ARN) of an AWS IAM role that can be used to access an Elastic Container Registry (ECR).
+   Where:
 
-   The `app_registry.credentials.secret_name` and `app_registry.credentials.namespace` properties should be omitted from your `tas-adapter-values.yaml` file.
+   - `AWS-IAM-ROLE-ARN` is the Amazon Resource Name (ARN) of an AWS IAM role that can be used to access an Elastic Container Registry (ECR).
+
+   > **Note** The `app_registry.credentials.secret_name` and `app_registry.credentials.namespace` properties should be omitted from your `tas-adapter-values.yaml` file.
 
 ### <a id="custom-ca-registry"></a>(Optional) Configure a registry with a custom Certificate Authority
 
@@ -413,14 +421,15 @@ To configure Application Service Adapter to trust a registry that has a custom o
          PEM-ENCODED-CERTIFICATE-CONTENTS
    ```
 
-   Where `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM-encoded multiline string containing the certificate authority (CA) certificate.
-   The value must be inserted into your values file as a YAML multiline string with a block scalar literal.
+   Where:
+
+   - `PEM-ENCODED-CERTIFICATE-CONTENTS` is a PEM-encoded multiline string containing the certificate authority (CA) certificate. The value must be inserted into your values file as a YAML multiline string with a block scalar literal.
 
 ### <a id="legacy-app-registry-settings"></a>(Optional) Configure a registry using the legacy installation settings
 
 > **Note** These settings have been deprecated as of Application Service Adapter v1.1 and will be removed in a future version.
 
-To configure Application Service Adapter using the legacy installation settings:
+To configure Application Service Adapter's registry using the legacy installation settings:
 
 1. Include the following values in your `tas-adapter-values.yaml` file:
 
@@ -455,7 +464,9 @@ By default, Application Service Adapter uses the `tap-ingress-selfsigned` cluste
      ingress_issuer: "CERTIFICATE-ISSUER-NAME"
    ```
 
-   Where `CERTIFICATE-ISSUER-NAME` is the name of the cert-manager cluster issuer to use to generate certificates for HTTPS ingress to Application Service Adapter. Defaults to `tap-ingress-selfsigned`.
+   Where:
+
+   - `CERTIFICATE-ISSUER-NAME` is the name of the cert-manager cluster issuer to use to generate certificates for HTTPS ingress to Application Service Adapter. Default is `tap-ingress-selfsigned`.
 
 ### <a id="user-provided-ingress-certs"></a>(Optional) Configure ingress certificates using a secret name and namespace
 
@@ -518,7 +529,8 @@ To configure the logging level for each component of Application Service Adapter
 
    Where:
 
-   - `LOG-LEVEL` is the log level that you want. Valid values are: error, warn, info, and debug. Default is info.
+   - `LOG-LEVEL` is the log level that you want for each component. Valid
+   values are: error, warn, info, and debug. All components default to info.
 
 ### <a id="scaling-components"></a>(Optional) Scale Application Service Adapter components
 
@@ -552,7 +564,7 @@ To configure the scaling parameters for each component of Application Service Ad
    - `API-MEMORY-REQUEST` is the memory resource request that you want for the pods in the specified deployment. Default is 100Mi.
    - `API-REPLICA-COUNT` is the number of replicas that you want for the specified deployment. Default is 1.
 
-   The `requests` and `limits` text boxes map directly to the resource requests and limits text boxes on the Kubernetes containers for these system components.
+   > **Note** The `requests` and `limits` text boxes map directly to the resource requests and limits text boxes on the Kubernetes containers for these system components.
    For more information, see [Resource requests and limits of Pod and container](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container) in the Kubernetes documentation.
 
 ### <a id="custom-api-ingress-port"></a>(Optional) Configure a custom API ingress port
@@ -566,10 +578,13 @@ By default, the Application Service Adapter API is configured to listen on port 
      port: "API-PORT"
    ```
 
-   Where `API-PORT` is the port number that clients can use to connect to the Application Service Adapter API.
-   The API includes this number in URLs that direct back to itself, but when set to
-   `0` or left unset, no port number is in those URLs.
-   In that case, clients can connect to port 443, the standard port for HTTPS traffic.
+   Where:
+
+   - `API-PORT` is the port number that clients can use to connect to the
+   Application Service Adapter API. The API includes this number in URLs that
+   direct back to itself, but when set to `0` or left unset, no port number
+   is in those URLs. In that case, clients can connect to port 443, the
+   standard port for HTTPS traffic.
 
 ### <a id="auth-proxy"></a>(Optional) Configure an authentication proxy
 
@@ -606,8 +621,11 @@ eliminate resources from the cluster.
      ttl: "TASK-TTL-AGE"
    ```
 
-   Where `TASK-TTL-AGE` is the length of time until completed tasks are purged from the cluster.
-   You can specify this value as a time duration in seconds, minutes, hours, or days. For example, "86400s", "1440m", "24h", or "1d".
+   Where:
+
+   - `TASK-TTL-AGE` is the length of time until completed tasks are purged
+   from the cluster. You can specify this value as a time duration in seconds,
+   minutes, hours, or days. For example, "86400s", "1440m", "24h", or "1d".
 
 ### <a id="opt-out-telemetry"></a>(Optional) Opt out of telemetry reporting
 
@@ -648,8 +666,11 @@ The default telemetry reporting interval is 24 hours. To change how frequently t
      heartbeat_interval: TELEMETRY-HEARTBEAT-INTERVAL
    ```
 
-   Where `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to VMware. Default is every 24 hours.
-   This value must be specified as a time duration in hours. For example, "24h", not "1d".
+   Where:
+
+   - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to
+   VMware. Default is every 24 hours. This value must be specified as a time
+   duration in hours. For example, "24h", not "1d".
 
 ### <a id="user-cert-expiration-warning"></a>(Optional) Configure the user certificate expiration warning duration
 
@@ -662,7 +683,12 @@ endpoint when a user authenticates with a certificate that is valid for longer t
    user_certificate_expiration_warning_duration: "USER-CERT-EXPIRY-WARNING-DURATION"
    ```
 
-   Where `USER-CERT-EXPIRY-WARNING-DURATION` is the duration beyond which users are warned to use short-lived certificates for authentication. Defaults to 168 hours. This value must be specified as a time duration in hours. For example, "168h", not "7d".
+   Where:
+
+   - `USER-CERT-EXPIRY-WARNING-DURATION` is the duration beyond which users
+   are warned to use short-lived certificates for authentication. Default is
+   168 hours. This value must be specified as a time duration in hours. For
+   example, "168h", not "7d".
 
 ## <a id="install-adapter"></a>Install Application Service Adapter
 
@@ -740,7 +766,9 @@ After you install the Cloud Foundry command-line interface (cf CLI), log in to t
    cf api API-FQDN --skip-ssl-validation
    ```
 
-   Where `API-FQDN` is the fully qualified domain name (FQDN) for the Application Service Adapter API.
+   Where:
+
+   - `API-FQDN` is the fully qualified domain name (FQDN) for the Application Service Adapter API.
 
    > **Note** If you configured Application Service Adapter with a globally trusted certificate during installation, you can omit the `--skip-ssl-validation` flag.
 

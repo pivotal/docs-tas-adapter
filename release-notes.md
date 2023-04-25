@@ -141,7 +141,6 @@ This release has the following known issues:
 * Application process types in addition to the default `web` type now also run. Each process type runs as a separate Tanzu Application Platform Workload.
 * The Tanzu Application Platform Convention Service applies its conventions to applications processed in a supply chain.
 
-
 ### Components
 
 This release contains the following components:
@@ -160,12 +159,19 @@ This release contains the following components:
 * Applications with more than one environment variable set may restart sporadically during periodic reconciliation because of indeterminacy in the representation of those environment variables on the applications' underlying StatefulSet resources.
 * The organization manager role does not have permissions to create Cloud Foundry spaces. As a workaround, instead use the Cloud Foundry admin role to create spaces in organizations.
 
-### Deprecations
+---
 
-The following properties on the installation package for Application Service Adapter are deprecated:
+## Deprecations
 
-* `app_registry.hostname`
-* `app_registry.paths.droplets`
-* `app_registry.paths.packages`
+The following features are deprecated.
+Deprecated features will remain on this list until they are retired from Application Service Adapter.
 
-Use the `app_registry.repository_prefix` property instead. See [_Install Application Service Adapter_](install.md) and [_Upgrading Application Service Adapter_](upgrading.md) for more details.
+### Installation Properties
+
+The following properties on the installation package for Application Service Adapter are deprecated as of v1.1.0 and are marked for removal in v1.4.0:
+
+- `app_registry.hostname`
+- `app_registry.paths.droplets`
+- `app_registry.paths.packages`
+
+Use the app_registry.repository_prefix property instead. See [_Install Application Service Adapter_](install.md) and [_Upgrading Application Service Adapter_](upgrading.md) for more details.

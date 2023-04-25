@@ -453,6 +453,23 @@ To configure Application Service Adapter's registry using the legacy installatio
 
     The values specified for `app_registry.hostname` and `app_registry.path.droplets` are combined (separated by a `/`) to form the value for the new `app_registry.repository_prefix` setting. The value of the `app_registry.path.packages` setting is ignored. Source package images are stored in the specified droplets repository.
 
+### <a id="registry-cleanup"></a>(Optional) Configure registry cleanup
+
+By default, Application Service Adapter will retain up to 5 package and build images per application in the configured image registry. To retain a different number of images:
+
+1. Include the following values in your `tas-adapter-values.yaml` file:
+
+   ```yaml
+   cleanup:
+     max_retained_builds_per_app: MAX-RETAINED-BUILDS-PER-APP
+     max_retained_packages_per_app: MAX-RETAINED-PACKAGES-PER-APP
+   ```
+
+   Where:
+
+   - `MAX-RETAINED-BUILDS-PER-APP` is the number of builds to be retained for each app. Default is 5.
+   - `MAX-RETAINED-BUILDS-PER-APP` is the number of packages to be retained for each app. Default is 5.
+
 ### <a id="cert-manager-certificate-issuer"></a>(Optional) Configure the Cert Manager certificate issuer to use for ingress certificates
 
 By default, Application Service Adapter uses the `tap-ingress-selfsigned` cluster issuer provided by Tanzu Application Platform. To configure Application Service Adapter to use a different Cert Manager certificate issuer:

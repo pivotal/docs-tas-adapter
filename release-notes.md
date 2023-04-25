@@ -41,9 +41,9 @@ This release includes the following new features:
 
 This release contains the following components:
 
-* Cartographer-Builder-Runner @ af2eedb
-* Korifi @ [v0.7.1](https://github.com/cloudfoundry/korifi/tree/v0.7.1)
-* TAS-Adapter-Telemetry-Controller @ 37dda46
+- Cartographer-Builder-Runner @ af2eedb
+- Korifi @ [v0.7.1](https://github.com/cloudfoundry/korifi/tree/v0.7.1)
+- TAS-Adapter-Telemetry-Controller @ 37dda46
 
 ### Security fixes
 
@@ -59,3 +59,20 @@ The following issues are resolved in this release:
 ### Known Issues
 
 This release has no known issues.
+
+---
+
+## Deprecations
+
+The following features are deprecated.
+Deprecated features will remain on this list until they are retired from Application Service Adapter.
+
+### Installation Properties
+
+The following properties on the installation package for Application Service Adapter are deprecated as of v1.1.0 and are marked for removal in v1.4.0:
+
+- `app_registry.hostname`
+- `app_registry.paths.droplets`
+- `app_registry.paths.packages`
+
+Use the app_registry.repository_prefix property instead. See [_Install Application Service Adapter_](install.md) and [_Upgrading Application Service Adapter_](upgrading.md) for more details.

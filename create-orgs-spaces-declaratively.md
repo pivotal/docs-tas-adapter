@@ -1,4 +1,4 @@
-# Using Kubernetes API to create Cloud Foundry resources
+# Create orgs and spaces declaratively
 
 Application Service Adapter is backed entirely by Kubernetes custom resources,
 enabling operators to manage organizations, spaces, and roles declaratively

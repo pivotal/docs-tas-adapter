@@ -455,7 +455,7 @@ To configure Application Service Adapter's registry using the legacy installatio
 
 ### <a id="registry-cleanup"></a>(Optional) Configure registry cleanup
 
-By default, Application Service Adapter will retain up to 5 package and build images per application in the configured image registry. To retain a different number of images:
+By default, Application Service Adapter retains up to 5 package and build images per application in the configured image registry. To retain a different number of images:
 
 1. Include the following values in your `tas-adapter-values.yaml` file:
 

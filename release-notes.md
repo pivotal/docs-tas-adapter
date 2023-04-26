@@ -4,75 +4,84 @@ This topic contains release notes for Application Service Adapter for VMware Tan
 
 ## <a id='1-2-0'></a> v1.2.0 Release
 
-**Release Date**: April 25, 2023
+**Release Date**: MMM DD, 2023
 
 ### Features
 
 This release includes the following new features:
 
 #### Application management
-- Deleting a package or build/droplet will trigger deletion of the corresponding container image (when possible).
-- Only the 5 most recent packages and builds/droplets are retained for each app. This number is configurable.
-- Memory and disk quotas are now included in process stats.
-- Labels and annotations are now supported on all CF resources.
-- Application containers now include the VCAP_APPLICATION environment variable.
-- Users can now push manifests containing multiple apps.
-- Added support for the /v3/apps/<guid>/packages API endpoint
+
+* Application developers can set labels and annotations on an application through the application manifest.
+* Application developers can push manifests containing multiple applications.
+* Application developers can see the application memory and disk quotas in the output of `cf app`.
+* Application developers can use CF API endpoints to read, set, and unset labels and annotations on a build or an application task.
+* Application instances now have the `VCAP_APPLICATION` environment variable available in their runtime environment.
+
+#### Application routes and domains
+
+* System operators can use `cf set-label` to set a label on a domain.
+* System operators can use `cf unset-label` to unset a label on a domain.
+* System operators can use `cf labels` to read labels on a domain.
+* System operators can use CF API endpoints to read, set, and unset annotations on a domain.
 
 #### Service management
-- Users can add custom service labels to user-provided service instances to make them appear in VCAP_SERVICES under that key and with that label.
+
+* Application developers can set a service label on a user-provided service instance to override the default `user-provided` label in the `VCAP_SERVICES` environment variable.
+* Application developers can use `cf set-label` to set a label on a service instance or a service binding.
+* Application developers can use `cf unset-label` to unset a label on a service instance or a service binding.
+* Application developers can use `cf labels` to read labels on a service instance or a service binding.
+* Application developers can use CF API endpoints to read, set, and unset annotations on a service instance or a service binding.
 
 #### User authentication and authorization
-- Kubernetes service accounts can now be granted space and org roles via the `cf set-org-role` and `cf set-space-role` commands.
-- The `cf unset-org-role` and `cf unset-space-role` commands are now supported for Kubernetes users and service accounts.
+
+* System operators can use `cf set-org-role` and `cf set-space-role` to assign Cloud Foundry user roles to Kubernetes service accounts.
+* System operators can use `cf unset-org-role` and `cf unset-space-role` to remove Cloud Foundry user roles from Kubernetes service accounts.
 
 #### System operation
-- System operators can now use alternative ingress controllers.
-- Components now log each message at the appropriate level (e.g. Error, Info, Debug), and the system operator can choose which levels are emitted.
-- Components use fewer resources due to newly consolidated single controller image replacing previous multiple images.
+
+* Application Service Adapter deletes the corresponding container image from the image registry when a source-code package or build is deleted.
+* Application Service Adapter deletes older inactive builds and source-code packages for applications.
+* System operators can set the number of inactive builds to retain per application, defaulting to 5.
+* System operators can set the number of inactive source-code packages to retain per application, defaulting to 5.
+* System components include a log level of `error`, `info`, or `debug` in each log message.
+* System operators can set the installation values under `log_level` to configure the log level for each system component.
+* Application Service Adapter consumes fewer system resources in a default installation through consolidation of system components into fewer container images.
 
 #### Org and space management
-- Orgs and spaces now support all names that would be considered valid by traditional Cloud Foundry.
+
+* System operators can name orgs and spaces with validation rules matching those in Tanzu Application Service.
+* The `cf orgs` now returns the correct list of organizations.
 
 #### Supply Chain Choreographer integration (experimental)
-- TAP GUI now displays more information about workloads running on Application Service Adapter.
+
+* Application developers can view the Cartographer Workloads and Deliverables generated for applications in the Supply Chains section of the Tanzu Application Platform GUI.
 
 ### Components
 
 This release contains the following components:
 
-- Cartographer-Builder-Runner @ af2eedb
-- Korifi @ [v0.7.1](https://github.com/cloudfoundry/korifi/tree/v0.7.1)
-- TAS-Adapter-Telemetry-Controller @ 37dda46
+* cartographer-builder-runner @ cb29b8d
+* Korifi @ [v0.7.1](https://github.com/cloudfoundry/korifi/tree/v0.7.1)
+* tas-adapter-telemetry-controller @ 37dda46
 
-### Security fixes
+### Known issues
 
-This release includes no security fixes.
+This release has the following issues:
 
-### Resolved Issues
-
-The following issues are resolved in this release:
-- Resolved bugs that caused unnecessary app restarts and task reruns.
-- Resolved a bug which caused the list of orgs returned by /v3/orgs to be incorrect in some circumstances.
-- 404 Not Found errors from the API now comply with the Cloud Foundry error format and will be correctly handled by the CLI.
-
-### Known Issues
-
-This release has no known issues.
-
----
+* If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application fails to build showing an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app continues to fail to build.
+* The organization manager role does not have permissions to create Cloud Foundry spaces. As a workaround, instead use the Cloud Foundry admin role to create spaces in organizations.
 
 ## Deprecations
 
 The following features are deprecated.
-Deprecated features will remain on this list until they are retired from Application Service Adapter.
 
 ### Installation Properties
 
-The following properties on the installation package for Application Service Adapter are deprecated as of v1.1.0 and are marked for removal in v1.4.0:
+The following properties on the installation package for Application Service Adapter are deprecated as of v1.1.0 and are designated for removal no earlier than v1.4.0:
 
-- `app_registry.hostname`
-- `app_registry.paths.droplets`
-- `app_registry.paths.packages`
+* `app_registry.hostname`
+* `app_registry.paths.droplets`
+* `app_registry.paths.packages`
 
 Use the app_registry.repository_prefix property instead. See [_Install Application Service Adapter_](install.md) and [_Upgrading Application Service Adapter_](upgrading.md) for more details.

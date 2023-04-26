@@ -197,23 +197,23 @@ To configure the installation settings:
 
 3. If you do not already have a secret containing the host name, user name, and password for your application image registry, create one:
 
-> **Note** The app registry secret and secret export are not required when using Amazon Elastic Container Registry (ECR).
+   > **Note** The app registry secret and secret export are not required when using Amazon Elastic Container Registry (ECR).
 
-   ```bash
-   kubectl create namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
-   kubectl create secret docker-registry APP-REGISTRY-CREDENTIALS-SECRET-NAME \
-     --docker-server=APP-REGISTRY-SERVER \
-     --docker-username=APP-REGISTRY-USERNAME \
-     --docker-password=$(cat /path/to/APP-REGISTRY-PASSWORD) \
-     --namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
-   ```
+      ```bash
+      kubectl create namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
+      kubectl create secret docker-registry APP-REGISTRY-CREDENTIALS-SECRET-NAME \
+        --docker-server=APP-REGISTRY-SERVER \
+        --docker-username=APP-REGISTRY-USERNAME \
+        --docker-password=$(cat /path/to/APP-REGISTRY-PASSWORD) \
+        --namespace APP-REGISTRY-CREDENTIALS-SECRET-NAMESPACE
+      ```
 
-   Where:
+      Where:
 
-   - `APP-REGISTRY-SERVER` is the address of the registry used for app packages and droplets. This value is the same as the server name in a `dockerconfigjson` Kubernetes secret. For example:
-     - Harbor has the form `my-harbor.io`.
-     - Docker Hub the form `https://index.docker.io/v1/`.
-     - Google Container Registry has the form `gcr.io`.
+      - `APP-REGISTRY-SERVER` is the address of the registry used for app packages and droplets. This value is the same as the server name in a `dockerconfigjson` Kubernetes secret. For example:
+        - Harbor has the form `my-harbor.io`.
+        - Docker Hub the form `https://index.docker.io/v1/`.
+        - Google Container Registry has the form `gcr.io`.
 
 4. Create a `SecretExport` to allow Application Service Adapter to copy the application image registry credentials secret into the `cf` namespace.
 

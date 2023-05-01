@@ -384,6 +384,13 @@ To configure Application Service Adapter for installation on OpenShift:
 
    - `KUBERNETES-VERSION` is the Kubernetes version of the cluster. Default is `1.23.3`.
 
+2. To force the creation of a custom Application Service Adapter SCC on OpenShift, include the following value in your `tas-adapter-values.yaml` file:
+
+   ```yaml
+   openshift:
+     create_scc: true
+   ```
+
 ### <a id="aws-iam-registry-auth"></a>(Optional) Use AWS IAM authentication for registry credentials
 
 Tanzu Build Service supports using AWS IAM roles to authenticate with Amazon Elastic Container Registry (ECR) on Amazon Elastic Kubernetes Service (EKS) clusters.

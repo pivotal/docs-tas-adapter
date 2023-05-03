@@ -94,6 +94,8 @@ This release contains the following components:
 
 This release has the following issues:
 
+- The value of the `cf_api` key in the `VCAP_APPLICATION` environment variable is incorrectly set to "https://".
+  As a workaround, the value of the `extraVCAPApplicationValues.cf_api` key can be manually updated in the `korifi-controllers-config` `ConfigMap` resource.
 - If you push an application with a specific buildpack set with the `buildpacks`
   property in the application manifest or with the `-b` flag, that application
   fails to build showing an error that only autodetection of buildpacks is

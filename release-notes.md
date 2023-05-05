@@ -2,6 +2,15 @@
 
 This topic contains release notes for Application Service Adapter for VMware Tanzu Application Platform.
 
+## <a id='1-1-5'></a> v1.1.5 Release
+
+**Release Date**: May ***FIX THIS***, 2023
+
+### Security fixes
+
+* System components in this release have been rebuilt with docker/docker 23.0.3 to fix [CVE-2023-28840](https://nvd.nist.gov/vuln/detail/CVE-2023-28840) and [CVE-2023-28841](https://nvd.nist.gov/vuln/detail/CVE-2023-28841).
+    * **Note:** This is a pro-active library bump. The vulnerable container runtime components are not used in this product.
+
 ## <a id='1-1-4'></a> v1.1.4 Release
 
 **Release Date**: April 4, 2023

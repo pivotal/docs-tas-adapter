@@ -89,7 +89,7 @@ After you installed these prerequisites, proceed to [Install Application Service
 
 When installed to Amazon Elastic Container Service with ECR, Application Service
 Adapter requires a similar configuration to the [setup required by Tanzu
-Application Service](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/aws-resources.html#create-iam-roles-5),
+Application Platform](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/install-aws-resources.html),
 but needs access to additional resources and trusted service accounts.
 
 Follow the Tanzu Application Platform instructions, with these amendments:

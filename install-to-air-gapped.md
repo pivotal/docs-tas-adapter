@@ -7,7 +7,7 @@ This topic describes how Application Service Adapter for VMware Tanzu Applicatio
 
 For instructions on how to install prerequisites in air-gapped environments, see:
 
-* [Tanzu Application Platform](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install.html)
+* [Tanzu Application Platform](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/install-offline-intro.html)
 * [Tanzu Build Service](https://docs.vmware.com/en/Tanzu-Build-Service/1.5/vmware-tanzu-build-service/GUID-installing-no-kapp.html#installation-to-air-gapped-environment)
 
 ----

@@ -4,11 +4,12 @@
 
 Application Service Adapter aims to provide compatibility with [Cloud Foundry](https://www.cloudfoundry.org/) client interfaces to existing users of [Tanzu Application Service for VMs](https://tanzu.vmware.com/application-service) while running on top of Kubernetes and integrating with the components of [Tanzu Application Platform](https://tanzu.vmware.com/application-platform). Development teams using Tanzu Application Service for VMs tooling, such as the Cloud Foundry command-line interface (cf CLI) and other clients of the Cloud Foundry API (CAPI), can then maintain their familiar workflows while their platform teams transition their infrastructure and deployments to Kubernetes.
 
-The following diagram shows a high-level architecture of Application Service Adapter with user flows. These are also described below.
+The following diagram shows a high-level architecture of Application Service
+Adapter with user flows. These are also described in the following sections.
 
 ![alt-text="Application Service Adapter architecture diagram shows user flows."](images/architecture.png)
 
-Application Service Adapter is distributed as a [Carvel package](https://carvel.dev/) for platform teams to configure and install to a Kubernetes cluster with the Tanzu CLI tool. The key user personas of Application Service Adapter remain the same as the user personas of Tanzu Application Serivce: the Platform Operator and the App Developer.
+Application Service Adapter is distributed as a [Carvel package](https://carvel.dev/) for platform teams to configure and install to a Kubernetes cluster with the Tanzu CLI tool. The key user personas of Application Service Adapter remain the same as the user personas of Tanzu Application Serivce: the platform operator and the app developer.
 
 Platform teams create Cloud Foundry orgs and spaces in the installation, which the Application Service Adapter backs with separate Kubernetes namespaces. Application developers then use these orgs and spaces to organize their apps as they do today with Tanzu Application Service for VMs.
 

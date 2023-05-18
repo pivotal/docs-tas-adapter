@@ -1,6 +1,7 @@
 # Administering Application Service Adapter
 
-The following topics are related to administering an Application Service Adapter installation:
+You can learn all about administering Application Service Adapter
+for VMware Tanzu Application Platform here:
 
 - [Cleaning up old resources](resource-cleanup.md)
 - [Create orgs and spaces declaratively](create-orgs-spaces-declaratively.md)

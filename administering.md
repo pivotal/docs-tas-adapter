@@ -1,6 +1,7 @@
 # Administering Application Service Adapter
 
-The following topics are related to administering an Application Service Adapter installation:
+You can learn all about administering Application Service Adapter
+for VMware Tanzu Application Platform here:
 
 * [Disaster recovery](disaster-recovery.md)
 * [Failover and redundancy](failover-and-redundancy.md)

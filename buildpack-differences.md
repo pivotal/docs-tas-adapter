@@ -1,9 +1,10 @@
-# Buildpacks
+# Buildpacks used by Application Service Adapter
 
-This topic describes the differences between the buildpack systems of Tanzu Application Service for VMs and the buildpacks Application Service Adapter uses.
-Consider these differences when moving applications between the two platforms.
+Application Service Adapter uses different buildpacks than TAS for VMs, which you need to know
+when moving applications between the two platforms. This topic describes the
+differences between the two buildpack systems.
 
-## <a id="overview"></a>Buildpack overview
+## <a id="overview"></a>Differences between the buildpack systems
 
 Application platforms such as Tanzu Application Service for VMs and Tanzu Application Platform use buildpacks to transform application source code and other assets into a self-contained artifact, such as a Cloud Foundry droplet or an Open Container Initiative container image. The platform then deploys this artifact to run instances of the application.
 

@@ -1,4 +1,4 @@
-# Scaling Application Service Adapter
+# Scale Application Service Adapter
 
 This topic provides guidance on scaling Application Service Adapter components
 for performance or availability.

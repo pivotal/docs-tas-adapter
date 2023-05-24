@@ -1,8 +1,6 @@
-# Failover and redundancy
+# Failover and redundancy with Application Service Adapter
 
-This topic describes the failover characteristics and redundancy of Application
-Service Adapter components and applications that are pushed with Application
-Service Adapter.
+This topic covers failover characteristics and redundancy of Application Service Adapter components and applications pushed with Application Service Adapter.
 
 For instructions for editing the scaling characteristics of your Application
 Service Adapter installation, see [Scaling Application Service Adapter](scaling.md).

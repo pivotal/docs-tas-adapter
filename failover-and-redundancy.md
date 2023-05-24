@@ -1,13 +1,6 @@
-# Failover and redundancy
+# Failover and redundancy with Application Service Adapter
 
-This topic describes the failover characteristics and redundancy of Application
-Service Adapter components and applications that are pushed with Application
-Service Adapter. It includes the following sections:
-
-- [Failover and redundancy](#failover-and-redundancy)
-  - [<a id="cloud-foundry-api"></a>Cloud Foundry-compatible API](#cloud-foundry-compatible-api)
-  - [<a id="controllers"></a>Controllers and Webhooks](#controllers-and-webhooks)
-  - [<a id="applications"></a>Applications](#applications)
+This topic covers failover characteristics and redundancy of Application Service Adapter components and applications pushed with Application Service Adapter.
 
 For instructions to edit the scaling characteristics of your Application
 Service Adapter installation, see [Scaling Application Service Adapter](scaling.md).

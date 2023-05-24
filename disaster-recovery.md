@@ -1,11 +1,11 @@
-# Disaster recovery
+# Disaster recovery with Application Service Adapter
 
-This topic provides an overview of the options and considerations for disaster recovery. It includes the following sections:
+You have a number of options for disaster recovery with Application Service
+Adapter. This page describes your disaster recovery options.
 
-* [State Storage](#state-storage)
-* [Backup and Restore](#backing-up-cluster-state)
+## <a id="disaster-recovery-overview"></a>Disaster recovery overview
 
-Operators have a range of approaches for ensuring they can recover their Application Service Adapter deployment, apps, and data in case of a disaster. These approaches fall into two categories:
+You have a range of approaches for ensuring you can recover your Application Service Adapter deployment, apps, and data in case of a disaster. These approaches fall into two categories:
 
 1. Backing up cluster and container image registry state and restoring from backups.
 2. Re-creating the data in the deployment by automating the creation of state. This is achieved using scripted CI automation of the cf CLI and applying declarative Application Service Adapter resources to the cluster.

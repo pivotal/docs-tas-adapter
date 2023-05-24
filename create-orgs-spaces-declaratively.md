@@ -1,15 +1,19 @@
 # Create orgs and spaces declaratively
 
-Application Service Adapter is backed entirely by Kubernetes custom resources,
-enabling operators to manage organizations, spaces, and roles declaratively
-through the Kubernetes API. For more information, see [Custom
-Resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
-in the Kubernetes documentation. Operators can use any Kubernetes API client
+Application Service Adapter is backed by Kubernetes custom resources,
+so you can manage organizations, spaces, and roles declaratively
+through the K8s API. See examples on this page.
+
+Operators can use any Kubernetes API client
 (such as kubectl, `kapp`, and so on) to manage resources. VMware has documented
-examples using both clients. The following examples assume the default value of
+examples using both clients. For more information on Kubernetes custom resources, see [the Kubernetes documentation](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
+
+The following examples assume the default value of
 `cf` for `$ROOT_NAMESPACE`.
 
 ## Using kubectl to manage resources
+
+You can manage various resources using kubectl. Here are some examples.
 
 ### Creating orgs
 

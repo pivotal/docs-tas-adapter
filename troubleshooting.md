@@ -49,9 +49,7 @@ logs to query when troubleshooting.
    is an excellent starting point when debugging failures. Most commands flow
    through here before being processed by more specific components, with the
    exception of API commands that fail before getting to the controller manager.
-3. The `tas-adapter-telemetry-informer` deployment is tasked with handling all
-   outgoing telemetry.
-4. The `cartographer-builder-runner-controller-manager` deployment is tasked
+3. The `cartographer-builder-runner-controller-manager` deployment is tasked
    with creating Cartographer workloads for apps when using the experimental
    Cartographer builder/runner flow.
 

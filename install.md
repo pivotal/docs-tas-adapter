@@ -576,8 +576,6 @@ To configure the scaling parameters for each component of Application Service Ad
        ... #! scaling keys are the same as above
      cartographer_builder_runner:
        ... #! scaling keys are the same as above
-     telemetry_informer:
-       ... #! scaling keys are the same as above
    ```
 
    Where:
@@ -650,51 +648,6 @@ eliminate resources from the cluster.
    - `TASK-TTL-AGE` is the length of time until completed tasks are purged
    from the cluster. You can specify this value as a time duration in seconds,
    minutes, hours, or days. For example, "86400s", "1440m", "24h", or "1d".
-
-### <a id="opt-out-telemetry"></a>(Optional) Opt out of telemetry reporting
-
-When you install Application Service Adapter, you opt into telemetry collection by default. To deactivate telemetry collection, complete the following:
-
-1. Ensure that your Kubernetes context is pointing to the cluster where Application Service Adapter is installed.
-
-2. Run the following kubectl command:
-
-   ```bash
-   kubectl apply -f - <<EOF
-   ---
-   apiVersion: v1
-   kind: Namespace
-   metadata:
-     name: vmware-system-telemetry
-   ---
-   apiVersion: v1
-   kind: ConfigMap
-   metadata:
-     namespace: vmware-system-telemetry
-     name: vmware-telemetry-cluster-ceip
-   data:
-     level: disabled
-   EOF
-   ```
-
-Your Application Service Adapter deployment no longer emits telemetry, and you are opted out of the VMware Customer Experience Improvement Program.
-
-### <a id="telemetry-reporting-interval"></a>(Optional) Configure the telemetry reporting interval:
-
-The default telemetry reporting interval is 24 hours. To change how frequently telemetry data is sent to VMware:
-
-1. Include the following values in your `tas-adapter-values.yaml` file:
-
-   ```yaml
-   telemetry:
-     heartbeat_interval: TELEMETRY-HEARTBEAT-INTERVAL
-   ```
-
-   Where:
-
-   - `TELEMETRY-HEARTBEAT-INTERVAL` is how often telemetry data is sent to
-   VMware. Default is every 24 hours. This value must be specified as a time
-   duration in hours. For example, "24h", not "1d".
 
 ### <a id="user-cert-expiration-warning"></a>(Optional) Configure the user certificate expiration warning duration
 

@@ -1,13 +1,14 @@
-# Installation prerequisites
+# Prerequisites to install Application Service Adapter
 
-This topic describes the first part of installation for Application Service Adapter for VMware Tanzu Application Platform.
+To install Application Service Adapter, you must first meet the prerequisites
+listed on this page.
 
 ----
 
 Application Service Adapter requires using Cloud Foundry command-line interface (cf CLI) v8.1.0 or later. VMware recommends using v8.5.0 or later.
 For more information, see the [cf CLI repository](https://github.com/cloudfoundry/cli) on GitHub.
 
-### <a id="kubernetes-cluster-image-registry"></a>Kubernetes cluster and container image registry
+## <a id="kubernetes-cluster-image-registry"></a>Kubernetes cluster and container image registry
 
 To install Application Service Adapter, you need:
 
@@ -16,7 +17,7 @@ To install Application Service Adapter, you need:
 
 * A container image registry. See [VMware Tanzu Network and container image registry requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/prerequisites.html#vmware-tanzu-network-and-container-image-registry-requirements-0) in _Prerequisites_.
 
-### <a id="required-installation-tools"></a>Required installation tools
+## <a id="required-installation-tools"></a>Required installation tools
 
 The following tools must be installed in the workstation environment in which you intend to perform the installation:
 
@@ -31,7 +32,7 @@ After you install the Tanzu CLI, run `tanzu plugin list` to verify that the requ
     tanzu plugin install --local cli secret
     ```
 
-### <a id="required-components"></a>Required components
+## <a id="required-components"></a>Required components
 
 The following dependencies must be installed to the target Kubernetes cluster before installing Application Service Adapter. If you completed an installation of the `full` profile or the `iterate` profile of Tanzu Application Platform v1.3 or v1.4 in your target Kubernetes cluster, these dependencies are already present.
 
@@ -57,7 +58,7 @@ The following dependencies must be installed to the target Kubernetes cluster be
    * If you installed Tanzu Application Platform v1.3 with the `full`, `iterate`, or `build` profile, this package is installed.
    * If you installed Tanzu Application Platform without using a profile, see [Installing Tanzu Build Service](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/tanzu-build-service-install-tbs.html).
 
-### <a id="required-components-cartographer"></a>Required components for experimental Cartographer integration
+## <a id="required-components-cartographer"></a>Required components for experimental Cartographer integration
 
 The following dependencies are required to be installed to the target Kubernetes cluster to opt into using the experimental Cartographer integration. If you installed Tanzu Application Platform v1.3 or v1.4 with the `full`, `iterate`, or `build` profile, these dependencies are already present.
 
@@ -76,7 +77,7 @@ The following dependencies are required to be installed to the target Kubernetes
 * Tekton v0.39.0 or later.
    * If you installed Tanzu Application Platform without using a profile, see [Install Tekton](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/tekton-install-tekton.html).
 
-### <a id="recommended-components"></a>Recommended components
+## <a id="recommended-components"></a>Recommended components
 
 VMware recommends installing the following dependencies to the target Kubernetes cluster.
 
@@ -85,7 +86,7 @@ VMware recommends installing the following dependencies to the target Kubernetes
 
 After you installed these prerequisites, proceed to [Install Application Service Adapter](install.md).
 
-### <a id="ecr-configuration"></a>AWS IAM Configuration for ECR
+## <a id="ecr-configuration"></a>AWS IAM Configuration for ECR
 
 When installed to Amazon Elastic Container Service with ECR, Application Service
 Adapter requires a similar configuration to the [setup required by Tanzu

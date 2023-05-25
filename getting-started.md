@@ -1,12 +1,8 @@
 # Getting started with Application Service Adapter
 
-This topic provides an overview of how to get started using the Application Service Adapter for Tanzu Application Platform:
-
-* [Create orgs and spaces](#create-orgs-spaces)
-* [Deploy a sample app](#deploy-sample-app)
-* [Route to an app](#routing-sample-app)
-* [Create and bind to a user-provided service instance](#user-provided-services)
-
+This get-started walkthrough gives you hands-on experience of Application
+Service Adapter: creating an org and space, deploying
+an app, and more.
 
 ## <a id="create-orgs-spaces"></a>Create orgs and spaces
 
@@ -22,6 +18,7 @@ To create orgs and spaces:
     cf create-space SPACE-NAME
     cf target -s SPACE-NAME
     ```
+
     Where:
 
     - `ORG-NAME` is the name of the org you want to create.

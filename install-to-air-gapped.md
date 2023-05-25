@@ -1,6 +1,8 @@
 # Install Application Service Adapter to air-gapped environments
 
-This topic describes how Application Service Adapter for VMware Tanzu Application Platform system are installed to a Kubernetes Cluster and registry that are air-gapped from external traffic.
+You can install Application Service Adapter to a K8s cluster and registry
+that is air-gapped from outside traffic. This page has the steps you
+need to take.
 
 For instructions on how to install prerequisites in air-gapped environments, see:
 

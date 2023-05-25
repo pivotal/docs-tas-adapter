@@ -1,7 +1,6 @@
 # Prerequisites to install Application Service Adapter
 
-To install Application Service Adapter, you must first meet the prerequisites
-listed on this page.
+To install Application Service Adapter, you need to first complete the prerequisites listed here.
 
 ----
 

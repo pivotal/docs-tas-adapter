@@ -1,4 +1,4 @@
-# Getting started with Application Service Adapter
+# Get started with Application Service Adapter
 
 This get-started walkthrough gives you hands-on experience of Application
 Service Adapter: creating an org and space, deploying

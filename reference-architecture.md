@@ -1,12 +1,12 @@
-# Reference architecture
+# Application Service Adapter reference architecture
 
-This topic provides a path to creating a production deployment of
-Application Service Adapter. However, you do not need to follow this exact
-path if your use cases warrant a different architecture.
+The Application Service Adapter architecture described here gives you a
+path to create a production deployment of Application Service Adapter.
 
-Design decisions described in this topic exemplify the main design issues
-in planning your Application Service Adapter environment.
-Understanding these decisions can help provide a rationale for any necessary deviation from this architecture.
+Your use case may warrant a different architecture, but the design decisions
+described here exemplify the main design issues in planning your Application
+Service Adapter environment. Understanding these decisions can help provide a
+rationale for any necessary deviation from this architecture.
 
 * [Tanzu Application Platform installation](#tap-install)
 * [Adapter system requirements](#adapter-reqs)

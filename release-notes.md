@@ -88,7 +88,6 @@ This release contains the following components:
 
 - cartographer-builder-runner @ cb29b8d
 - Korifi @ [v0.7.1](https://github.com/cloudfoundry/korifi/tree/v0.7.1)
-- tas-adapter-telemetry-controller @ 37dda46
 
 ### Known issues
 

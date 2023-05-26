@@ -50,6 +50,6 @@ This information cannot directly identify any individual.
 
 You must acknowledge that you have read the VMware CEIP policy before you can proceed with the
 installation.
-For more information, see [Configure the installation settings](install.md#configure-installation-settings) in _Install Application Service Adapter_.
-To opt out of telemetry participation after installation, see
-[Opting out of telemetry reporting](install.md#opt-out-telemetry) in _Install Application Service Adapter_.
+For more information, see [Tanzu Application Platform Telemetry](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/telemetry-overview.html).
+To opt out of CEIP participation after installation, see
+[Opt out of telemetry collection](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/opting-out-telemetry.html).

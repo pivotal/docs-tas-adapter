@@ -1,6 +1,10 @@
-# Push the spring-music sample application
+# Use Application Service Adapter to push the spring-music app
 
-This topic covers how to push the [spring-music sample Java application](https://github.com/cloudfoundry-samples/spring-music) and bind it to an external MySQL-compatible database represented as a Cloud Foundry service instance.
+This how-to uses Application Service Adapter to push the
+spring-music app and bind it to a MySQL-compatible database represented as a CF service
+instance.
+
+See [spring-music sample Java application](https://github.com/cloudfoundry-samples/spring-music).
 
 ## Prerequisites
 

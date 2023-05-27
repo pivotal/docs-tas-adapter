@@ -1,7 +1,7 @@
-# Release notes
+# Release notes for Application Service Adapter
 
-This topic contains release notes for Application Service Adapter for VMware
-Tanzu Application Platform.
+You can view the release notes for v1.2.0 of Application Service Adapter for VMware
+Tanzu Application Platform on this page.
 
 ## <a id='1-2-0'></a> v1.2.0 Release
 

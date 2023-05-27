@@ -1,7 +1,7 @@
 # Scale Application Service Adapter
 
-This topic provides guidance on scaling Application Service Adapter components
-for performance or availability.
+Application Service Adapter offers options for scaling components for
+performance or availability. Read this page for scaling guidance.
 
 * [Notes on system performance](#system-performance)
 * [Scaling the Application Service Adapter controller managers](#controllers)

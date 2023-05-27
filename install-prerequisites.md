@@ -11,25 +11,23 @@ For more information, see the [cf CLI repository](https://github.com/cloudfoundr
 
 To install Application Service Adapter, you need:
 
-* Admin access to a Kubernetes cluster that meets the same requirements as the version of Tanzu Application Platform you have installed, either v1.3 or v1.4. See [Kubernetes cluster requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/prerequisites.html#kubernetes-cluster-requirements-3) in _Prerequisites_.
-  * As of Tanzu Application Platform v1.4, Kubernetes v1.23, v1.24, or v1.25 is required. There are additional requirements for some implementations. For example, Amazon Elastic Kubernetes Service (EKS) requires containerd as the Container Runtime Interface (CRI) among with other requirements.
+* Admin access to a Kubernetes cluster that meets the same requirements as the version of Tanzu Application Platform you have installed, either v1.4 or v1.5. See [Kubernetes cluster requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/prerequisites.html#kubernetes-cluster-requirements-3) in _Prerequisites_.
+  * As of Tanzu Application Platform v1.5, Kubernetes v1.24, v1.25, or v1.26 is required. There are additional requirements for some implementations. For example, Amazon Elastic Kubernetes Service (EKS) requires containerd as the Container Runtime Interface (CRI) among with other requirements.
 
-* A container image registry. See [VMware Tanzu Network and container image registry requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/prerequisites.html#vmware-tanzu-network-and-container-image-registry-requirements-0) in _Prerequisites_. Application Service Adapter does not support Amazon's Elastic Container Registry (ECR).
+* A container image registry. See [VMware Tanzu Network and container image registry requirements](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.5/tap/prerequisites.html#vmware-tanzu-network-and-container-image-registry-requirements-0) in _Prerequisites_. Application Service Adapter does not support Amazon's Elastic Container Registry (ECR).
 
 ## <a id="required-installation-tools"></a>Required installation tools
 
 The following tools must be installed in the workstation environment in which you intend to perform the installation:
 
-* The Kubernetes CLI (kubectl) v1.23 or v1.24.
+* The Kubernetes CLI (kubectl) v1.23-v1.26.
 
 * Tanzu CLI and its plug-ins. See [Install or update the Tanzu CLI and plug-ins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/install-tanzu-cli.html#install-or-update-the-tanzu-cli-and-plugins-3) in _Accepting Tanzu Application Platform EULAs and installing Tanzu CLI_.
 
 After you install the Tanzu CLI, run `tanzu plugin list` to verify that the required `package` and `secret` plug-ins are installed. To install these plug-ins, run:
 
-    ```bash
     tanzu plugin install --local cli package
     tanzu plugin install --local cli secret
-    ```
 
 ## <a id="required-components"></a>Required components
 

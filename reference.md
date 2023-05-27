@@ -1,6 +1,7 @@
-# Reference
+# Application Service Adapter reference documentation
 
-This topic collects reference documentation for Application Service Adapter, including the following:
+You can view all the Application Service Adapter
+reference documentation here:
 
 * [Application Service Adapter environment variables](environment-variables.md)
 * [Buildpacks used by Application Service Adapter](buildpack-differences.md)

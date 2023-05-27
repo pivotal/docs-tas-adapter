@@ -24,7 +24,7 @@ This is the table of contents from which Application Service Adapter for Tanzu A
 - [Learn more](concepts.md)
   - [Architecture](technical-architecture.md)
   - [User authentication](user-authentication-overview.md)
-- [Reference](reference.md)
+- [Reference documentation](reference.md)
   - [Application environment variables](environment-variables.md)
   - [Buildpacks used by Application Service Adapter](buildpack-differences.md)
   - [Supported cf CLI commands](supported-cf-cli-commands.md)

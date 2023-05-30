@@ -5,6 +5,6 @@ reference documentation here:
 
 * [Application Service Adapter environment variables](environment-variables.md)
 * [Buildpacks used by Application Service Adapter](buildpack-differences.md)
-* [Supported cf CLI commands](supported-cf-cli-commands.md)
+* [cf CLI commands supported by Application Service Adapter](supported-cf-cli-commands.md)
 * [Troubleshoot Application Service Adapter](troubleshooting.md)
 * [User management](user-management.md)

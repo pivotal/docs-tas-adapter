@@ -20,7 +20,7 @@ This is the table of contents from which Application Service Adapter for Tanzu A
 - [Uninstall Application Service Adapter](uninstall.md)
 - [Troubleshoot](troubleshooting.md)
 - [Learn more](concepts.md)
-  - [Architecture](technical-architecture.md)
+  - [Technical architecture](technical-architecture.md)
   - [User authentication](user-authentication-overview.md)
 - [Reference documentation](reference.md)
   - [Application environment variables](environment-variables.md)

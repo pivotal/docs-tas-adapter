@@ -1,7 +1,7 @@
-# Supported cf CLI commands
+# cf CLI commands supported by Application Service Adapter
 
-This topic describes the Cloud Foundry command-line interface (cf CLI) commands
-and options that this version of Application Service Adapter supports.
+Application Service Adapter supports the Cloud Foundry command-line interface (cf CLI) commands
+and options listed on this page.
 
 Application Service Adapter supports the following cf CLI commands by providing
 a subset of the endpoints of the v3 Cloud Foundry API (CAPI) through its API server.

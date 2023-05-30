@@ -1,7 +1,7 @@
 # Troubleshoot Application Service Adapter
 
-This topic documents generic techniques for diagnosing the system health as well
-as specific steps to be taken in known scenarios.
+Here you'll find generic techniques for diagnosing Application Service Adapter
+system health and troubleshooting steps in common failure scenarios.
 
 ## <a id="generic-troubleshooting-techniques"></a>Generic troubleshooting techniques
 

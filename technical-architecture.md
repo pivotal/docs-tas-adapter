@@ -1,7 +1,7 @@
-# Architecture
+# Application Service Adapter Architecture
 
-This document describes the technical architecture of Application Service
-Adapter and its subsystems.
+You can read about the technical architecture of Application Service
+Adapter and its subsystems on this page.
 
 ## <a id="overview"></a>Overview
 Application Service Adapter implements a subset of the [v3 Cloud Foundry

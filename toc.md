@@ -19,7 +19,7 @@ This is the table of contents from which the Application Service Adapter for Tan
   - [Upgrade](upgrading.md)
 - [Uninstall Application Service Adapter](uninstall.md)
 - [Learn more](concepts.md)
-  - [Architecture](technical-architecture.md)
+  - [Technical architecture](technical-architecture.md)
   - [User authentication](user-authentication-overview.md)
 - [Reference documentation](reference.md)
   - [Application environment variables](environment-variables.md)

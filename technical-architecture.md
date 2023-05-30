@@ -1,6 +1,7 @@
-# Architecture
+# Application Service Adapter Architecture
 
-This document describes the technical architecture of Application Service Adapter and its subsystems.
+You can read about the technical architecture of Application Service
+Adapter and its subsystems on this page.
 
 * [Overview](#overview)
 * [High-level architecture](#high-level-architecture)

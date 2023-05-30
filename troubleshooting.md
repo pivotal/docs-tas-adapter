@@ -1,17 +1,7 @@
 # Troubleshoot Application Service Adapter
 
-This topic collects documentation related to the generic techniques for diagnosing the system health as well as specific steps to be taken in known scenarios.
-
-* [Generic Troubleshooting Techniques](#generic-troubleshooting-techniques)
-  * [Application Service Adapter Logs](#application-logs)
-  * [Tanzu Application Platform Logs](#tap-logs)
-  * [CFApp Logs](#cfapp-logs)
-  * [Kubernetes System Events](#system-events)
-  * [System Object Types](#system-object-types)
-* [Common Failure Scenarios](#commmon-failure-scenarios)
-* [OpenShift Failure Scenarios](#openshift-failure-scenarios)
-* [Cartographer Failure Scenarios](#cartographer-failure-scenarios)
-
+Here you'll find generic techniques for diagnosing Application Service Adapter
+system health and troubleshooting steps in common failure scenarios.
 
 ## <a id="generic-troubleshooting-techniques"></a>Generic troubleshooting techniques
 

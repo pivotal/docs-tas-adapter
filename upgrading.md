@@ -1,6 +1,6 @@
 # Upgrade Application Service Adapter
 
-This document describes how to upgrade Application Service Adapter for VMware Tanzu Application Platform.
+This page gives you the steps to upgrade Application Service Adapter for VMware Tanzu Application Platform.
 
 You can perform a fresh installation of Application Service Adapter by following the instructions in [Install Application Service Adapter](install.md).
 

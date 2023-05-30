@@ -1,6 +1,7 @@
-# User authentication
+# User authentication with Application Service Adapter
 
-This topic describes how Application Service Adapter authenticates and authorizes users using the Kubernetes API server.
+On this page, learn how Application Service Adapter authenticates and authorizes
+users by using the Kubernetes API server.
 
 ## <a id="background"></a> Background
 

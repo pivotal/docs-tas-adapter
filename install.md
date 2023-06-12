@@ -408,13 +408,13 @@ To install Application Service Adapter:
 
 1. Install Application Service Adapter to the cluster.
 
-    ```bash
-    tanzu package install tas-adapter \
-      --package-name application-service-adapter.tanzu.vmware.com \
-      --version "${TAS_ADAPTER_VERSION}" \
-      --values-file tas-adapter-values.yaml \
-      --namespace tap-install
-    ```
+   ```bash
+   tanzu package install tas-adapter \
+     -p application-service-adapter.tanzu.vmware.com \
+     --version "${TAS_ADAPTER_VERSION}" \
+     --values-file tas-adapter-values.yaml \
+     --namespace tap-install
+   ```
 
 2. Verify that the package install was successful.
 

@@ -41,7 +41,7 @@ certificates. This topic tells you how.
 
     ```bash
     tanzu package install tas-adapter \
-      --package-name application-service-adapter.tanzu.vmware.com \
+      -p application-service-adapter.tanzu.vmware.com \
       --version "${TAS_ADAPTER_VERSION}" \
       --values-file tas-adapter-values.yaml \
       --namespace tap-install

@@ -3,11 +3,23 @@
 You may need to manually rotate your Application Service Adapter system
 certificates. This topic tells you how.
 
-> **Note** Certificate rotation does not result in downtime.
+> **Note** Ingress Certificate rotation does not result in downtime.
 
 ## <a id="rotating-ingress-certificates"></a>Rotate ingress certificates
 
-1. Set up environment variables for the installation:
+When using the `shared.ingress_issuer` configuration option, ingress certificates are managed by Certificate Manager
+and do not require manual rotation.
+The default Certificate Manager configuration provides certificates that are valid for 90 days.
+Certificates are renewed 30 days before expiry. For more information, see the
+[cert-manager documentation](https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec).
+
+When not using the `shared.ingress_issuer` configuration option, the platform operator must rotate the ingress certificate
+data in the Secrets used by the Application Service Adapter.
+
+1. Acquire new certificates for API and App Ingress, and store the PEM-encoded public certificate data of each
+certificate in its own Secret of type `kubernetes.io/tls`.
+
+2. Set up environment variables for the installation:
 
     ```bash
     export TAS_ADAPTER_VERSION=VERSION-NUMBER
@@ -15,7 +27,8 @@ certificates. This topic tells you how.
 
     Where `VERSION-NUMBER` is the version of Application Service Adapter you want to install. For example, `1.0.0`.
 
-2. Update your `tas-adapter-values.yaml` file with new API and App Ingress TLS certificates, such as crt and key.
+3. Update your `tas-adapter-values.yaml` file with the name and namespace of the Secrets with the new
+API and App Ingress TLS certificates.
 
     The following values are updated:
 
@@ -37,7 +50,7 @@ certificates. This topic tells you how.
     - `NEW-APP-TLS-SECRET-NAME` is the kubernetes.io/tls secret containing the PEM-encoded public certificate for applications deployed using Application Service Adapter.
     - `NEW-APP-TLS-SECRET-NAMESPACE` is the namespace containing the Application Service Adapter applications secret.
 
-3. Install Application Service Adapter to the cluster by running:
+4. Install Application Service Adapter to the cluster by running:
 
     ```bash
     tanzu package install tas-adapter \
@@ -47,7 +60,7 @@ certificates. This topic tells you how.
       --namespace tap-install
     ```
 
-4. Verify that the package install was successful. Run:
+5. Verify that the package install was successful. Run:
 
     ```bash
     tanzu package installed get tas-adapter \
@@ -65,6 +78,16 @@ certificates. This topic tells you how.
     CONDITIONS:              [{ReconcileSucceeded True  }]
     USEFUL-ERROR-MESSAGE:
     ```
+
+## <a id="rotating-issuer-certificates"></a> Rotate Issuer Certificate
+
+When using Certificate Manager with a LetsEncrypt Issuer, the Certificate Authority is managed by the LetsEncrypt
+service itself and does not require manual intervention to the Issuer.
+
+When using Certificate Manager with a Certificate Authority Issuer, rotation requires manual configuration of the
+Issuer's underlying Secret with the new certificate data.
+
+> **Note** Certificate Manager does not provide an interface for the best practice of introducing a new Certificate Authority before revoking an existing Certificate Authority. A configuration error of the Certificate Authority Issuer may cause service downtime.
 
 ## <a id="rotating-internal-certificates"></a>Rotating internal certificates
 

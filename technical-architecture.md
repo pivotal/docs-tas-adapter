@@ -1,7 +1,7 @@
 # Application Service Adapter Architecture
 
 You can read about the technical architecture of Application Service
-Adapter and its subsystems on this page.
+Adapter and its subsystems in this topic.
 
 ## <a id="overview"></a>Overview
 Application Service Adapter implements a subset of the [v3 Cloud Foundry

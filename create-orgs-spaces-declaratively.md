@@ -2,7 +2,7 @@
 
 Application Service Adapter is backed by Kubernetes custom resources,
 so you can manage organizations, spaces, and roles declaratively
-through the K8s API. See examples on this page.
+through the K8s API. See examples in this topic.
 
 Operators can use any Kubernetes API client
 (such as kubectl, `kapp`, and so on) to manage resources. VMware has documented

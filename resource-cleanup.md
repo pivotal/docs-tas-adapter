@@ -1,7 +1,7 @@
 # Cleaning up old resources with Application Service Adapter
 
 When you push an app with Application Service Adapter, resources can accumulate.
-Read this article for guidance in cleaning up old resources.
+Read this topic for guidance in cleaning up old resources.
 
 - Every source code upload results in a CFPackage resource on the cluster and a
   corresponding container image holding the source in the sources repository.

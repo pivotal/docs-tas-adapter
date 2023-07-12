@@ -2,7 +2,7 @@
 
 Application Service Adapter provides compatibility with CF client
 interfaces while running on top of K8s and integrating with Tanzu Application
-Platform. Learn more on this page.
+Platform. Learn more in this topic.
 
 With Application Service Adapter, development teams using Tanzu Application Service for VMs tooling, such as the Cloud Foundry command-line interface (cf CLI) and other clients of the Cloud Foundry API (CAPI), can maintain their familiar workflows while their platform teams transition their infrastructure and deployments to Kubernetes.
 

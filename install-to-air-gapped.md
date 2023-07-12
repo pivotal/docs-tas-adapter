@@ -1,7 +1,7 @@
 # Install Application Service Adapter to air-gapped environments
 
 You can install Application Service Adapter to a K8s cluster and registry
-that is air-gapped from outside traffic. This page has the steps you
+that is air-gapped from outside traffic. This topic has the steps you
 need to take.
 
 For instructions on how to install prerequisites in air-gapped environments, see:

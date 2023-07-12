@@ -1,7 +1,7 @@
 # User management with Application Service Adapter
 
 Application Service Adapter
-allows you to manage users. This page tells you how.
+allows you to manage users. This topic tells you how.
 
 Application Service Adapter users are user identifiers that Kubernetes
 recognizes in the subject section of its role-based access control (RBAC)

@@ -1,7 +1,7 @@
 # System logs and metrics for Application Service Adapter
 
 You can access Application Service Adapter system component logs and query
-metrics by following the steps on this page.
+metrics by following the steps in this topic.
 
 ## <a id="system-logs"></a>Gather system logs
 

@@ -1,7 +1,7 @@
 # Disaster recovery with Application Service Adapter
 
 You have a number of options for disaster recovery with Application Service
-Adapter. This page describes your disaster recovery options.
+Adapter. This topic describes your disaster recovery options.
 
 ## <a id="disaster-recovery-overview"></a>Disaster recovery overview
 

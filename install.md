@@ -1,7 +1,7 @@
 # Installing Application Service Adapter
 
 You can install and configure Application Service Adapter for VMware Tanzu
-Application Platform by following the steps on this page.
+Application Platform by following the steps in this topic.
 
 After you complete the steps in [Installing Prerequisites](install-prerequisites.md), set the Kubernetes context to the cluster where you installed kpack and Contour.
 

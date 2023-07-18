@@ -5,17 +5,17 @@ Tanzu Application Platform on this page.
 
 ## <a id='1-2-1'></a> v1.2.1 Release
 
-Release Date: July 17, 2023
+**Release date**: July 18, 2023
 
 ### Changelog
 
 * Add missing `cf_api` env var to App environments.
-* Changes to support Tanzu Application Platfor 1.6.
+* Changes to support Tanzu Application Platform 1.6.
 * Updated package versions and associated dependencies.
 
 ## <a id='1-2-0'></a> v1.2.0 Release
 
-Release Date: April 26, 2023
+**Release date**: April 26, 2023
 
 ### Features
 

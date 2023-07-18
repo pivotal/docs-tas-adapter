@@ -5,7 +5,7 @@ Tanzu Application Platform on this page.
 
 ## <a id='1-0-4'></a> v1.0.4 Release
 
-**Release Date**: July 18, 2023
+**Release date**: July 18, 2023
 
 ### Changelog
 
@@ -13,7 +13,7 @@ Tanzu Application Platform on this page.
 
 ## <a id='1-0-3'></a> v1.0.3 Release
 
-**Release Date**: June 7, 2023
+**Release date**: June 7, 2023
 
 ### Changelog
 
@@ -21,7 +21,7 @@ Tanzu Application Platform on this page.
 
 ## <a id='1-0-2'></a> v1.0.2 Release
 
-**Release Date**: February 8, 2023
+**Release date**: February 8, 2023
 
 ### Security fixes
 
@@ -29,7 +29,7 @@ Tanzu Application Platform on this page.
 
 ## <a id='1-0-1'></a> v1.0.1 Release
 
-**Release Date**: December 13, 2022
+**Release date**: December 13, 2022
 
 ### Resolved issues
 
@@ -54,7 +54,7 @@ This release contains the following components:
 
 ## <a id='1-0-0'></a> v1.0.0 Release
 
-**Release Date**: November 10, 2022
+**Release date**: November 10, 2022
 
 
 ### Features

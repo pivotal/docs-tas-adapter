@@ -1,7 +1,16 @@
 # Release notes for Application Service Adapter
 
-You can view the release notes for v1.1.0 through v1.1.5 of Application Service Adapter for VMware
+You can view the release notes for v1.1.0 through v1.1.6 of Application Service Adapter for VMware
 Tanzu Application Platform on this page.
+
+## <a id='1-1-6'></a> v1.1.6 Release
+
+**Release Date**: July 17, 2023
+
+### Changelog
+
+* Properly set `dnsNames` field on cert-manager `Certificate` resource.
+* Updated package versions and associated dependencies.
 
 ## <a id='1-1-5'></a> v1.1.5 Release
 

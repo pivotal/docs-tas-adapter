@@ -24,8 +24,10 @@ This release contains the following components:
 
 This release has the following issues:
 
-- The value of the `cf_api` key in the `VCAP_APPLICATION` environment variable is incorrectly set to "https://".
-  As a workaround, the value of the `extraVCAPApplicationValues.cf_api` key can be manually updated in the `korifi-controllers-config` `ConfigMap` resource.
+- Deleting CF orgs and spaces or uninstalling Application Service Adapter may fail due to an issue with
+  `ServiceBindingProjection` resource cleanup that prevents deletion of the underlying Kubernetes namespace.
+  As a workaround, you can manually remove the `finalizers` from the `ServiceBindingProjections` to allow
+  namespace deletion to complete.
 
 ### Deprecations
 

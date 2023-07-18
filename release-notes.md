@@ -5,7 +5,7 @@ Tanzu Application Platform on this page.
 
 ## <a id='1-0-4'></a> v1.0.4 Release
 
-**Release Date**: July 17, 2023
+**Release Date**: July 18, 2023
 
 ### Changelog
 

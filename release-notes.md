@@ -178,6 +178,9 @@ This release contains the following components:
 ### Known Issues
 
 * If you push an application with a specific buildpack set with the `buildpacks` property in the application manifest or with the `-b` flag, that application will fail to build with an error that only autodetection of buildpacks is supported. As a workaround, set `buildpacks: ~` in the application manifest or `-b null` on `cf push` to reset the app to use buildpack autodetection. If you only remove the field from the manifest or the flag from the `cf push` command, the app will continue to fail to build.
+* When deleting CF spaces or uninstalling Application Service Adapter, the underlying Kubernetes namespaces may not be
+deleted due to an issue with `ServiceBindingProjection` resource cleanup. As a workaround, you can manually remove the
+`finalizers` from the `ServiceBindingProjections` to allow namespace deletion to complete.
 * If you change the application code so that the build process generates a different start command for the app, the app's start command is not updated, and the app may fail to start correctly. As a workaround, you can manually override the start command with the `command` property in the application manifest or with the `-c` flag on `cf push`.
 * Application instance pods do not have the `CF_INSTANCE_GUID`, `CF_INSTANCE_INTERNAL_IP`, `CF_INSTANCE_IP`, or `POD_NAME` environment variables set when Application Service Adapter is configured to use the experimental integration with the Supply Chain Choreographer.
 * The output of `cf logs` contains blank log lines interleaved with the log content from the appplication instances.

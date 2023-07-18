@@ -113,7 +113,7 @@ This release has the following issues:
   `-b null` on `cf push` to reset the app to use buildpack autodetection. If you
   only remove the field from the manifest or the flag from the `cf push`
   command, the app continues to fail to build.
-- When deleting CF spaces or uninstalling Application Service Adapter the underlying Kubernetes namespaces may not be
+- When deleting CF spaces or uninstalling Application Service Adapter, the underlying Kubernetes namespaces may not be
   deleted due to an issue with `ServiceBindingProjection` resource cleanup. As a workaround, you can manually remove the
   `finalizers` from the `ServiceBindingProjections` to allow namespace deletion to complete.
 - The organization manager role does not have permissions to create Cloud

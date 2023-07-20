@@ -369,6 +369,23 @@ To configure Application Service Adapter to use a different Kpack cluster builde
 
    - `KPACK-CLUSTER-BUILDER-NAME` is the name of the kpack cluster builder to use for staging. Tanzu Build Service provides two cluster builders named `base` and `default`. To create your own builder, see [Managing Builders](https://docs.vmware.com/en/Tanzu-Build-Service/1.9/vmware-tanzu-build-service/managing-builders.html) in the Tanzu Build Service documentation, and update this setting with the corresponding builder name.
 
+### <a id="staging-resources"></a>(Optional) Configure the size of the persistent build cache used for staging
+
+Application Service Adapter configures Tanzu Build Service to create a persistent volume per application that is used for caching staging resources.
+The size of these volumes is set to be 2048MB by default, but this can be overridden globally for all Application Service Adapter apps.
+
+To configure Application Service Adapter to use a different build cache size for staging:
+
+1. Include the following values in your `tas-adapter-values.yaml` file:
+
+   ```yaml
+   staging_resources:
+     build_cache_mb: SIZE-IN-MEGABYTES
+   ```
+   Where:
+
+    - `SIZE-IN-MEGABYTES` is the size of the persistent volume in megabytes. Default is `2048`.
+
 ### <a id="openshift"></a>(Optional) Configuration for OpenShift
 
 To configure Application Service Adapter for installation on OpenShift:

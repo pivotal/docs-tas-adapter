@@ -372,7 +372,7 @@ To configure Application Service Adapter to use a different Kpack cluster builde
 ### <a id="staging-resources"></a>(Optional) Configure the size of the persistent build cache used for staging
 
 Application Service Adapter configures Tanzu Build Service to create a persistent volume per application that is used for caching staging resources.
-The size of these volumes is set to be 2048MB by default, but this can be overridden globally for all Application Service Adapter apps.
+The size of these volumes is set to be 2048 MB by default, but this can be overridden globally for all Application Service Adapter apps.
 
 To configure Application Service Adapter to use a different build cache size for staging:
 
@@ -382,6 +382,7 @@ To configure Application Service Adapter to use a different build cache size for
    staging_resources:
      build_cache_mb: SIZE-IN-MEGABYTES
    ```
+
    Where:
 
     - `SIZE-IN-MEGABYTES` is the size of the persistent volume in megabytes. Default is `2048`.

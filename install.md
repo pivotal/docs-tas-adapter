@@ -19,7 +19,7 @@ To add the Application Service Adapter package repository to your cluster:
 
    Where:
 
-   - `VERSION-NUMBER` is the version of Application Service Adapter you want to install. For example, `1.2.0`.
+   - `VERSION-NUMBER` is the version of Application Service Adapter you want to install. For example, `1.3.0`.
 
 1. Verify that the `tap-install` namespace exists in your cluster.
 
@@ -71,7 +71,7 @@ To add the Application Service Adapter package repository to your cluster:
    ```bash
    NAME                                          DISPLAY-NAME                 SHORT-DESCRIPTION                                                   LATEST-VERSION
    ...
-   application-service-adapter.tanzu.vmware.com  Application Service Adapter  Application Service Adapter for VMware Tanzu® Application Platform  1.2.0
+   application-service-adapter.tanzu.vmware.com  Application Service Adapter  Application Service Adapter for VMware Tanzu® Application Platform  1.3.0
    ...
    ```
 
@@ -84,7 +84,7 @@ To add the Application Service Adapter package repository to your cluster:
    It should output a list of settings similar to:
 
    ```bash
-   | Retrieving package details for application-service-adapter.tanzu.vmware.com/1.2.0...
+   | Retrieving package details for application-service-adapter.tanzu.vmware.com/1.3.0...
      KEY                         DEFAULT  TYPE     DESCRIPTION
      api_auth_proxy.ca_cert.data          string   TLS CA certificate of your cluster's auth proxy
      api_auth_proxy.host                  string   FQDN of your cluster's auth proxy
@@ -713,7 +713,7 @@ To install Application Service Adapter:
    | Retrieving installation details for tas-adapter...
    NAME:                    tas-adapter
    PACKAGE-NAME:            application-service-adapter.tanzu.vmware.com
-   PACKAGE-VERSION:         1.2.0
+   PACKAGE-VERSION:         1.3.0
    STATUS:                  Reconcile succeeded
    CONDITIONS:              [{ReconcileSucceeded True  }]
    USEFUL-ERROR-MESSAGE:

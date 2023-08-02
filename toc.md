@@ -2,7 +2,7 @@
 
 This is the table of contents from which Application Service Adapter for Tanzu Application Platform Documentation site on docs.vmware.com is built.
 
-- [Application Service Adapter v1.2](overview.md)
+- [Application Service Adapter v1.3](overview.md)
 - [Release notes](release-notes.md)
 - [Reference architecture](reference-architecture.md)
 - [Installation prerequisites](install-prerequisites.md)

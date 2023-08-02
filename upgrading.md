@@ -19,7 +19,7 @@ Before you upgrade Application Service Adapter:
 - [Install or update the Tanzu CLI and plug-ins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install-tanzu-cli.html#install-or-update-the-tanzu-cli-and-plugins-3)
   - For information about installing or updating the Tanzu CLI and plug-ins, see [Install or update the Tanzu CLI and plug-ins](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install-tanzu-cli.html#install-or-update-the-tanzu-cli-and-plugins-3).
 - Verify that all packages are reconciled by running `tanzu package installed list -A`.
-- VMware recommends [upgrading](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-upgrading.html) the Tanzu Application Platform version to the latest patch version of the currently installed major-minor (for example, 1.2).
+- VMware recommends [upgrading](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-upgrading.html) the Tanzu Application Platform version to the latest patch version of the currently installed major-minor (for example, 1.3).
 
 ## <a id="add-new-package-repo"></a> Update the new package repository
 
@@ -42,9 +42,9 @@ Follow these steps to update the new package repository:
      --namespace tap-install
    ```
 
-## <a id="upgrading-to-version-1-2"></a> Upgrading to v1.2
+## <a id="upgrading-to-version-1-2"></a> Upgrading to v1.3
 
-1. The `tas-adapter-values.yaml` file for v1.2 is compatible with the one used for v1.1.
+1. The `tas-adapter-values.yaml` file for v1.3 is compatible with the one used for v1.2.
 
 > **Note** Performing the update causes downtime for any single-instance apps.
 > To avoid downtime, scale the apps to 2 or more instances. If you have the

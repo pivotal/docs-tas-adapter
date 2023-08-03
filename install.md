@@ -410,7 +410,11 @@ To configure Application Service Adapter for installation on OpenShift:
      create_scc: true
    ```
 
-   > **Note** The custom SCC ensures that containers run with a predictable UID of 1000, which is a requirement for workloads created using Application Service Adapter. OpenShift assigns the `restricted` or `restricted-v2` SCCs to workloads deployed using the project's default Kubernetes service account, which means that an arbitrary UID is chosen for container runtime.
+   > **Note** The custom SCC ensures that containers run with a predictable UID
+   > of 1000, which is a requirement for workloads created using Application
+   > Service Adapter. OpenShift assigns the `restricted` or `restricted-v2` SCCs
+   > to workloads deployed by using the project's default Kubernetes service
+   > account. This means that an arbitrary UID is chosen for the container runtime.
 
 ### <a id="aws-iam-registry-auth"></a>(Optional) Use AWS IAM authentication for registry credentials
 

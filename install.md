@@ -403,12 +403,14 @@ To configure Application Service Adapter for installation on OpenShift:
 
    - `KUBERNETES-VERSION` is the Kubernetes version of the cluster. Default is `1.23.3`.
 
-2. To force the creation of a custom Application Service Adapter SCC on OpenShift, include the following value in your `tas-adapter-values.yaml` file:
+2. To force the creation of a custom Application Service Adapter Security Context Constraint (SCC) on OpenShift, include the following value in your `tas-adapter-values.yaml` file:
 
    ```yaml
    openshift:
      create_scc: true
    ```
+
+   > **Note** The custom SCC ensures that containers run with a predictable UID of 1000, which is a requirement for workloads created using Application Service Adapter. OpenShift assigns the `restricted` or `restricted-v2` SCCs to workloads deployed using the project's default Kubernetes service account, which means that an arbitrary UID is chosen for container runtime.
 
 ### <a id="aws-iam-registry-auth"></a>(Optional) Use AWS IAM authentication for registry credentials
 

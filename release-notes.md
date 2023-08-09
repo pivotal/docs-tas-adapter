@@ -5,24 +5,24 @@ Tanzu Application Platform on this page.
 
 ## <a id='1-3-0'></a> v1.3.0 Release
 
-Release Date: Aug 08, 2023
+Release date: Aug 08, 2023
 
 ### Features
 
 This release includes the following new features:
-- telemetry gathering is moved into the existing Tanzu Application Platform
+- Telemetry gathering is moved into the existing Tanzu Application Platform
   process, so Application Service Adapter no longer requires a separate
-  Deployment.
-- improved `cf push` performance for subsequent pushes of an app.
-- buildpack selection from available buildpacks via cf push -b.
-- support for `--strategy=rolling` for `cf push`, `restart` and `restage`. (This
-  will only work for apps started by v1.3 or newer; make sure you run a regular
-  `cf restart` to enable rolling restart on your existing apps.)
-  - Note: `--strategy=rolling` is not supported when
-    `experimental_use_cartographer` is set to `true`
-- the CLI will now wait until deletions are complete, instead of always
+  deployment.
+- Improved `cf push` performance for subsequent pushes of an app.
+- Buildpack selection from available buildpacks through `cf push -b`.
+- Support for `--strategy=rolling` for `cf push`, `restart`, and `restage`. This
+  only works for apps started by v1.3 or later. Be sure to run a regular
+  `cf restart` to enable rolling restart on your existing apps.
+  >Note
+  >`--strategy=rolling` is not supported when`experimental_use_cartographer` is set to `true`.
+- The CLI now waits until deletions are complete instead of always
   returning immediately.
-- support for updating an app name, its lifecycle.data.buildpacks and
+- Support for updating an app name, its lifecycle.data.buildpacks, and
   lifecycle.data.stack.
 
 ### Components
@@ -47,11 +47,12 @@ This release has the following issues:
 
 No features are deprecated in this release.
 
-#### Installation Properties
+#### Installation properties
 
 The following installation properties are new for Application Service Adapter
 v1.3.0:
-- `openshift.create_scc` for better control over uids on openshift clusters.
+
+- `openshift.create_scc` for better control over UIDs on OpenShift clusters.
 - `staging_resources.build_cache_mb` to configure the size of the build cache.
 - `kpack_clusterbuilder_service_account_name` to allow the use of custom
   `ClusterBuilders` that rely on a different `ServiceAccount`.

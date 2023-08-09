@@ -10,6 +10,7 @@ Release date: Aug 08, 2023
 ### Features
 
 This release includes the following new features:
+
 - Telemetry gathering is moved into the existing Tanzu Application Platform
   process, so Application Service Adapter no longer requires a separate
   deployment.
@@ -18,12 +19,21 @@ This release includes the following new features:
 - Support for `--strategy=rolling` for `cf push`, `restart`, and `restage`. This
   only works for apps started by v1.3 or later. Be sure to run a regular `cf
   restart` to enable rolling restart on your existing apps. `--strategy=rolling`
-  is not supported when`experimental_use_cartographer` is set to `true`.
-
+  is not supported when `experimental_use_cartographer` is set to `true`.
 - The CLI now waits until deletions are complete instead of always
   returning immediately.
 - Support for updating an app name, its lifecycle.data.buildpacks, and
   lifecycle.data.stack.
+
+#### Installation properties
+
+The following installation properties are new for Application Service Adapter
+v1.3.0:
+
+- `openshift.create_scc` for better control over UIDs on OpenShift clusters.
+- `staging_resources.build_cache_mb` to configure the size of the build cache.
+- `kpack_clusterbuilder_service_account_name` to allow the use of custom
+  `ClusterBuilders` that rely on a different `ServiceAccount`.
 
 ### Components
 
@@ -47,27 +57,7 @@ This release has the following issues:
 
 No features are deprecated in this release.
 
-#### Installation properties
-
-The following installation properties are new for Application Service Adapter
-v1.3.0:
-
-- `openshift.create_scc` for better control over UIDs on OpenShift clusters.
-- `staging_resources.build_cache_mb` to configure the size of the build cache.
-- `kpack_clusterbuilder_service_account_name` to allow the use of custom
-  `ClusterBuilders` that rely on a different `ServiceAccount`.
-
-The following properties on the installation package for Application Service
-Adapter are deprecated as of v1.1.0 and are designated for removal no earlier
-than v1.4.0:
-
-- `app_registry.hostname`
-- `app_registry.paths.droplets`
-- `app_registry.paths.packages`
-
-Use the app_registry.repository_prefix property instead. See [_Install
-Application Service Adapter_](install.md) and [_Upgrading Application Service
-Adapter_](upgrading.md) for more details.
+#### Deprecated installation properties
 
 The following properties on the installation package for Application Service
 Adapter are deprecated as of v1.3.0 and are designated for removal no earlier
@@ -81,3 +71,15 @@ than v1.6.0:
 - `scaling.telemetry_informer.requests.cpu`
 - `scaling.telemetry_informer.requests.memory`
 - `scaling.telemetry_informer.replicas`
+
+The following properties on the installation package for Application Service
+Adapter were deprecated as of v1.1.0 and are designated for removal no earlier
+than v1.4.0:
+
+- `app_registry.hostname`
+- `app_registry.paths.droplets`
+- `app_registry.paths.packages`
+
+Use the `app_registry.repository_prefix` property instead. See [Install
+Application Service Adapter](install.md) and [Upgrading Application Service
+Adapter](upgrading.md) for more details.

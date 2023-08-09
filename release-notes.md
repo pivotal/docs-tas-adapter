@@ -5,35 +5,56 @@ Tanzu Application Platform on this page.
 
 ## <a id='1-3-0'></a> v1.3.0 Release
 
-Release Date: MMM DD, 2023
+Release Date: Aug 08, 2023
 
 ### Features
 
 This release includes the following new features:
-
-
+- telemetry gathering is moved into the existing Tanzu Application Platform
+  process, so Application Service Adapter no longer requires a separate
+  Deployment.
+- improved `cf push` performance for subsequent pushes of an app.
+- buildpack selection from available buildpacks via cf push -b.
+- support for `--strategy=rolling` for `cf push`, `restart` and `restage`. (This
+  will only work for apps started by v1.3 or newer; make sure you run a regular
+  `cf restart` to enable rolling restart on your existing apps.)
+  - Note: `--strategy=rolling` is not supported when
+    `experimental_use_cartographer` is set to `true`
+- the CLI will now wait until deletions are complete, instead of always
+  returning immediately.
+- support for updating an app name, its lifecycle.data.buildpacks and
+  lifecycle.data.stack.
 
 ### Components
 
 This release contains the following components:
 
-- cartographer-builder-runner @ cb29b8d
-- Korifi @ [v0.7.1](https://github.com/cloudfoundry/korifi/tree/v0.7.1)
+- cartographer-builder-runner @ 960f0275
+- Korifi @ [v0.8.1](https://github.com/cloudfoundry/korifi/tree/v0.8.1)
 
 ### Known issues
 
 This release has the following issues:
 
-- Deleting CF orgs and spaces or uninstalling Application Service Adapter may fail due to an issue with
-  `ServiceBindingProjection` resource cleanup that prevents deletion of the underlying Kubernetes namespace.
-  As a workaround, you can manually remove the `finalizers` from the `ServiceBindingProjections` to allow
-  namespace deletion to complete.
+- Deleting CF orgs and spaces or uninstalling Application Service Adapter may
+  fail due to issues with `ServiceBindingProjection` and `Application` resource
+  cleanup that prevent deletion of the underlying Kubernetes namespace. As a
+  workaround, you can manually remove the `finalizers` from any remaining
+  `ServiceBindingProjections` or `Applications` to allow namespace deletion to
+  complete.
 
 ### Deprecations
 
-The following features are deprecated.
+No features are deprecated in this release.
 
 #### Installation Properties
+
+The following installation properties are new for Application Service Adapter
+v1.3.0:
+- `openshift.create_scc` for better control over uids on openshift clusters.
+- `staging_resources.build_cache_mb` to configure the size of the build cache.
+- `kpack_clusterbuilder_service_account_name` to allow the use of custom
+  `ClusterBuilders` that rely on a different `ServiceAccount`.
 
 The following properties on the installation package for Application Service
 Adapter are deprecated as of v1.1.0 and are designated for removal no earlier
@@ -46,3 +67,16 @@ than v1.4.0:
 Use the app_registry.repository_prefix property instead. See [_Install
 Application Service Adapter_](install.md) and [_Upgrading Application Service
 Adapter_](upgrading.md) for more details.
+
+The following properties on the installation package for Application Service
+Adapter are deprecated as of v1.3.0 and are designated for removal no earlier
+than v1.6.0:
+
+- `telemetry.context_product_version`
+- `telemetry.installed_for_vmware_internal_use`
+- `telemetry.heartbeat_interval`
+- `scaling.telemetry_informer.limits.cpu`
+- `scaling.telemetry_informer.limits.memory`
+- `scaling.telemetry_informer.requests.cpu`
+- `scaling.telemetry_informer.requests.memory`
+- `scaling.telemetry_informer.replicas`

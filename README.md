@@ -3,21 +3,14 @@
 ## Branches
 | Branch | Usage                            | Sites                                                                                                                                                                                                                                                                                                       |
 |--------|----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| main   | Branch for the upcoming release. | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.0/tas-adapter/GUID-overview.html)                                                                                                                                                          |
-| 0-10   | Branch for the v0.10 release.    | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.10/tas-adapter/GUID-overview.html) &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.10/tas-adapter/GUID-overview.html)       |
-| 0-9    | Branch for the v0.9 release.     | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.9/tas-adapter/GUID-overview.html) &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.9/tas-adapter/GUID-overview.html)         |
-| 0-8    | Branch for the v0.8 release.     | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.8/tas-adapter/GUID-overview.html) &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.8/tas-adapter/GUID-overview.html)         |
-| 0-7    | Branch for the v0.7 release.     | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.7/tas-adapter/GUID-overview.html) &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.7/tas-adapter/GUID-overview.html)         |
-| 0-6    | Branch for the v0.6 release.     | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.6/tas-adapter/GUID-overview.html) &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.6/tas-adapter/GUID-overview.html)         |
-| 0-5    | Branch for the v0.5 release.     | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.5/tas-adapter/GUID-overview.html) &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.5/tas-adapter/GUID-overview.html)         |
-| 0-4    | Branch for the v0.4 release.     | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.4/tas-adapter/GUID-overview.html) &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.4/tas-adapter/GUID-overview.html)         |
-| 0-3    | Branch for the v0.3 release.     | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.3/tas-adapter/GUID-overview.html) &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.3/tas-adapter/GUID-overview.html)         |
-| 0-2    | Branch for the v0.2 release.     | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.2/tas-adapter-0-2/GUID-overview.html) &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.2/tas-adapter-0-2/GUID-overview.html) |
-| 0-1    | Branch for the v0.1 release.     | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.1/tas-adapter-0-1/GUID-overview.html) &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/0.1/tas-adapter-0-1/GUID-overview.html) |
+| 1-3   | Branch for the v1.3 release. | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.3/tas-adapter/overview.html)  &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.3/tas-adapter/overview.html)                                                                                                                                                          |
+| 1-2   | Branch for the v1.2 release. | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.2/tas-adapter/overview.html)  &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.2/tas-adapter/overview.html)                                                                                                                                                          |
+| 1-1   | Branch for the v1.1 release. | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.1/tas-adapter/overview.html)  &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.1/tas-adapter/overview.html)                                                                                                                                                          |
+| 1-0   | Branch for the v1.0 release. | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.0/tas-adapter/GUID-overview.html)  &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.0/tas-adapter/GUID-overview.html)                                                                                                                                                          |
 
 ## Publishing Docs
 
-Staging and Publishing:  
+Staging and Publishing:
 
 - [DocWorks](https://docworks.vmware.com/) is the main tool for managing docs used by writers.
 - [Docs Dashboard](https://docsdash.vmware.com/) is a deployment UI which manages the promotion from staging to pre-prod to production.
@@ -49,21 +42,21 @@ From the root directory of this repository, run the `prepare-zip` script. This s
 
 1. Wait about 1 minute for processing to complete after uploading.
 2. Go to https://docsdash.vmware.com/deployment-stage
-   
+
    There should be an entry with a blue link which says `Documentation` and points to staging.
 
 ### Promoting to Pre-Prod and Prod
 
 **Prerequisite** Needs additional privileges - reach out to the docs team in [#tanzu-docs](https://vmware.slack.com/archives/C055V2M0H) to ask a writer to do this step for you.
 
-1. Go to Staging publications in docsdash  
+1. Go to Staging publications in docsdash
   https://docsdash.vmware.com/deployment-stage
 
 2. Select a publication (make sure it's the latest version)
 
 3. Click "Deploy selected to Pre-Prod" and wait for the pop to turn green (refresh if necessary after about 10s)
 
-4. Go to Pre-Prod list  
+4. Go to Pre-Prod list
   https://docsdash.vmware.com/deployment-pre-prod
 
 5. Select a publication

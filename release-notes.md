@@ -1,39 +1,20 @@
 # Release notes for Application Service Adapter
 
-You can view the release notes for v1.3.0 of Application Service Adapter for VMware
+You can view the release notes for v1.4.0 of Application Service Adapter for VMware
 Tanzu Application Platform on this page.
 
-## <a id='1-3-0'></a> v1.3.0 Release
+## <a id='1-3-0'></a> v1.4.0 Release
 
-Release date: Aug 08, 2023
+Release date: mmmm dd, yyyy
 
 ### Features
 
 This release includes the following new features:
 
-- Telemetry gathering is moved into the existing Tanzu Application Platform
-  process, so Application Service Adapter no longer requires a separate
-  deployment.
-- Improved `cf push` performance for subsequent pushes of an app.
-- Buildpack selection from available buildpacks through `cf push -b`.
-- Support for `--strategy=rolling` for `cf push`, `restart`, and `restage`. This
-  only works for apps started by v1.3 or later. Be sure to run a regular `cf
-  restart` to enable rolling restart on your existing apps. `--strategy=rolling`
-  is not supported when `experimental_use_cartographer` is set to `true`.
-- The CLI now waits until deletions are complete instead of always
-  returning immediately.
-- Support for updating an app name, its lifecycle.data.buildpacks, and
-  lifecycle.data.stack.
+
 
 #### Installation properties
 
-The following installation properties are new for Application Service Adapter
-v1.3.0:
-
-- `openshift.create_scc` for better control over UIDs on OpenShift clusters.
-- `staging_resources.build_cache_mb` to configure the size of the build cache.
-- `kpack_clusterbuilder_service_account_name` to allow the use of custom
-  `ClusterBuilders` that rely on a different `ServiceAccount`.
 
 ### Components
 
@@ -46,12 +27,7 @@ This release contains the following components:
 
 This release has the following issues:
 
-- Deleting CF orgs and spaces or uninstalling Application Service Adapter may
-  fail due to issues with `ServiceBindingProjection` and `Application` resource
-  cleanup that prevent deletion of the underlying Kubernetes namespace. As a
-  workaround, you can manually remove the `finalizers` from any remaining
-  `ServiceBindingProjections` or `Applications` to allow namespace deletion to
-  complete.
+
 
 ### Deprecations
 
@@ -60,7 +36,7 @@ No features are deprecated in this release.
 #### Deprecated installation properties
 
 The following properties on the installation package for Application Service
-Adapter are deprecated as of v1.3.0 and are designated for removal no earlier
+Adapter were deprecated as of v1.3.0 and are designated for removal no earlier
 than v1.6.0:
 
 - `telemetry.context_product_version`

@@ -18,8 +18,11 @@ This release includes the following new features:
 - Support for `--strategy=rolling` for `cf push`, `restart`, and `restage`. This
   only works for apps started by v1.3 or later. Be sure to run a regular
   `cf restart` to enable rolling restart on your existing apps.
-  >Note
-  >`--strategy=rolling` is not supported when`experimental_use_cartographer` is set to `true`.
+
+      >**Note**
+      >`--strategy=rolling` is not supported when`experimental_use_cartographer`
+      is set to `true`.
+
 - The CLI now waits until deletions are complete instead of always
   returning immediately.
 - Support for updating an app name, its lifecycle.data.buildpacks, and

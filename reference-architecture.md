@@ -15,7 +15,7 @@ Platform, and uses Tanzu Application Platform components to build and deploy wor
 both "build" and "run" steps are executed on the same cluster, you must
 install the required Tanzu Application Platform packages to a single cluster before installing the
 Application Service Adapter. This type of installation maps most closely to the
-"iterate cluster" described in the [Tanzu Application Platform reference architecture](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap-reference-architecture/GUID-reference-designs-tap-architecture-planning.html#iterate-cluster-requirements-10).
+"iterate cluster" described in the [Tanzu Application Platform reference architecture](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap-reference-architecture/GUID-reference-designs-tap-architecture-planning.html#iterate-cluster-requirements-10).
 
 Some packages included in an "iterate cluster" installation are optional when
 preparing a cluster for Application Service Adapter. The required packages are:

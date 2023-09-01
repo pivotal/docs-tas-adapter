@@ -56,7 +56,7 @@ defined by the buildpack.
 
 The following table lists the app-specific system environment variables available to
 your application container. See [App-Specific System
-Variables](https://docs.pivotal.io/application-service/3-0/devguide/deploy-apps/environment-variable.html#app-system-env)
+Variables](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/3.0/tas-for-vms/deploy-apps-environment-variable.html#app-system-env)
 in _TAS for VMs Environment Variables_ for more information about each environment
 variable.
 

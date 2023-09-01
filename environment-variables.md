@@ -41,7 +41,11 @@ This section describes the environment variables that Application Service Adapte
 
 You can access environment variables programmatically, including variables defined by the buildpack.
 
-The table below lists the app-specific system environment variables available to your app container. See [App-Specific System Variables](https://docs.pivotal.io/application-service/3-0/devguide/deploy-apps/environment-variable.html#app-system-env) in _TAS for VMs Environment Variables_ for more information on each environment variable.
+The following table lists the app-specific system environment variables available to
+your application container. See [App-Specific System
+Variables](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/3.0/tas-for-vms/deploy-apps-environment-variable.html#app-system-env)
+in _TAS for VMs Environment Variables_ for more information about each environment
+variable.
 
 | Environment Variable | Running | Staging |
 | -------------------- | ------- | ------- |

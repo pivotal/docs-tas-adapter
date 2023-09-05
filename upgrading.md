@@ -6,7 +6,7 @@ You can perform a fresh installation of Application Service Adapter by following
 
 When upgrading to a new major or minor version of Application Service Adapter, see the documentation for that version for version-specific configuration and upgrade instructions.
 
-You can find new patch versions of Application Service Adapter on the [TanzuNet product page](https://network.pivotal.io/products/app-service-adapter#/releases/1354074) directly, or [sign up to receive email alerts](https://network.tanzu.vmware.com/docs/faq#alerts) when the product is updated.
+You can find new patch versions of Application Service Adapter on the [TanzuNet product page](https://network.tanzu.vmware.com/products/app-service-adapter) directly, or [sign up to receive email alerts](https://network.tanzu.vmware.com/docs/faq#alerts) when the product is updated.
 
 > **Note** Upgrades are not currently supported if you have enabled the experimental Cartographer integration. Existing application workloads do not behave correctly after upgrading from v1.0 to v1.1.
 

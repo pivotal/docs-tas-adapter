@@ -28,31 +28,31 @@ incorrectly.
 Application Service Adapter supports the basic use of `cf push APP-NAME`, where
 `APP-NAME` is the name of your app.
 
-| Flag | Supported? | Notes |
-|------|------------|-------|
-|`--app-start-timeout, -t`| Y |_n/a_ |
-|`--buildpack, -b`| N | Automatic buildpack detection is supported. Omit the flag or set to `null` or `default`.<br/>User-specified buildpacks are not supported. |
-|`--disk, -k`| Y | _n/a_ |
-|`--docker-image, -o`| N | _n/a_ |
-|`--docker-username`| N | _n/a_ |
-|`--droplet`| N | _n/a_ |
-|`--endpoint`| N |_n/a_  |
-|`--health-check-type, -u`| Y |_n/a_  |
-|`--instances, -i`| Y | _n/a_ |
-|`--manifest, -f`| Y | Some manifest configurations described in [App Manifest Attribute Reference](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html) are supported. See the [Supported manifest configuration](#supported-manifest-configuration) section. |
-|`--memory, -m`| Y | _n/a_ |
-|`--no-manifest`| Y | _n/a_ |
-|`--no-route`| Y |_n/a_ |
-|`--no-start`| Y | _n/a_ |
-|`--no-wait`| N | _n/a_ |
-|`--path, -p`| Y | _n/a_ |
-|`--random-route`| Y | _n/a_ |
-|`--stack, -s`| N | _n/a_ |
-|`--start-command, -c`| Y |_n/a_  |
-|`--strategy`| N | _n/a_ |
-|`--task`| Y | _n/a_ |
-|`--var`| Y | _n/a_ |
-|`--vars-file`| Y | _n/a_ |
+| Flag                      | Supported? | Notes                                                                                                                                                                                                                                                           |
+|---------------------------|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `--app-start-timeout, -t` | Y          | _n/a_                                                                                                                                                                                                                                                           |
+| `--buildpack, -b`         | Y          | For automatic buildpack detection, omit the flag or set to `null` or `default`                                                                                                                                                                                  |
+| `--disk, -k`              | Y          | _n/a_                                                                                                                                                                                                                                                           |
+| `--docker-image, -o`      | N          | _n/a_                                                                                                                                                                                                                                                           |
+| `--docker-username`       | N          | _n/a_                                                                                                                                                                                                                                                           |
+| `--droplet`               | N          | _n/a_                                                                                                                                                                                                                                                           |
+| `--endpoint`              | N          | _n/a_                                                                                                                                                                                                                                                           |
+| `--health-check-type, -u` | Y          | _n/a_                                                                                                                                                                                                                                                           |
+| `--instances, -i`         | Y          | _n/a_                                                                                                                                                                                                                                                           |
+| `--manifest, -f`          | Y          | Some manifest configurations described in [App Manifest Attribute Reference](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html) are supported. See the [Supported manifest configuration](#supported-manifest-configuration) section. |
+| `--memory, -m`            | Y          | _n/a_                                                                                                                                                                                                                                                           |
+| `--no-manifest`           | Y          | _n/a_                                                                                                                                                                                                                                                           |
+| `--no-route`              | Y          | _n/a_                                                                                                                                                                                                                                                           |
+| `--no-start`              | Y          | _n/a_                                                                                                                                                                                                                                                           |
+| `--no-wait`               | N          | _n/a_                                                                                                                                                                                                                                                           |
+| `--path, -p`              | Y          | _n/a_                                                                                                                                                                                                                                                           |
+| `--random-route`          | Y          | _n/a_                                                                                                                                                                                                                                                           |
+| `--stack, -s`             | N          | _n/a_                                                                                                                                                                                                                                                           |
+| `--start-command, -c`     | Y          | _n/a_                                                                                                                                                                                                                                                           |
+| `--strategy`              | N          | _n/a_                                                                                                                                                                                                                                                           |
+| `--task`                  | Y          | _n/a_                                                                                                                                                                                                                                                           |
+| `--var`                   | Y          | _n/a_                                                                                                                                                                                                                                                           |
+| `--vars-file`             | Y          | _n/a_                                                                                                                                                                                                                                                           |
 
 ### <a id="supported-manifest-configuration"></a> Supported manifest configuration
 
@@ -63,29 +63,29 @@ in the CAPI documentation.
 
 #### <a id="supported-app-level-configuration"></a> Supported app-level configuration
 
-| Attribute | Supported? | Notes |
-|------|------------|-------|
-| `buildpacks` | N |_n/a_ |
-| `command` | Y | _n/a_|
-| `default-route` | Y |_n/a_ |
-| `disk_quota` | Y |_n/a_ |
-| `docker` | N |_n/a_ |
-| `env` | Y |_n/a_ |
-| `health-check-http-endpoint` | Y | _n/a_|
-| `health-check-invocation-timeout` | Y |_n/a_ |
-| `health-check-type` | N |_n/a_ |
-| `instances` | Y |_n/a_ |
-| `memory` | Y |_n/a_ |
-| `metadata` | N |_n/a_ |
-| `no-route` | Y |_n/a_ |
-| `path` | N |_n/a_ |
-| `processes` | Y | See the [Supported process-level configuration](#supported-process-level-configuration) section. |
-| `random-route` | Y |_n/a_ |
-| `routes` | Y | See the [Supported route-level configuration](#supported-route-level-configuration) section. |
-| `services` | N |_n/a_ |
-| `sidecars` | N |_n/a_ |
-| `stack` | N |_n/a_ |
-| `timeout` | Y |_n/a_ |
+| Attribute                         | Supported? | Notes                                                                                            |
+|-----------------------------------|------------|--------------------------------------------------------------------------------------------------|
+| `buildpacks`                      | Y          | _n/a_                                                                                            |
+| `command`                         | Y          | _n/a_                                                                                            |
+| `default-route`                   | Y          | _n/a_                                                                                            |
+| `disk_quota`                      | Y          | _n/a_                                                                                            |
+| `docker`                          | N          | _n/a_                                                                                            |
+| `env`                             | Y          | _n/a_                                                                                            |
+| `health-check-http-endpoint`      | Y          | _n/a_                                                                                            |
+| `health-check-invocation-timeout` | Y          | _n/a_                                                                                            |
+| `health-check-type`               | N          | _n/a_                                                                                            |
+| `instances`                       | Y          | _n/a_                                                                                            |
+| `memory`                          | Y          | _n/a_                                                                                            |
+| `metadata`                        | N          | _n/a_                                                                                            |
+| `no-route`                        | Y          | _n/a_                                                                                            |
+| `path`                            | N          | _n/a_                                                                                            |
+| `processes`                       | Y          | See the [Supported process-level configuration](#supported-process-level-configuration) section. |
+| `random-route`                    | Y          | _n/a_                                                                                            |
+| `routes`                          | Y          | See the [Supported route-level configuration](#supported-route-level-configuration) section.     |
+| `services`                        | N          | _n/a_                                                                                            |
+| `sidecars`                        | N          | _n/a_                                                                                            |
+| `stack`                           | N          | _n/a_                                                                                            |
+| `timeout`                         | Y          | _n/a_                                                                                            |
 
 #### <a id="supported-process-level-configuration"></a> Supported process-level configuration
 

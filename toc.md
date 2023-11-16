@@ -10,6 +10,7 @@ This is the table of contents from which Application Service Adapter for Tanzu A
   - [Air-gapped install](install-to-air-gapped.md)
 - [Get started](getting-started.md)
   - [Push the spring-music sample app](push-spring-music.md)
+- [Using the Docker lifecycle](docker-lifecycle.md)
 - [Administering Application Service Adapter](administering.md)
   - [Cleaning up old resources](resource-cleanup.md)
   - [Create orgs and spaces declaratively](create-orgs-spaces-declaratively.md)

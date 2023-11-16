@@ -1,22 +1,24 @@
-# Using the Docker Lifecycle with Application Service Adapter
+# Using the Docker lifecycle with Application Service Adapter
 
-By default, Cloud Foundry and Application Service Adapter will push applications using the Buildpack lifecycle. To use a pre-built Docker image for an app, specify the Docker lifecycle for the app.
+By default, Cloud Foundry and Application Service Adapter uses the Buildpack lifecycle to push applications. To use a pre-built Docker image for an app, specify the Docker lifecycle for the app.
 
-To deploy a Docker image from a container registry repository (such as Dockerhub), run:
+To deploy a Docker image from a container image registry repository, such as Docker Hub, run:
 
 ```bash
 cf push APP_NAME --docker-image REPO/IMAGE:TAG
 ```
 
-## Differences from Tanzu Application Service for VMs
+## <a id="differences-from-tas"></a>Differences from Tanzu Application Service for VMs
 
-### Platform Configuration
-At the platform level, use of the Docker lifecycle is always available for Application Service Adapter and may not be restricted by a feature flag configuration option as in Tanzu Application Service.
+### <a id="platform-config"></a>Platform configuration
 
-### Docker App Limitations
-As with any workload on Kubernetes, running a process as the privileged `root` user (and conventionally any user with a uid less than 1000) is restricted by default. If a Dockerfile specifies a `USER`, it must have a defined uid. You can either specify a numeric value for the `USER` or `RUN` the `useradd` command with the `--uid` option.
+At the platform level, use of the Docker lifecycle is always available for Application Service Adapter and is not restricted by a feature flag configuration option as in Tanzu Application Service.
 
-For example, to set the user to 'appuser' while still ensuring the uid is both defined and unprivileged, you could use the following Dockerfile:
+### <a id="docker-limitations"></a>Docker app limitations
+
+As with any workload on Kubernetes, running a process as the privileged `root` user (and conventionally any user with a UID less than 1000) is restricted by default. If a Dockerfile specifies a `USER`, it must have a defined UID. You can either specify a numeric value for the `USER` or `RUN` the `useradd` command with the `--uid` option.
+
+For example, to set the user to "appuser" while still ensuring the UID is both defined and unprivileged, you could use the following Dockerfile:
 
 ```dockerfile
 FROM ubuntu:latest
@@ -25,10 +27,11 @@ USER appuser
 ...
 ```
 
-### Port Configuration
-While Tanzu Application Service for VMs expects that applications listen on the port specified by the `PORT` environment variable, Application Service Adapter expects that all applications listen on port `8080` to handle HTTP requests. Docker images may configure alternative ports via the `EXPOSE` directive in the Dockerfile. Application Service Adapter discovers this port configuration from the image and configures the default route accordingly.
+### <a id="port-config"></a>Port configuration
 
-When the `EXPOSE` directive is missing from the Dockerfile and the app is listening on a port other than `8080`, the following procedure can be used to configure the app route with the appropriate port:
+Tanzu Application Service for VMs expects that applications listen on the port specified by the `PORT` environment variable. Application Service Adapter, however, expects that all applications listen on port `8080` to handle HTTP requests. Docker images can configure alternative ports through the `EXPOSE` directive in the Dockerfile. Application Service Adapter discovers this port configuration from the image and configures the default route accordingly.
+
+When the `EXPOSE` directive is missing from the Dockerfile, and the app is listening on a port other than `8080`, you can use the following procedure to configure the app route with the appropriate port:
 
 ```bash
 APP_NAME=<your app name>

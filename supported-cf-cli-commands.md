@@ -33,8 +33,8 @@ Application Service Adapter supports the basic use of `cf push APP-NAME`, where
 | `--app-start-timeout, -t` | Y          | _n/a_                                                                                                                                                                                                                                                           |
 | `--buildpack, -b`         | Y          | For automatic buildpack detection, omit the flag or set to `null` or `default`                                                                                                                                                                                  |
 | `--disk, -k`              | Y          | _n/a_                                                                                                                                                                                                                                                           |
-| `--docker-image, -o`      | N          | _n/a_                                                                                                                                                                                                                                                           |
-| `--docker-username`       | N          | _n/a_                                                                                                                                                                                                                                                           |
+| `--docker-image, -o`      | Y          | _n/a_                                                                                                                                                                                                                                                           |
+| `--docker-username`       | Y          | _n/a_                                                                                                                                                                                                                                                           |
 | `--droplet`               | N          | _n/a_                                                                                                                                                                                                                                                           |
 | `--endpoint`              | N          | _n/a_                                                                                                                                                                                                                                                           |
 | `--health-check-type, -u` | Y          | _n/a_                                                                                                                                                                                                                                                           |
@@ -69,7 +69,7 @@ in the CAPI documentation.
 | `command`                         | Y          | _n/a_                                                                                            |
 | `default-route`                   | Y          | _n/a_                                                                                            |
 | `disk_quota`                      | Y          | _n/a_                                                                                            |
-| `docker`                          | N          | _n/a_                                                                                            |
+| `docker`                          | Y          | _n/a_                                                                                            |
 | `env`                             | Y          | _n/a_                                                                                            |
 | `health-check-http-endpoint`      | Y          | _n/a_                                                                                            |
 | `health-check-invocation-timeout` | Y          | _n/a_                                                                                            |
@@ -94,7 +94,6 @@ in the CAPI documentation.
 | `type` | Y | _n/a_|
 | `command` | Y |_n/a_ |
 | `disk_quota` | Y | _n/a_|
-| `docker` | N |_n/a_ |
 | `health-check-http-endpoint` | Y |_n/a_ |
 | `health-check-invocation-timeout` | Y |_n/a_ |
 | `health-check-type` | Y |_n/a_ |

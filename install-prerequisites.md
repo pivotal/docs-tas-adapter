@@ -83,7 +83,7 @@ VMware recommends installing the following dependencies to the target Kubernetes
 
 After you installed these prerequisites, proceed to [Install Application Service Adapter](install.md).
 
-## <a id="ecr-configuration"></a>AWS IAM Configuration for ECR
+## <a id="ecr-configuration"></a>AWS IAM configuration for ECR
 
 When installed to Amazon Elastic Container Service with ECR, Application Service
 Adapter requires a similar configuration to the [setup required by Tanzu

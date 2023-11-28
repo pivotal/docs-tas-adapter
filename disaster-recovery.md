@@ -14,7 +14,7 @@ This topic focuses on the first approach by outlining where Application Service 
 
 ## <a id="state-storage"></a>State storage
 
-In contrast to Tanzu Application Service for VMs, Application Service Adapter has no dedicated databases or blobstore. Instead, state is stored in two places:
+In contrast to Tanzu Application Service, Application Service Adapter has no dedicated databases or blobstore. Instead, state is stored in two places:
 
 1. As [Kubernetes custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) in the Kubernetes API. These custom resources are persisted in the cluster's [etcd](https://etcd.io/) datastore.
 2. As container images in an OCI compatible registry, such as a self-hosted Harbor, DockerHub, or IaaS provided registry.
@@ -31,7 +31,7 @@ Tanzu Application Service operators are familiar with backing up their Ops Manag
 
 ![alt-text="State storage of Application Service Adapter Cloud Foundry resources."](images/tas-adapter-cf-resource-state-storage.png)
 
-Tanzu Application Service for VMs stores Cloud Foundry API state and application configuration across a number of databases, with the majority of it held within the Cloud Controller API's CCDB database. Application Service Adapter does not maintain its own datastore for this purpose, but instead represents all Cloud Foundry resources as Kubernetes custom resources. These custom resources are managed by the Kubernetes API and stored in etcd.
+Tanzu Application Service stores Cloud Foundry API state and application configuration across a number of databases, with the majority of it held within the Cloud Controller API's CCDB database. Application Service Adapter does not maintain its own datastore for this purpose, but instead represents all Cloud Foundry resources as Kubernetes custom resources. These custom resources are managed by the Kubernetes API and stored in etcd.
 
 ### Application source code
 
@@ -43,7 +43,7 @@ Application Service Adapter converts application source code into single-layer O
 
 ![alt-text=""](images/tas-adapter-staged-app-state-storage.png)
 
-Tanzu Application Service for VMs operators can be familiar with the concept of droplets, or TAR files representing staged apps that are ready to run on the platform. Rather than TAS-style droplets, Application Service Adapter, using Tanzu Build Service, produces runnable container images that are stored in the registry specified at installation.
+Tanzu Application Service operators can be familiar with the concept of droplets, or TAR files representing staged apps that are ready to run on the platform. Rather than TAS-style droplets, Application Service Adapter, using Tanzu Build Service, produces runnable container images that are stored in the registry specified at installation.
 
 ## <a id="backing-up-cluster-state"></a>Backup and restore
 

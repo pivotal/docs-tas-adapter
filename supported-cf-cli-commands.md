@@ -252,7 +252,7 @@ supports.
 | `cf set-label` | Y | The `app`, `org`, and `space` resources are supported. |
 | `cf unset-label` | Y | The `app`, `org`, and `space` resources are supported. |
 
-## <a id="role-management"></a> User Role Management
+## <a id="role-management"></a> User role management
 
 This section describes the operations for adding and removing roles that
 Application Service Adapter supports. These commands work for both Kubernetes

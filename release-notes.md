@@ -3,7 +3,7 @@
 You can view the release notes for v1.4.0 of Application Service Adapter for VMware
 Tanzu Application Platform on this page.
 
-## <a id='1-3-0'></a> v1.4.0 release
+## <a id='1-4-0'></a> v1.4.0 release
 
 Release date: mmmm dd, yyyy
 

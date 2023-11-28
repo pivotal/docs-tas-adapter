@@ -8,7 +8,7 @@ To deploy a Docker image from a container image registry repository, such as Doc
 cf push APP_NAME --docker-image REPO/IMAGE:TAG
 ```
 
-## <a id="differences-from-tas"></a>Differences from Tanzu Application Service for VMs
+## <a id="differences-from-tas"></a>Differences from Tanzu Application Service
 
 ### <a id="platform-config"></a>Platform configuration
 
@@ -29,7 +29,7 @@ USER appuser
 
 ### <a id="port-config"></a>Port configuration
 
-Tanzu Application Service for VMs expects that applications listen on the port specified by the `PORT` environment variable. Application Service Adapter, however, expects that all applications listen on port `8080` to handle HTTP requests. Docker images can configure alternative ports through the `EXPOSE` directive in the Dockerfile. Application Service Adapter discovers this port configuration from the image and configures the default route accordingly.
+Tanzu Application Service expects that applications listen on the port specified by the `PORT` environment variable. Application Service Adapter, however, expects that all applications listen on port `8080` to handle HTTP requests. Docker images can configure alternative ports through the `EXPOSE` directive in the Dockerfile. Application Service Adapter discovers this port configuration from the image and configures the default route accordingly.
 
 When the `EXPOSE` directive is missing from the Dockerfile, and the app is listening on a port other than `8080`, you can use the following procedure to configure the app route with the appropriate port:
 

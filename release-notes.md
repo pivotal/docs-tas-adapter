@@ -3,7 +3,7 @@
 You can view the release notes for v1.1.0 through v1.1.6 of Application Service Adapter for VMware
 Tanzu Application Platform on this page.
 
-## <a id='1-1-6'></a> v1.1.6 Release
+## <a id='1-1-6'></a> v1.1.6 release
 
 **Release date**: July 18, 2023
 

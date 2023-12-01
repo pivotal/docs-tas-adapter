@@ -103,11 +103,11 @@ Ensure you are logged into the Application Service Adapter environment you inten
 
 1. The manifest for the spring-music application assigns it a random route by default, which is present in the `routes` field of the `cf push` output. Navigate to the route URL in your browser and verify that it serves requests correctly. You should see a webpage similar to the following:
 
-    ![](images/spring-music-original.png)
+    ![Spring music page showing various albums.](images/spring-music-original.png)
 
 1. Make a few changes to the music catalog: use the gear icon on each entry to modify or delete some of the albums, and use the "add an album" link at the top of the page to add some albums.
 
-    ![](images/spring-music-modified.png)
+    ![Spring music page showing some albums have been deleted.](images/spring-music-modified.png)
 
 1. Restart the spring-music application:
 
@@ -115,11 +115,11 @@ Ensure you are logged into the Application Service Adapter environment you inten
     cf restart spring-music
     ```
 
-    The application will be unavailable for a short period of time while it restarts.
+    The application is unavailable for a short period of time while it restarts.
 
 1. After it has finished restarting, refresh your browser window and observe that your modifications have not been preserved.
 
-    ![](images/spring-music-reset.png)
+    ![Spring music page showing all the original albums.](images/spring-music-reset.png)
 
 
 ## Create a database service for persistent storage
@@ -254,11 +254,11 @@ Ensure you are logged into the Application Service Adapter environment you inten
 
 1. After the application finishes restaging and restarting, refresh the browser window with the spring-music application and click on the app information icon in the upper right corner. It should indicate that the application is bound to the spring-music-db service:
 
-    ![](images/spring-music-with-db.png)
+    ![alt-text=""](images/spring-music-with-db.png)
 
 1. Make modifications to the album catalog again:
 
-    ![](images/spring-music-with-db-modified.png)
+    ![Shows modifications.](images/spring-music-with-db-modified.png)
 
 1. Restart the spring-music application again:
 

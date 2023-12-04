@@ -1,7 +1,8 @@
 # Documentation Repository for Application Service Adapter
 
 ## Branches
-| Branch | Usage                            | Sites                                                                                                                                                                                                                                                                                                       |
+| Branch | Usage                     | Sites        |
+|--------|---------------------------|--------------|
 | main  | Branch for the v1.4 release. | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.4/tas-adapter/overview.html)  &middot; [Prod]()                                                                                                                                                          |
 | 1-3   | Branch for the v1.3 release. | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.3/tas-adapter/overview.html)  &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.3/tas-adapter/overview.html)                                                                                                                                                          |
 | 1-2   | Branch for the v1.2 release. | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.2/tas-adapter/overview.html)  &middot; [Prod](https://docs.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.2/tas-adapter/overview.html)                                                                                                                                                          |

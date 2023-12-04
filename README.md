@@ -1,6 +1,7 @@
 # Documentation Repository for Application Service Adapter
 
 ## Branches
+
 | Branch | Usage                     | Sites        |
 |--------|---------------------------|--------------|
 | main  | Branch for the v1.4 release. | [Staging](https://docs-staging.vmware.com/en/Application-Service-Adapter-for-VMware-Tanzu-Application-Platform/1.4/tas-adapter/overview.html)  &middot; [Prod]()                                                                                                                                                          |

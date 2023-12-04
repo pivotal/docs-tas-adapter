@@ -11,7 +11,7 @@
 
 ## Publishing Docs
 
-Staging and Publishing:
+Staging and Publishing:  
 
 - [DocWorks](https://docworks.vmware.com/) is the main tool for managing docs used by writers.
 - [Docs Dashboard](https://docsdash.vmware.com/) is a deployment UI which manages the promotion from staging to pre-prod to production.
@@ -43,21 +43,21 @@ From the root directory of this repository, run the `prepare-zip` script. This s
 
 1. Wait about 1 minute for processing to complete after uploading.
 2. Go to https://docsdash.vmware.com/deployment-stage
-
+   
    There should be an entry with a blue link which says `Documentation` and points to staging.
 
 ### Promoting to Pre-Prod and Prod
 
 **Prerequisite** Needs additional privileges - reach out to the docs team in [#tanzu-docs](https://vmware.slack.com/archives/C055V2M0H) to ask a writer to do this step for you.
 
-1. Go to Staging publications in docsdash
+1. Go to Staging publications in docsdash  
   https://docsdash.vmware.com/deployment-stage
 
 2. Select a publication (make sure it's the latest version)
 
 3. Click "Deploy selected to Pre-Prod" and wait for the pop to turn green (refresh if necessary after about 10s)
 
-4. Go to Pre-Prod list
+4. Go to Pre-Prod list  
   https://docsdash.vmware.com/deployment-pre-prod
 
 5. Select a publication
@@ -79,4 +79,3 @@ General information about landing pages:
 - Typically there will be a new docs publication for each minor release but not each point release. This version number become part of the URL e.g. Our first release was version `0.1` (see form section above for the current release).
 - Some products like [Tanzu Kubernetes Grid](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/index.html) publish separate release notes publications for each point release.
 - For comparison see https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/index.html
-

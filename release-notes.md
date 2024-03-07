@@ -9,7 +9,7 @@ Tanzu Application Platform on this page.
 
 ### Changelog
 
-* Fixed compatibility issue with CF CLI v8.7.8
+* Fixed compatibility issue with CF CLI v8.7.8.
 * Updated package versions and associated dependencies.
 
 ## <a id='1-3-0'></a> v1.3.0 release

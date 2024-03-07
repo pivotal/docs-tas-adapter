@@ -1,7 +1,16 @@
 # Release notes for Application Service Adapter
 
-You can view the release notes for v1.3.0 of Application Service Adapter for VMware
+You can view the release notes for v1.3.0 and v1.3.1 of Application Service Adapter for VMware
 Tanzu Application Platform on this page.
+
+## <a id='1-3-1'></a> v1.3.1 release
+
+**Release date**: Mar 07, 2024
+
+### Changelog
+
+* Fixed compatibility issue with CF CLI v8.7.8
+* Updated package versions and associated dependencies.
 
 ## <a id='1-3-0'></a> v1.3.0 release
 
